@@ -1,5 +1,21 @@
-# History files
-.Rhistory
+# Roxygen-generated man pages
+man/*.Rd
 
-# Example code in package build process
-*-Ex.R
+# R/RStudio files:
+.Rbuildignore
+agop.Rproj
+.Rproj.user
+.Rhistory
+.RData
+
+# compiled/precompiled files
+*.o
+*.so
+
+# backup files
+*~
+*.backup
+*.bak
+
+# KDevelop project files:
+*.kdev4

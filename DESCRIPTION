@@ -1,0 +1,40 @@
+Package: agop
+Version: 0.1-1
+Date: 2013-02-08
+Title: Aggregation Operators
+Description: TO DO
+URL: TO DO
+BugReports: https://github.com/gagolews/agop/issues
+LazyData: true
+Type: Package
+Depends:
+    R (>= 2.14.0)
+License: LGPL (>= 3)
+Suggests:
+    testthat
+Authors@R: c(
+    person("Marek", "Gagolewski", role = c("aut", "cre"),
+    email = "gagolews@ibspan.waw.pl"),
+    person("Anna", "Cena", role = "aut",
+    email = "Anna.Cena@ibspan.waw.pl")
+    )
+Author: Marek Gagolewski and Anna Cena
+Maintainer: Marek Gagolewski <gagolews@ibspan.waw.pl>
+Collate:
+    'agop-package.R'
+    'distrib_hirsch.R'
+    'distrib_p2.R'
+    'distrib_sstat.R'
+    'dp2.estimate.R'
+    'dp2.goftest.R'
+    'impact_functions.R'
+    'impact_visualization.R'
+    'p2.confint.h.R'
+    'p2.confint.rho.approx.R'
+    'p2.confint.rho.R'
+    'p2.estimate.R'
+    'p2.ftest.R'
+    'p2.goftest.R'
+    'p2.htest.approx.R'
+    'p2.htest.R'
+    'rho.R'
