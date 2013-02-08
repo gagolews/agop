@@ -1,4 +1,8 @@
-agop
-====
+**agop**: Aggregation Operators package for `R`
+=======
 
-Aggregation Operators
+**Authors**: Marek Gagolewski and Anna Cena
+
+**Homepage**: t.b.d.
+
+**System requirements**: `R >= 2.14.0`
