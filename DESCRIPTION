@@ -2,7 +2,7 @@ Package: agop
 Version: 0.1-1
 Date: 2013-02-08
 Title: Aggregation Operators
-Description: TO DO
+Description: Tools to deal with aggregation operators in R
 URL: TO DO
 BugReports: https://github.com/gagolews/agop/issues
 LazyData: true
