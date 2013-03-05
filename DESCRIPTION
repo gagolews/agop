@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-02-08
+Date: 2013-03-05
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
 URL: TO DO
@@ -38,3 +38,4 @@ Collate:
     'p2.htest.approx.R'
     'p2.htest.R'
     'rho.R'
+    'fuzzy.integrals.R'
