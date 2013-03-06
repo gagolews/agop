@@ -182,7 +182,7 @@ index.rp <- function(x, p=Inf, sorted.dec=FALSE, disable.check=FALSE)
 	if (is.finite(p))
 	{
 		if (p > 50) warning("'p' is quite large. possible accuracy problems. maybe you should try 'p'==Inf?");
-		.C("index_rp_finite", as.double(x), as.integer(length(x)), as.double(p), out=double(1), DUP=FALSE, PACKAGE="CITAN")$out;
+		.C("index_rp_finite", as.double(x), as.integer(length(x)), as.double(p), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
 	} else
 	{
 		.C("index_rp_infinite", as.double(x), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
@@ -248,7 +248,8 @@ index.lp <- function(x, p=Inf, sorted.dec=FALSE, disable.check=FALSE)
 	if (is.finite(p))
 	{
 		if (p > 50) warning("'p' is quite large. possible accuracy problems. maybe you should try 'p'==Inf?");
-		.C("index_lp_finite", as.double(x), as.integer(length(x)), as.double(p), integer(length(x)+1), out=double(2), DUP=FALSE, PACKAGE="CITAN")$out;
+		.C("index_lp_finite", as.double(x), 
+         as.integer(length(x)), as.double(p), integer(length(x)+1), out=double(2), DUP=FALSE, PACKAGE="agop")$out;
 	} else
 	{
 		.C("index_lp_infinite", as.double(x), as.integer(length(x)), out=double(2), DUP=FALSE, PACKAGE="agop")$out;
