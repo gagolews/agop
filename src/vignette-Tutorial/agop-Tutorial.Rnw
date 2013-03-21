@@ -1,0 +1,290 @@
+\documentclass[11pt]{article}
+%\VignetteIndexEntry{A Guide to the agop Package}
+%\VignetteEngine{knitr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\usepackage[dvips,a4paper,left=2.5cm,right=2.5cm,foot=1.0cm,
+   headheight=1.0cm,top=2.0cm,margin=2.5cm]{geometry}
+\linespread{1.1}
+
+\usepackage{fancyhdr}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\selectlanguage{english}
+\usepackage{xspace}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\RequirePackage{graphicx,verbatim,longtable}
+\usepackage{mdwlist}
+\usepackage{multirow,multicol}
+\usepackage[nottoc]{tocbibind}
+\usepackage{rotating}
+
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+\renewcommand{\emph}[1]{\textsl{#1}}
+\newcommand{\indicator}{\text{\bf 1}}
+\renewcommand{\Pr}{\mathrm{P}}
+\renewcommand{\ln}{\mathrm{ln}\,}
+
+\newcommand{\package}[1]{\textsf{#1}\xspace}
+\newcommand{\program}[1]{\textsf{#1}\xspace}
+\newcommand{\os}[1]{\textsf{#1}\xspace}
+\newcommand{\lang}[1]{\textsf{#1}\xspace}
+\newcommand{\Cpp}{\lang{C++}}
+\newcommand{\R}{\lang{R}}
+
+\newcommand{\func}[1]{\texttt{\hlfunctioncall{#1}}}
+\newcommand{\argument}[1]{\texttt{\hlargument{#1}}}
+\newcommand{\str}[1]{\texttt{\hlstring{#1}}}
+\newcommand{\key}[1]{{$\langle$\texttt{#1}$\rangle$}\xspace} % skrot klawiszowy
+
+\setlength{\pdfpagewidth}{\paperwidth}
+\setlength{\pdfpageheight}{\paperheight}
+
+
+\usepackage{xcolor}
+\definecolor{blue2}{rgb}{0,0.2,0.7}
+\definecolor{red2}{rgb}{0.4,0.1,0.1}
+\usepackage{colortbl}
+\definecolor{navy}{rgb}{0,0.0,0.4}
+\definecolor{navy2}{rgb}{0.4,0.1,0.3}
+\definecolor{red2}{rgb}{0.6,0.1,0.2}
+\definecolor{green2}{rgb}{0.1,0.4,0.2}
+
+\usepackage{hyperref}
+
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=centering}
+\addto\captionsenglish{\renewcommand{\figurename}{Fig.}}
+\addto\captionsenglish{\renewcommand{\tablename}{Tab.}}
+
+
+\setlength{\topsep}{1pt} % wpływa m.in. na odstęp dla verbatim
+\tolerance=500
+\predisplaypenalty=0
+\clubpenalty=1000
+\widowpenalty=1000
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{document}
+
+
+
+\begin{center}
+{\LARGE\sf A Guide to the \package{agop} {0.01-devel} Package for \R}
+
+\bigskip
+{\large Marek Gagolewski} and {\large Anna Cena}
+
+Systems Research Institute, Polish Academy of Sciences
+
+ul. Newelska 6, 01-447 Warsaw, Poland
+
+Email: \{gagolews,cena\}@ibspan.waw.pl
+
+\href{http://www.ibspan.waw.pl/~gagolews/agop/}%
+{www.ibspan.waw.pl/$\sim$gagolews/agop/}
+
+\bigskip
+\today
+
+
+
+\medskip
+\textit{The package, as well as this tutorial, is still in its early
+days -- any suggestions are welcome!}
+\end{center}
+
+
+
+
+
+\bigskip\hrule\bigskip
+\tableofcontents
+
+<<echo=FALSE,results='hide',warning=FALSE,message=FALSE,cache=FALSE>>=
+options(digits=7)
+options(width=73)
+require("knitr")
+require("tikzDevice")
+
+options(tikzDefaultEngine = "pdftex")
+
+options(tikzLatexPackages = c( # dolaczanie uzywanych pakietow TeX-a
+   "\\usepackage{amsmath,amssymb,amsfonts}", # pakiety AMS
+   "\\usepackage{tikz}",
+#   "\\usepackage[MeX,T1,plmath]{polski}", # obsluga m.in. polskich ogonkow
+   "\\usepackage[utf8]{inputenc}",
+   "\\usepackage[T1]{fontenc}",
+   "\\usetikzlibrary{calc}",
+   "\\usepackage[english]{babel}",
+   "\\selectlanguage{english}",
+   "\\usepackage{standalone}"
+))
+
+options(tikzMetricsDictionary="/home/gagolews/R/tikzMetrics")
+
+options(tikzDocumentDeclaration = "\\documentclass[11pt]{standalone}\n")
+
+options(tikzMetricPackages = c(
+   "\\usepackage[utf8]{inputenc}",
+   "\\usepackage[T1]{fontenc}",
+   "\\usepackage{amsmath,amssymb,amsfonts}",
+   "\\usetikzlibrary{calc}",
+   "\\usepackage[english]{babel}",
+   "\\selectlanguage{english}"
+))
+
+
+
+opts_knit$set(progress = TRUE, verbose = TRUE)
+
+opts_chunk$set(
+   keep.source=TRUE,
+   out.width='4.5in',
+   fig.width=6,
+   fig.height=6/sqrt(2),
+   fig.path='figures-knitr/',
+   cache.path='cache-knitr/',
+   cache=TRUE,
+   tidy=FALSE,
+#    dev='cairo_pdf',
+#    dev.args=list(pointsize=11),
+   dev='tikz',
+   external=TRUE,
+   fig.align='center',
+   size='small'
+)
+
+# knit_theme$set(knit_theme$get("solarized-light"))
+@
+
+% \definecolor{fgcolor}{gray}{0}
+% \renewcommand{\hlnumber}[1]{\textcolor[gray]{0.2}{#1}}%
+% \renewcommand{\hlfunctioncall}[1]{\textbf{#1}}%
+% \renewcommand{\hlstring}[1]{\textcolor[gray]{0.2}{\textit{#1}}}%
+% \renewcommand{\hlkeyword}[1]{\textbf{#1}}%
+% \renewcommand{\hlargument}[1]{\textcolor[rgb]{0.2,0.2,0.2}{\textsl{#1}}}%
+% \renewcommand{\hlcomment}[1]{\textcolor[gray]{0.5}{\it\textsf{#1}}}%
+% \renewcommand{\hlroxygencomment}[1]{\textcolor[gray]{0.5}{\it\textsf{#1}}}%
+% \renewcommand{\hlformalargs}[1]{\textcolor[rgb]{0.69,0.25,0.03}{#1}}%
+% \renewcommand{\hleqformalargs}[1]{\textcolor[rgb]{0.69,0.25,0.03}{#1}}%
+% \renewcommand{\hlassignement}[1]{\textcolor[gray]{0}{\textbf{#1}}}%
+% \renewcommand{\hlpackage}[1]{\textcolor[rgb]{0.59,0.71,0.15}{#1}}%
+% \renewcommand{\hlslot}[1]{\textit{#1}}%
+% \renewcommand{\hlsymbol}[1]{\textcolor[cmyk]{0,0,0,1}{#1}}%
+% \renewcommand{\hlprompt}[1]{\textcolor[cmyk]{0,0,0,0.5}{#1}}%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\section{Getting started}
+
+intro.....
+aggregation....
+
+
+
+\R is a free, open sourced software environment
+for statistical computing and graphics, which
+includes an implementation
+of a very powerful and quite popular high-level language called \lang{S}.
+It runs on all major operating systems, i.e.~\os{Windows},
+\os{Linux}, and \os{MacOS X}.
+To install \R and/or find some information on the \lang{S} language
+please visit \R Project's Homepage at \href{http://www.R-project.org}{www.R-project.org}.
+Perhaps you may also wish to install  \program{RStudio},
+a convenient development environment for \R.
+It is available at \href{http://rstudio.org/}{www.rsudio.org}.
+
+
+\bigskip
+\package{agop} is an Open Source (licensed under GNU LGPL 3)
+package for \R$\ge$ 2.12 to which anyone can contribute.
+It started as a fork of the \package{CITAN} (Citation
+Analysis Toolpack) package for \R.
+
+% To install its latest ``official'' release 
+% available on \textit{CRAN} we type:
+% 
+% <<eval=FALSE>>=
+% install.packages("agop")
+% @
+
+
+
+\bigskip
+Each session with \package{agop} should be preceded by
+a call to:
+
+<<libraryagop,results='hide',warning=FALSE,message=FALSE>>=
+library("agop") # Load the package
+@
+
+\bigskip
+To view the main page of the manual we type:
+
+<<helpagop,eval=FALSE>>=
+library(help="agop")
+@
+
+\noindent
+For more information please visit the package's homepage \cite{agopHome}.
+In case of any problems, comments, or suggestions feel free to contact the authors.
+Good luck!
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+\section{NEWS/CHANGELOG}
+
+<<NEWSread,comment="",echo=FALSE>>=
+cat(readLines("../../NEWS"), sep="\n")
+@
+
+
+\paragraph{Acknowledgments.}
+This document has been generated with \LaTeX, \package{knitr} and
+the \package{tikzDevice} package for \R.
+Their authors' wonderful work is fully appreciated.
+
+
+
+\begin{thebibliography}{100}
+
+
+\bibitem{agopHome}
+Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
+\href{http://www.ibspan.waw.pl/~gagolews/agop/}{www.ibspan.waw.pl/$\sim$gagolews/agop/},
+2013.
+
+\end{thebibliography}
+
+\end{document}

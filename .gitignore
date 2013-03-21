@@ -19,3 +19,13 @@ agop.Rproj
 
 # KDevelop project files:
 *.kdev4
+
+
+# LaTeX/Knitr aux files
+*.aux
+*.log
+*.out
+*.toc
+src/vignette-Tutorial/agop-Tutorial.tex
+cache-knitr
+figures-knitr
