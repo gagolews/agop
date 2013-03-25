@@ -13,6 +13,7 @@
 
 \usepackage{fancyhdr}
 
+
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
@@ -29,9 +30,6 @@
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}
 \renewcommand{\emph}[1]{\textsl{#1}}
-\newcommand{\indicator}{\text{\bf 1}}
-\renewcommand{\Pr}{\mathrm{P}}
-\renewcommand{\ln}{\mathrm{ln}\,}
 
 \newcommand{\package}[1]{\textsf{#1}\xspace}
 \newcommand{\program}[1]{\textsf{#1}\xspace}
@@ -40,7 +38,7 @@
 \newcommand{\Cpp}{\lang{C++}}
 \newcommand{\R}{\lang{R}}
 
-\newcommand{\func}[1]{\texttt{\hlfunctioncall{#1}}}
+\newcommand{\Rfunc}[1]{\texttt{\hlfunctioncall{#1}}}
 \newcommand{\argument}[1]{\texttt{\hlargument{#1}}}
 \newcommand{\str}[1]{\texttt{\hlstring{#1}}}
 \newcommand{\key}[1]{{$\langle$\texttt{#1}$\rangle$}\xspace} % skrot klawiszowy
@@ -48,6 +46,30 @@
 \setlength{\pdfpagewidth}{\paperwidth}
 \setlength{\pdfpageheight}{\paperheight}
 
+% \renewcommand{\emph}{\textit}%
+\newcommand{\indicator}{\text{\bf 1}}%
+\renewcommand{\Pr}{\mathrm{P}}%
+% \renewcommand{\ln}{\mathrm{ln}\,}%
+\newcommand{\ran}{\mathrm{ran}\,}%
+\newcommand{\img}{\mathrm{img}\,}%
+\newcommand{\supp}{\mathrm{supp}\,}%
+
+\newcommand{\Identity}{\mathsf{id}}
+
+
+\newcommand{\vect}[1]{{\mathbf{#1}}}
+\newcommand{\func}[1]{{\mathsf{#1}}}
+
+\newcommand{\Reals}{\mathbb{R}}
+\newcommand{\RealsExt}{\bar{\mathbb{R}}}
+\newcommand{\Naturals}{\mathbb{N}}
+\newcommand{\Ival}{\mathbb{I}}
+\newcommand{\IvalPow}[1]{\mathbb{I}^{#1}}
+\newcommand{\AnyPow}{^{1,2,\dots}}
+\newcommand{\IvalAnyPow}{\mathbb{I}\AnyPow}
+\newcommand{\Axiom}[1]{\mathrm{(#1)}}
+\newcommand{\PropertyAny}[1]{\mathcal{#1}}
+\newcommand{\Property}[1]{\mathcal{P}_\mathrm{(#1)}}
 
 \usepackage{xcolor}
 \definecolor{blue2}{rgb}{0,0.2,0.7}
@@ -198,6 +220,7 @@ opts_chunk$set(
 
 \section{Getting started}
 
+
 intro.....
 aggregation....
 
@@ -235,7 +258,7 @@ Analysis Toolpack) package for \R.
 Each session with \package{agop} should be preceded by
 a call to:
 
-<<libraryagop,results='hide',warning=FALSE,message=FALSE>>=
+<<libraryagop,results='hide',warning=FALSE,message=FALSE,cache=FALSE>>=
 library("agop") # Load the package
 @
 
@@ -260,7 +283,171 @@ Good luck!
 
 
 
+\section{Theoretical background}
 
+
+
+
+\subsection{Aggregation functions}
+
+TO DO....
+
+
+
+
+\subsection{The Producers Assessment Problem and its instances}
+
+
+
+\subsection{Impact functions}
+
+
+Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
+paper quality measure may take. These may of course be non-integers,
+for example when we consider citations normalized with respect
+to the number of papers' authors.
+Moreover, let $\IvalAnyPow$
+denote the set of all vectors (of arbitrary length)
+with elements in $\Ival$, i.e.~$\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$.
+
+It is widely accepted, see e.g.~(Woeginger, 
+\cite{Woeginger2008:axiomatich,Woeginger2008:axiomaticg,
+Woeginger2008:symmetryaxiom};
+Rousseau, \cite{Rousseau2008:woegingerax};
+Quesada, \cite{Quesada2009:monotonicityh,
+Quesada2010:moreaxiomatics}; Gagolewski, Grzegorzewski,
+\cite{GagolewskiGrzegorzewski2011:ijar};
+Franceschini, Maisano, \cite{FranceschiniMaisano2011:structevalh}),
+that each aggregation operator
+ $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the impact assessment
+ process  should at least be:
+\begin{enumerate}
+   \item[(a)] nondecreasing with respect to each variable (additional
+   citations received by a paper or an improvement
+   of its quality measure does not result
+   in a decrease of the authors' overall evaluation),
+   \item[(b)] arity-monotonic (by publishing a new paper we
+   never decrease the overall valuation of the entity),
+   \item[(c)] symmetric (independent
+of the order of elements' presentation, i.e.~we may always assume that
+we aggregate vectors that are already sorted).
+\end{enumerate}
+Conditions (a) and (b) imply that each impact function
+is able -- at least potentially -- to describe two ``dimensions''
+of the author's output quality: (a) his/her ability to write
+eagerly-cited or highly-valuated papers and (b) his/her overall productivity.
+
+More formally, condition (a) holds if and only if for each
+$n$ and $\vect{x},\vect{y}\in\IvalPow{n}$ such that $(\forall i)$
+$x_i\le y_i$ we have $\func{J}(\vect{x})\le\func{J}(\vect{y})$.
+On the other hand, axiom (b) is fulfilled iff
+for any $\vect{x}\in\IvalAnyPow$ and $y\in\Ival$ it holds
+$\func{J}(\vect{x})\le\func{J}(x_1,\dots,x_n,y)$.
+Lastly, requirement (c) holds iff for all $n$ and $\vect{x}\in\IvalPow{n}$
+we have $\func{J}(\vect{x})=\func{J}(x_{\{1\}},\dots,x_{\{n\}})$,
+where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
+i.e.~its $(n-i+1)$th order statistic.
+
+
+\subsection{The dominance relation on a set of producers}
+
+
+Let us consider the following relation on $\IvalAnyPow$.
+For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
+% \begin{equation}\label{Eq:partialorderingtrianglelefteq}
+$\vect{x}\trianglelefteq\vect{y}$ if and only if
+$n\le m\text{ and }x_{\{i\}}\le y_{\{i\}}$ for all $i\in\min\{n,m\}$.
+Of course, $\trianglelefteq$ is a pre-order -- it
+would have been a partial order, if we had defined it on the set
+of \textit{sorted} vectors. 
+
+In other words, we  say that an author $X$
+ is (weakly) dominated %(in sense of $\trianglelefteq$)
+by an author $Y$, if $X$ has no more papers than $Y$ and each
+the $i$th most cited paper of $X$ has no more citations than
+the $i$th most cited paper of $Y$. Not that the $m-n$ least cited
+$Y$'s papers are not taken into account here.
+Most importantly, however,
+there exist pairs of vectors
+that are \textit{incomparable} with respect to $\trianglelefteq$ (see
+the illustration below).
+
+
+We have the following result
+(Gagolewski, Grzegorzewski, \cite{GagolewskiGrzegorzewski2011:ijar}).
+Let $\func{F}\in \mathcal{E}(\Ival)$. Then $\func{F}$
+is symmetric, nondecreasing in each variable
+and arity-monotonic if and only if for any $\vect{x},\vect{y}$
+if $\vect{x}\trianglelefteq\vect{y}$, then
+$\func{F}(\vect{x})\le \func{F}(\vect{y})$.
+Therefore, the class of  impact functions may be equivalently
+defined as all the aggregation operators
+that are nondecreasing with respect to this preorder.
+
+
+Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
+$\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
+(strict dominance).
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Visualization}
+
+
+\subsection{Depicting producers}
+
+The \Rfunc{plot\_producer()} function may be used to draw
+a graphical representation of a given numeric vector,
+i.e.~what is sometimes called a citation function in scientometrics.
+
+A given vector $\mathbf{x}=(x_1,\dots,x_n)$ can be represented by a
+step function defined for $0\le y<n$ and given by:
+\[
+   \pi(y)=x_{(n-\lfloor y+1\rfloor+1)}.
+\]
+This function may be obtained by setting \texttt{type == 'right.continuous'}
+argument in \Rfunc{plot\_pro\-du\-cer()}.
+Recall that $x_{(i)}$ denotes $i$-th smallest value in $\vect{x}$.
+
+On the other hand, for \texttt{type == 'left.continuous'}
+(the default), we get
+\[
+\pi(y)=x_{(n-\lfloor y\rfloor+1)}
+\]
+for $0< y\le n$.
+
+Moreover, this function may depict the curve joining the sequence
+of points $(0, x_{(n)}), (1, x_{(n)}),\allowbreak (1, x_{(n-1)}), (2, x_{(n-1)}),
+\dots, (n, x_{(1)})$.
+
+
+\medskip
+The \Rfunc{plot\_producer()} function behaves much like
+the well-known \R's \Rfunc{plot.default()} and allows for passing
+all its graphical parameters.
+
+For example, let us depict the state of two given producers,
+$\vect{x}^{(1)}$ and $\vect{x}^{(2)}$.
+
+<<vis1a,fig.keep='none'>>=
+x1 <- c(5, 4, 2, 2, 1)
+x2 <- c(3, 3, 1, 0, 0, 0, 0)
+plot_producer(x1, extend=TRUE)
+plot_producer(x2, add=TRUE, col=2, pch=2, extend=TRUE)
+legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
+@
+
+\begin{center}
+\scalebox{0.83}{
+<<vis1b, dependson='vis1a', echo=FALSE>>=
+<<vis1a>>
+@
+}
+\end{center}
 
 
 \section{NEWS/CHANGELOG}

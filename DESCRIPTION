@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-03-21
+Date: 2013-03-25
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
 URL: http://www.ibspan.waw.pl/~gagolews/agop
@@ -28,7 +28,6 @@ Collate:
     'dp2.estimate.R'
     'dp2.goftest.R'
     'impact_functions.R'
-    'impact_visualization.R'
     'p2.confint.h.R'
     'p2.confint.rho.approx.R'
     'p2.confint.rho.R'
@@ -39,3 +38,4 @@ Collate:
     'p2.htest.R'
     'rho.R'
     'fuzzy.integrals.R'
+    'visualization.R'

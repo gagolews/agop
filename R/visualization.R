@@ -18,56 +18,109 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' The citation function of a vector \eqn{x=(x_1,\dots,x_n)}
-#' is a mapping \deqn{\pi(y)=x_{(n-\lfloor y+1\rfloor+1)}}{\pi(y)=x_{(n-floor(y+1)+1)}}
-#' defined for \eqn{0\le y<n}, where \eqn{x_{(i)}} denotes the
-#' \eqn{i}-th smallest value of \eqn{x}.
+#' Draws a Graphical Representation of a Given Vector
 #'
-#' @title Draw the citation function of a given vector
-#' @param x non-negative numeric vector.
-#' @param xmarg x-margin on the right.
-#' @param add logical; indicates whether to start a new plot, \code{FALSE} by default.
-#' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters.
+#' In \pkg{agop}, a given vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
+#' step function defined for \eqn{0\le y<n} and given by:
+#' \deqn{\pi(y)=x_{(n-\lfloor y+1\rfloor+1)}}{\pi(y)=x_{(n-floor(y+1)+1)}}
+#' (for \code{type == 'right.continuous'})
+#' or for \eqn{0< y\le n} \deqn{\pi(y)=x_{(n-\lfloor y\rfloor+1)}}{\pi(y)=x_{(n-floor(y)+1)}}
+#' (for \code{type == 'left.continuous'}, the default)
+#' or by a curve joining the points \eqn{(0, x_{(n)})},
+#' \eqn{(1, x_{(n)})}, \eqn{(1, x_{(n-1)})}, \eqn{(2, x_{(n-1)})},
+#' ..., \eqn{(n, x_{(1)})}.
+#' Here, \eqn{x_{(i)}} denotes the
+#' \eqn{i}-th smallest value in \eqn{x}.
+#' 
+#' In bibliometrics, a step function of one of the two above-presented types
+#' is called a citation function.
+#' 
+#' For historical reasons, this function is also available via its alias,
+#' \code{plot.citfun}.
+#'
+#' @param x non-negative numeric vector
+#' @param type character; type of the graphical \code{'left.continuous'} (the default)
+#' or \code{'right.continuous'} for step functions and \code{'curve'} for
+#' a continuous step curve
+#' @param extend logical; should the plot be extended infinitely to the right?
+#' Defaults to \code{FALSE}
+#' @param add logical; indicates whether to start a new plot, \code{FALSE} by default
+#' @param pch,col,lty,lwd,cex graphical parameters
+#' @param col.steps,lty.steps,lwd.steps graphical parameters, used only
+#' for \code{type} of \code{'left.continuous'} and \code{'right.continuous'} only
+#' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters,
+#' see \code{\link{plot.default}}
 #' @seealso \code{\link{curve.add.rp}}, \code{\link{curve.add.lp}}, \code{\link{plot.default}}
 #' @examples
-#' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0);
-#' plot.citfun(john_s, main="Smith, John", col="red");
+#' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0)
+#' plot_producer(john_s, main="Smith, John", col="red")
 #' @export
-plot.citfun <- function(x, ..., xmarg=10, add=FALSE, xlab="", ylab="", main="", ylim=c(0, max(x)), xlim=c(0,length(x)+xmarg))
+#' @name plot_producer
+#' @aliases plot.citfun
+plot_producer <- function(x,
+   type=c('left.continuous', 'right.continuous', 'curve'),
+   extend=FALSE, add=FALSE,
+   pch=1, col=1, lty=1, lwd=1, cex=1,
+   col.steps=col, lty.steps=2, lwd.steps=1,
+   xlab="", ylab="", main="",
+   xmarg=10, xlim=c(0,length(x)*1.2), ylim=c(0, max(x)), 
+   ...)
 {
-   n <- length(x);
-   if (n == 0) stop("Zero-length vector given.");
-   if (mode(x) != "numeric") stop("Non-numeric vector given.");
-   if (any(x < 0)) warning("The function should be used with non-negative vectors.");
-
-   x <- sort(x, decreasing=T);
-
-   px <- n;
-   py <- x[n];
-
-   for (i in (n-1):1)
-   {
-      if (x[i]!=x[i+1])
-      {
-         px <- c(i,    px);
-         py <- c(x[i], py);
+   stopifnot(length(x) > 0, is.numeric(x), all(x >= 0))
+   n <- length(x)
+   x <- sort(x, decreasing=T)
+   
+   type <- match.arg(type)
+   extend <- identical(extend, TRUE)
+   add <- identical(add, TRUE)
+   
+   if (!add) {
+      # start a new plot
+      plot(NA, NA, ylim=ylim, xlim=xlim,
+         xlab=xlab, ylab=ylab, main=main, ...)
+   }
+   
+   
+   # look for unique values
+   wdx <- which(diff(x) != 0) 
+   px <- c(wdx, n)
+   py <- c(x[wdx], x[n])
+   
+   if (extend) {
+      if (py[length(py)] == 0) {
+         px[length(px)] <- par("usr")[2]+1 # +1 == magic constant :-)
+      }
+      else {
+         px <- c(px, par("usr")[2]+1)
+         py <- c(py, 0)
       }
    }
+   
+   segments(c(0, px[-length(px)]), py, px, py,
+      col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
 
-
-
-   if (!add)
-   {
-      plot(px, py, ylim=ylim, xlim=xlim, type='p', xlab=xlab, ylab=ylab, main=main, ...);
-   } else
-   {
-      points(px, py, ...);
+   if (type == 'right.continuous') {
+      points(px, py, 
+         col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
    }
-
-# 	segments(px, py, px, c(py[-1],0), ...);
-   segments(c(0,px[-length(px)]), py, px, py, ...);
+   else if (type == 'left.continuous') {
+      points(c(0, px[-length(px)]), py, 
+         col=col, pch=pch, lty=lty, lwd=lwd, cex=cex, ...)
+   }
+   
+   if (type == 'curve') {
+      segments(px[-length(px)], py[-length(px)], px[-length(px)], py[-1],
+         col=col, lty=lty, lwd=lwd, ...)
+   }
+   else {
+      segments(px[-length(px)], py[-length(px)], px[-length(px)], py[-1],
+         col=col.steps, lty=lty.steps, lwd=lwd.steps, ...)
+   }
 }
 
+
+#' @export
+plot.citfun <- plot_producer
 
 
 
