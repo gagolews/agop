@@ -1,5 +1,6 @@
 # Roxygen-generated man pages
 man/*.Rd
+man/
 
 # R/RStudio files:
 .Rbuildignore
@@ -7,6 +8,7 @@ agop.Rproj
 .Rproj.user
 .Rhistory
 .RData
+.directory
 
 # compiled/precompiled files
 *.o
@@ -29,3 +31,5 @@ agop.Rproj
 src/vignette-Tutorial/agop-Tutorial.tex
 cache-knitr
 figures-knitr
+*.bbl
+*.blg
