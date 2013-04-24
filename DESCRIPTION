@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-03-25
+Date: 2013-04-24
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
 URL: http://www.ibspan.waw.pl/~gagolews/agop
