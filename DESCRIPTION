@@ -1,10 +1,10 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-04-24
+Date: 2013-04-28
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
-URL: http://www.ibspan.waw.pl/~gagolews/agop
-BugReports: https://github.com/gagolews/agop/issues
+URL: http://www.rexamine.com/resources/agop/
+BugReports: https://github.com/Rexamine/agop/issues
 LazyData: true
 Type: Package
 Depends:
@@ -14,12 +14,12 @@ Suggests:
     testthat
 Authors@R: c(
     person("Marek", "Gagolewski", role = c("aut", "cre"),
-    email = "gagolews@ibspan.waw.pl"),
-    person("Anna", "Cena", role = "aut",
-    email = "Anna.Cena@ibspan.waw.pl")
+    email = "gagolews@rexamine.com"),
+    person("Anna", "Cena", role = "ctb",
+    email = "cena@rexamine.com")
     )
-Author: Marek Gagolewski and Anna Cena
-Maintainer: Marek Gagolewski <gagolews@ibspan.waw.pl>
+Author: Marek Gagolewski, with contributions from Anna Cena
+Maintainer: Marek Gagolewski <gagolews@rexamine.com>
 Collate:
     'agop-package.R'
     'distrib_hirsch.R'

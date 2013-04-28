@@ -1,8 +1,8 @@
 `agop`: Aggregation Operators package for `R`
 =======
 
-**Authors**: Marek Gagolewski and Anna Cena
+**Authors**: Marek Gagolewski, with contributions from Anna Cena
 
-**Homepage**: t.b.d.
+**Homepage**: http://www.rexamine.com/resources/agop/
 
 **System requirements**: `R >= 2.14.0`
