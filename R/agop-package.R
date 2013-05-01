@@ -26,8 +26,9 @@
 #' @name agop-package
 #' @docType package
 #' @title ...
-#' @author Marek Gagolewski \email{gagolews@@ibspan.waw.pl},\cr
-#' Anna Cena \email{Anna.Cena@@ibspan.waw.pl}
+#' @author
+#' Marek Gagolewski \email{gagolews@@rexamine.com},\cr
+#' Anna Cena \email{cena@@rexamine.com}
 #' @references
 #' ...
 invisible(NULL)

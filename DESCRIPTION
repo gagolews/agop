@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-04-28
+Date: 2013-05-01
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
 URL: http://www.rexamine.com/resources/agop/
@@ -18,8 +18,6 @@ Authors@R: c(
     person("Anna", "Cena", role = "ctb",
     email = "cena@rexamine.com")
     )
-Author: Marek Gagolewski, with contributions from Anna Cena
-Maintainer: Marek Gagolewski <gagolews@rexamine.com>
 Collate:
     'agop-package.R'
     'distrib_hirsch.R'
