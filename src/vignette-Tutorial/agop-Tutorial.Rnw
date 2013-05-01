@@ -105,25 +105,23 @@
 \begin{document}
 
 
-
 \begin{center}
 {\LARGE\sf A Guide to the \package{agop} {0.01-devel} Package for \R}
 
 \bigskip
-{\large Marek Gagolewski} and {\large Anna Cena}
+{\large Marek Gagolewski${}^{1,2}$, Anna Cena${}^{1,2}$}
 
-Systems Research Institute, Polish Academy of Sciences
+${}^{1}$ Systems Research Institute, Polish Academy of Sciences
 
 ul. Newelska 6, 01-447 Warsaw, Poland
 
-Email: \{gagolews,cena\}@ibspan.waw.pl
+${}^{2}$ Rexamine, Email: \texttt{\{gagolews,cena\}@rexamine.com}
 
-\href{http://www.ibspan.waw.pl/~gagolews/agop/}%
-{www.ibspan.waw.pl/$\sim$gagolews/agop/}
+\href{http://www.rexamine.com/resources/agop/}%
+{www.rexamine.com/resources/agop/}
 
 \bigskip
 \today
-
 
 
 \medskip
@@ -469,7 +467,7 @@ Their authors' wonderful work is fully appreciated.
 
 \bibitem{agopHome}
 Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
-\href{http://www.ibspan.waw.pl/~gagolews/agop/}{www.ibspan.waw.pl/$\sim$gagolews/agop/},
+\href{http://www.rexamine.com/resources/agop/}{www.rexamine.com/resources/agop/},
 2013.
 
 \end{thebibliography}
