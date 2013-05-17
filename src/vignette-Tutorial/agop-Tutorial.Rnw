@@ -21,7 +21,7 @@
 \usepackage{xspace}
 \usepackage{lmodern}
 
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
 \RequirePackage{graphicx,verbatim,longtable}
 \usepackage{mdwlist}
 \usepackage{multirow,multicol}
@@ -80,6 +80,19 @@
 \definecolor{red2}{rgb}{0.6,0.1,0.2}
 \definecolor{green2}{rgb}{0.1,0.4,0.2}
 
+\newtheorem{theorem}{Theorem}%[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\newtheorem{example}{Example}
+
 \usepackage{hyperref}
 
 \usepackage{caption}
@@ -107,6 +120,8 @@
 
 \begin{center}
 {\LARGE\sf A Guide to the \package{agop} {0.01-devel} Package for \R}
+
+{\large\sf\textit{Aggregation Operators in \R}}
 
 \bigskip
 {\large Marek Gagolewski${}^{1,2}$, Anna Cena${}^{1,2}$}
@@ -220,7 +235,7 @@ opts_chunk$set(
 
 
 intro.....
-aggregation....
+aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
 
 
 
@@ -281,32 +296,83 @@ Good luck!
 
 
 
-\section{Theoretical background}
+\section{Theoretical Background}
+
+Let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$
+(in many practical situations we often choose $\Ival=[0,1]$ or $\Ival=[0,\infty]$).
+
+Moreover, let $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ (set
+of vectors with elements in $\Ival$ -- of any length).
+
+Notational convention:
+For $\vect{x},\vect{y}\in\IvalPow{n}$
+we write $\vect{x}\le\vect{y}$
+iff for all $i$ it holds $x_i\le y_i$
+
+$(n\ast c) = (c,\dots,c)\in\IvalPow{n}$
+
+Let $x_{(i)}$ denote the $i$th order statistic...
+
+\subsection{Aggregation Operators and Their Basic Properties}
+
+\begin{definition}
+$\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
+(cf.~\cite{GrabischETAL2009:aggregationfunctions})
+if it is at least \emph{nondecreasing} in each variable,
+i.e.~for all $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$
+if $\vect{x}\le\vect{y}$, then $\func{F}(\vect{x})\le\func{F}(\vect{y})$.
+\end{definition}
+
+Note that each aggregation operator is a mapping into $\Ival$,
+thus for all $n$ we have $\inf_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) \ge a$
+and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) \le b$.
+By nondecreasingness, however, these conditions reduce to
+$\func{F}(n\ast a)\ge a$ and $\func{F}(n\ast b)\le b$.
+
+\begin{definition}
+We call $\func{F}$ \emph{symmetric} if ....
+\end{definition}
 
 
 
-
-\subsection{Aggregation functions}
-
-TO DO....
-
+\begin{definition}
+We call $\func{F}$ \emph{idempotent} if ....
+\end{definition}
 
 
+\begin{definition}
+We call $\func{F}$ \emph{additive} if ....
+\end{definition}
 
-\subsection{The Producers Assessment Problem and its instances}
+
+
+\begin{definition}
+We call $\func{F}$ \emph{minitive} if ....
+\end{definition}
 
 
 
-\subsection{Impact functions}
+\begin{definition}
+We call $\func{F}$ \emph{maxitive} if ....
+\end{definition}
 
+
+
+\begin{definition}
+We call $\func{F}$ \emph{modular} if ....
+\end{definition}
+
+
+
+\subsection{Impact Functions and The Producers Assessment Problem}
+
+..........
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
 for example when we consider citations normalized with respect
 to the number of papers' authors.
-Moreover, let $\IvalAnyPow$
-denote the set of all vectors (of arbitrary length)
-with elements in $\Ival$, i.e.~$\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$.
+
 
 It is widely accepted, see e.g.~(Woeginger, 
 \cite{Woeginger2008:axiomatich,Woeginger2008:axiomaticg,
@@ -320,7 +386,7 @@ that each aggregation operator
  $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the impact assessment
  process  should at least be:
 \begin{enumerate}
-   \item[(a)] nondecreasing with respect to each variable (additional
+   \item[(a)] nondecreasing in each variable (additional
    citations received by a paper or an improvement
    of its quality measure does not result
    in a decrease of the authors' overall evaluation),
@@ -347,46 +413,50 @@ where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
 i.e.~its $(n-i+1)$th order statistic.
 
 
-\subsection{The dominance relation on a set of producers}
 
 
-Let us consider the following relation on $\IvalAnyPow$.
-For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
-% \begin{equation}\label{Eq:partialorderingtrianglelefteq}
-$\vect{x}\trianglelefteq\vect{y}$ if and only if
-$n\le m\text{ and }x_{\{i\}}\le y_{\{i\}}$ for all $i\in\min\{n,m\}$.
-Of course, $\trianglelefteq$ is a pre-order -- it
-would have been a partial order, if we had defined it on the set
-of \textit{sorted} vectors. 
-
-In other words, we  say that an author $X$
- is (weakly) dominated %(in sense of $\trianglelefteq$)
-by an author $Y$, if $X$ has no more papers than $Y$ and each
-the $i$th most cited paper of $X$ has no more citations than
-the $i$th most cited paper of $Y$. Not that the $m-n$ least cited
-$Y$'s papers are not taken into account here.
-Most importantly, however,
-there exist pairs of vectors
-that are \textit{incomparable} with respect to $\trianglelefteq$ (see
-the illustration below).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-We have the following result
-(Gagolewski, Grzegorzewski, \cite{GagolewskiGrzegorzewski2011:ijar}).
-Let $\func{F}\in \mathcal{E}(\Ival)$. Then $\func{F}$
-is symmetric, nondecreasing in each variable
-and arity-monotonic if and only if for any $\vect{x},\vect{y}$
-if $\vect{x}\trianglelefteq\vect{y}$, then
-$\func{F}(\vect{x})\le \func{F}(\vect{y})$.
-Therefore, the class of  impact functions may be equivalently
-defined as all the aggregation operators
-that are nondecreasing with respect to this preorder.
 
 
-Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
-$\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
-(strict dominance).
+\section{Predefined Classes of Aggregation Operators in \package{agop}}
 
+Generally, in our implementation we most often deal with numeric vectors.
+Recall how we create them in \R:
+
+<<numericexample>>=
+(x1 <- c(5, 2, 3, 1, 0, 0))
+class(x1)
+(x2 <- rep(10, 3))
+(x3 <- 10:1) # the same as seq(10, 1)
+(x4 <- seq(1, 5, length.out=6))
+(x5 <- seq(1, 5, by=1.25))
+@
+
+Sometimes we will store the vectors of the same length
+in a matrix (column-/row-wise.... col/rownames....) apply()....
+
+...or in a list, especially when they are not of the same length....
+lapply.... sapply.....
+
+
+
+
+\bigskip
+weighted average, OWA
+
+WMin, OWMin, qI
+
+WMax, OWMax, qS
+
+qL
+
+OM3
+
+$h$-index, $g$-, $w$-, $r_p$-, $l_p$-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -448,6 +518,84 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 \end{center}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Pre-orders}
+
+..............
+
+
+Let us consider the following relation on $\IvalAnyPow$.
+For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
+% \begin{equation}\label{Eq:partialorderingtrianglelefteq}
+$\vect{x}\trianglelefteq\vect{y}$ if and only if
+$n\le m\text{ and }x_{\{i\}}\le y_{\{i\}}$ for all $i\in\min\{n,m\}$.
+Of course, $\trianglelefteq$ is a pre-order -- it
+would have been a partial order, if we had defined it on the set
+of \textit{sorted} vectors. 
+
+In other words, we  say that an author $X$
+ is (weakly) dominated %(in sense of $\trianglelefteq$)
+by an author $Y$, if $X$ has no more papers than $Y$ and each
+the $i$th most cited paper of $X$ has no more citations than
+the $i$th most cited paper of $Y$. Not that the $m-n$ least cited
+$Y$'s papers are not taken into account here.
+Most importantly, however,
+there exist pairs of vectors
+that are \textit{incomparable} with respect to $\trianglelefteq$ (see
+the illustration below).
+
+
+We have the following result
+(Gagolewski, Grzegorzewski, \cite{GagolewskiGrzegorzewski2011:ijar}).
+Let $\func{F}\in \mathcal{E}(\Ival)$. Then $\func{F}$
+is symmetric, nondecreasing in each variable
+and arity-monotonic if and only if for any $\vect{x},\vect{y}$
+if $\vect{x}\trianglelefteq\vect{y}$, then
+$\func{F}(\vect{x})\le \func{F}(\vect{y})$.
+Therefore, the class of  impact functions may be equivalently
+defined as all the aggregation operators
+that are nondecreasing with respect to this preorder.
+
+
+Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
+$\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
+(strict dominance).
+
+.......
+
+<<>>=
+ex1 <- list(
+   U = 10:0,
+   A = c(5,5,5,5),
+   B = c(4,3,2,1,1,0),
+   C = c(8,7),
+   L = c(1,1)
+)
+
+for (i in seq_along(ex1))
+plot_producer(ex1[[i]], add=(i>1), col=i)
+
+legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
+
+pord_weakdom <- function(x, y)
+   length(x) <= length(y) && all(sort(x, decreasing=TRUE) <= sort(y, decreasing=TRUE)[1:length(x)])
+
+ord <- matrix(NA, nrow=length(ex1), ncol=length(ex1))
+colnames(ord) <- names(ex1)
+rownames(ord) <- names(ex1)
+
+for (i in 1:length(ex1)) {
+   for (j in 1:length(ex1)) {
+      ord[i,j] <- pord_weakdom(ex1[[i]], ex1[[j]])  
+   }
+}
+@
+
 \section{NEWS/CHANGELOG}
 
 <<NEWSread,comment="",echo=FALSE>>=
@@ -461,6 +609,13 @@ the \package{tikzDevice} package for \R.
 Their authors' wonderful work is fully appreciated.
 
 
+The contribution of Marek Gagolewski was partially supported
+by the European Union from resources of the European Social Fund, Project PO KL 
+``Information technologies: Research and their interdisciplinary
+applications'', agreement UDA-POKL.04.01.01-00-051/10-00 (March-June 2013),
+and by FNP START Scholarship from the Foundation for Polish Science (2013).
+
+
 
 \begin{thebibliography}{100}
 
@@ -469,6 +624,11 @@ Their authors' wonderful work is fully appreciated.
 Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
 \href{http://www.rexamine.com/resources/agop/}{www.rexamine.com/resources/agop/},
 2013.
+
+\bibitem{GrabischETAL2009:aggregationfunctions}
+Grabisch M., Marichal J.-L.,  Mesiar R., Pap E.,
+\textit{Aggregation functions},
+Cambridge University Press, 2009.
 
 \end{thebibliography}
 
