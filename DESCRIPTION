@@ -1,14 +1,15 @@
 Package: agop
 Version: 0.1-1
-Date: 2013-05-17
+Date: 2013-05-20
 Title: Aggregation Operators
 Description: Tools to deal with aggregation operators in R
 URL: http://www.rexamine.com/resources/agop/
 BugReports: https://github.com/Rexamine/agop/issues
-LazyData: true
+ByteCompile: FALSE
 Type: Package
 Depends:
-    R (>= 2.12.0)
+    R (>= 2.12.0),
+    Matrix
 License: LGPL (>= 3)
 Suggests:
     testthat
@@ -37,3 +38,4 @@ Collate:
     'rho.R'
     'fuzzy.integrals.R'
     'visualization.R'
+    'preorders.R'
