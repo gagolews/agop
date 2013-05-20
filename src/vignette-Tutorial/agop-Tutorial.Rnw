@@ -574,35 +574,69 @@ Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
 $\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
 (strict dominance).
 
-.......
 
-<<>>=
+\paragraph{Example.} Let us consider the 5 following vectors.
+
+
+<<ex1>>=
 ex1 <- list(
-   U = 10:0,
-   A = c(5,5,5,5),
-   B = c(4,3,2,1,1,0),
-   C = c(8,7),
-   L = c(1,1)
+   U = 10:0,           # some upper bound
+   A = c(5,5,5,5),     # moderate productivity & quality
+   B = c(4,3,2,1,1,0), # high productivity
+   C = c(8,7),         # high quality
+   L = c(1,1)          # some lower bound
 )
+@
 
+Plot of ``citation'' curves:
+
+<<ex1A,dependson='ex1'>>=
 for (i in seq_along(ex1))
 plot_producer(ex1[[i]], add=(i>1), col=i)
-
 legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
-
-pord_weakdom <- function(x, y)
-   length(x) <= length(y) && all(sort(x, decreasing=TRUE) <= sort(y, decreasing=TRUE)[1:length(x)])
-
-ord <- matrix(NA, nrow=length(ex1), ncol=length(ex1))
-colnames(ord) <- names(ex1)
-rownames(ord) <- names(ex1)
-
-for (i in 1:length(ex1)) {
-   for (j in 1:length(ex1)) {
-      ord[i,j] <- pord_weakdom(ex1[[i]], ex1[[j]])  
-   }
-}
 @
+
+get adjacency matrix for $(\{A, B, C, L, U\}, \trianglelefteq)$....
+
+<<ex1B,dependson='ex1'>>=
+ord <- rel_graph(ex1, pord_weakdom, disable.check=TRUE)
+print(ord)
+is_reflexive(ord)  # is reflexive
+is_transitive(ord) # is transitive
+is_total(ord)      # not a total preorder...
+@
+
+\noindent
+We see that we have $A \text{??} B$, $A \text{??} C$,
+$B \text{??} C$ (no pair from $\{A,B,C\}$ is comparable
+w.r.t.~$\trianglelefteq$).
+
+To draw the Hasse diagram, it will be good to de-transitivize
+the graph (for \ae{}sthetic reasons)....
+
+<<ex1C,dependson='ex1B'>>=
+require(igraph)
+hasse <- graph.adjacency(de_transitive(ord))
+set.seed(1234567) # igraph's draving facilities are far from perfect
+plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2)) 
+@
+
+$(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
+let's apply fair totalization (set $x\trianglelefteq y$
+and $y\trianglelefteq x$ whenever $\neg (x\trianglelefteq y\text{ or }
+y\trianglelefteq x)$ + calculate transitive closure
+
+
+<<ex1D,dependson='ex1C'>>=
+ord_total <- make_transitive(make_total_fair(ord)) # a total preorder
+print(ord_total)
+hasse <- graph.adjacency(de_transitive(ord_total))
+set.seed(1234)
+plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
+@
+
+Thus, we've obtained
+$L \prec (A \simeq B \simeq C) \prec U$
 
 \section{NEWS/CHANGELOG}
 

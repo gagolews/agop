@@ -82,8 +82,8 @@ rel_graph <- function(x, pord, ...)
 #' @export
 is_reflexive <- function(B)
 {
-   stopifnot(is(B, "Matrix"))
-   all(diag(B) != 0)
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   all(Matrix::diag(B) != 0)
 }
 
 
@@ -97,7 +97,105 @@ is_reflexive <- function(B)
 #' @export
 is_total <- function(B)
 {
-   stopifnot(is(B, "Matrix"))
-   all(B + t(B) != 0)
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   all(B + Matrix::t(B) != 0)
+}
+
+
+
+#' Check if Given Adjacency Matrix is Transitive
+#' 
+#' A binary relation R is transitive, iff
+#' for all \code{x}, \code{y}, \code{z} we have \eqn{xRy} and \eqn{yRz}
+#' => \eqn{xRz}
+#' 
+#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @seealso \code{\link{rel_graph}}
+#' @export
+is_transitive <- function(B)
+{
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   # slow as hell!
+   # @TODO - make faster
+   n <- nrow(B)
+   for (i in 1:n) {
+      for (j in 1:n) {
+         for (k in 1:n) {
+            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
+               return(FALSE)
+         }
+      }
+   }
+   TRUE
+}
+
+
+#' De-transitivitize graph (for draving hasse diagrams)
+#' 
+#' 
+#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @seealso \code{\link{rel_graph}}
+#' @export
+de_transitive <- function(B)
+{
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   # slow as hell!
+   n <- nrow(B)
+   Matrix::diag(B) <- 0
+   for (i in 1:n) {
+      for (j in 1:n) {
+         for (k in 1:n) {
+            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && as.logical(B[i,k])
+               && !as.logical(B[k,i]) && !as.logical(B[k,j]) && !as.logical(B[j,i]))
+               B[i,k] <- 0
+         }
+      }
+   }
+   B
+}
+
+
+
+#' Transitive Closure of Adjacency Matrix
+#' 
+#' @export
+make_transitive <- function(B)
+{
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   # slow as hell!
+   n <- nrow(B)
+   for (i in 1:n) {
+      for (j in 1:n) {
+         for (k in 1:n) {
+            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
+               B[i,k] <- 1
+         }
+      }
+   }
+   B
+}
+
+
+
+#' Make Adjacency Matrix Total [fair totalization]
+#' 
+#' Fair totalization: for each pair (x,y) s.t.
+#' not xRy and not xRy let from now on xRy and yRx
+#' 
+#' if you want a total preorder, call \code{\link{make_transitive}}
+#' 
+#' @export
+make_total_fair <- function(B)
+{
+   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   # slow as hell!
+   n <- nrow(B)
+   for (i in 1:n)
+      for (j in (i:n))
+         if (!B[i,j] && !B[j,i]) {
+            B[i,j] <- 1
+            B[j,i] <- 1
+         }
+   B
 }
 
