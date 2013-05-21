@@ -662,6 +662,42 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 \begin{thebibliography}{100}
 
 
+\bibitem{CenaGagolewski2013:agop1}
+Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013).
+
+\bibitem{CenaGagolewski2013:agop2}
+Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).
+
+\bibitem{Gagolewski2013:om3}
+Gągolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180.
+
+\bibitem{GagolewskiGrzegorzewski2011:possibilistic}
+Gągolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
+
+\bibitem{GagolewskiMesiar2012:pqm}
+Gągolewski M., Mesiar R., Aggregating Different Paper Quality Measures with a Generalized h-index, Journal of Informetrics 6(4), 2012, pp. 566-579.
+
+\bibitem{Gagolewski2011:CITAN}
+Gągolewski M., Bibliometric Impact Assessment with R and the CITAN Package, Journal of Informetrics 5(4), 2011, pp. 678-692.
+
+\bibitem{GagolewskiGrzegorzewski2009:geometricapproach}
+Gągolewski M., Grzegorzewski P., A Geometric Approach to the Construction of Scientific Impact Indices, Scientometrics 81(3), 2009, pp. 617-634.
+
+\bibitem{Gagolewski2012:smps}
+Gągolewski M., Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190), Springer-Verlag, Heidelberg, 2013, pp. 359-367.
+
+\bibitem{Gagolewski2012:ipmu}
+Gągolewski M., On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators, In: Greco S. et al (Eds.), Advances in Computational Intelligence, Part III (CCIS 299), Springer-Verlag, Heidelberg, 2012, pp. 276-285.
+
+\bibitem{GagolewskiGrzegorzewski:eusflatlfa}
+Gągolewski M., Grzegorzewski P., Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, 2011, pp. 53-58.
+
+\bibitem{Gagolewski2010:smps}
+Gągolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.
+
+\bibitem{GagolewskiGrzegorzewski2010:ipmu}
+Gągolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.
+
 \bibitem{agopHome}
 Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
 \href{http://www.rexamine.com/resources/agop/}{www.rexamine.com/resources/agop/},

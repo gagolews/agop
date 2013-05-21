@@ -30,6 +30,7 @@
 #' \code{x} and \code{y} are nonincreasingly sorted numeric vector,
 #' set to \code{TRUE} to speed up the code execution
 #' @return single logical value; whether x <= y
+#' @family agop_binary_relations
 #' @export
 pord_weakdom <- function(x, y, disable_check=FALSE)
 {
@@ -50,6 +51,7 @@ pord_weakdom <- function(x, y, disable_check=FALSE)
 #' @param pord function with 2 arguments, returning boolean value
 #' @param ... additional arguments passed to \code{pord}
 #' @return object of class \code{Matrix}, with 1s and 0s
+#' @family agop_binary_relations
 #' @export
 rel_graph <- function(x, pord, ...)
 {
@@ -78,7 +80,7 @@ rel_graph <- function(x, pord, ...)
 #' on the diagonal of \code{B} are non-zeros.
 #' 
 #' @param B object of class \code{Matrix}, with 1s and 0s
-#' @seealso \code{\link{rel_graph}}
+#' @family agop_binary_relations
 #' @export
 is_reflexive <- function(B)
 {
@@ -93,7 +95,7 @@ is_reflexive <- function(B)
 #' for all \code{x}, \code{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @param B object of class \code{Matrix}, with 1s and 0s
-#' @seealso \code{\link{rel_graph}}
+#' @family agop_binary_relations
 #' @export
 is_total <- function(B)
 {
@@ -110,7 +112,7 @@ is_total <- function(B)
 #' => \eqn{xRz}
 #' 
 #' @param B object of class \code{Matrix}, with 1s and 0s
-#' @seealso \code{\link{rel_graph}}
+#' @family agop_binary_relations
 #' @export
 is_transitive <- function(B)
 {
@@ -134,7 +136,7 @@ is_transitive <- function(B)
 #' 
 #' 
 #' @param B object of class \code{Matrix}, with 1s and 0s
-#' @seealso \code{\link{rel_graph}}
+#' @family agop_binary_relations
 #' @export
 de_transitive <- function(B)
 {
@@ -158,7 +160,9 @@ de_transitive <- function(B)
 
 #' Transitive Closure of Adjacency Matrix
 #' 
+#' @param B object of class \code{Matrix}, with 1s and 0s
 #' @export
+#' @family agop_binary_relations
 make_transitive <- function(B)
 {
    stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
@@ -184,7 +188,9 @@ make_transitive <- function(B)
 #' 
 #' if you want a total preorder, call \code{\link{make_transitive}}
 #' 
+#' @param B object of class \code{Matrix}, with 1s and 0s
 #' @export
+#' @family agop_binary_relations
 make_total_fair <- function(B)
 {
    stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)

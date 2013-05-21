@@ -56,6 +56,7 @@
 #' plot_producer(john_s, main="Smith, John", col="red")
 #' @export
 #' @name plot_producer
+#' @family agop_visualization
 #' @aliases plot.citfun
 plot_producer <- function(x,
    type=c('left.continuous', 'right.continuous', 'curve'),
@@ -121,6 +122,16 @@ plot_producer <- function(x,
 
 #' @export
 plot.citfun <- plot_producer
+
+
+
+
+
+
+
+
+
+
 
 
 
