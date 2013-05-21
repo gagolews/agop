@@ -22,7 +22,7 @@
 
 
 
-#include "pareto2.h"
+#include "agop.h"
 
 
 void pareto2_phirsch(double* x, int* m, double* n, double* k, double* s)

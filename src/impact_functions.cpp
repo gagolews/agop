@@ -21,27 +21,35 @@
 
 
 
-
-#include "impact_functions.h"
-
+#include "agop.h"
 
 
-/** Function to compute the h-index, O(n) time.
- *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param out pointer to the result (return value)
+/** Compute the h-index, O(n) time for sorted data
+ * 
+ * @param x numeric vector
+ * @return numeric vector
  */
-void index_h(double* x, int* n, double* out)
+SEXP index_h(SEXP x)
 {
-	int i = 0;
-	int k = *n;
-	while (i<k)
-	{
-		if (x[i] < (double)i+1) break;
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
+      
+   R_len_t i = 0;
+	while (i < n)	{
+		if (xd[i] < (double)i+1) break;
 		++i;
 	}
-	*out = (double)i;
+	
+   return ScalarReal((double) i);
 }
+
+
 
 
 /** *internal* function to compute the h-index, O(log n) time.

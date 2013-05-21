@@ -18,34 +18,25 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Computes the "Classical" \eqn{h}-index of a numeric vector.
+#' The h-index
 #'
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-#' where \eqn{x_i \ge x_j} for \eqn{i \le j},
+#' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{h}-index} (Hirsch, 2005) for \eqn{x} is defined as
 #' \deqn{H(x)=\max\{i=1,\dots,n: x_i \ge i\}}{H(x)=max{i=1,\dots,n: x_i \ge i}}
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{H(x)=0} otherwise.
 #'
-#' If \code{disable.check} is set to \code{FALSE}, then
-#' eventual \code{NA} values are removed from the input vector.
-#'
-#' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-#' the value is calculated in linear or log-time, depending on the value of the \code{algorithm} parameter.
-#'
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' For historical reasons, this function is also available via its alias,
+#' \code{index.h} [but its usage is deprecated].
+#' 
 #' @references Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
 #'
 #' @title Hirsch's h-index
 #' @param x a non-negative numeric vector.
-#' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-#' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-#' @param algorithm type of algorithm, "linear-time" or "log-time" (default).
-#' @return The function returns a single number or NA if improper input has been given.
-#' @seealso
-#' \code{\link{pareto2.confint.h}}, \code{\link{pareto2.htest}},
-#' \code{\link{pareto2.htest.approx}},\cr
-#' \code{\link{phirsch}}, \code{\link{dhirsch}}, 
-#' \code{\link{index.g}}, \code{\link{index.rp}}, \code{\link{index.lp}},
-#' \code{\link{Sstat}}, \code{\link{Sstat2}}
+#' @return The function returns a single numeric value
+#' @family agop_funclasses
 #'
 #' @examples
 #' authors <- list(  # a list of numeric sequences
@@ -55,38 +46,25 @@
 #'     "B" =c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0),
 #'     "C" =c(53,43,32,23,14,13,12,8,4,3,2,1,0)
 #'  );
-#' index.h(authors$A);
-#' lapply(authors, index.h);
+#' index_h(authors$A);
+#' sapply(authors, index.h);
 #' @export
-index.h <- function(x, sorted.dec=FALSE, disable.check=FALSE, algorithm=c("log-time", "linear-time"))
+index_h <- function(x)
 {
-	algorithm <- match.arg(algorithm);
-
-	if (!disable.check)
-	{
-		if (length(x) == 0) return(0);
-		if (mode(x) != "numeric") return(NA);
-		if (any(x < 0)) return(NA);
-		x <- x[!is.na(x)];
-	}
-
-	if (!sorted.dec)
-		x <- sort(x, decreasing=TRUE);
-
-	if (algorithm == "linear-time") {
-		.C("index_h", as.double(x), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-	} else {
-		# (may be slower):
-		.C("index_h_log", as.double(x), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-	}
+   .Call("index_h", x, PACKAGE="agop")
 }
 
 
+#' @export
+plot.h <- index_h # deprecated
 
-#' Computes the "Classical" \eqn{g}-index of a numeric vector.
+
+
+
+#' The g-index
 #'
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-#' where \eqn{x_i \ge x_j} for \eqn{i \le j},
+#' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{g}-index} (Egghe, 2006) for \eqn{x} is defined as
 #' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{G(x)=0} otherwise.
@@ -96,6 +74,7 @@ index.h <- function(x, sorted.dec=FALSE, disable.check=FALSE, algorithm=c("log-t
 #'
 #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
 #' the value is calculated in linear time.
+#' 
 #'
 #' @references Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
 #'

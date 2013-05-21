@@ -313,6 +313,9 @@ $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$
 
 Let $x_{(i)}$ denote the $i$th order statistic...
 
+
+
+
 \subsection{Aggregation Operators and Their Basic Properties}
 
 \begin{definition}
@@ -424,6 +427,8 @@ i.e.~its $(n-i+1)$th order statistic.
 
 \section{Predefined Classes of Aggregation Operators in \package{agop}}
 
+
+\subsection{A Note on Representing Numeric Data and Applying Functions in \R}
 Generally, in our implementation we most often deal with numeric vectors.
 Recall how we create them in \R:
 
@@ -437,15 +442,40 @@ class(x1)
 @
 
 Sometimes we will store the vectors of the same length
-in a matrix (column-/row-wise.... col/rownames....) apply()....
+in a matrix (column-/row-wise.... col/rownames....) \Rfunc{apply()}....
+
+<<matrixexample>>=
+expertopinions <- matrix(c(
+      6,7,2,3,1, # this will be the first COLUMN
+      8,3,2,1,9, # 2nd
+      4,2,4,1,6  # 3rd
+   ),
+   ncol=3,
+   dimnames=list(NULL, c("A", "B", "C")) # only column names set
+)
+class(expertopinions)
+print(expertopinions)   # or print(authors)
+apply(expertopinions, 2, mean) # on each COLUMN apply the mean() function
+@
 
 ...or in a list, especially when they are not of the same length....
-lapply.... sapply.....
+\Rfunc{lapply()}.... \Rfunc{sapply()}..... possibly named elements...
+
+<<listexample>>=
+authors <- list(
+   "John S." = c(7,6,2,1,0),
+   "Kate F." = c(9,8,7,6,4,1,1,0)
+)
+class(authors)
+str(authors)   # or print(authors)
+index_h(authors[[1]]) # the h-index (see below) for 1st author
+sapply(authors, index_h) # calculate the h-index for all vectors in a list
+index_h(authors) # index_h() expects an numeric vector on input
+@
 
 
 
-
-\bigskip
+\subsection{...}
 weighted average, OWA
 
 WMin, OWMin, qI
@@ -456,7 +486,64 @@ qL
 
 OM3
 
-$h$-index, $g$-, $w$-, $r_p$-, $l_p$-
+
+\subsection{Bibliometric Impact Indices}
+
+Below we assume that $\Ival=[0,\infty]$.
+% All the functions are symmetric. The input vectors are of course
+% being sorted if necessary during calculations.
+
+
+\paragraph{The $h$-index.}
+Given a sequence $\vect{x}=(x_1,\dots,x_n)\in\IvalAnyPow$,
+the \emph{Hirsch index} \cite{Hirsch2005:hindex} of $\vect{x}$ is defined as
+$\func{H}(x)=\max\{i=1,\dots,n: x_{\{i\}} \ge i\}$
+if $n \ge 1$ and $x_{\{1\}} \ge 1$, or $\func{H}(x)=0$ otherwise.
+It may be shown that the $h$-index is an zero-insensitive
+OM3 aggeration operator,
+see \cite{Gagolewski2013:om3}, with:
+\[
+   \func{H}(\vect{x}) = \bigvee_{i=1,\dots,n}^n i\wedge \lfloor x_{\{i\}}\rfloor.
+\]
+Interpretation: ``an author has $h$-index of $H$ if $H$ of his/her
+$n$ most cited papers have at least $H$ citations each, and the other $n-H$
+papers are cited no more that $H$ times each''.
+The $h$-index may also be expressed as a Sugeno 
+integral \cite{Sugeno1974:PhD}
+w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
+
+\package{agop} implementation: \Rfunc{index\_h()}.
+
+<<index_h>>=
+index_h(c(6,5,4,2,1,0,0,0,0,0,0))
+index_h(c(-1,3,4,2)) # only for x>=0
+@
+
+
+\paragraph{The $g$-index.}
+Egghe's $g$-index \cite{Egghe2006:g}
+
+The index is interesting from the computational point of view --
+it is calculated on the nondecreasing vector of cumulative sums,
+\texttt{\Rfunc{cumsum}(\Rfunc{sort}(x, decreasing=TRUE))}
+
+
+\paragraph{The $w$-index.}
+
+
+
+\paragraph{The $\mathrm{MAXPROD}$-index.}
+
+
+
+
+\paragraph{The $r_p$-indices.}
+
+
+
+\paragraph{The $l_p$-indices.}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -668,6 +755,14 @@ Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregatio
 \bibitem{CenaGagolewski2013:agop2}
 Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).
 
+\bibitem{Choquet1954:theorycapa}
+G. Choquet, Theory of capacities,
+\textit{Ann. Inst. Fourier} 5, 1954, pp. 131--292
+
+\bibitem{Egghe2006:g}
+L. Egghe, An improvement of the $H$-index:~the $G$-index, 
+ISSI Newsletter 2(1), 2006, pp. 8--9
+
 \bibitem{Gagolewski2013:om3}
 Gągolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180.
 
@@ -707,6 +802,26 @@ Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
 Grabisch M., Marichal J.-L.,  Mesiar R., Pap E.,
 \textit{Aggregation functions},
 Cambridge University Press, 2009.
+
+\bibitem{Hirsch2005:hindex}
+J.E. Hirsch,
+An index to quantify individual's scientific research output,
+\textit{Proceedings of the National Academy of Sciences} 102(46),
+2005, pp. 16569--16572.
+
+\bibitem{Kosmulski2007:maxprod}
+M. Kosmulski,
+MAXPROD -- A~new index for assessment of the scientific output of an individual,
+and a comparison with the $h$-index, \textit{Cybermetrics} 11(1), 2007.
+
+\bibitem{Sugeno1974:PhD}
+M. Sugeno, \textit{Theory of fuzzy integrals and its applications},
+PhD dissertation, Tokyo Institute of Technology, Meguro-ku, Tokyo, 1974.
+
+\bibitem{TorraNarukawa2008:h2fuzzyintegrals}
+V. Torra, Y. Narukawa,
+The $h$-index and the number of citations: Two fuzzy integrals,
+\textit{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795--797.
 
 \end{thebibliography}
 

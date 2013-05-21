@@ -23,6 +23,7 @@
 #'
 #' \bold{Keywords}: ...
 #'
+#' @useDynLib agop
 #' @name agop-package
 #' @docType package
 #' @title ...
@@ -43,14 +44,6 @@
 #' Gągolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.\cr
 #' Gągolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: Hüllermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.\cr
 #' Grabisch M., Marichal J.-L.,  Mesiar R., Pap E., Aggregation functions, Cambridge University Press, 2009.\cr
-#' ...
+#' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' 
 invisible(NULL)
-
-
-#' TO DO
-#' @useDynLib agop
-.onAttach <- function(lib, pkg)
-{
-
-}
-

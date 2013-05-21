@@ -36,7 +36,7 @@
 #' is called a citation function.
 #' 
 #' For historical reasons, this function is also available via its alias,
-#' \code{plot.citfun}.
+#' \code{plot.citfun} [but its usage is deprecated].
 #'
 #' @param x non-negative numeric vector
 #' @param type character; type of the graphical \code{'left.continuous'} (the default)
@@ -56,6 +56,7 @@
 #' plot_producer(john_s, main="Smith, John", col="red")
 #' @export
 #' @name plot_producer
+#' @rdname plot_producer
 #' @family agop_visualization
 #' @aliases plot.citfun
 plot_producer <- function(x,
@@ -121,7 +122,7 @@ plot_producer <- function(x,
 
 
 #' @export
-plot.citfun <- plot_producer
+plot.citfun <- plot_producer # deprecated
 
 
 
