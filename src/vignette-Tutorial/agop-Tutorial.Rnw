@@ -299,19 +299,29 @@ Good luck!
 \section{Theoretical Background}
 
 Let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$
-(in many practical situations we often choose $\Ival=[0,1]$ or $\Ival=[0,\infty]$).
+(in many practical situations we choose $\Ival=[0,1]$ or $\Ival=[0,\infty]$).
 
 Moreover, let $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ (set
 of vectors with elements in $\Ival$ -- of any length).
 
 Notational convention:
 For $\vect{x},\vect{y}\in\IvalPow{n}$
-we write $\vect{x}\le\vect{y}$
-iff for all $i$ it holds $x_i\le y_i$
+we write $\vect{x}\le\vect{y}$ iff for all $i$ it holds $x_i\le y_i$.
 
-$(n\ast c) = (c,\dots,c)\in\IvalPow{n}$
+All binary arithmetic operations on vectors $\vect{x},\vect{y}\in\IvalPow{n}$
+are performed element-wise,
+e.g. $\vect{x}+\vect{y}=(x_1+y_1,\dots,x_n+y_n)\in\IvalPow{n}$.
+Similarly: $-$, $\cdot$, $/$, $\wedge$ (min), $\vee$ (max), etc.
+Additionally, each function of one variable
+$\func{f}:\Ival\to\Ival$ can be extended to the vector
+space: we write $\func{f}(\vect{x})=(\func{f}(x_1), \dots, \func{f}(x_n))$.
 
-Let $x_{(i)}$ denote the $i$th order statistic...
+Let $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
+
+Let $x_{(i)}$ denote the $i$th order statistic,
+i.e.~the $i$th smallest value in $\vect{x}$.
+Moreover, for convenience,
+let $x_{\{i\}}=x_{|\vect{x}|-i+1}$ denote the $i$th greatest value in $\vect{x}$.
 
 
 
@@ -476,13 +486,14 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 
 \subsection{...}
-weighted average, OWA
+
+
+
+weighted average, OWA (L-statistics), qL
 
 WMin, OWMin, qI
 
-WMax, OWMax, qS
-
-qL
+WMax, OWMax (S-statistics), qS 
 
 OM3
 
@@ -724,6 +735,59 @@ plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 
 Thus, we've obtained
 $L \prec (A \simeq B \simeq C) \prec U$
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Aggregation Operators from the Probabilistic Perspective}
+
+Theory of aggregation looks on the aggregation operators
+from the algebraic/calculus perspective. Of course, we should
+always be interested in their probabilistic properties,
+e.g.~in i.i.d.~RVs models.
+
+In such case we assume that input data are in fact realizations
+of some random samples.
+
+In probability, an aggregation operator
+is simply called a \emph{statistic} (formalism......)
+
+
+\subsection{Stochastic Models}
+
+
+Pareto2.....
+
+
+
+\subsection{Stochastic Properties of Aggregation Operators}
+
+OWA, L-statistics
+
+OWMax, S-statistics
+
+$h$-index and its distribution
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 \section{NEWS/CHANGELOG}
 
