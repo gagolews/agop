@@ -136,84 +136,84 @@ plot.citfun <- plot_producer # deprecated
 
 
 
-#' The \eqn{r_p}-curve appears in the definition of the \eqn{r_p}-index
-#' (see Gagolewski, Grzegorzewski, 2009) and the \code{\link{index.rp}} function.
-#'
-#' @title Draw the r_p-curve of given radius
-#' @param r radius of the \eqn{r_p}-curve; \eqn{r>0}.
-#' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
-#' @param n integer; the maximal number of values at which to evaluate the underlying function.
-#' @param ... additional graphical parameters.
-#' @seealso \code{\link{index.rp}}, \code{\link{plot.citfun}}, \code{\link{plot.default}}
-#' @examples
-#' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0);
-#' plot.citfun(john_s, main="Smith, John");
-#' curve.add.rp(index.rp(john_s), col="green");
-#' curve.add.rp(index.rp(john_s,1), 1, col="blue");
-#' curve.add.rp(index.rp(john_s,2), 2, col="red");
-#' @references
-#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009a, 617-634.\cr
-#' @export
-curve.add.rp <- function(r, p=Inf, n=101, ...)
-{
-   if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
-   if (p < 1) stop("p must be >= 1");
-
-   if (length(r) != 1 || mode(r) != "numeric") stop("r must be a single numeric value");
-   if (r <= 0) stop("r must be > 0");
-
-   if (is.finite(p))
-   {
-      px <- seq(0,r,length=n);
-      py <- (r^p-px^p)^(1.0/p);
-      lines(px, py, ...);
-   } else
-   {
-      lines(c(0,r), c(r,r), ...);
-      points(r, r, ...);
-   }
-}
-
-
+# #' The \eqn{r_p}-curve appears in the definition of the \eqn{r_p}-index
+# #' (see Gagolewski, Grzegorzewski, 2009) and the \code{\link{index.rp}} function.
+# #'
+# #' @title Draw the r_p-curve of given radius
+# #' @param r radius of the \eqn{r_p}-curve; \eqn{r>0}.
+# #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
+# #' @param n integer; the maximal number of values at which to evaluate the underlying function.
+# #' @param ... additional graphical parameters.
+# #' @seealso \code{\link{index.rp}}, \code{\link{plot.citfun}}, \code{\link{plot.default}}
+# #' @examples
+# #' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0);
+# #' plot.citfun(john_s, main="Smith, John");
+# #' curve.add.rp(index.rp(john_s), col="green");
+# #' curve.add.rp(index.rp(john_s,1), 1, col="blue");
+# #' curve.add.rp(index.rp(john_s,2), 2, col="red");
+# #' @references
+# #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009a, 617-634.\cr
+# #' @export
+# curve.add.rp <- function(r, p=Inf, n=101, ...)
+# {
+#    if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
+#    if (p < 1) stop("p must be >= 1");
+# 
+#    if (length(r) != 1 || mode(r) != "numeric") stop("r must be a single numeric value");
+#    if (r <= 0) stop("r must be > 0");
+# 
+#    if (is.finite(p))
+#    {
+#       px <- seq(0,r,length=n);
+#       py <- (r^p-px^p)^(1.0/p);
+#       lines(px, py, ...);
+#    } else
+#    {
+#       lines(c(0,r), c(r,r), ...);
+#       points(r, r, ...);
+#    }
+# }
 
 
-#' The \eqn{l_p}-curve appears in the definition of the \eqn{l_p}-index
-#' (see Gagolewski, Grzegorzewski, 2009) and the \code{\link{index.lp}} function.
-#'
-#' @title Draw the l_p-curve of given size
-#' @param ab size of the \eqn{l_p}-curve; positive numeric vector of length 2.
-#' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
-#' @param n integer; the maximal number of values at which to evaluate the underlying function.
-#' @param ... additional graphical parameters.
-#' @seealso \code{\link{index.lp}}, \code{\link{plot.citfun}}, \code{\link{plot.default}}
-#' @examples
-#' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0);
-#' plot.citfun(john_s, main="Smith, John");
-#' curve.add.lp(index.lp(john_s), col="green");
-#' curve.add.lp(index.lp(john_s,1), 1, col="blue");
-#' curve.add.lp(index.lp(john_s,2), 2, col="red");
-#' @references
-#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009a, 617-634.\cr
-#' @export
-curve.add.lp <- function(ab, p=Inf, n=101, ...)
-{
-   if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
-   if (p < 1) stop("p must be >= 1");
 
-   if (length(ab) != 2 || mode(ab) != "numeric") stop("ab must be a numeric vector of length 2");
-   if (any(ab <= 0)) stop("ab must be > 0");
 
-   a <- ab[1];
-   b <- ab[2];
-
-   if (is.finite(p))
-   {
-      px <- seq(0,a,length=n);
-      py <- (b^p-(b/a*px)^p)^(1.0/p);
-      lines(px, py, ...);
-   } else
-   {
-      lines(c(0,a), c(b,b), ...);
-      points(a, b, ...);
-   }
-}
+# #' The \eqn{l_p}-curve appears in the definition of the \eqn{l_p}-index
+# #' (see Gagolewski, Grzegorzewski, 2009) and the \code{\link{index.lp}} function.
+# #'
+# #' @title Draw the l_p-curve of given size
+# #' @param ab size of the \eqn{l_p}-curve; positive numeric vector of length 2.
+# #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
+# #' @param n integer; the maximal number of values at which to evaluate the underlying function.
+# #' @param ... additional graphical parameters.
+# #' @seealso \code{\link{index.lp}}, \code{\link{plot.citfun}}, \code{\link{plot.default}}
+# #' @examples
+# #' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0);
+# #' plot.citfun(john_s, main="Smith, John");
+# #' curve.add.lp(index.lp(john_s), col="green");
+# #' curve.add.lp(index.lp(john_s,1), 1, col="blue");
+# #' curve.add.lp(index.lp(john_s,2), 2, col="red");
+# #' @references
+# #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009a, 617-634.\cr
+# #' @export
+# curve.add.lp <- function(ab, p=Inf, n=101, ...)
+# {
+#    if (length(p) != 1 || mode(p) != "numeric") stop("p must be a single numeric value");
+#    if (p < 1) stop("p must be >= 1");
+# 
+#    if (length(ab) != 2 || mode(ab) != "numeric") stop("ab must be a numeric vector of length 2");
+#    if (any(ab <= 0)) stop("ab must be > 0");
+# 
+#    a <- ab[1];
+#    b <- ab[2];
+# 
+#    if (is.finite(p))
+#    {
+#       px <- seq(0,a,length=n);
+#       py <- (b^p-(b/a*px)^p)^(1.0/p);
+#       lines(px, py, ...);
+#    } else
+#    {
+#       lines(c(0,a), c(b,b), ...);
+#       points(a, b, ...);
+#    }
+# }

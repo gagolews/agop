@@ -80,52 +80,54 @@ using namespace std;
    
    
    
-
-SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname);
-SEXP vector_NA_double(R_len_t howmany);
-SEXP prepare_arg_string(SEXP x, const char* argname);
-SEXP prepare_arg_double(SEXP x, const char* argname);
-SEXP prepare_arg_integer(SEXP x, const char* argname);
-SEXP prepare_arg_logical(SEXP x, const char* argname);
-SEXP prepare_arg_string_1(SEXP x, const char* argname);
-SEXP prepare_arg_double_1(SEXP x, const char* argname);
-SEXP prepare_arg_integer_1(SEXP x, const char* argname);
-SEXP prepare_arg_logical_1(SEXP x, const char* argname);
-
-SEXP index_h(SEXP x);
+SEXP vector_NA_double(R_len_t howmany); // internal
+SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_string(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_double(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_integer(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_logical(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_string_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_double_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_integer_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 
 
-
-
-
-void pareto2_phirsch(double* x, int* m, double* n, double* k, double* s);
-void pareto2_dhirsch(double* x, int* m, double* n, double* k, double* s);
+SEXP index_h(SEXP x); // the h-index
+int __index_h_log(double* x, int n); // internal, currently not used
 
 
 
 
+void index_g(double* x, int* n, double* out); // @TODO: rewrite
 
-int __index_h_log(double* x, int n);
+void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 
-void index_h_log(double* x, int* n, double* out);
+void index_rp_finite(double* x, int* n, double *p, double* out); // @TODO: rewrite
 
-void index_g(double* x, int* n, double* out);
-
-void Sstat2(double* x, int* n, double* out);
-
-void index_rp_finite(double* x, int* n, double *p, double* out);
-
-void index_rp_infinite(double* x, int* n, double* out);
+void index_rp_infinite(double* x, int* n, double* out); // @TODO: rewrite
 
 
 
-int __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj);
+int __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj); // @TODO: rewrite
 
-void __index_lp_finite_getAB(double p, double ui, double vi, double uj, double vj, double* a2p, double* b2p);
+void __index_lp_finite_getAB(double p, double ui, double vi, double uj, double vj, double* a2p, double* b2p); // @TODO: rewrite
 
-void index_lp_finite(double* x, int* n, double *p, int* s, double* out);
+void index_lp_finite(double* x, int* n, double *p, int* s, double* out); // @TODO: rewrite
 
-void index_lp_infinite(double* x, int* n, double* out);
+void index_lp_infinite(double* x, int* n, double* out); // @TODO: rewrite
+
+
+
+
+
+void pareto2_phirsch(double* x, int* m, double* n, double* k, double* s); // @TODO: rewrite
+
+void pareto2_dhirsch(double* x, int* m, double* n, double* k, double* s); // @TODO: rewrite
+
+
+
+
+
 
 
 

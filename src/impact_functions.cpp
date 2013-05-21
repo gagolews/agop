@@ -52,7 +52,11 @@ SEXP index_h(SEXP x)
 
 
 
-/** *internal* function to compute the h-index, O(log n) time.
+/** *internal* function to compute the h-index, O(log n) time for sorted vectors.
+ * This has been described in (Gagolewski, Grzegorzewski, 2009).
+ * For "real-world" data (short vectors), this function is slower than the O(n)
+ * version.
+ *
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @param n number of observations, n >= 1
  *  @return result
@@ -74,15 +78,7 @@ int __index_h_log(double* x, int n)
 }
 
 
-/** Function to compute the h-index, O(log n) time.
- *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param out pointer to the result (return value)
- */
-void index_h_log(double* x, int* n, double* out)
-{
-	*out = (double) __index_h_log(x, *n);
-}
+
 
 
 /** Function to compute the g-index, O(n) time.
