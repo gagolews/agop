@@ -50,14 +50,14 @@ pord_weakdom <- function(x, y, disable_check=FALSE)
 #' @param x list with elements to compare, preferrably named
 #' @param pord function with 2 arguments, returning boolean value
 #' @param ... additional arguments passed to \code{pord}
-#' @return object of class \code{Matrix}, with 1s and 0s
+#' @return square 0-1 Matrix (of class \code{Matrix})
 #' @family agop_binary_relations
 #' @export
 rel_graph <- function(x, pord, ...)
 {
    stopifnot(is.list(x))
    n <- length(x)
-   ord <- Matrix(0L, nrow=n, ncol=n)
+   ord <- matrix(0L, nrow=n, ncol=n)
    colnames(ord) <- names(ex1)
    rownames(ord) <- names(ex1)
    
@@ -68,7 +68,7 @@ rel_graph <- function(x, pord, ...)
       }
    }
    
-   ord
+   Matrix(ord)
 }
 
 
@@ -79,12 +79,14 @@ rel_graph <- function(x, pord, ...)
 #' The function just checks whether all elements
 #' on the diagonal of \code{B} are non-zeros.
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @family agop_binary_relations
 #' @export
 is_reflexive <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    all(Matrix::diag(B) != 0)
 }
 
@@ -94,12 +96,14 @@ is_reflexive <- function(B)
 #' A binary relation R is total, iff
 #' for all \code{x}, \code{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @family agop_binary_relations
 #' @export
 is_total <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    all(B + Matrix::t(B) != 0)
 }
 
@@ -111,12 +115,14 @@ is_total <- function(B)
 #' for all \code{x}, \code{y}, \code{z} we have \eqn{xRy} and \eqn{yRz}
 #' => \eqn{xRz}
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @family agop_binary_relations
 #' @export
 is_transitive <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    # slow as hell!
    # @TODO - make faster
    n <- nrow(B)
@@ -135,12 +141,14 @@ is_transitive <- function(B)
 #' De-transitivitize graph (for draving hasse diagrams)
 #' 
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @family agop_binary_relations
 #' @export
 de_transitive <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    # slow as hell!
    n <- nrow(B)
    Matrix::diag(B) <- 0
@@ -160,12 +168,14 @@ de_transitive <- function(B)
 
 #' Transitive Closure of Adjacency Matrix
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @export
 #' @family agop_binary_relations
-make_transitive <- function(B)
+closure_transitive <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    # slow as hell!
    n <- nrow(B)
    for (i in 1:n) {
@@ -181,19 +191,21 @@ make_transitive <- function(B)
 
 
 
-#' Make Adjacency Matrix Total [fair totalization]
+#' Total Closure of Adjacency Matrix [fair totalization]
 #' 
 #' Fair totalization: for each pair (x,y) s.t.
 #' not xRy and not xRy let from now on xRy and yRx
 #' 
 #' if you want a total preorder, call \code{\link{make_transitive}}
 #' 
-#' @param B object of class \code{Matrix}, with 1s and 0s
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @export
 #' @family agop_binary_relations
-make_total_fair <- function(B)
+closure_total_fair <- function(B)
 {
-   stopifnot(is(B, "Matrix"), nrow(B) == ncol(B), nrow(B) > 0)
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    # slow as hell!
    n <- nrow(B)
    for (i in 1:n)

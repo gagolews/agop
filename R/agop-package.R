@@ -22,6 +22,10 @@
 #' ...
 #'
 #' \bold{Keywords}: ...
+#' 
+#' For more info refer to the Package Vignette.
+#' Its most recent version is available at
+#' \url{https://github.com/Rexamine/agop/blob/master/inst/doc/agop-Tutorial.pdf?raw=true}.
 #'
 #' @useDynLib agop
 #' @name agop-package
