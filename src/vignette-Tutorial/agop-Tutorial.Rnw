@@ -697,7 +697,7 @@ legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 get adjacency matrix for $(\{A, B, C, L, U\}, \trianglelefteq)$....
 
 <<ex1B,dependson='ex1'>>=
-ord <- rel_graph(ex1, pord_weakdom, disable.check=TRUE)
+ord <- rel_graph(ex1, pord_weakdom)
 print(ord)
 is_reflexive(ord)  # is reflexive
 is_transitive(ord) # is transitive
@@ -707,7 +707,16 @@ is_total(ord)      # not a total preorder...
 \noindent
 We see that we have $A \text{??} B$, $A \text{??} C$,
 $B \text{??} C$ (no pair from $\{A,B,C\}$ is comparable
-w.r.t.~$\trianglelefteq$).
+w.r.t.~$\trianglelefteq$):
+
+<<ex1B2,dependson='ex1B'>>=
+incomp <- get_incomparable_pairs(ord)
+incomp <- incomp[incomp[,1]<incomp[,2],] # remove permutations: ((1,2), (2,1))->(1,2)
+incomp[,] <- rownames(ord)[incomp]
+print(incomp) # all incomparable pairs
+# the other way: generate maximal independent sets
+lapply(get_independent_sets(ord), function(set) rownames(ord)[set]) 
+@
 
 To draw the Hasse diagram, it will be good to de-transitivize
 the graph (for \ae{}sthetic reasons)....

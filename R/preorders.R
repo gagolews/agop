@@ -59,12 +59,12 @@ rel_graph <- function(x, pord, ...)
    stopifnot(is.list(x))
    n <- length(x)
    ord <- matrix(0L, nrow=n, ncol=n)
-   colnames(ord) <- names(ex1)
-   rownames(ord) <- names(ex1)
+   colnames(ord) <- names(x)
+   rownames(ord) <- names(x)
    
    for (i in seq_along(x)) {
       for (j in seq_along(x)) {
-         if (pord(x[[i]], x[[j]]))
+         if (pord(x[[i]], x[[j]], ...))
             ord[i,j] <- 1L
       }
    }
@@ -125,7 +125,7 @@ is_total <- function(B)
 #' @export
 is_transitive <- function(B)
 {
-#    version 0.1
+#    # version 0.1
 #    if (is(B, 'igraph')) B <- get.adjacency(B)
 #    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
 #    # slow as hell!
@@ -153,6 +153,10 @@ is_transitive <- function(B)
          return(FALSE)
    }
    TRUE # reached here -> no FALSE -> is transitive :-)
+   
+   
+   # version 0.3 - todo
+   # use shortest.paths()
 }
 
 
@@ -236,4 +240,66 @@ closure_total_fair <- function(B)
    B[wh] <- 1
    B
 }
+
+
+
+#' Get Incomparable Pairs in an Adjacency Matrix
+#' 
+#' A pair (x,y) is incomparable iff
+#' not xRy and not xRy
+#'  
+#' See also \code{\link{get_independent_sets}} of how to generate
+#' all maximal independent sets.
+#' 
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return integer matrix with two columns (indices of incomparable elements,
+#' not that these are pairs, and not sets: you'll get (i,j) and (j,i))
+#' @export
+#' @family agop_binary_relations
+get_incomparable_pairs <- function(B)
+{
+   if (is(B, 'igraph')) B <- get.adjacency(B)
+   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+   
+   B2 <- B + Matrix::t(B)
+   # 0s lie symmetricly over diagonal and indicate incomparable pairs
+   Matrix::which(B2 == 0, arr.ind=TRUE)
+}
+
+
+#' Get All Maximal Independent Sets
+#' 
+#' 
+#' The function generates vectors of indices \eqn{S_j=\{i_1,...,i_{k_j}\}}
+#' such that all pairs from \eqn{S_j} are incomparable
+#' (A pair (i,i') is incomparable iff
+#' not \eqn{i R i'} and not \eqn{i' R i},
+#' see also \code{\link{get_incomparable_pairs}}.
+#' 
+#' 
+#' 
+#' Note that we assume that \eqn{B} is transitive.
+#' Loops are not taken into account at all.
+#' 
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return list of integer vectors; each list element defines
+#' an independent set of vertices numbers
+#' 
+#' @export
+#' @family agop_binary_relations
+get_independent_sets <- function(B)
+{
+   if (!is(B, 'igraph')) B <- graph.adjacency(B)
+   
+   # create graph with all not-directly-connected nodes
+   C <- (shortest.paths(B, mode="all") > 1) # symmetric
+   diag(C) <- 0
+   
+   # find all maximal cliques (== independent sets)
+   out <- maximal.cliques(graph.adjacency(C, mode="undirected"))
+   out[sapply(out, length) > 1] # remove singletons
+}
+
 
