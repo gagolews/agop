@@ -46,6 +46,7 @@ pord_weakdom <- function(x, y, disable_check=FALSE)
 #' Create Adjacency Matrix of Given Binary Relation
 #' 
 #' Note that adjacency matrix  can also be conceived as a directed graph (DAG).
+#' ret[i,j] iff i <= j
 #' 
 #' @param x list with elements to compare, preferrably named
 #' @param pord function with 2 arguments, returning boolean value
@@ -81,6 +82,7 @@ rel_graph <- function(x, pord, ...)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return single logical value
 #' @family agop_binary_relations
 #' @export
 is_reflexive <- function(B)
@@ -98,6 +100,7 @@ is_reflexive <- function(B)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return single logical value
 #' @family agop_binary_relations
 #' @export
 is_total <- function(B)
@@ -117,24 +120,39 @@ is_total <- function(B)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return single logical value
 #' @family agop_binary_relations
 #' @export
 is_transitive <- function(B)
 {
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   # slow as hell!
-   # @TODO - make faster
-   n <- nrow(B)
-   for (i in 1:n) {
-      for (j in 1:n) {
-         for (k in 1:n) {
-            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
-               return(FALSE)
-         }
-      }
+#    version 0.1
+#    if (is(B, 'igraph')) B <- get.adjacency(B)
+#    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+#    # slow as hell!
+#    # @TODO - make faster
+#    n <- nrow(B)
+#    for (i in 1:n) {
+#       for (j in 1:n) {
+#          for (k in 1:n) {
+#             if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
+#                return(FALSE)
+#          }
+#       }
+#    }
+#    TRUE
+   
+   # version 0.2
+   if (!is(B, 'igraph')) B <- graph.adjacency(B)
+   n <- vcount(B)
+   for (i in 1:n) { # for each vertex
+      # do breadth-first search from each vertex
+      # transitivity holds iff each reachable vertex is within distance of 1
+      disti <- graph.bfs(B, root=i, unreachable=FALSE, order=FALSE, dist=TRUE)$dist
+      disti <- disti[!is.nan(disti)]
+      if (length(disti) > 0 && any(disti > 1))
+         return(FALSE)
    }
-   TRUE
+   TRUE # reached here -> no FALSE -> is transitive :-)
 }
 
 
@@ -143,6 +161,7 @@ is_transitive <- function(B)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return object of class \code{Matrix}
 #' @family agop_binary_relations
 #' @export
 de_transitive <- function(B)
@@ -170,12 +189,15 @@ de_transitive <- function(B)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return object of class \code{Matrix}
 #' @export
 #' @family agop_binary_relations
 closure_transitive <- function(B)
 {
+   if (is_transitive(B)) return(B) # do nothing
    if (is(B, 'igraph')) B <- get.adjacency(B)
    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+   
    # slow as hell!
    n <- nrow(B)
    for (i in 1:n) {
@@ -200,20 +222,18 @@ closure_transitive <- function(B)
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return object of class \code{Matrix}
 #' @export
 #' @family agop_binary_relations
 closure_total_fair <- function(B)
 {
    if (is(B, 'igraph')) B <- get.adjacency(B)
    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   # slow as hell!
-   n <- nrow(B)
-   for (i in 1:n)
-      for (j in (i:n))
-         if (!B[i,j] && !B[j,i]) {
-            B[i,j] <- 1
-            B[j,i] <- 1
-         }
+   
+   B2 <- B + Matrix::t(B)
+   # 0s lie symmetricly over diagonal and indicate incomparable pairs
+   wh <- Matrix::which(B2 == 0, arr.ind=TRUE)
+   B[wh] <- 1
    B
 }
 

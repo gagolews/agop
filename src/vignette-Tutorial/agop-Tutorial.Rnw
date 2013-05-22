@@ -726,15 +726,14 @@ y\trianglelefteq x)$ + calculate transitive closure
 
 
 <<ex1D,dependson='ex1C'>>=
-ord_total <- make_transitive(make_total_fair(ord)) # a total preorder
+ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder
 print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
-Thus, we've obtained
-$L \prec (A \simeq B \simeq C) \prec U$
+Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
 
 
 
