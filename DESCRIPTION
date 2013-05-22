@@ -1,8 +1,11 @@
 Package: agop
 Version: 0.1-1
 Date: 2013-05-22
-Title: Aggregation Operators
-Description: Tools to deal with aggregation operators in R
+Title: Aggregation Operators and Preordered Sets
+Description: Tools supporting multi-criteria decision making,
+    including variable number of criteria, by means of
+    aggregation operators and pre-ordered sets. Possible applications include,
+    but are not limited to, sciento-, biblio-, and informetrics.
 URL: http://www.rexamine.com/resources/agop/
 BugReports: https://github.com/Rexamine/agop/issues
 ByteCompile: FALSE

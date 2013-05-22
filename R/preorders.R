@@ -303,3 +303,39 @@ get_independent_sets <- function(B)
 }
 
 
+
+#' Get All Equivalence Classes of a Total Binary Relation
+#' 
+#' 
+#' 
+#' 
+#' 
+#' Note that we assume that \eqn{B} is total, reflexive and transitive.
+#' 
+#' @param B object of class \code{igraph} or a square
+#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @return list of integer vectors; each list element defines
+#' an equivalence class by listing vertices' numbers;
+#' each vector is ordered by the outdegrees of their nodes (they are
+#' the same in each class)
+#' 
+#' @export
+#' @family agop_binary_relations
+get_equivalence_classes <- function(B)
+{
+   if (!is(B, 'igraph')) { BAD <- B; B <- graph.adjacency(B);  }
+   else { BAD <- get.adjacency(B) ;}
+   stopifnot(is_total(BAD), is_transitive(BAD))
+   
+   stop("TO DO")
+   
+   # create graph with all not-directly-connected nodes
+   C <- (shortest.paths(B, mode="all") > 1) # symmetric
+   diag(C) <- 0
+   
+   # find all maximal cliques (== independent sets)
+   out <- maximal.cliques(graph.adjacency(C, mode="undirected"))
+   out[sapply(out, length) > 1] # remove singletons
+}
+
+
