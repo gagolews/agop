@@ -327,15 +327,15 @@ get_equivalence_classes <- function(B)
    else { BAD <- get.adjacency(B) ;}
    stopifnot(is_total(BAD), is_transitive(BAD))
    
-   stop("TO DO")
+   n <- nrow(BAD)
    
-   # create graph with all not-directly-connected nodes
-   C <- (shortest.paths(B, mode="all") > 1) # symmetric
-   diag(C) <- 0
-   
-   # find all maximal cliques (== independent sets)
+   # create graph with all `symmetric` pairs
+   C <- as.matrix(ord_total) & as.matrix(t(ord_total))
    out <- maximal.cliques(graph.adjacency(C, mode="undirected"))
-   out[sapply(out, length) > 1] # remove singletons
+   
+   ord <- order(rowSums(ord), decreasing=TRUE)
+   warning("TODO: sort")
+   out
 }
 
 
