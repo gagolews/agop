@@ -387,14 +387,11 @@ for example when we consider citations normalized with respect
 to the number of papers' authors.
 
 
-It is widely accepted, see e.g.~(Woeginger, 
-\cite{Woeginger2008:axiomatich,Woeginger2008:axiomaticg,
-Woeginger2008:symmetryaxiom};
-Rousseau, \cite{Rousseau2008:woegingerax};
-Quesada, \cite{Quesada2009:monotonicityh,
-Quesada2010:moreaxiomatics}; Gagolewski, Grzegorzewski,
-\cite{GagolewskiGrzegorzewski2011:ijar};
-Franceschini, Maisano, \cite{FranceschiniMaisano2011:structevalh}),
+It is widely accepted, see e.g.~\cite{Woeginger2008:axiomatich,
+Woeginger2008:axiomaticg,
+Woeginger2008:symmetryaxiom,Rousseau2008:woegingerax,Quesada2009:monotonicityh,
+Quesada2010:moreaxiomatics,GagolewskiGrzegorzewski2011:ijar,
+Gagolewski2011:PhD,FranceschiniMaisano2011:structevalh},
 that each aggregation operator
  $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the impact assessment
  process  should at least be:
@@ -759,7 +756,8 @@ Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
 Theory of aggregation looks on the aggregation operators
 from the algebraic/calculus perspective. Of course, we should
 always be interested in their probabilistic properties,
-e.g.~in i.i.d.~RVs models.
+e.g.~in i.i.d.~RVs models (the simplest and the most ``natural''
+ones in statistics), cf.~\cite{Gagolewski2011:PhD} for discussion.
 
 In such case we assume that input data are in fact realizations
 of some random samples.
@@ -767,11 +765,283 @@ of some random samples.
 In probability, an aggregation operator
 is simply called a \emph{statistic} (formalism......)
 
+Let $(X_1,\dots,X_n)$ i.i.d.~$F$, where $\mathrm{supp}\,F = \Ival$.
 
-\subsection{Stochastic Models}
+....
+
+In social phenomena modeling, if $F$ is continuous,
+we often assume that the underlying density $f$ is decreasing
+and convex on $\Ival$, possibly with heavy-tails.
+E.g.~in the bibliometric impact assessment problem,
+this assumption reflect the fact that a high paper valuation
+is more difficult to obtain than the lower one,
+most of the papers have very small valuation (near $0$),
+and the probability of attaining a high note decreases no slower
+than linearly.
 
 
-Pareto2.....
+
+
+\subsection{Pareto-Type II Distribution}
+
+Many generalizations of the Pareto distribution
+have been proposed (GPD, \textit{Generalized Pareto Distributions},
+cf.~e.g.~\cite{VillasenorGonzalez2009:gofgpd,Zhang2010:estgpd}).
+Here we will introduce the so-called Pareto-Type II (Lomax) distribution,
+which has support $\Ival=[0,\infty]$.
+
+
+Formally, $X$ follows the Pareto-II distribution
+with shape parameter $k>0$ and scale parameter $s>0$, 
+denoted $X\sim\mathrm{P2}(k,s)$, if its density is of the form
+\begin{equation}\label{Eq:Pareto2PDF}
+   f(x)=\frac{k s^k}{(s+x)^{k+1}}\quad (x\ge 0).
+\end{equation}
+The cumulative distribution function of $X$ is then:
+\begin{equation}\label{Eq:Pareto2CDF}
+   F(x) = 1-\dfrac{s^k}{(s+x)^k}\quad (x\ge 0).
+\end{equation}
+
+TO DO: \package{agop}: \Rfunc{dpareto2()} -- \eqref{Eq:Pareto2PDF},
+\Rfunc{ppareto2()} -- \eqref{Eq:Pareto2CDF},
+and~\Rfunc{qpareto2()}... \Rfunc{rpareto2()}......
+
+\paragraph{Properties.}
+The expected value of $X\sim\mathrm{P2}(k,s)$
+exists for $k>1$ and is equal to 
+\[\mathbb{E}X = \frac{s}{k-1}.\]
+Variance exists for $k>2$ and is equal to
+\[\mathrm{Var}\, X = \frac{ks^2}{(k-2)(k-1)^2}.\]
+More generally, the $i$-th raw moment for $k>i$ is given by:
+\[\mathbb{E}X^i = \frac{\Gamma(i+1)\Gamma(k-i)}{\Gamma(k+1)} ks^i.\]
+
+For a fixed $s$, if $X\sim \mathrm{P2}(k_x,s)$ and $Y\sim \mathrm{P2}(k_y,s)$,
+$k_x<k_y$, then $X$ stochastically dominates $Y$,
+denoted $X\succ Y$.
+On the other hand, for a fixed $k$, $X\sim \mathrm{P2}(k,s_x)$, $Y\sim \mathrm{P2}(k,s_y)$, $s_x>s_y$,
+implies $X \succ Y$.
+
+Interestingly, if $X\sim\mathrm{P2}(k,s)$,
+then the conditional distribution of $X-t$ given $X>t$,
+is $\mathrm{P2}(k,s+t)$ $t \ge 0$.
+
+Additionally, it might be shown that if $X\sim\mathrm{P2}(k,s)$, 
+then $\ln(s+X)$ has c.d.f.~$F(x)=1-s^k e^{-kx}$ and
+density $f(x)=k s^k e^{-kx}$ for $x\ge\ln s$,
+i.e. has the same distribution as $Z+\ln s$, where
+$Z\sim\mathrm{Exp}(k)\equiv \Gamma(1,1/k)$.
+
+
+
+
+\paragraph{Parameter estimation.}
+Let $\vect{x}=(x_1,\dots,x_n)$ be a realization of the Pareto-Type II
+i.i.d. sample with known $s>0$.
+The unbiased (corrected) maximum likelihood estimator for $k$:
+% rozk³adu Pareto II rodzaju mo¿na próbowaæ wyznaczyæ metod±  
+% najwiêkszej wiarogodno¶ci (MLE).
+% Logarytm funkcji wiarogodno¶ci dany jest wzorem
+% \begin{eqnarray}
+% \ln \mathcal{L}(k,s;\vect{x}) &=& n\ln k + nk\ln s - (k+1)\sum_{i=1}^n \ln(s+x_i) \\
+%                               &=& n\ln k - n\ln\tfrac{1}{s}  - (k+1)\sum_{i=1}^n \ln(1+\tfrac{1}{s} x_i).
+% \end{eqnarray}
+% 
+% Dla znanego $s>0$ i~danej realizacji próby $(x_1,\dots,x_n)$ mamy
+% \begin{equation}
+% \widehat{k}=\dfrac{n}{\sum_{i=1}^n \ln\left(1+\tfrac{1}{s} x_i\right)}.
+% \end{equation}
+% For $n>2$ zachodzi
+% \begin{eqnarray*}
+% \mathbb{E}\widehat{k} &=& k \dfrac{n}{n-1},\\
+% \mathrm{Var}\,\widehat{k}&=&k^2 \frac{n^2}{(n-2) (n-1)^2},
+% \end{eqnarray*}
+% jest to zatem  tylko asymptotycznie nieobci±¿ony estymator parametru $k$.
+% £atwo jednak uwzglêdniæ poprawkê na nieobci±¿ono¶æ: \marginpar{Nieobci±¿ony estymator MLE: $\widehat{k}_{\mathrm{MLEU}}$}
+\begin{equation*}
+\widehat{k}(\vect{x})=\dfrac{n-1}{\sum_{i=1}^n \ln\left(1+\tfrac{1}{s} x_i\right)}.
+\end{equation*}
+It may be shown that for $n>2$ it holds
+$\mathrm{Var}\,\widehat{k}(\vect{x})=k^2 \frac{1}{n-2}.$
+
+
+TO DO: \package{agop}: 
+\Rfunc{pareto2.mle\-kestimate()}
+
+\bigskip
+For both unknown $k$ and $s$ we have:
+\begin{equation}\label{Eq:rownaniapochMLE}
+\left\{
+\begin{array}{lll}
+\widehat{k} = \frac{n}{\sum_{i=1}^n \ln\left(1+x_i/\widehat{s}\right)}, \\
+1+\frac{1}{n} \sum_{i=1}^n \ln\left(1+x_i/\widehat{s}\right) - \frac{n}{\sum_{i=1}^n \left(1+x_i/\widehat{s}\right)^{-1}}  &=& 0. \\
+\end{array}\right.
+\end{equation}
+The second equation must be solved, unfortunately, numerically.
+The estimation 
+procedure has been implemented in \package{agop} as TO DO: \Rfunc{pareto2.mleksestimate()}....
+It is worth noting that the above system of equations may sometimes
+have no solution (as the local minimum of the likelihood function may not exist,
+see \cite{CastilloDaoudi2009:mlegpd} for discussion).
+
+In this case one of the estimators worth noting (and often better than MLE) was proposed
+in \cite{ZhangStevens2009:estgpd}.
+The Zhang-Stevens MMS (\textit{minimum mean square error}) (Bayesian)
+estimator has relatively small bias (often positive) and mean squared error.
+In \package{agop} it is available as TO DO: \Rfunc{pareto2.zsestimate()}.
+
+% W~przypadku niemo¿liwo¶ci obliczenia warto¶ci estymatorów metod± najwiêkszej
+% wiarogodno¶ci powinni¶my u¿yæ innego estymatora.
+% Metoda momentów nie jest polecana, gdy¿ momenty zwyk³e rzêdu $i$, jak wspomniano
+% wy¿ej, s± okre¶lone tylko dla $k>i$.
+% Co wiêcej,  w~przypadku niektórych zaobserwowanych warto¶ci $\vect{x}$,
+% równie¿ estymatory wyznaczone metod± kwantyli mog± nie byæ wyznaczalne.
+% Inne, bardziej skomplikowane metody zosta³y opisane m.in.~w~pracach
+% \cite{ZeaKots2001:estgpd,Luceno2006:estgpd,Zhang2010:estgpd}.
+% Jak pokazuj± wyniki symulacyjne, dla nieznanego zarówno parametru
+% $k$ jak i~$s$, estymatory te cechuj± siê lepszymi w³asno¶ciami ni¿ estymator
+% najwiêkszej wiarogodno¶ci.
+% 
+% \bigskip\label{Ozn:MMSE}
+% Warto zwróciæ szczególn± uwagê na metodê szacowania warto¶ci parametrów zaproponowan±
+% przez Zhanga i Stevensa \cite{ZhangStevens2009:estgpd}.
+% Przedstawiany estymator
+% cechuje siê niewielkim obci±¿eniem (najczê¶ciej
+% dodatnim), wzglêdnie ma³± wariancj± oraz tym, ¿e da siê
+% wyznaczyæ jego warto¶æ w~prawie wszystkich przypadkach.
+
+
+
+% Niech $\theta := -\frac{1}{s}$, gdzie                                           
+% $-1\le \theta < 0$.
+% Poszukujemy estymatora bayesowskiego minimalizuj±cego ¶redniokwadratow±
+% funkcjê ryzyka
+% (estymator MMSE, ang. \textit{minimum mean square error estimator}),
+% który jest warto¶ci± oczekiwan± rozk³adu a~posteriori
+% \begin{equation}\label{Eq:MMSEbayes}
+% \widehat{\theta} = \Expectation(\theta | \vect{X}=\vect{x}) = \int_{-1}^0 \theta\, \pi(\theta|\vect{x})\,d\theta,
+% \end{equation}
+% gdzie
+% \begin{equation}
+% \pi(\theta|\vect{x})=\frac{h(\theta; \vect{x}) \exp[{\ell(\theta; \vect{x})}]}{\int_{-1}^0 h(\theta; \vect{x}) \exp[{\ell(\theta; \vect{x})}]  \,d\theta},
+% \end{equation}
+% dla  pewnej gêsto¶ci rozk³adu
+% a~priori $h(\theta; \vect{x})$ oraz
+% logarytmu z~profilowej funkcji wiarogodno¶ci (ang. \textit{profile log-likelihood})
+% parametru $\theta$ postaci
+% \[\ell(\theta; \vect{x}):=n\left( \ln(-{k}^*\theta)-1-1/{k}^* \right),\]
+% gdzie
+% \[{k}^* = n \left[\sum_{i=1}^n \ln\left(1-\theta x_i\right) \right]^{-1}.\]
+% 
+% W~rozpatrywanej pracy stosowane jest nastêpuj±ce
+% przybli¿enie numeryczne wzoru \eqref{Eq:MMSEbayes}.
+% Dla $m=20+\lfloor n\rfloor$ i~$j=1,\dots,m$ niech
+% \[
+% \vartheta_j = 1/x_{(n)} + \left[ 1-\sqrt{\frac{m}{j-0{,}5}} \right] \textfractionsolidus (3\, x_{(\lfloor n/4+0.5\rfloor)}).
+% \]
+% \clearpage\noindent
+% Ponadto, niech $w(\vartheta_j) = \exp(\ell(\vartheta_j; \vect{x}))/\sum_{i=1}^{m} \exp(\ell(\vartheta_i;\vect{x}))$.
+% W~konsekwencji, estymatorem parametru skali bêdzie
+% $
+%    \widehat{s}_\text{ZS} = -1/\sum_{j=1}^m \vartheta_j w(\vartheta_j).
+% $
+% Warto¶æ $\widehat{k}_\text{ZS}$ wyznaczamy z~pierwszego równania                \marginpar{Estymatory MMSE: $\widehat{k}_\text{ZS}$~i~$\widehat{s}_\text{ZS}$}
+% uk³adu \eqref{Eq:rownaniapochMLE}.
+% Jako rozk³adu a~priori $h(\theta; \vect{x})$ u¿ywamy tutaj
+% gêsto¶ci rozk³adu $\mathrm{P2}(2, 1/3\, x_{(\lfloor n/4+0.5\rfloor)})$
+% (por.~motywacjê i~dyskusjê w~\cite{ZhangStevens2009:estgpd}).
+% Algorytm wyznaczaj±cy estymatory przedstawion± metod±
+% zosta³ zaimplementowany w~bibliotece \CITAN{} w~funkcji \Rfunc{pareto2.zsestimate()},
+% zob.~rozdz.~\ref{Func:pareto2.zsestimate}.
+% 
+
+\paragraph{Goodness-of-fit tests.}
+TO BE DONE....
+% \paragraph{Testowanie zgodno¶ci.}\label{Ozn:P2GoF}
+% Przedstawione estymatory mog± byæ u¿yte                                         \marginpar{GoF}
+% w~procedurze  testowania zgodno¶ci %(ang. \textit{goodness-of-fit tests})
+% danej zaobserwowanej próbki losowej z~rozk³adem Pareto II rodzaju.
+% W~tym celu mo¿na u¿yæ np. testu Ko³mogorowa,
+% Cram\'{e}ra-von Misesa b±dŒ Andersona-Darlinga (który przyk³ada wiêksz± wagê
+% od pozosta³ych do obserwacji w~ogonach rozk³adu),
+% por.~analizê w³asno¶ci tych testów w~pracach \cite{ChoulakianStephens2001:gofgpd,
+% ZhangStevens2009:estgpd}.
+% 
+% W~bibliotece \CITAN{} udostêpnili¶my funkcjê funkcjê \Rfunc{pareto2.gof\-test()}
+% (zob. rozdz.~\ref{Func:pareto2.goftest}),
+% która domy¶lnie stosuje test Andersona-Darlinga,
+% w~którym rozk³ad statystyki przybli¿ony jest za pomoc± metody zaproponowanej
+% w~\cite{MarsagliaMarsaglia2004:adtest}.
+% To postêpowanie (wraz z omówion± wy¿ej metod± estymacji) jest równowa¿ne
+% z~przedstawionym w~pracy \cite{ZhangStevens2009:estgpd}.
+% 
+% 
+% 
+
+
+\paragraph{Applications.}
+TO DO
+% 
+% Rozk³ad Pareto II rodzaju stosuje siê czêsto do modelowania 
+%  tzw.~warto¶ci ekstremalnych [por.~\citealp{ChoulakianStephens2001:gofgpd}].
+% Jest on zalecany w~literaturze bibliometrycznej m.in. do opisu
+% rozk³adu liczby cytowañ, por. np. \cite{Glanzel2008:hconcatenation}
+% % (tutaj wystêpuje sugestia, ¿e mo¿na przyj±æ $k\simeq 2$)
+% oraz prace \cite{Glanzel2007:hnewapplications,BarczaTelcs2009:paretoimplyh,
+% Glanzel2008:statbibh}. Czêsto zak³ada siê ponadto, i¿ $s\ge 1$.
+% 
+
+
+
+\paragraph{Two-sample $F$-test.}
+The following simple test was introduced in \cite{Gagolewski2011:PhD}.
+Let
+$(X_1,X_2,\dots,X_{n_1})$ $i.i.d.$ $\mathrm{P2}(k_1,s)$ and
+$(Y_1,Y_2,\dots,Y_{n_2})$ $i.i.d.$ $\mathrm{P2}(k_2,s)$,
+where $s$ is an a-priori known scale parameter.
+We are going to verify the null hypothesis
+$H_0: k_1=k_2$ against the two-sided alternative hypothesis
+$K: k_1\neq k_2$.
+
+
+% Mo¿na pokazaæ, ¿e dla $X_i\sim\mathrm{P2}(k,s)$, $\ln(s+X_i)$
+% ma rozk³ad o~dystrybuancie
+% $F(x)=1-s^k e^{-kx}$ i gêsto¶ci $f(x)=k s^k e^{-kx}$ dla $x\ge\ln s$,
+% czyli ma taki sam rozk³ad jak zmienna losowa $Z+\ln s$, gdzie
+% $Z\sim\mathrm{Exp}(k)\equiv \Gamma(1,1/k)$.
+% Zatem $\sum_{i=1}^n \ln(s+X_i)-n\ln s\sim\Gamma(n,1/k)$.
+It might be shown that  $\sum_{i=1}^n \ln(s+X_i)-n\ln s\sim\Gamma(n,1/k)$.
+This implies that under $H_0$, the following test statistic
+follows the Snedecor $\mathrm{F}$ distribution:
+% \begin{equation}
+% T(\vect{X},\vect{Y})=\dfrac{n_1}{n_2}
+%    \dfrac{\sum_{i=1}^{n_2} \ln\left(s+Y_i\right)-n_2\ln s}
+%          {\sum_{i=1}^{n_1} \ln\left(s+X_i\right)-n_1\ln s}
+% \stackrel{H_0}{\sim}\mathrm{F}^{[2n_2,2n_1]}.
+% \end{equation}
+\begin{equation}
+R(\vect{X},\vect{Y})=\dfrac{n_1}{n_2}
+   \dfrac{\sum_{i=1}^{n_2} \ln\left(1+\frac{Y_i}{s}\right)}
+         {\sum_{i=1}^{n_1} \ln\left(1+\frac{X_i}{s}\right)}
+\stackrel{H_0}{\sim}\mathrm{F}^{[2n_2,2n_1]}.
+\end{equation}
+The null hypothesis is accepted iff
+\[
+R(\vect{x},\vect{y})\in\left[\text{\Rfunc{qf}}(\tfrac{\alpha}{2},2n_2,2n_1),\,
+\text{\Rfunc{qf}}(1-\tfrac{\alpha}{2},2n_2,2n_1)\right],
+\]
+where $\text{\Rfunc{qf}}(q,d_1,d_2)$ denotes the $q$-quantile
+of $\mathrm{F}^{[d_1,d_2]}$
+
+The $p$-value may be determined as follows:
+\begin{equation}
+p=2\left(\tfrac{1}{2}-\left|\text{\Rfunc{pf}}(R(\vect{x},\vect{y}), 2n_2, 2n_1)-\tfrac{1}{2}\right|\right),
+\end{equation}
+where $\text{\Rfunc{pf}}(x,d_1,d_2)$ 
+is the c.d.f.~of $\mathrm{F}^{[d_1,d_2]}$.
+
+\medskip
+TO DO: \Rfunc{pareto2.\allowbreak ftest()}.
+
 
 
 
@@ -822,10 +1092,10 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 
 
 \bibitem{CenaGagolewski2013:agop1}
-Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013).
+Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013).
 
 \bibitem{CenaGagolewski2013:agop2}
-Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).
+Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).
 
 \bibitem{Choquet1954:theorycapa}
 G. Choquet, Theory of capacities,
@@ -836,34 +1106,40 @@ L. Egghe, An improvement of the $H$-index:~the $G$-index,
 ISSI Newsletter 2(1), 2006, pp. 8--9
 
 \bibitem{Gagolewski2013:om3}
-Gągolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180.
+Gagolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180.
 
 \bibitem{GagolewskiGrzegorzewski2011:possibilistic}
-Gągolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
+Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
 
 \bibitem{GagolewskiMesiar2012:pqm}
-Gągolewski M., Mesiar R., Aggregating Different Paper Quality Measures with a Generalized h-index, Journal of Informetrics 6(4), 2012, pp. 566-579.
+Gagolewski M., Mesiar R., Aggregating Different Paper Quality Measures with a Generalized h-index, Journal of Informetrics 6(4), 2012, pp. 566-579.
+
+\bibitem{Gagolewski2011:PhD}
+Gagolewski M., \textit{Aggregation Operators and Their Application in a Formal Model for Quality Evaluation System of Scientific Research}
+(Wybrane operatory agregacji i~ich zastosowanie w~modelu formalnym systemu jakości w~nauce),
+PhD Thesis, Systems Research Institute, Polish Academy of Sciences, 2011 (In Polish).
+
 
 \bibitem{Gagolewski2011:CITAN}
-Gągolewski M., Bibliometric Impact Assessment with R and the CITAN Package, Journal of Informetrics 5(4), 2011, pp. 678-692.
+Gagolewski M., Bibliometric Impact Assessment with R and the CITAN Package, Journal of Informetrics 5(4), 2011, pp. 678-692.
 
 \bibitem{GagolewskiGrzegorzewski2009:geometricapproach}
-Gągolewski M., Grzegorzewski P., A Geometric Approach to the Construction of Scientific Impact Indices, Scientometrics 81(3), 2009, pp. 617-634.
+Gagolewski M., Grzegorzewski P., A Geometric Approach to the Construction of Scientific Impact Indices, Scientometrics 81(3), 2009, pp. 617-634.
 
 \bibitem{Gagolewski2012:smps}
-Gągolewski M., Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190), Springer-Verlag, Heidelberg, 2013, pp. 359-367.
+Gagolewski M., Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190), Springer-Verlag, Heidelberg, 2013, pp. 359-367.
 
 \bibitem{Gagolewski2012:ipmu}
-Gągolewski M., On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators, In: Greco S. et al (Eds.), Advances in Computational Intelligence, Part III (CCIS 299), Springer-Verlag, Heidelberg, 2012, pp. 276-285.
+Gagolewski M., On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators, In: Greco S. et al (Eds.), Advances in Computational Intelligence, Part III (CCIS 299), Springer-Verlag, Heidelberg, 2012, pp. 276-285.
 
 \bibitem{GagolewskiGrzegorzewski:eusflatlfa}
-Gągolewski M., Grzegorzewski P., Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, 2011, pp. 53-58.
+Gagolewski M., Grzegorzewski P., Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, 2011, pp. 53-58.
 
 \bibitem{Gagolewski2010:smps}
-Gągolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.
+Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.
 
 \bibitem{GagolewskiGrzegorzewski2010:ipmu}
-Gągolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.
+Gagolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.
 
 \bibitem{agopHome}
 Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
