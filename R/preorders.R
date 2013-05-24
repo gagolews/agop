@@ -172,6 +172,7 @@ de_transitive <- function(B)
 {
    if (is(B, 'igraph')) B <- get.adjacency(B)
    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+   
    # slow as hell!
    n <- nrow(B)
    Matrix::diag(B) <- 0
@@ -323,19 +324,25 @@ get_independent_sets <- function(B)
 #' @family agop_binary_relations
 get_equivalence_classes <- function(B)
 {
-   if (!is(B, 'igraph')) { BAD <- B; B <- graph.adjacency(B);  }
-   else { BAD <- get.adjacency(B) ;}
+   if (!is(B, 'igraph')) { BAD <- as.matrix(B); B <- graph.adjacency(B) }
+   else { BAD <- as.matrix(get.adjacency(B)) }
    stopifnot(is_total(BAD), is_transitive(BAD))
+   
+   # now B - igraph
+   # now BAD - matrix
    
    n <- nrow(BAD)
    
    # create graph with all `symmetric` pairs
-   C <- as.matrix(ord_total) & as.matrix(t(ord_total))
+   C <- BAD & t(BAD) # logical AND
    out <- maximal.cliques(graph.adjacency(C, mode="undirected"))
    
-   ord <- order(rowSums(ord), decreasing=TRUE)
-   warning("TODO: sort")
-   out
+   # now sort according to the out-degree (decreasingly)
+   # every vertex in an equivalence class has the same degree
+   # if x<y, then outdegree(x)>outdegree(y)
+   extractFirst <- sapply(out, function(e) e[1])
+   ord <- order(rowSums(BAD)[extractFirst], decreasing=TRUE)
+   out[ord]
 }
 
 
