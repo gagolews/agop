@@ -26,6 +26,8 @@ agop.Rproj
 *.log
 *.out
 *.toc
+*.bbl
+*.blg
 src/vignette-Tutorial/agop-Tutorial.tex
 cache-knitr
 figures-knitr

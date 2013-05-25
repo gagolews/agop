@@ -239,7 +239,7 @@ aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
 
 
 
-\R is a free, open sourced software environment
+\R \cite{Rproject:home} is a free, open sourced software environment
 for statistical computing and graphics, which
 includes an implementation
 of a very powerful and quite popular high-level language called \lang{S}.
@@ -726,8 +726,8 @@ plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
-let's apply fair totalization (set $x\trianglelefteq y$
-and $y\trianglelefteq x$ whenever $\neg (x\trianglelefteq y\text{ or }
+let's apply fair totalization (set $x\trianglelefteq'' y$
+and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$ + calculate transitive closure
 
 
@@ -737,6 +737,16 @@ print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
+@
+
+...Note that each total preorder $\trianglelefteq''$ induces an
+equivalence relation ($x\simeq y$ iff $x\trianglelefteq''y$ and $y\trianglelefteq''x$;
+the equivalence classes may be ordered with $\trianglelefteq''$).
+These may be explored with the \Rfunc{get\_equivalence\_classes()}
+function....
+
+<<ex1E,dependson='ex1D'>>=
+sapply(get_equivalence_classes(ord_total), function(set) rownames(ord)[set])
 @
 
 Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
@@ -780,9 +790,9 @@ and the probability of attaining a high note decreases no slower
 than linearly.
 
 
+\subsection{Some Notable Probability Distributions}
 
-
-\subsection{Pareto-Type II Distribution}
+\subsubsection{Pareto-Type II Distribution}
 
 Many generalizations of the Pareto distribution
 have been proposed (GPD, \textit{Generalized Pareto Distributions},
@@ -1091,28 +1101,51 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 \begin{thebibliography}{100}
 
 
+
 \bibitem{CenaGagolewski2013:agop1}
-Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013).
+Cena A., Gagolewski M., 
+OM3: ordered maxitive, minitive, and modular aggregation operators -- 
+Part I: Axiomatic analysis under arity-dependence (AGOP 2013), in-press, 2013.
 
 \bibitem{CenaGagolewski2013:agop2}
-Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).
+Cena A., Gagolewski M., 
+OM3: ordered maxitive, minitive, and modular aggregation operators --
+Part II: A simulation study (AGOP 2013), in-press, 2013.
 
 \bibitem{Choquet1954:theorycapa}
-G. Choquet, Theory of capacities,
-\textit{Ann. Inst. Fourier} 5, 1954, pp. 131--292
+Choquet G., Theory of capacities,
+\textit{Ann. Inst. Fourier} 5, pp. 131--292, 1954.
+
+\bibitem{CastilloDaoudi2009:mlegpd}
+{Del Castillo}~J., Daoudi~J.,
+\newblock Estimation of the {G}eneralized {P}areto {D}istribution.
+\newblock \textit{Statistics and Probability Letters}, 79, pp.~684--688, 2009.
+
 
 \bibitem{Egghe2006:g}
-L. Egghe, An improvement of the $H$-index:~the $G$-index, 
-ISSI Newsletter 2(1), 2006, pp. 8--9
+Egghe L., An improvement of the $H$-index:~the $G$-index, 
+ISSI Newsletter 2(1), pp. 8--9, 2006.
+
+\bibitem{FranceschiniMaisano2011:structevalh}
+Franceschini F., Maisano D.A.,
+\newblock Structured evaluation of the scientific output of academic research
+  groups by recent $h$-based indicators.
+\newblock \textit{Journal of Informetrics}, 5, pp.~64--74, 2011.
 
 \bibitem{Gagolewski2013:om3}
-Gagolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180.
+Gagolewski M., 
+On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, 
+Information Sciences 221, pp. 170-180, 2013.
 
-\bibitem{GagolewskiGrzegorzewski2011:possibilistic}
-Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
+\bibitem{GagolewskiGrzegorzewski2011:ijar}
+Gagolewski M., Grzegorzewski P., 
+Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, 
+International Journal of Approximate Reasoning 52(9), pp. 1312-1324, 2011.
 
 \bibitem{GagolewskiMesiar2012:pqm}
-Gagolewski M., Mesiar R., Aggregating Different Paper Quality Measures with a Generalized h-index, Journal of Informetrics 6(4), 2012, pp. 566-579.
+Gagolewski M., Mesiar R., 
+Aggregating Different Paper Quality Measures with a Generalized h-index, 
+Journal of Informetrics 6(4), pp. 566-579, 2012.
 
 \bibitem{Gagolewski2011:PhD}
 Gagolewski M., \textit{Aggregation Operators and Their Application in a Formal Model for Quality Evaluation System of Scientific Research}
@@ -1121,25 +1154,42 @@ PhD Thesis, Systems Research Institute, Polish Academy of Sciences, 2011 (In Pol
 
 
 \bibitem{Gagolewski2011:CITAN}
-Gagolewski M., Bibliometric Impact Assessment with R and the CITAN Package, Journal of Informetrics 5(4), 2011, pp. 678-692.
+Gagolewski M.,
+Bibliometric Impact Assessment with \R and the \package{CITAN} Package, 
+Journal of Informetrics 5(4), pp. 678-692, 2011.
 
 \bibitem{GagolewskiGrzegorzewski2009:geometricapproach}
-Gagolewski M., Grzegorzewski P., A Geometric Approach to the Construction of Scientific Impact Indices, Scientometrics 81(3), 2009, pp. 617-634.
+Gagolewski M., Grzegorzewski P.,
+A Geometric Approach to the Construction of Scientific Impact Indices,
+Scientometrics 81(3), 2009, pp. 617-634.
 
 \bibitem{Gagolewski2012:smps}
-Gagolewski M., Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190), Springer-Verlag, Heidelberg, 2013, pp. 359-367.
+Gagolewski M.,
+Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, 
+In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190),
+Springer-Verlag, Heidelberg, pp. 359-367, 2013.
 
 \bibitem{Gagolewski2012:ipmu}
-Gagolewski M., On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators, In: Greco S. et al (Eds.), Advances in Computational Intelligence, Part III (CCIS 299), Springer-Verlag, Heidelberg, 2012, pp. 276-285.
+Gagolewski M.,
+On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators,
+In: Greco S. et al (Eds.), Advances in Computational Intelligence, 
+Part III (CCIS 299), Springer-Verlag, Heidelberg, pp. 276-285, 2012.
 
 \bibitem{GagolewskiGrzegorzewski:eusflatlfa}
-Gagolewski M., Grzegorzewski P., Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, 2011, pp. 53-58.
+Gagolewski M., Grzegorzewski P.,
+Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, 
+In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, pp. 53-58, 2011.
 
 \bibitem{Gagolewski2010:smps}
-Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.
+Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), 
+Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), 
+Springer-Verlag, Heidelberg, pp. 281-288, 2010.
 
 \bibitem{GagolewskiGrzegorzewski2010:ipmu}
-Gagolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.
+Gagolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, 
+In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.),
+Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), 
+Springer-Verlag, Heidelberg, pp. 693-702, 2010.
 
 \bibitem{agopHome}
 Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
@@ -1152,25 +1202,85 @@ Grabisch M., Marichal J.-L.,  Mesiar R., Pap E.,
 Cambridge University Press, 2009.
 
 \bibitem{Hirsch2005:hindex}
-J.E. Hirsch,
+Hirsch J.E.,
 An index to quantify individual's scientific research output,
-\textit{Proceedings of the National Academy of Sciences} 102(46),
-2005, pp. 16569--16572.
+\textit{Proceedings of the National Academy of Sciences} 102(46), pp. 16569--16572,
+2005.
 
 \bibitem{Kosmulski2007:maxprod}
-M. Kosmulski,
+Kosmulski M.,
 MAXPROD -- A~new index for assessment of the scientific output of an individual,
 and a comparison with the $h$-index, \textit{Cybermetrics} 11(1), 2007.
 
+\bibitem{Quesada2009:monotonicityh}
+Quesada A.,
+\newblock Monotonicity and the {H}irsch index.
+\newblock \textit{Journal of Informetrics}, 3\penalty0 (2), pp.~158--160, 2009.
+
+\bibitem{Quesada2010:moreaxiomatics}
+Quesada A.,
+\newblock More axiomatics for the {H}irsch index.
+\newblock \textit{Scientometrics}, 82, pp.~413--418, 2010.
+
+\bibitem{Rproject:home}
+{\R Development Core Team}.
+\newblock \textit{\R: A~language and environment for statistical
+  computing}.
+\newblock \R Foundation for Statistical Computing, Vienna, Austria,
+  2013.
+\newblock \url{http://www.R-project.org}.
+
+\bibitem{Rousseau2008:woegingerax}
+Rousseau R.,
+\newblock Woeginger's axiomatisation of the $h$-index and its relation to the
+  $g$-index, the $h(2)$-index and the $r^2$-index.
+\newblock \textit{Journal of Informetrics}, 2\penalty0 (4), pp.~335--340,
+  2008.
+
 \bibitem{Sugeno1974:PhD}
-M. Sugeno, \textit{Theory of fuzzy integrals and its applications},
+Sugeno M., \textit{Theory of fuzzy integrals and its applications},
 PhD dissertation, Tokyo Institute of Technology, Meguro-ku, Tokyo, 1974.
 
 \bibitem{TorraNarukawa2008:h2fuzzyintegrals}
-V. Torra, Y. Narukawa,
+Torra V., Narukawa Y.,
 The $h$-index and the number of citations: Two fuzzy integrals,
-\textit{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795--797.
+\textit{IEEE Transactions on Fuzzy Systems} 16(3), pp. 795--797, 2008.
 
+\bibitem{VillasenorGonzalez2009:gofgpd}
+Villasenor-Alva J., Gonzalez-Estrada E.,
+\newblock A bootstrap goodness of fit test for the {G}eneralized {P}areto
+  {D}istribution.
+\newblock \textit{Computational Statistics and Data Analysis}, 53\penalty0
+  (11), pp.~3835--3841, 2009.
+
+\bibitem{Woeginger2008:axiomaticg}
+Woeginger G.J.,
+\newblock An axiomatic analysis of {E}gghe's $g$-index.
+\newblock \textit{Journal of Informetrics}, 2\penalty0 (4), pp.~364--368,
+  2008.
+
+\bibitem{Woeginger2008:axiomatich}
+Woeginger G.J.,
+\newblock An axiomatic characterization of the {H}irsch-index.
+\newblock \textit{Mathematical Social Sciences}, 56\penalty0 (2), pp.~224--232,
+  2008.
+
+\bibitem{Woeginger2008:symmetryaxiom}
+Woeginger G.J.,
+\newblock A symmetry axiom for scientific impact indices.
+\newblock \textit{Journal of Informetrics}, 2, pp.~298--303, 2008.
+  
+\bibitem{Zhang2010:estgpd}
+Zhang J.,
+\newblock Improving on estimation for the {G}eneralized {P}areto
+  {D}istribution.
+\newblock \textit{Technometrics}, 52\penalty0 (3), pp.~335--339, 2010.
+
+\bibitem{ZhangStevens2009:estgpd}
+Zhang J., Stephens M.A.,
+\newblock A new and efficient estimation method for the {G}eneralized {P}areto
+  {D}istribution.
+\newblock \textit{Technometrics}, 51\penalty0 (3), pp.~316--325, 2009.
 \end{thebibliography}
 
 \end{document}
