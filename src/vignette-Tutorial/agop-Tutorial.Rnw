@@ -1079,7 +1079,7 @@ $h$-index and its distribution
 
 \section{NEWS/CHANGELOG}
 
-<<NEWSread,comment="",echo=FALSE>>=
+<<NEWSread,comment="",echo=FALSE,cache=FALSE>>=
 cat(readLines("../../NEWS"), sep="\n")
 @
 
