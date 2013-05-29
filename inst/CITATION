@@ -1,0 +1,12 @@
+citHeader("To cite package 'agop' in publications use:")
+
+citEntry(entry = "Manual",
+  title        = "agop: Aggregation Operators package for R",
+  author       = personList(as.person("Marek Gagolewski"), as.person("Anna Cena")),
+  year         = "2013",
+  url          = "http://www.rexamine.com/resources/agop/",
+  textVersion  =
+  paste("Gagolewski M., Cena A. (2013).",
+        "agop: Aggregation Operators package for R.",
+        "http://www.rexamine.com/resources/agop/.")
+)
