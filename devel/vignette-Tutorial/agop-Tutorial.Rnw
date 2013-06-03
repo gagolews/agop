@@ -119,7 +119,7 @@
 
 
 \begin{center}
-{\LARGE\sf A Guide to the \package{agop} {0.01-devel} Package for \R}
+{\LARGE\sf A Guide to the \package{agop} {0.1-devel} Package for \R}
 
 {\large\sf\textit{Aggregation Operators in \R}}
 

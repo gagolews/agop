@@ -92,13 +92,11 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname); // @TODO: R-interface, 
 SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 
 
-SEXP index_h(SEXP x); // the h-index
-int __index_h_log(double* x, int n); // internal, currently not used
+SEXP index_h(SEXP x);    // DONE
+SEXP index_g(SEXP x);    // DONE
+SEXP index_g_zi(SEXP x); // TODO
 
 
-
-
-void index_g(double* x, int* n, double* out); // @TODO: rewrite
 
 void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 

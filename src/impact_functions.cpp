@@ -26,8 +26,11 @@
 
 /** Compute the h-index, O(n) time for sorted data
  * 
+ * A simple binsearch-based algorithm could be implemented here,
+ * but 
+ * 
  * @param x numeric vector
- * @return numeric vector
+ * @return real scalar (vector of 
  */
 SEXP index_h(SEXP x)
 {
@@ -82,22 +85,62 @@ int __index_h_log(double* x, int n)
 
 
 /** Function to compute the g-index, O(n) time.
+ * 
  *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param out pointer to the result (return value)
+ *  @return scalar real
  */
-void index_g(double* x, int* n, double* out)
+SEXP index_g(SEXP x)
 {
-	int i = 0;
-	int k = *n;
-	double sum = 0.0;
-	while (i<k)
-	{
-		sum += x[i];
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
+      
+   double sum = 0.0;
+   R_len_t i = 0;
+   while (i < n)	{
+   	sum += xd[i];
 		if (sum < (double)((i+1)*(i+1))) break;
 		++i;
 	}
-	*out = (double)i;
+	
+   return ScalarReal((double) i);
+}
+
+
+
+
+/** Function to compute the ZERO-INSENSITIVE g-index, O(n) time.
+ * 
+ *  @param x vector of non-negative reals, sorted non-increasingly
+ *  @return scalar real
+ */
+SEXP index_g_zi(SEXP x)
+{
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   error("TO DO");
+   
+//   double* xd = REAL(x);
+//   if (R_IsNA(xd[0]))
+//      return ScalarReal(NA_REAL);
+//      
+//   double sum = 0.0;
+//   R_len_t i = 0;
+//   while (i < n)   {
+//   	sum += xd[i];
+//		if (sum < (double)((i+1)*(i+1))) break;
+//		++i;
+//	}
+	
+//   return ScalarReal((double) i);
 }
 
 

@@ -49,9 +49,9 @@
 #'     "A" =c(23,21,4,2,1,0,0),
 #'     "B" =c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0),
 #'     "C" =c(53,43,32,23,14,13,12,8,4,3,2,1,0)
-#'  );
-#' index_h(authors$A);
-#' sapply(authors, index.h);
+#'  )
+#' index_h(authors$A)
+#' sapply(authors, index_h)
 #' 
 #' @family bibliometric_indices
 #' @rdname index_h
@@ -69,46 +69,58 @@ index.h <- index_h # deprecated
 
 
 
-# #' The g-index
-# #'
-# #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-# #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
-# #' the \dfn{\eqn{g}-index} (Egghe, 2006) for \eqn{x} is defined as
-# #' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
-# #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{G(x)=0} otherwise.
-# #'
-# #' If \code{disable.check} is set to \code{FALSE}, then
-# #' eventual \code{NA} values are removed from the input vector.
-# #'
-# #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-# #' the value is calculated in linear time.
-# #' 
-# #'
-# #' @references Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
-# #'
-# #' @title Egghe's g-index
-# #' @param x a non-negative numeric vector.
-# #' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-# #' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-# #' @return The function returns a single number or NA if improper input has been given.
-# #' @seealso \code{\link{index.h}}, \code{\link{index.rp}}, \code{\link{index.lp}}, \code{\link{Sstat}}, \code{\link{Sstat2}}
-# #' @export
-# index.g <- function(x, sorted.dec=FALSE, disable.check=FALSE)
-# {
-# 	if (!disable.check)
-# 	{
-# 		if (length(x) == 0) return(0);
-# 		if (mode(x) != "numeric") return(NA);
-# 		if (any(x < 0)) return(NA);
-# 		x <- x[!is.na(x)];
-# 	}
-# 
-# 	if (!sorted.dec)
-# 		x <- sort(x, decreasing=TRUE);
-# 
-# 	.C("index_g", as.double(x), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-# }
 
+#' @title Egghe's g-index
+#'
+#' @description
+#' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
+#' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
+#' the \dfn{\eqn{g}-index} (Egghe, 2006) for \eqn{x} is defined as
+#' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
+#' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{G(x)=0} otherwise.
+#'
+#' @details
+#' \code{index.g} is a (deprecated) alias for \code{index_g}.
+#' 
+#' Note that \code{index_g} is not a zero-insensitive impact function,
+#' see Examples section. \code{index_g_zi} is its zero-sensitive variant:
+#' it assumes that the aggregated vector is padded with zeros.
+#' 
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' For historical reasons, this function is also available via its alias,
+#' \code{index.h} [but its usage is deprecated].
+#' 
+#' 
+#' @param x a non-negative numeric vector
+#' @return a single numeric value
+#' 
+#' @references
+#' Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
+#'
+#' @examples
+#' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
+#' 
+#' @family bibliometric_indices
+#' @rdname index_g
+#' @export
+index_g <- function(x)
+{
+   .Call("index_g", x, PACKAGE="agop")
+}
+
+#' @rdname index_g
+#' @export
+index.g <- index_g # deprecated
+
+
+
+#' @rdname index_g
+#' @export
+index_g_zi <- function(x)
+{
+   .Call("index_g_zi", x, PACKAGE="agop")
+}
 
 
 # #' Computes the \eqn{r_p}-index of a numeric vector for given \eqn{p}.
