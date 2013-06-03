@@ -25,15 +25,15 @@
 #' 
 #' For more info refer to the Package Vignette.
 #' Its most recent version is available at
-#' \url{https://github.com/Rexamine/agop/blob/master/inst/doc/agop-Tutorial.pdf?raw=true}.
+#' \url{http://github.com/Rexamine/agop/raw/master/inst/doc/agop-Tutorial.pdf}.
 #'
 #' @useDynLib agop
 #' @name agop-package
 #' @docType package
 #' @title ...
 #' @author
-#' Marek Gagolewski \email{gagolews@@rexamine.com},\cr
-#' Anna Cena \email{cena@@rexamine.com}
+#' Marek Gagolewski \email{gagolews@@rexamine.com} [aut,cre],\cr
+#' Anna Cena \email{cena@@rexamine.com} [ctb]
 #' @references
 #' Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013). \cr
 #' Cena A., Gągolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).\cr

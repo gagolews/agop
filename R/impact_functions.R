@@ -18,26 +18,30 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' The h-index
+#' @title Hirsch's h-index
 #'
+#' @description
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{h}-index} (Hirsch, 2005) for \eqn{x} is defined as
 #' \deqn{H(x)=\max\{i=1,\dots,n: x_i \ge i\}}{H(x)=max{i=1,\dots,n: x_i \ge i}}
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{H(x)=0} otherwise.
 #'
+#' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
 #' 
 #' For historical reasons, this function is also available via its alias,
 #' \code{index.h} [but its usage is deprecated].
 #' 
-#' @references Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' 
+#' @param x a non-negative numeric vector
+#' @return a single numeric value
+#' 
+#' @references
+#' Hirsch J.E., An index to quantify individual's scientific research output, 
+#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
 #'
-#' @title Hirsch's h-index
-#' @param x a non-negative numeric vector.
-#' @return The function returns a single numeric value
-#' @family agop_funclasses
-#'
+#' 
 #' @examples
 #' authors <- list(  # a list of numeric sequences
 #'                   # (e.g. citation counts of the articles
@@ -48,6 +52,9 @@
 #'  );
 #' index_h(authors$A);
 #' sapply(authors, index.h);
+#' 
+#' @family bibliometric_indices
+#' @rdname index_h
 #' @export
 index_h <- function(x)
 {
@@ -55,8 +62,9 @@ index_h <- function(x)
 }
 
 
+#' @rdname index_h
 #' @export
-plot.h <- index_h # deprecated
+index.h <- index_h # deprecated
 
 
 
