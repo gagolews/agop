@@ -529,29 +529,74 @@ index_h(c(-1,3,4,2)) # only for x>=0
 
 
 \paragraph{The $g$-index.}
-Egghe's $g$-index \cite{Egghe2006:g}
+Egghe's $g$-index \cite{Egghe2006:g}:
+$\func{G}(\vect{x})=\max\{g=1,\dots,n: \sum_{i=1}^g x_{\{g\}}\ge g^2\}$,
+available in \package{agop} as \Rfunc{index\_g()}.
+We have $\func{G}(\vect{x})\ge \func{H}(\vect{x})$
+with $\func{G}(n\ast n)=\func{H}(n\ast n)=n$
+
+
+Note that this aggregation operator is not zero-insensitive,
+for example $\func{G}(9,0)=2$ and $\func{G}(9,0,0)=3$.
+Thus, we also provide the \Rfunc{index\_g\_zi()} function,
+which treats $\vect{x}$ as it would be padded with $0$s.
+
+
+<<index_g>>=
+index_g(9)
+index_g(c(9,0,0))
+index_g_zi(9)
+@
 
 The index is interesting from the computational point of view --
-it is calculated on the nondecreasing vector of cumulative sums,
-\texttt{\Rfunc{cumsum}(\Rfunc{sort}(x, decreasing=TRUE))}
+it may be calculated on the nondecreasing vector of cumulative sums,
+\texttt{\Rfunc{cumsum}(\Rfunc{sort}(x, \argument{decreasing=}TRUE))},
+however, it cannot be expressed as a symmetric maxitive aggregation operator.
 
 
 \paragraph{The $w$-index.}
+ The $w$-index \cite{Woeginger2008:axiomatich}:
+\begin{equation}\label{Eq:IndexW}
+\func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{i} \ge w-i+1, i=1,\dots,w\right\}.
+\end{equation}
+
+
+
+
+
+\paragraph{The $r_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
+for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
 
 
 
 \paragraph{The $\mathrm{MAXPROD}$-index.}
+The MaxProd-index \cite{Kosmulski2007:maxprod}:
+\begin{equation}\label{Eq:IndexMaxProd}
+   \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{i}: i=1,2,\ldots\right\}.
+\end{equation}
+This index is a particular case of the (projected) $l_p$-indices, $p\ge 1$,
+see \cite{GagolewskiGrzegorzewski2009:geometricapproach}.
+
+Shilkret integral \cite{Shilkret1971:maxitivemeasure}
 
 
 
-
-\paragraph{The $r_p$-indices.}
-
+\paragraph{The $l_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
 
 
-\paragraph{The $l_p$-indices.}
+\paragraph{Simple transformations of the $h$-index.}
+For example, The $h(2)$-index \cite{Kosmulski2006:h2}:
+\begin{equation}\label{Eq:IndexH2}
+\func{H2}(\vect{x}) = \max\left\{h=0,1,2,\ldots: {x}_{h} \ge h^2\right\}. %= \left\lfloor \bigvee_{i=1,2,\dots} i\wedge x_{i}\right\rfloor
+\end{equation}
+Note that the $h(2)$-index is one of the many examples of very
+simple, direct modifications of the $h$-index.
+Many authors considered other settings than ``$h^2$'' on the right
+side of \eqref{Eq:IndexH2}, e.g. ``$2h$'', ``$\alpha h$'' for some
+$\alpha > 0$, or ``$h^\beta$'', $\beta\ge 1$, cf.~\cite{AlonsoETAL2009:hreview}.
 
-
+It may easily be shown that these reduce to the $h$-index for
+properly transformed input vectors.....
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1098,189 +1143,7 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 
 
 
-\begin{thebibliography}{100}
-
-
-
-\bibitem{CenaGagolewski2013:agop1}
-Cena A., Gagolewski M., 
-OM3: ordered maxitive, minitive, and modular aggregation operators -- 
-Part I: Axiomatic analysis under arity-dependence (AGOP 2013), in-press, 2013.
-
-\bibitem{CenaGagolewski2013:agop2}
-Cena A., Gagolewski M., 
-OM3: ordered maxitive, minitive, and modular aggregation operators --
-Part II: A simulation study (AGOP 2013), in-press, 2013.
-
-\bibitem{Choquet1954:theorycapa}
-Choquet G., Theory of capacities,
-\textit{Ann. Inst. Fourier} 5, pp. 131--292, 1954.
-
-\bibitem{CastilloDaoudi2009:mlegpd}
-{Del Castillo}~J., Daoudi~J.,
-\newblock Estimation of the {G}eneralized {P}areto {D}istribution.
-\newblock \textit{Statistics and Probability Letters}, 79, pp.~684--688, 2009.
-
-
-\bibitem{Egghe2006:g}
-Egghe L., An improvement of the $H$-index:~the $G$-index, 
-ISSI Newsletter 2(1), pp. 8--9, 2006.
-
-\bibitem{FranceschiniMaisano2011:structevalh}
-Franceschini F., Maisano D.A.,
-\newblock Structured evaluation of the scientific output of academic research
-  groups by recent $h$-based indicators.
-\newblock \textit{Journal of Informetrics}, 5, pp.~64--74, 2011.
-
-\bibitem{Gagolewski2013:om3}
-Gagolewski M., 
-On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, 
-Information Sciences 221, pp. 170-180, 2013.
-
-\bibitem{GagolewskiGrzegorzewski2011:ijar}
-Gagolewski M., Grzegorzewski P., 
-Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, 
-International Journal of Approximate Reasoning 52(9), pp. 1312-1324, 2011.
-
-\bibitem{GagolewskiMesiar2012:pqm}
-Gagolewski M., Mesiar R., 
-Aggregating Different Paper Quality Measures with a Generalized h-index, 
-Journal of Informetrics 6(4), pp. 566-579, 2012.
-
-\bibitem{Gagolewski2011:PhD}
-Gagolewski M., \textit{Aggregation Operators and Their Application in a Formal Model for Quality Evaluation System of Scientific Research}
-(Wybrane operatory agregacji i~ich zastosowanie w~modelu formalnym systemu jakości w~nauce),
-PhD Thesis, Systems Research Institute, Polish Academy of Sciences, 2011 (In Polish).
-
-
-\bibitem{Gagolewski2011:CITAN}
-Gagolewski M.,
-Bibliometric Impact Assessment with \R and the \package{CITAN} Package, 
-Journal of Informetrics 5(4), pp. 678-692, 2011.
-
-\bibitem{GagolewskiGrzegorzewski2009:geometricapproach}
-Gagolewski M., Grzegorzewski P.,
-A Geometric Approach to the Construction of Scientific Impact Indices,
-Scientometrics 81(3), 2009, pp. 617-634.
-
-\bibitem{Gagolewski2012:smps}
-Gagolewski M.,
-Statistical Hypothesis Test for the Difference between Hirsch Indices of Two Pareto-Distributed Random Samples, 
-In: Kruse R. et al (Eds.), Synergies of Soft Computing and Statistics for Intelligent Data Analysis (AISC 190),
-Springer-Verlag, Heidelberg, pp. 359-367, 2013.
-
-\bibitem{Gagolewski2012:ipmu}
-Gagolewski M.,
-On the Relation Between Effort-Dominating and Symmetric Minitive Aggregation Operators,
-In: Greco S. et al (Eds.), Advances in Computational Intelligence, 
-Part III (CCIS 299), Springer-Verlag, Heidelberg, pp. 276-285, 2012.
-
-\bibitem{GagolewskiGrzegorzewski:eusflatlfa}
-Gagolewski M., Grzegorzewski P.,
-Axiomatic Characterizations of (quasi-) L-statistics and S-statistics and the Producer Assessment Problem, 
-In: Galichet S., Montero J., Mauris G. (Eds.), Proc. EUSFLAT/LFA 2011, Atlantic Press, pp. 53-58, 2011.
-
-\bibitem{Gagolewski2010:smps}
-Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), 
-Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), 
-Springer-Verlag, Heidelberg, pp. 281-288, 2010.
-
-\bibitem{GagolewskiGrzegorzewski2010:ipmu}
-Gagolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, 
-In: H\"{u}llermeier E., Kruse R., Hoffmann F. (Eds.),
-Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), 
-Springer-Verlag, Heidelberg, pp. 693-702, 2010.
-
-\bibitem{agopHome}
-Gagolewski M., Cena A., \package{agop}: Aggregation Operators in \R,
-\href{http://www.rexamine.com/resources/agop/}{www.rexamine.com/resources/agop/},
-2013.
-
-\bibitem{GrabischETAL2009:aggregationfunctions}
-Grabisch M., Marichal J.-L.,  Mesiar R., Pap E.,
-\textit{Aggregation functions},
-Cambridge University Press, 2009.
-
-\bibitem{Hirsch2005:hindex}
-Hirsch J.E.,
-An index to quantify individual's scientific research output,
-\textit{Proceedings of the National Academy of Sciences} 102(46), pp. 16569--16572,
-2005.
-
-\bibitem{Kosmulski2007:maxprod}
-Kosmulski M.,
-MAXPROD -- A~new index for assessment of the scientific output of an individual,
-and a comparison with the $h$-index, \textit{Cybermetrics} 11(1), 2007.
-
-\bibitem{Quesada2009:monotonicityh}
-Quesada A.,
-\newblock Monotonicity and the {H}irsch index.
-\newblock \textit{Journal of Informetrics}, 3\penalty0 (2), pp.~158--160, 2009.
-
-\bibitem{Quesada2010:moreaxiomatics}
-Quesada A.,
-\newblock More axiomatics for the {H}irsch index.
-\newblock \textit{Scientometrics}, 82, pp.~413--418, 2010.
-
-\bibitem{Rproject:home}
-{\R Development Core Team}.
-\newblock \textit{\R: A~language and environment for statistical
-  computing}.
-\newblock \R Foundation for Statistical Computing, Vienna, Austria,
-  2013.
-\newblock \url{http://www.R-project.org}.
-
-\bibitem{Rousseau2008:woegingerax}
-Rousseau R.,
-\newblock Woeginger's axiomatisation of the $h$-index and its relation to the
-  $g$-index, the $h(2)$-index and the $r^2$-index.
-\newblock \textit{Journal of Informetrics}, 2\penalty0 (4), pp.~335--340,
-  2008.
-
-\bibitem{Sugeno1974:PhD}
-Sugeno M., \textit{Theory of fuzzy integrals and its applications},
-PhD dissertation, Tokyo Institute of Technology, Meguro-ku, Tokyo, 1974.
-
-\bibitem{TorraNarukawa2008:h2fuzzyintegrals}
-Torra V., Narukawa Y.,
-The $h$-index and the number of citations: Two fuzzy integrals,
-\textit{IEEE Transactions on Fuzzy Systems} 16(3), pp. 795--797, 2008.
-
-\bibitem{VillasenorGonzalez2009:gofgpd}
-Villasenor-Alva J., Gonzalez-Estrada E.,
-\newblock A bootstrap goodness of fit test for the {G}eneralized {P}areto
-  {D}istribution.
-\newblock \textit{Computational Statistics and Data Analysis}, 53\penalty0
-  (11), pp.~3835--3841, 2009.
-
-\bibitem{Woeginger2008:axiomaticg}
-Woeginger G.J.,
-\newblock An axiomatic analysis of {E}gghe's $g$-index.
-\newblock \textit{Journal of Informetrics}, 2\penalty0 (4), pp.~364--368,
-  2008.
-
-\bibitem{Woeginger2008:axiomatich}
-Woeginger G.J.,
-\newblock An axiomatic characterization of the {H}irsch-index.
-\newblock \textit{Mathematical Social Sciences}, 56\penalty0 (2), pp.~224--232,
-  2008.
-
-\bibitem{Woeginger2008:symmetryaxiom}
-Woeginger G.J.,
-\newblock A symmetry axiom for scientific impact indices.
-\newblock \textit{Journal of Informetrics}, 2, pp.~298--303, 2008.
-  
-\bibitem{Zhang2010:estgpd}
-Zhang J.,
-\newblock Improving on estimation for the {G}eneralized {P}areto
-  {D}istribution.
-\newblock \textit{Technometrics}, 52\penalty0 (3), pp.~335--339, 2010.
-
-\bibitem{ZhangStevens2009:estgpd}
-Zhang J., Stephens M.A.,
-\newblock A new and efficient estimation method for the {G}eneralized {P}areto
-  {D}istribution.
-\newblock \textit{Technometrics}, 51\penalty0 (3), pp.~316--325, 2009.
-\end{thebibliography}
+\bibliographystyle{acm}
+\bibliography{bibliography}
 
 \end{document}

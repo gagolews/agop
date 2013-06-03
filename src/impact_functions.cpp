@@ -27,7 +27,8 @@
 /** Compute the h-index, O(n) time for sorted data
  * 
  * A simple binsearch-based algorithm could be implemented here,
- * but 
+ * but after some testing it turned to be slower for vectors of length < 1000
+ * (a typical case in bibliometrics)
  * 
  * @param x numeric vector
  * @return real scalar (vector of 
@@ -55,36 +56,9 @@ SEXP index_h(SEXP x)
 
 
 
-/** *internal* function to compute the h-index, O(log n) time for sorted vectors.
- * This has been described in (Gagolewski, Grzegorzewski, 2009).
- * For "real-world" data (short vectors), this function is slower than the O(n)
- * version.
- *
- *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n number of observations, n >= 1
- *  @return result
- */
-int __index_h_log(double* x, int n)
-{
-	int h1 = 0;
-	int h2 = n-1;
-
-	if (x[0] < 1.0) { return 0; }
-
-	while (1)
-	{
-		int m = (h2+h1+1)/2;
-		if (x[m] == (double)m+1 || h1 == h2) {return m+1; }
-		if (x[m] < (double)m+1) h2 = m-1;
-		else h1 = m;
-	}
-}
 
 
-
-
-
-/** Function to compute the g-index, O(n) time.
+/** Function to compute the g-index
  * 
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @return scalar real
@@ -104,7 +78,7 @@ SEXP index_g(SEXP x)
    R_len_t i = 0;
    while (i < n)	{
    	sum += xd[i];
-		if (sum < (double)((i+1)*(i+1))) break;
+		if (sum < (double)(i+1)*(double)(i+1)) break;
 		++i;
 	}
 	
@@ -114,7 +88,7 @@ SEXP index_g(SEXP x)
 
 
 
-/** Function to compute the ZERO-INSENSITIVE g-index, O(n) time.
+/** Function to compute the ZERO-INSENSITIVE g-index
  * 
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @return scalar real
@@ -125,23 +99,57 @@ SEXP index_g_zi(SEXP x)
    
    R_len_t n = LENGTH(x);
    if (n <= 0) return x;
-   
-   error("TO DO");
-   
-//   double* xd = REAL(x);
-//   if (R_IsNA(xd[0]))
-//      return ScalarReal(NA_REAL);
-//      
-//   double sum = 0.0;
-//   R_len_t i = 0;
-//   while (i < n)   {
-//   	sum += xd[i];
-//		if (sum < (double)((i+1)*(i+1))) break;
-//		++i;
-//	}
+
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
+      
+   double sum = 0.0;
+   R_len_t i = 0;
+   while (TRUE)   {
+   	if (i < n) sum += xd[i];
+      if (sum < (double)(i+1)*(double)(i+1)) break;
+		++i;
+	}
 	
-//   return ScalarReal((double) i);
+   return ScalarReal((double) i);
 }
+
+
+
+
+
+
+
+
+
+
+/** *internal* function to compute the h-index, O(log n) time for sorted vectors.
+ * This has been described in (Gagolewski, Grzegorzewski, 2009).
+ * For "real-world" data (short vectors), this function is slower than the O(n)
+ * version.
+ *
+ *  @param x vector of non-negative reals, sorted non-increasingly
+ *  @param n number of observations, n >= 1
+ *  @return result
+ */
+int __index_h_log(double* x, int n)
+{
+   int h1 = 0;
+	int h2 = n-1;
+
+	if (x[0] < 1.0) { return 0; }
+
+	while (1)
+	{
+		int m = (h2+h1+1)/2;
+		if (x[m] == (double)m+1 || h1 == h2) {return m+1; }
+		if (x[m] < (double)m+1) h2 = m-1;
+		else h1 = m;
+	}
+}
+
+
 
 
 /** Function to compute the r_p-index, O(n) time.

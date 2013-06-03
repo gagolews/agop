@@ -14,5 +14,9 @@ test_that("index_h", {
    expect_equivalent(index_h(c(3,3,3,3)), 3)
    expect_equivalent(index_h(c(3.1,3.1,3.1,3.1)), 3)
    expect_equivalent(index_h(c(0.99)), 0)
+   expect_equivalent(index_h(0), 0)
+   expect_equivalent(index_h(rep(1,1)), 1)
+   expect_equivalent(index_h(rep(100,100)), 100)
+   expect_equivalent(index_h(rep(1000000,1000000)), 1000000)
    
 })

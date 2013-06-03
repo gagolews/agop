@@ -63,6 +63,7 @@ index_h <- function(x)
 
 
 #' @rdname index_h
+#' @usage index.h(x) # same as index_h(x), deprecated alias
 #' @export
 index.h <- index_h # deprecated
 
@@ -110,6 +111,7 @@ index_g <- function(x)
 }
 
 #' @rdname index_g
+#' @usage index.g(x) # same as index_g(x), deprecated alias
 #' @export
 index.g <- index_g # deprecated
 

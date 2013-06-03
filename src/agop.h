@@ -94,7 +94,7 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, 
 
 SEXP index_h(SEXP x);    // DONE
 SEXP index_g(SEXP x);    // DONE
-SEXP index_g_zi(SEXP x); // TODO
+SEXP index_g_zi(SEXP x); // DONE
 
 
 
