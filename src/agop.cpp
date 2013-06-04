@@ -68,6 +68,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_h,                    1),
    MAKE_CALL_METHOD(index_g,                    1),
    MAKE_CALL_METHOD(index_g_zi,                 1),
+   MAKE_CALL_METHOD(index_maxprod,              1),
 
    // the list must be NULL-terminated:
    {NULL,                           NULL,                  0}

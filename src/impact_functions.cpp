@@ -31,7 +31,7 @@
  * (a typical case in bibliometrics)
  * 
  * @param x numeric vector
- * @return real scalar (vector of 
+ * @return real scalar (vector of length == 1)
  */
 SEXP index_h(SEXP x)
 {
@@ -121,6 +121,31 @@ SEXP index_g_zi(SEXP x)
 
 
 
+
+/** Compute the MAXPROD-index (Kosmulski)
+ * 
+ * 
+ * @param x numeric vector
+ * @return real scalar
+ */
+SEXP index_maxprod(SEXP x)
+{
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
+   
+   double out = 0.0;
+   for (R_len_t i = 0; i < n && xd[i] > 0; ++i)
+      if (out < xd[i]*(double)(i+1))
+         out = xd[i]*(double)(i+1);
+	
+   return ScalarReal(out);
+}
 
 
 

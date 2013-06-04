@@ -527,6 +527,7 @@ index_h(c(6,5,4,2,1,0,0,0,0,0,0))
 index_h(c(-1,3,4,2)) # only for x>=0
 @
 
+This is a zero-insensitive impact function.
 
 \paragraph{The $g$-index.}
 Egghe's $g$-index \cite{Egghe2006:g}:
@@ -574,10 +575,15 @@ The MaxProd-index \cite{Kosmulski2007:maxprod}:
 \begin{equation}\label{Eq:IndexMaxProd}
    \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{i}: i=1,2,\ldots\right\}.
 \end{equation}
-This index is a particular case of the (projected) $l_p$-indices, $p\ge 1$,
+This index is a particular case of a projected $l_\infty$-index,
 see \cite{GagolewskiGrzegorzewski2009:geometricapproach}.
 
 Shilkret integral \cite{Shilkret1971:maxitivemeasure}
+
+This is a zero-insensitive impact function.
+
+\package{agop} implementation: \Rfunc{index\_maxprod()}.
+
 
 
 

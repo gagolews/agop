@@ -87,6 +87,9 @@ index.h <- index_h # deprecated
 #' see Examples section. \code{index_g_zi} is its zero-sensitive variant:
 #' it assumes that the aggregated vector is padded with zeros.
 #' 
+#' The h-index is the same as the discrete Sugeno integral of \code{x}
+#' w.r.t. the counting measure (cf. Torra, Narukawa, 2008).
+#' 
 #' If non-increasingly sorted vector is given, the function is O(n).
 #' 
 #' For historical reasons, this function is also available via its alias,
@@ -98,7 +101,9 @@ index.h <- index_h # deprecated
 #' 
 #' @references
 #' Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
-#'
+#' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
+#' integrals. IEEE Transactions on Fuzzy Systems 16(3), 2008, 795-797.\cr
+#' 
 #' @examples
 #' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
 #' 
@@ -122,6 +127,38 @@ index.g <- index_g # deprecated
 index_g_zi <- function(x)
 {
    .Call("index_g_zi", x, PACKAGE="agop")
+}
+
+
+
+#' @title Kosmulski's MAXPROD-index
+#'
+#' @description
+#' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
+#' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
+#' the \dfn{MAXPROD-index} (Kosmulski, 2007) for \eqn{x} is defined as
+#' \deqn{MAXPROD(x)=\max\{i x_i: i=1,\dots,n\}}{MAXPROD(x)=max{i x_i: i=1,\dots,n}}.
+#'
+#' @details
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' MAXPROD index is the same as the discrete Shilkret integral of \code{x}
+#' w.r.t. the counting measure.
+#' 
+#' @param x a non-negative numeric vector
+#' @return a single numeric value
+#' 
+#' @references
+#' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
+#' of an individual, and a comparison with the h-index, Cybermetrics 11(1), 2007.
+#'
+#' 
+#' @family bibliometric_indices
+#' @rdname index_maxprod
+#' @export
+index_maxprod <- function(x)
+{
+   .Call("index_maxprod", x, PACKAGE="agop")
 }
 
 
