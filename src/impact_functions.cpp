@@ -119,6 +119,36 @@ SEXP index_g_zi(SEXP x)
 
 
 
+/** Function to compute the w-index
+ * 
+ *  @param x vector of non-negative reals, sorted non-increasingly
+ *  @return scalar real
+ */
+SEXP index_w(SEXP x)
+{
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
+      
+   R_len_t w = min(xd[0],(double)n);
+   for (R_len_t i=1; i < n; ++i) {
+      if (xd[i] < w-i) {
+         w = (int)xd[i]+i;
+      }
+      if (xd[i] == 0) {
+         w = min(w,i+1);
+         break;
+      }
+	}
+	
+   return ScalarReal((double) w);
+}
+
 
 
 

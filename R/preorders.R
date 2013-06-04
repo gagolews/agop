@@ -18,28 +18,26 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' Weak Dominance Relation (preorder)
+#' @title
+#' Weak Dominance Relation (Preorder)
 #' 
+#' @description
 #' \eqn{x <= y} iff \eqn{nx <= ny} AND
 #' for all \eqn{i = 1,...,n} \eqn{x_{(n-i+1)} <= y_{(m-i+1)}},
 #' where \eqn{nx = length(x)} and \eqn{ny = length(y)}.
 #' 
+#' @details
+#' This function accepts only vectors with nonnegative elements.
+#' 
 #' @param x numeric vector
 #' @param y numeric vector
-#' @param disable_check logical value; if you are sure that
-#' \code{x} and \code{y} are nonincreasingly sorted numeric vector,
-#' set to \code{TRUE} to speed up the code execution
 #' @return single logical value; whether x <= y
+#' 
 #' @family agop_binary_relations
 #' @export
-pord_weakdom <- function(x, y, disable_check=FALSE)
+pord_weakdom <- function(x, y)
 {
-   if (!identical(disable_check, TRUE)) {
-      stopifnot(is.numeric(x), is.numeric(y))
-      x <- sort(x, decreasing=TRUE)
-      y <- sort(y, decreasing=TRUE)
-   }
-   length(x) <= length(y) && all(x <= y[1:length(x)])
+   .Call("pord_weakdom", x, y, PACKAGE="agop")
 }
 
 

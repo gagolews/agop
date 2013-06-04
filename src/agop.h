@@ -98,6 +98,11 @@ SEXP index_g_zi(SEXP x);    // DONE
 SEXP index_maxprod(SEXP x); // DONE
 SEXP index_w(SEXP x);       // DONE
 
+
+
+
+SEXP pord_weakdom(SEXP x, SEXP y); // DONE
+
 void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 
 void index_rp_finite(double* x, int* n, double *p, double* out); // @TODO: rewrite
