@@ -96,7 +96,7 @@ SEXP index_h(SEXP x);       // DONE
 SEXP index_g(SEXP x);       // DONE
 SEXP index_g_zi(SEXP x);    // DONE
 SEXP index_maxprod(SEXP x); // DONE
-
+SEXP index_w(SEXP x);       // DONE
 
 void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 

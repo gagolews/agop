@@ -529,6 +529,8 @@ index_h(c(-1,3,4,2)) # only for x>=0
 
 This is a zero-insensitive impact function.
 
+We have $\func{H}(\vect{x})\le \min\{n, x_{1}\}$.
+
 \paragraph{The $g$-index.}
 Egghe's $g$-index \cite{Egghe2006:g}:
 $\func{G}(\vect{x})=\max\{g=1,\dots,n: \sum_{i=1}^g x_{\{g\}}\ge g^2\}$,
@@ -555,11 +557,21 @@ it may be calculated on the nondecreasing vector of cumulative sums,
 however, it cannot be expressed as a symmetric maxitive aggregation operator.
 
 
+
 \paragraph{The $w$-index.}
  The $w$-index \cite{Woeginger2008:axiomatich}:
 \begin{equation}\label{Eq:IndexW}
-\func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{i} \ge w-i+1, i=1,\dots,w\right\}.
+\func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}.
 \end{equation}
+
+\package{agop} implementation: \Rfunc{index\_w()}.
+
+This is a zero-insensitive impact function.
+
+We have $\func{H}(\vect{x})\le\func{W}(\vect{x})\le 2\func{H}(\vect{x})$,
+$\func{W}(\vect{x})\le \min\{n, x_{1}\}$.
+
+
 
 
 
@@ -568,12 +580,16 @@ however, it cannot be expressed as a symmetric maxitive aggregation operator.
 \paragraph{The $r_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
 for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
 
+This is a zero-insensitive impact function.
+
+
+
 
 
 \paragraph{The $\mathrm{MAXPROD}$-index.}
 The MaxProd-index \cite{Kosmulski2007:maxprod}:
 \begin{equation}\label{Eq:IndexMaxProd}
-   \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{i}: i=1,2,\ldots\right\}.
+   \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{\{i\}}: i=1,2,\ldots\right\}.
 \end{equation}
 This index is a particular case of a projected $l_\infty$-index,
 see \cite{GagolewskiGrzegorzewski2009:geometricapproach}.

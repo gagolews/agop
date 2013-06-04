@@ -162,6 +162,36 @@ index_maxprod <- function(x)
 }
 
 
+
+#' @title Woeginger's w-index
+#'
+#' @description
+#' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
+#' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
+#' the \dfn{\eqn{w}-index} (Woeginger, 2008) for \eqn{x} is defined as
+#' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1\text{ for all }j=1,\dots,i\}}{W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}.
+#'
+#' @details
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' 
+#' @param x a non-negative numeric vector
+#' @return a single numeric value
+#' 
+#' @references
+#' Woeginger G. J., An axiomatic characterization of the Hirsch-index.
+#' Mathematical Social Sciences 56(2), 2008, 224-232.
+#'
+#' 
+#' @family bibliometric_indices
+#' @rdname index_w
+#' @export
+index_w <- function(x)
+{
+   .Call("index_w", x, PACKAGE="agop")
+}
+
+
 # #' Computes the \eqn{r_p}-index of a numeric vector for given \eqn{p}.
 # #'
 # #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
