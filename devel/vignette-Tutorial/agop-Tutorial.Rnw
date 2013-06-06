@@ -556,7 +556,12 @@ it may be calculated on the nondecreasing vector of cumulative sums,
 \texttt{\Rfunc{cumsum}(\Rfunc{sort}(x, \argument{decreasing=}TRUE))},
 however, it cannot be expressed as a symmetric maxitive aggregation operator.
 
-
+Interestingly, it might be shown that if $\vect{x}$ is sorted
+nondecreasingly, then:
+\[
+\func{G}(\vect{x}) = \func{H}(\vect{x})(0\vee \mathtt{cummin}(\mathtt{cumsum}(x)-(1:n)^2+(1:n))),
+\]
+where $1:n = (1, 2, 3, \dots, n)$.
 
 \paragraph{The $w$-index.}
  The $w$-index \cite{Woeginger2008:axiomatich}:
@@ -574,8 +579,11 @@ $\func{W}(\vect{x})\le \min\{n, x_{1}\}$.
 
 
 
-
-
+Interestingly, it might be shown that if $\vect{x}$ is sorted
+nondecreasingly, then:
+\[
+\func{W}(\vect{x}) = \func{H}(\vect{x})(\mathtt{cummin}(\vect{x}+(1:n)-1)).
+\]
 
 \paragraph{The $r_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
 for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
