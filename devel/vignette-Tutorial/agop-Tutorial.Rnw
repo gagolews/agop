@@ -338,17 +338,15 @@ Good luck!
 
 \section{Theoretical Background}
 
-Let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$
+Let us begin with some basic notation convention. 
+From now on let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$
 (in many practical situations we choose $\Ival=[0,1]$ or $\Ival=[0,\infty]$).
+A set of all vectors with elements in $\Ival$ of arbitrary length 
+is denoted by $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ .
 
-Moreover, let $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ (set
-of vectors with elements in $\Ival$ -- of any length).
-
-Notational convention:
 For $\vect{x},\vect{y}\in\IvalPow{n}$
-we write $\vect{x}\le\vect{y}$ iff for all $i$ it holds $x_i\le y_i$.
-
-All binary arithmetic operations on vectors $\vect{x},\vect{y}\in\IvalPow{n}$
+we write $\vect{x}\le\vect{y}$ if and only if for all $i$ it holds $x_i\le y_i$.
+Moreover, all binary arithmetic operations on vectors $\vect{x},\vect{y}\in\IvalPow{n}$
 are performed element-wise,
 e.g. $\vect{x}+\vect{y}=(x_1+y_1,\dots,x_n+y_n)\in\IvalPow{n}$.
 Similarly: $-$, $\cdot$, $/$, $\wedge$ (min), $\vee$ (max), etc.
@@ -356,13 +354,12 @@ Additionally, each function of one variable
 $\func{f}:\Ival\to\Ival$ can be extended to the vector
 space: we write $\func{f}(\vect{x})=(\func{f}(x_1), \dots, \func{f}(x_n))$.
 
-Let $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
-
 Let $x_{(i)}$ denote the $i$th order statistic,
 i.e.~the $i$th smallest value in $\vect{x}$.
 Moreover, for convenience,
 let $x_{\{i\}}=x_{|\vect{x}|-i+1}$ denote the $i$th greatest value in $\vect{x}$.
 
+For any $k\in\mathbb{N}$ and $c\in\Ival$ , we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
 
 
 
@@ -383,39 +380,49 @@ By nondecreasingness, however, these conditions reduce to
 $\func{F}(n\ast a)\ge a$ and $\func{F}(n\ast b)\le b$.
 
 \begin{definition}
-We call $\func{F}$ \emph{symmetric} if ....
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if \[
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
+\vect{x}\cong\vect{y}\Longrightarrow\func{F}(\vect{x})=\func{F}(\vect{y}),
+ \] where  $\vect{x}\cong\vect{y}$ if and only if there exists a permutation
+$\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
+$\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$
 \end{definition}
-
-
 
 \begin{definition}
-We call $\func{F}$ \emph{idempotent} if ....
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if 
+\[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
 \end{definition}
-
 
 \begin{definition}
-We call $\func{F}$ \emph{additive} if ....
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if \[
+\func{F}(\vect{x}+\vect{y})=\func{F}(\vect{x})+\func{F}(\vect{y}),
+\]
+for all $\vect{x},\vect{y}\in\IvalPow{n}$ such that 
+$\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
-
-
 
 \begin{definition}
-We call $\func{F}$ \emph{minitive} if ....
+We call $\func{F}$ \emph{minitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+\func{F}(\vect{x}\stackrel{S}{\wedge}
+\vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}),\] where
+$\vect{x}\stackrel{S}{\wedge}\vect{y}=(x_{(1)}\wedge y_{(1)},\dots,x_{(n)}\wedge
+y_{(n)})$ for $\vect{x},\vect{y}\in\IvalPow{n}$.
 \end{definition}
-
-
 
 \begin{definition}
-We call $\func{F}$ \emph{maxitive} if ....
+We call $\func{F}$ \emph{maxitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
+\func{F}(\vect{x}\stackrel{S}{\vee}
+\vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}),\] where 
+$\vect{x}\stackrel{S}{\vee}\vect{y}=(x_{(1)}\vee
+y_{(1)},\dots,x_{(n)}\vee y_{(n)})$ for $\vect{x},\vect{y}\in\IvalPow{n}$.
 \end{definition}
-
-
 
 \begin{definition}
-We call $\func{F}$ \emph{modular} if ....
+We call $\func{F}$ \emph{modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+\func{F}(\vect{x}\stackrel{S}{\vee}\vect{y})
++\func{F}(\vect{x}\stackrel{S}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
+(\vect{y}).\]  
 \end{definition}
-
-
 
 \subsection{Impact Functions and The Producers Assessment Problem}
 
@@ -524,9 +531,49 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 \subsection{...}
 
+weighted mean ,OWA (L-statistics), qL
+
+WMin, OWMin, qI
+
+WMax, OWMax (S-statistics), qS 
+
+OM3
 
 
-weighted average, OWA (L-statistics), qL
+\begin{definition}
+The \emph{weighted arithmetic mean} $\func{WAM}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\sum_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{WAM}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{ordered weighted aaveraging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\sum_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{OWA}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+ (L-statistics)
+\begin{definition}
+The \emph{triangle of coefficients} 
+\end{definition}
+ 
+\begin{definition}
+The \emph{ordered weighted aaveraging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\sum_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{OWA}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+
+qL
 
 WMin, OWMin, qI
 
