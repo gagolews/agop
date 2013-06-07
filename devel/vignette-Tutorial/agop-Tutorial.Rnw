@@ -109,17 +109,39 @@
 
 
 
+\newif\ifDevelopmentVersion
+
+<<AGOPver,echo=FALSE,results='asis',cache=FALSE>>=
+AGOPver <- packageDescription("agop")$Version
+if (substring(AGOPver, nchar(AGOPver)) == "0") {
+   cat("\\DevelopmentVersiontrue\n")
+} else {
+   cat("\\DevelopmentVersionfalse\n")
+}
+@
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\ifDevelopmentVersion
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{\footnotesize\sf This tutorial reflects the state of the most 
+recent development version
+of \package{agop} available on 
+\href{https://github.com/Rexamine/agop}{\textit{GitHub}}.\newline
+If you use the ``official'' CRAN release, some of the features may be unavailable.}
+\fi
 
 \begin{document}
 
 
 \begin{center}
-{\LARGE\sf A Guide to the \package{agop} {0.1-devel} Package for \R}
+{\LARGE\sf A Guide to the \package{agop} {\Sexpr{AGOPver}} Package for \R}
 
 {\large\sf\textit{Aggregation Operators in \R}}
 
@@ -258,12 +280,30 @@ package for \R$\ge$ 2.12 to which anyone can contribute.
 It started as a fork of the \package{CITAN} (Citation
 Analysis Toolpack) package for \R.
 
-% To install its latest ``official'' release 
-% available on \textit{CRAN} we type:
-% 
-% <<eval=FALSE>>=
-% install.packages("agop")
-% @
+To install latest ``official'' release of the 
+package available on \textit{CRAN} we type%
+\ifDevelopmentVersion%
+\footnote{You are viewing the \textbf{development} version of the tutorial.
+Some of the features presented in this document may be missing
+in the CRAN release. Please, upgrade to the \textbf{latest} development version from
+\href{https://github.com/Rexamine/agop}{\textit{GitHub}}
+if you need the new functionality.}\ignorespaces
+\fi%
+:
+
+<<eval=FALSE>>=
+# install.packages('agop') # NOT YET AVAILABLE ON CRAN
+@
+
+\noindent
+Alternatively, we may fetch its current development snapshot
+from \href{https://github.com/Rexamine/agop}{\textit{GitHub}}:
+
+<<eval=FALSE>>=
+install.packages('devtools')
+library('devtools')
+install_github('agop', 'Rexamine')
+@
 
 
 
@@ -272,14 +312,14 @@ Each session with \package{agop} should be preceded by
 a call to:
 
 <<libraryagop,results='hide',warning=FALSE,message=FALSE,cache=FALSE>>=
-library("agop") # Load the package
+library('agop') # Load the package
 @
 
 \bigskip
 To view the main page of the manual we type:
 
 <<helpagop,eval=FALSE>>=
-library(help="agop")
+library(help='agop')
 @
 
 \noindent

@@ -163,18 +163,35 @@
 
 
 
+\newif\ifDevelopmentVersion
+
+\DevelopmentVersiontrue
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\ifDevelopmentVersion
+\pagestyle{fancy}
+\fancyhead[L]{}
+\fancyhead[R]{}
+\fancyhead[C]{\footnotesize\sf This tutorial reflects the state of the most 
+recent development version
+of \package{agop} available on 
+\href{https://github.com/Rexamine/agop}{\textit{GitHub}}.\newline
+If you use the ``official'' CRAN release, some of the features may be unavailable.}
+\fi
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-
-
 
 \begin{document}
 
 
 \begin{center}
-{\LARGE\sf A Guide to the \package{agop} {0.1-devel} Package for \R}
+{\LARGE\sf A Guide to the \package{agop} {0.1-0} Package for \R}
 
 {\large\sf\textit{Aggregation Operators in \R}}
 
@@ -259,12 +276,40 @@ package for \R$\ge$ 2.12 to which anyone can contribute.
 It started as a fork of the \package{CITAN} (Citation
 Analysis Toolpack) package for \R.
 
-% To install its latest ``official'' release 
-% available on \textit{CRAN} we type:
-% 
-% <<eval=FALSE>>=
-% install.packages("agop")
-% @
+To install latest ``official'' release of the 
+package available on \textit{CRAN} we type%
+\ifDevelopmentVersion%
+\footnote{You are viewing the \textbf{development} version of the tutorial.
+Some of the features presented in this document may be missing
+in the CRAN release. Please, upgrade to the \textbf{latest} development version from
+\href{https://github.com/Rexamine/agop}{\textit{GitHub}}
+if you need the new functionality.}\ignorespaces
+\fi%
+:
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcomment{# install.packages('agop') # NOT YET AVAILABLE ON CRAN}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+
+\noindent
+Alternatively, we may fetch its current development snapshot
+from \href{https://github.com/Rexamine/agop}{\textit{GitHub}}:
+
+\begin{knitrout}\small
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlfunctioncall{install.packages}(\hlstring{'devtools'})
+\hlfunctioncall{library}(\hlstring{'devtools'})
+\hlfunctioncall{install_github}(\hlstring{'agop'}, \hlstring{'Rexamine'})
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
 
 
 
@@ -275,7 +320,7 @@ a call to:
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{library}(\hlstring{"agop"}) # Load the package
+\hlfunctioncall{library}(\hlstring{'agop'}) \hlcomment{# Load the package}
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -287,7 +332,7 @@ To view the main page of the manual we type:
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
-\hlfunctioncall{library}(help=\hlstring{"agop"})
+\hlfunctioncall{library}(help=\hlstring{'agop'})
 \end{alltt}
 \end{kframe}
 \end{knitrout}
@@ -1424,13 +1469,16 @@ $h$-index and its distribution
 \begin{knitrout}\small
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-agop package NEWS
+                          ** agop package NEWS **
 
 ***************************************************************************
 
-0.1-1 /under development/
+0.1-0 /under development/
 
 * initial release
+  [the package started as a lightweight fork of the CITAN package]
+
+***************************************************************************
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

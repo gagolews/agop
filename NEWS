@@ -1,7 +1,10 @@
-agop package NEWS
+                          ** agop package NEWS **
 
 ***************************************************************************
 
-0.1-1 /under development/
+0.1-0 /under development/
 
 * initial release
+  [the package started as a lightweight fork of the CITAN package]
+
+***************************************************************************
