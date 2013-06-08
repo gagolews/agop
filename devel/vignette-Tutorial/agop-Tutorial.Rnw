@@ -387,7 +387,12 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if \[
 $\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
 $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$
 \end{definition}
-
+\medskip
+It may be shown, see \cite{GrabischETAL2009:aggregationfunctions}, that 
+$\func{F}:\IvalPow{n}\to\Ival$ is summetric if and only if there exist 
+function $\func{G}:\IvalPow{n}\to\Ival$ such that 
+$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{(1)},\dots,x_{(n)})$.
+\bigskip
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if 
 \[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
@@ -403,25 +408,27 @@ $\vect{x}+\vect{y}\in\IvalPow{n}$.
 
 \begin{definition}
 We call $\func{F}$ \emph{minitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
-\func{F}(\vect{x}\stackrel{S}{\wedge}
-\vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}),\] where
-$\vect{x}\stackrel{S}{\wedge}\vect{y}=(x_{(1)}\wedge y_{(1)},\dots,x_{(n)}\wedge
-y_{(n)})$ for $\vect{x},\vect{y}\in\IvalPow{n}$.
+\func{F}(\vect{x}\wedge
+\vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}).\]
+
 \end{definition}
 
 \begin{definition}
 We call $\func{F}$ \emph{maxitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
-\func{F}(\vect{x}\stackrel{S}{\vee}
-\vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}),\] where 
-$\vect{x}\stackrel{S}{\vee}\vect{y}=(x_{(1)}\vee
-y_{(1)},\dots,x_{(n)}\vee y_{(n)})$ for $\vect{x},\vect{y}\in\IvalPow{n}$.
+\func{F}(\vect{x}\vee
+\vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}).\] 
 \end{definition}
 
 \begin{definition}
-We call $\func{F}$ \emph{modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+We call $\func{F}$ \emph{symmetric modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
 \func{F}(\vect{x}\stackrel{S}{\vee}\vect{y})
 +\func{F}(\vect{x}\stackrel{S}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
-(\vect{y}).\]  
+(\vect{y}),\] 
+where $\vect{x}\stackrel{S}{\vee  }\vect{y}=(x_{(1)}\vee
+y_{(1)},\dots,x_{(n)}\vee   y_{(n)})$
+and
+$\vect{x}\stackrel{S}{\wedge}\vect{y}=(x_{(1)}\wedge y_{(1)},\dots,x_{(n)}\wedge
+y_{(n)})$.
 \end{definition}
 
 \subsection{Impact Functions and The Producers Assessment Problem}
@@ -531,13 +538,16 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 \subsection{...}
 
-weighted mean ,OWA (L-statistics), qL
+Ja to jeszcze zmienie, narazie wrzucam definicje ale potem je poukladam zeby bylo tak spojnie 
+i co jest czyms, mozliwe ze czesc zniknie.
 
-WMin, OWMin, qI
-
-WMax, OWMax (S-statistics), qS 
-
-OM3
+% weighted mean ,OWA (L-statistics), qL
+% 
+% WMin, OWMin, qI
+% 
+% WMax, OWMax (S-statistics), qS 
+% 
+% OM3
 
 
 \begin{definition}
@@ -560,26 +570,91 @@ $\sum_{i=1}^{n}w_{i}=1$ is defined as
 
  (L-statistics)
 \begin{definition}
-The \emph{triangle of coefficients} 
+The \emph{triangle of coefficients} is a sequence $\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$.
 \end{definition}
- 
+
 \begin{definition}
-The \emph{ordered weighted aaveraging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\sum_{i=1}^{n}w_{i}=1$ is defined as 
+The \emph{triangle of functions} is a sequence $\triangle=(f_{i,n}\in\IvalPow{\Ival}: i\in [n], n\in\Naturals)$.
+\end{definition}
+
+\begin{definition}
+The \emph{L-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{L}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
 \[
-\func{OWA}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}
+\func{L}_{\triangle}(\vect{x})=\sum_{i=1}^{n}c_{i,n}x_{(n-i+1)},
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{quasi-L-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qL}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+WMax, OWMax 
+
+\begin{definition}
+The \emph{S-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{S}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{S}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}c_{i,n}\wedge x_{(n-i+1)},
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{quasi-S-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qS}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
 
-qL
+WMin, OWMin
 
-WMin, OWMin, qI
+\begin{definition}
+The \emph{I-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{I}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{I}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}c_{i,n}\vee x_{(n-i+1)},
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
 
-WMax, OWMax (S-statistics), qS 
+\begin{definition}
+The \emph{quasi-I-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qI}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
 
-OM3
+Let us introduce now the class of symmetric maxitive, minitive and modular aggregation operators.
+
+\begin{definition}
+A sequence of nondecreasing functions $\vect{w}=(\func{w}_1,\func{w}_2,\dots)$,
+$\func{w}_i :\Ival\to\Ival$,
+ and a triangle of coefficients
+ $\triangle=(c_{i,n})_{i\in[n],n\in\Naturals}$, $c_{i,n}\in\Ival$
+ such that $(\forall n)$ $c_{1,n}\le c_{2,n}\le \dots \le c_{n,n}$,
+ $0\le\func{w}_n(0)\le c_{1,n}$, and
+ $\func{w}_n(b)=c_{n,n}$,
+ generates a nondecreasing \emph{OM3 operator} $\func{M}_{\triangle,\vect{w}}:\IvalPow{n}\to\Ival$
+ such that for $\vect{x}\in\IvalPow{n}$ we have:
+\begin{eqnarray*}
+\func{M}_{\triangle,\vect{w}}(\mathbf{x})&=&\bigvee_{i=1}^n
+\func{w}_n(x_{(n-i+1)})\wedge c_{i,n} =  \bigwedge_{i=1}^n (\func{w}_n(x_{(n-i+1)}) \vee c_{i-1,n}) \wedge c_{n,n}\\
+&=& \sum_{i=1}^n \left(\left(\func{w}_n(x_{(n-i+1)})\vee c_{i-1,n}\right) \wedge
+c_{i,n} - c_{i-1,n}\right).
+\end{eqnarray*}
+\end{definition}
+
+We see that the above contains i.a.~all
+order statistics (whenever $\func{w}_n(x)=x$,
+and $c_{i,n}=0$, $c_{j,n}=b$ for $i< k$, $j\ge k$, and some $k$),
+OWMax operators (for $\func{w}_n(x)=x$),
+and the famous Hirsch $h$-index ($\func{w}_n(x)=\lfloor x\rfloor$, $c_{i,n}=i$).
 
 
 \subsection{Bibliometric Impact Indices}
