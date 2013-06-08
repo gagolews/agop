@@ -256,8 +256,9 @@ opts_chunk$set(
 \section{Getting started}
 
 
-intro.....
+introduction.....
 aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
+-- why do we need aggregation?
 
 
 
@@ -338,13 +339,15 @@ Good luck!
 
 \section{Theoretical Background}
 
-Let us begin with some basic notation convention. 
-From now on let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$
-(in many practical situations we choose $\Ival=[0,1]$ or $\Ival=[0,\infty]$).
-A set of all vectors with elements in $\Ival$ of arbitrary length 
+Let us establish some basic notation convention
+used throughout this tutorial.
+From now on let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$.
+Note that in many practical situations we choose 
+$\Ival=[0,1]$ or $\Ival=[0,\infty]$.
+A set of all vectors of arbitrary length  with elements in $\Ival$ 
 is denoted by $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ .
 
-For $\vect{x},\vect{y}\in\IvalPow{n}$
+For two vectors $\vect{x},\vect{y}\in\IvalPow{n}$
 we write $\vect{x}\le\vect{y}$ if and only if for all $i$ it holds $x_i\le y_i$.
 Moreover, all binary arithmetic operations on vectors $\vect{x},\vect{y}\in\IvalPow{n}$
 are performed element-wise,
@@ -354,16 +357,77 @@ Additionally, each function of one variable
 $\func{f}:\Ival\to\Ival$ can be extended to the vector
 space: we write $\func{f}(\vect{x})=(\func{f}(x_1), \dots, \func{f}(x_n))$.
 
+
 Let $x_{(i)}$ denote the $i$th order statistic,
 i.e.~the $i$th smallest value in $\vect{x}$.
 Moreover, for convenience,
 let $x_{\{i\}}=x_{|\vect{x}|-i+1}$ denote the $i$th greatest value in $\vect{x}$.
 
-For any $k\in\mathbb{N}$ and $c\in\Ival$ , we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
+For any $n\in\mathbb{N}$ and $c\in\Ival$ , we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
+
+
+
+\subsection{A Note on Representing Numeric Data and Applying Operations in \R}
+
+Recall how we create numeric vectors in \R:
+
+<<numericexample1>>=
+(x1 <- c(5, 2, 3, 1, 0, 0))
+class(x1)
+(x2 <- 10:1) # the same as seq(10, 1)
+(x3 <- seq(1, 5, length.out=6))
+(x4 <- seq(1, 5, by=1.25))
+@
+
+To obtain $(n\ast c)$, e.g.~for $n=4$ and $c=1$, we call:
+
+<<numericexample2>>=
+rep(10, 3)
+@
+
+Please, note that in \R{} all the arithmetic operations on vectors are 
+performed element-wise, i.e.~in a manner indicated above.
+This is called \textit{vectorization}.
+The same holds for mathematical functions: they are extended to the vector space.
+
+<<vectorizedops1>>=
+x <- c(1, 3, 3, 2)
+y <- c(2 ,3,-1, 0)
+x+y
+x*y
+pmin(x,y)
+pmax(x,y)
+abs(y)
+@
+
+\noindent
+Thus, we calculated $\vect{x}+\vect{y}$,
+$\vect{x}\cdot\vect{y}$, $\vect{x}\wedge\vect{y}$, and $\vect{x}\vee\vect{y}$
+(try to determine yourself what happens if we deal with vector of unequal length
+is \R).
+
+Moreover, for the $\le$ relation we write:
+
+<<vectorizedops2,dependson='vectorizedops1'>>=
+all(x <= y)
+@
+
+To get $x_{\{i\}}$ we have to sort the vector nonincreasingly.
+
+<<vectorizedops3,dependson='vectorizedops2'>>=
+(xs <- sort(x, decreasing=TRUE)) # `decresing' may be misleading
+xs[3] # the third greatest value in x
+@
+
+
+
 
 
 
 \subsection{Aggregation Operators and Their Basic Properties}
+
+
+Aggregation - what for?....... motivation....
 
 \begin{definition}
 $\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
@@ -385,14 +449,22 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if \[
 \vect{x}\cong\vect{y}\Longrightarrow\func{F}(\vect{x})=\func{F}(\vect{y}),
  \] where  $\vect{x}\cong\vect{y}$ if and only if there exists a permutation
 $\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
-$\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$
+$\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 \end{definition}
-\medskip
-It may be shown, see \cite{GrabischETAL2009:aggregationfunctions}, that 
-$\func{F}:\IvalPow{n}\to\Ival$ is summetric if and only if there exist 
-function $\func{G}:\IvalPow{n}\to\Ival$ such that 
-$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{(1)},\dots,x_{(n)})$.
+
+
+Note that it may be shown, see
+\cite[Thm.~1.?XX?]{GrabischETAL2009:aggregationfunctions}, that 
+$\func{F}:\IvalPow{n}\to\Ival$ is symmetric if and only if there exists
+a function $\func{G}:\IvalPow{n}\to\Ival$ such that 
+$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$.
+
+
+
+
+
 \bigskip
+Idempotence - what does it mean?
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if 
 \[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
@@ -420,20 +492,27 @@ We call $\func{F}$ \emph{maxitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\
 \end{definition}
 
 \begin{definition}
-We call $\func{F}$ \emph{symmetric modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
-\func{F}(\vect{x}\stackrel{S}{\vee}\vect{y})
-+\func{F}(\vect{x}\stackrel{S}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
-(\vect{y}),\] 
-where $\vect{x}\stackrel{S}{\vee  }\vect{y}=(x_{(1)}\vee
-y_{(1)},\dots,x_{(n)}\vee   y_{(n)})$
-and
-$\vect{x}\stackrel{S}{\wedge}\vect{y}=(x_{(1)}\wedge y_{(1)},\dots,x_{(n)}\wedge
-y_{(n)})$.
+We call $\func{F}$ \emph{modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+\func{F}(\vect{x}{\vee}\vect{y})
++\func{F}(\vect{x}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
+(\vect{y}).\] 
 \end{definition}
+
+
+Apart from ``ordinary'' minitivity, maxitivity, and modularity
+we may introduce their symmetrized versions,
+using $\vect{x}\stackrel{S}{\vee}\vect{y}
+=(x_{\{1\}}\vee y_{\{1\}},\dots,x_{\{n\}}\vee   y_{\{n\}})$
+and
+$\vect{x}\stackrel{S}{\wedge}\vect{y}
+=(x_{\{1\}}\wedge y_{\{1\}},\dots,x_{\{n\}}\wedge y_{\{n\}})$.
+
 
 \subsection{Impact Functions and The Producers Assessment Problem}
 
 ..........
+
+
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
@@ -489,18 +568,7 @@ i.e.~its $(n-i+1)$th order statistic.
 \section{Predefined Classes of Aggregation Operators in \package{agop}}
 
 
-\subsection{A Note on Representing Numeric Data and Applying Functions in \R}
-Generally, in our implementation we most often deal with numeric vectors.
-Recall how we create them in \R:
-
-<<numericexample>>=
-(x1 <- c(5, 2, 3, 1, 0, 0))
-class(x1)
-(x2 <- rep(10, 3))
-(x3 <- 10:1) # the same as seq(10, 1)
-(x4 <- seq(1, 5, length.out=6))
-(x5 <- seq(1, 5, by=1.25))
-@
+\subsection{A Note on Storing Multiple Numeric Vectors in \R}
 
 Sometimes we will store the vectors of the same length
 in a matrix (column-/row-wise.... col/rownames....) \Rfunc{apply()}....
@@ -536,8 +604,11 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 
 
+
 \subsection{...}
 
+
+%%%% Nie zostawiaj po poslku - to jest dostepne publicznie w internecie :)
 Ja to jeszcze zmienie, narazie wrzucam definicje ale potem je poukladam zeby bylo tak spojnie 
 i co jest czyms, mozliwe ze czesc zniknie.
 
