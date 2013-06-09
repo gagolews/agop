@@ -454,21 +454,29 @@ $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 
 
 Note that it may be shown, see
-\cite[Thm.~1.?XX?]{GrabischETAL2009:aggregationfunctions}, that 
+\cite[Thm.~2.34]{GrabischETAL2009:aggregationfunctions}, that 
 $\func{F}:\IvalPow{n}\to\Ival$ is symmetric if and only if there exists
 a function $\func{G}:\IvalPow{n}\to\Ival$ such that 
 $\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$.
 
 
-
-
-
 \bigskip
-Idempotence - what does it mean?
+%Idempotence - what does it mean?
+
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if 
 \[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
 \end{definition}
+
+Please note, that property introduced above -- \emph{idempotence} --
+is well known in algebra, where we say that elenemt $x$ is idempotent with respect 
+to binary operator $*$ if we have $x*x=x$. Similarly, this definition were 
+extend for $n$-ary aggregation functions, cf. \cite{GrabischETAL2009:aggregationfunctions},
+for which it simply means that 
+for $\vect{x}\in\IvalPow{n}$ such that $x_{i}=x$ for all $i=1,\dots,n$, we have
+$\func{F}(\vect{x})=x$.
+\bigskip
+
 
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if \[
@@ -608,10 +616,6 @@ index_h(authors) # index_h() expects an numeric vector on input
 \subsection{...}
 
 
-%%%% Nie zostawiaj po poslku - to jest dostepne publicznie w internecie :)
-Ja to jeszcze zmienie, narazie wrzucam definicje ale potem je poukladam zeby bylo tak spojnie 
-i co jest czyms, mozliwe ze czesc zniknie.
-
 % weighted mean ,OWA (L-statistics), qL
 % 
 % WMin, OWMin, qI
@@ -631,7 +635,7 @@ $\sum_{i=1}^{n}w_{i}=1$ is defined as
 \end{definition}
 
 \begin{definition}
-The \emph{ordered weighted aaveraging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
+The \emph{ordered weighted averaging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
 with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
 $\sum_{i=1}^{n}w_{i}=1$ is defined as 
 \[
@@ -639,7 +643,42 @@ $\sum_{i=1}^{n}w_{i}=1$ is defined as
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
- (L-statistics)
+\begin{definition}
+The \emph{weighted maximum} $\func{WMax}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{WMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i})
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{ordered weighted maximum} $\func{OWMax}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{OWMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)})
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{weighted minimum} $\func{WMin}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{WMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{i})
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+\begin{definition}
+The \emph{ordered weighted minimum} $\func{OWMin}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
+$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
+\[
+\func{OWMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{(i)})
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
 \begin{definition}
 The \emph{triangle of coefficients} is a sequence $\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$.
 \end{definition}
@@ -664,8 +703,6 @@ is a function $\func{qL}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
-WMax, OWMax 
-
 \begin{definition}
 The \emph{S-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{S}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
@@ -681,9 +718,6 @@ is a function $\func{qS}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
-
-
-WMin, OWMin
 
 \begin{definition}
 The \emph{I-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
