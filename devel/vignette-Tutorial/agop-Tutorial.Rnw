@@ -626,57 +626,54 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 
 \begin{definition}
-The \emph{weighted arithmetic mean} $\func{WAM}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\sum_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{WAM}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}
-\] for any $\vect{x}\in\IvalPow{n}$.
+
+
+Let $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that 
+$\sum_{i=1}^{n}w_{i}=1$. Then, for any $\vect{x}\in\IvalPow{n}$:
+
+\begin{enumerate}
+\item The \emph{weighted arithmetic mean} $\func{WAM}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}$ is defined as 
+\[\func{WAM}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}.\] 
+
+\item The \emph{ordered weighted averaging function} $\func{OWA}: \IvalPow{n}\to\Ival$
+associated with the weight vector $\vect{w}$ is defined as 
+\[\func{OWA}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}.\]
+\end{enumerate}
 \end{definition}
 
 \begin{definition}
-The \emph{ordered weighted averaging function} $\func{OWA}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\sum_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{OWA}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}
-\] for any $\vect{x}\in\IvalPow{n}$.
+Let  $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that 
+$\bigvee_{i=1}^{n}w_{i}=1$, and assume $\Ival=[0,1]^{n}$.
+Then, for any $\vect{x}\in\IvalPow{n}$:
+\begin{enumerate}
+\item The \emph{weighted maximum} $\func{WMax}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}$ is defined as 
+\[\func{WMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i}).\]
+
+\item The \emph{ordered weighted maximum} $\func{OWMax}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}$ is defined as 
+\[\func{OWMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)}),\]
+with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.
+\end{enumerate}
 \end{definition}
 
-\begin{definition}
-The \emph{weighted maximum} $\func{WMax}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{WMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i})
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
 
 \begin{definition}
-The \emph{ordered weighted maximum} $\func{OWMax}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{OWMax}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)})
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
+Let  $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that 
+$\bigvee_{i=1}^{n}w_{i}=1$, and assume $\Ival=[0,1]^{n}$.
+Then, for any $\vect{x}\in\IvalPow{n}$:
 
-\begin{definition}
-The \emph{weighted minimum} $\func{WMin}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{WMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{i})
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
+\begin{enumerate}
+\item The \emph{weighted minimum} $\func{WMin}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}$ is defined as 
+\[\func{WMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{i}).\]
 
-\begin{definition}
-The \emph{ordered weighted minimum} $\func{OWMin}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ such that 
-$\bigvee_{i=1}^{n}w_{i}=1$ is defined as 
-\[
-\func{OWMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{(i)})
-\] for any $\vect{x}\in\IvalPow{n}$.
+\item The \emph{ordered weighted minimum} $\func{OWMin}: \IvalPow{n}\to\Ival$ associated 
+with the weight vector $\vect{w}$ is defined as 
+\[\func{OWMin}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{(i)}),\]
+with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
+\end{enumerate}
 \end{definition}
 
 \begin{definition}
@@ -684,22 +681,10 @@ The \emph{triangle of coefficients} is a sequence $\triangle=(c_{i,n}\in\Ival: i
 \end{definition}
 
 \begin{definition}
-The \emph{triangle of functions} is a sequence $\triangle=(f_{i,n}\in\IvalPow{\Ival}: i\in [n], n\in\Naturals)$.
-\end{definition}
-
-\begin{definition}
 The \emph{L-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{L}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
 \[
 \func{L}_{\triangle}(\vect{x})=\sum_{i=1}^{n}c_{i,n}x_{(n-i+1)},
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
-
-\begin{definition}
-The \emph{quasi-L-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qL}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
-\[
-\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
@@ -712,6 +697,43 @@ is a function $\func{S}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \end{definition}
 
 \begin{definition}
+The \emph{I-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{I}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{I}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}c_{i,n}\vee x_{(n-i+1)},
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+Please note that the \emph{OWA} functions are a special case of \emph{L-statistics}.
+%, for whom 
+% the triangle of coefficients $\triangle=(c_{i,n})_{i\in[n],n\in\Naturals}$ satisfies 
+% $(\forall n)\ \sum_{j=1}^{n}c_{j,n}=1$ and $c_{j,n}\in [0,1]$ for $i\in [n]$. 
+Similarly, \emph{OWMax} 
+% (for triangle of 
+% coefficients such that
+% $c_{j,n}\in\Ival=[0,1]$, $\bigvee_{j=1}^{n}c_{j,n}=1$ and $c_{1,n}\geq\dots\geq c_{n,n}$) 
+and \emph{OWMin} 
+% (for triangle of coefficients such that
+% $c_{j,n}\in\Ival=[0,1]$, $\bigvee_{j=1}^{n}c_{j,n}=1$ and $c_{1,n}\leq\dots\leq c_{n,n}$)
+operators are a special cases of
+\emph{S-statistics} and \emph{I-statistics}, respectively.  
+
+\bigskip
+\begin{definition}
+The \emph{triangle of functions} is a sequence $\triangle=(f_{i,n}\in\IvalPow{\Ival}: i\in [n], n\in\Naturals)$.
+\end{definition}
+
+
+\begin{definition}
+The \emph{quasi-L-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qL}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+\[
+\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
+\] for any $\vect{x}\in\IvalPow{n}$.
+\end{definition}
+
+
+\begin{definition}
 The \emph{quasi-S-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{qS}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
 \[
@@ -719,13 +741,6 @@ is a function $\func{qS}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
-\begin{definition}
-The \emph{I-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{I}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
-\[
-\func{I}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}c_{i,n}\vee x_{(n-i+1)},
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
 
 \begin{definition}
 The \emph{quasi-I-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
@@ -735,7 +750,13 @@ is a function $\func{qI}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
-Let us introduce now the class of symmetric maxitive, minitive and modular aggregation operators.
+It is easily seen that \emph{quasi-L-statistics} generalize \emph{L-statistics}. We obtain 
+an \emph{L-statistic} by taking $f_{i,n}(x)=c_{i,n}x$. Similarly, by setting 
+$f_{i,n}(x)=x\wedge c_{i,n}$ we obtain \emph{S-statistic} from \emph{quasi-S-statistics}, and
+by setting $f_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \emph{quasi-I-statistics}.
+
+Let now us introduce the class of symmetric maxitive, minitive and modular aggregation operators,
+cf.~\cite{CenaGagolewski2013:agop2}.
 
 \begin{definition}
 A sequence of nondecreasing functions $\vect{w}=(\func{w}_1,\func{w}_2,\dots)$,
