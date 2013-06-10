@@ -518,9 +518,27 @@ $\vect{x}\stackrel{S}{\wedge}\vect{y}
 
 \subsection{Impact Functions and The Producers Assessment Problem}
 
-..........
+\textbf{Producers Assessment Problem} (PAP) concerns evaluations of a set of 
+\textbf{producers} (e.g. scientists, artist, writers, craftsman) 
+according to certain quality of their \textbf{products} (e.g. articles,
+works, books, artifacts). We assume that each of products 
+a \textbf{rating} of quality or popularity (e.g. number of citations
+for articles, number of sold copies for books etc.) is given. 
 
+PAP finds its applications in many fields, like 
+for example scientometrics, webometrics, marketing, manufacturing or quality 
+engineering, and its main interest if focused on constructing and analyzing 
+aggregation operators which may be used in producers rating process. 
+However, it is agreed that such functions should take into a count, two following 
+aspects of producer quality:
 
+\begin{itemize}
+\item the ability to output highly-rated products
+\item the overall productivity
+\end{itemize}
+
+Let us now consider PAP in context of scientometrics, where scientists are producers 
+and articles are their products. 
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
