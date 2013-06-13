@@ -427,7 +427,16 @@ xs[3] # the third greatest value in x
 \subsection{Aggregation Operators and Their Basic Properties}
 
 
-Aggregation - what for?....... motivation....
+%Aggregation - what for?....... motivation....
+
+Aggregation theory finds its applications in all the fields, 
+where aggregating information is important: applied and pure mathematics, 
+e.g. probability, statistics, decision theory, functional equations, operation 
+research, computer sciences, social science, economics and finance, 
+pattern recognition and so on. 
+
+In its simplest definition aggregation denote process of 
+combining several numerical values into one, representative for the whole input.
 
 \begin{definition}
 $\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
