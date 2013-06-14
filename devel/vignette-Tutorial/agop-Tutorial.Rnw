@@ -256,11 +256,20 @@ opts_chunk$set(
 \section{Getting started}
 
 
-introduction.....
-aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
--- why do we need aggregation?
+% introduction.....
+% aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
+% -- why do we need aggregation?
 
-
+\begin{quote}
+``The process of combining several numerical values into a single 
+representative one is called \textit{aggregation}, and the numerical function 
+performing this process is called \textit{aggregation function}. This simple definition
+demonstrates the size of the field of application of aggregation: applied mathematics
+(e.g. probability, statistics, decision theory), computer science (e.g. artificial 
+intelligence, operation research), as well as many applied fields (economics and finance,
+pattern recognition and image processing, data fusion, multicriteria decision making,
+automated reasoning etc.).'' \cite{GrabischETAL2009:aggregationfunctions}
+\end{quote}
 
 \R \cite{Rproject:home} is a free, open sourced software environment
 for statistical computing and graphics, which
@@ -427,16 +436,18 @@ xs[3] # the third greatest value in x
 \subsection{Aggregation Operators and Their Basic Properties}
 
 
-%Aggregation - what for?....... motivation....
+Aggregation - what for?....... motivation....
 
-Aggregation theory finds its applications in all the fields, 
-where aggregating information is important: applied and pure mathematics, 
-e.g. probability, statistics, decision theory, functional equations, operation 
-research, computer sciences, social science, economics and finance, 
-pattern recognition and so on. 
 
-In its simplest definition aggregation denote process of 
-combining several numerical values into one, representative for the whole input.
+
+% Aggregation theory finds its applications in all the fields, 
+% where aggregating information is important: applied and pure mathematics, 
+% e.g. probability, statistics, decision theory, functional equations, operation 
+% research, computer sciences, social science, economics and finance, 
+% pattern recognition and so on. 
+% 
+% In its simplest definition aggregation denote process of 
+% combining several numerical values into one, representative for the whole input.
 
 \begin{definition}
 $\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
