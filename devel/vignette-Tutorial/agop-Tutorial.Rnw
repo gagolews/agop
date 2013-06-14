@@ -260,17 +260,26 @@ opts_chunk$set(
 % aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
 % -- why do we need aggregation?
 
-\begin{quote}
+\begin{quotation}\it
 ``The process of combining several numerical values into a single 
-representative one is called \textit{aggregation}, and the numerical function 
-performing this process is called \textit{aggregation function}. This simple definition
-demonstrates the size of the field of application of aggregation: applied mathematics
-(e.g. probability, statistics, decision theory), computer science (e.g. artificial 
-intelligence, operation research), as well as many applied fields (economics and finance,
-pattern recognition and image processing, data fusion, multicriteria decision making,
-automated reasoning etc.).'' \cite{GrabischETAL2009:aggregationfunctions}
-\end{quote}
+representative one is called \textbf{aggregation}, and the numerical function 
+performing this process is called \textbf{aggregation function}. 
+This simple definition
+demonstrates the size of the field of application of aggregation: 
+applied mathematics
+(e.g.~probability, statistics, decision theory), computer science 
+(e.g.~artificial 
+intelligence, operation research), as well as many applied fields 
+(economics and finance,
+pattern recognition and image processing, data fusion, 
+multicriteria decision making,
+automated reasoning etc.).'' \cite[p.~??]{GrabischETAL2009:aggregationfunctions}
+\end{quotation}
 
+%%%%%%% AS OLD AS MATHEMATICS....
+
+
+\bigskip
 \R \cite{Rproject:home} is a free, open sourced software environment
 for statistical computing and graphics, which
 includes an implementation
@@ -435,9 +444,16 @@ xs[3] # the third greatest value in x
 
 \subsection{Aggregation Operators and Their Basic Properties}
 
+Dealing with huge amounts of data 
+faces us with the problem of constructing their synthetic descriptions.
+The aggregation theory, 
+a relatively new research domain at the border of mathematics and
+computer science, is interested in the analysis 
+of functions that may be used in the mentioned task.
 
-Aggregation - what for?....... motivation....
-
+Thus, we should start with the formal definition of
+objects of our interest.
+Here is the most general setting:
 
 
 % Aggregation theory finds its applications in all the fields, 
@@ -451,7 +467,6 @@ Aggregation - what for?....... motivation....
 
 \begin{definition}
 $\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
-(cf.~\cite{GrabischETAL2009:aggregationfunctions})
 if it is at least \emph{nondecreasing} in each variable,
 i.e.~for all $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$
 if $\vect{x}\le\vect{y}$, then $\func{F}(\vect{x})\le\func{F}(\vect{y})$.
@@ -463,11 +478,18 @@ and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) \le b$.
 By nondecreasingness, however, these conditions reduce to
 $\func{F}(n\ast a)\ge a$ and $\func{F}(n\ast b)\le b$.
 
+Depending on problems to be solved, some authors assume (cf.~\cite{GrabischETAL2009:aggregationfunctions})
+that for all $n$ we have $\inf_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) =a$
+and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x})= b$.
+
+
 \begin{definition}
-We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if \[
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if:
+\[
 (\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \vect{x}\cong\vect{y}\Longrightarrow\func{F}(\vect{x})=\func{F}(\vect{y}),
- \] where  $\vect{x}\cong\vect{y}$ if and only if there exists a permutation
+ \]
+ where  $\vect{x}\cong\vect{y}$ if and only if there exists a permutation
 $\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
 $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 \end{definition}
@@ -484,7 +506,7 @@ $\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$.
 %Idempotence - what does it mean?
 
 \begin{definition}
-We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if 
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if:
 \[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
 \end{definition}
 
@@ -499,7 +521,8 @@ $\func{F}(\vect{x})=x$.
 
 
 \begin{definition}
-We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if \[
+We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if:
+\[
 \func{F}(\vect{x}+\vect{y})=\func{F}(\vect{x})+\func{F}(\vect{y}),
 \]
 for all $\vect{x},\vect{y}\in\IvalPow{n}$ such that 
@@ -507,23 +530,31 @@ $\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
 
 \begin{definition}
-We call $\func{F}$ \emph{minitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+We call $\func{F}$ \emph{minitive} if:
+\[
+(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
 \func{F}(\vect{x}\wedge
-\vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}).\]
-
+\vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}).
+\]
 \end{definition}
 
 \begin{definition}
-We call $\func{F}$ \emph{maxitive} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
+We call $\func{F}$ \emph{maxitive} if:
+\[
+(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \func{F}(\vect{x}\vee
-\vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}).\] 
+\vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}).
+\] 
 \end{definition}
 
 \begin{definition}
-We call $\func{F}$ \emph{modular} if \[(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+We call $\func{F}$ \emph{modular} if:
+\[
+(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
 \func{F}(\vect{x}{\vee}\vect{y})
 +\func{F}(\vect{x}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
-(\vect{y}).\] 
+(\vect{y}).
+\] 
 \end{definition}
 
 
@@ -538,27 +569,56 @@ $\vect{x}\stackrel{S}{\wedge}\vect{y}
 
 \subsection{Impact Functions and The Producers Assessment Problem}
 
-\textbf{Producers Assessment Problem} (PAP) concerns evaluations of a set of 
-\textbf{producers} (e.g. scientists, artist, writers, craftsman) 
-according to certain quality of their \textbf{products} (e.g. articles,
-works, books, artifacts). We assume that each of products 
-a \textbf{rating} of quality or popularity (e.g. number of citations
-for articles, number of sold copies for books etc.) is given. 
+The \textbf{Producers Assessment Problem} (PAP, 
+\cite{GagolewskiGrzegorzewski2011:ijar}) concerns evaluation of a set of 
+\textbf{producers} (e.g.~scientists, artists, writers, craftsman) 
+according to the \textbf{products}
+(e.g.~articles, works, books, artifacts) each entity has produced.
+It is assumed that for each of the products 
+a \textbf{rating} of quality or popularity (e.g.~number of citations
+for articles, number of sold copies for books etc.) is given.
+
+\begin{table}[ht]
+\centering \caption{\label{Table:InstancesPAP} The Producer
+Assessment Problem -- typical instances}
+
+\noindent
+\footnotesize
+\begin{tabular}{|c||llp{3.5cm}p{3.2cm}|}
+\hline
+& Producer & Products & Rating method & Discipline \\
+\hline\hline
+A & Scientist & Scientific articles & Number of citations & Scientometrics \\
+\hline
+B & Scientific institute & Scientists & The $h$-index & Scientometrics     \\
+\hline
+C & Web server & Web pages & Number of in-links & Webometrics   \\
+\hline
+D & Artist   & Paintings  & Auction price & Auctions \\
+\hline
+E & Billboard company & Advertisements & Sale results & Marketing \\
+\hline
+F & \R{} package author & Packages & PageRank values on the citation graph & Software Engineering\\
+% \dots & \dots & \dots & \dots \\
+\hline
+\end{tabular}
+\end{table}
 
 PAP finds its applications in many fields, like 
 for example scientometrics, webometrics, marketing, manufacturing or quality 
-engineering, and its main interest if focused on constructing and analyzing 
-aggregation operators which may be used in producers rating process. 
-However, it is agreed that such functions should take into a count, two following 
-aspects of producer quality:
-
+engineering \cite{FranceschiniMaisano2009:hmanufacturing},
+and its main interest if focused on constructing and analyzing 
+aggregation operators which may be used in the rating task. 
+Such functions should take into a count the two following 
+aspects of a producer's quality:
 \begin{itemize}
-\item the ability to output highly-rated products
-\item the overall productivity
+\item his/her ability to output highly-rated products,
+\item his/her overall productivity.
 \end{itemize}
 
-Let us now consider PAP in context of scientometrics, where scientists are producers 
-and articles are their products. 
+For the sake of illustration, we will consider PAP in the
+scientometric context, where scientists ``produce''
+papers, which receive citations.
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
@@ -572,8 +632,7 @@ Woeginger2008:symmetryaxiom,Rousseau2008:woegingerax,Quesada2009:monotonicityh,
 Quesada2010:moreaxiomatics,GagolewskiGrzegorzewski2011:ijar,
 Gagolewski2011:PhD,FranceschiniMaisano2011:structevalh},
 that each aggregation operator
- $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the impact assessment
- process  should at least be:
+ $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the PAP  should at least be:
 \begin{enumerate}
    \item[(a)] nondecreasing in each variable (additional
    citations received by a paper or an improvement
@@ -590,16 +649,18 @@ is able -- at least potentially -- to describe two ``dimensions''
 of the author's output quality: (a) his/her ability to write
 eagerly-cited or highly-valuated papers and (b) his/her overall productivity.
 
-More formally, condition (a) holds if and only if for each
-$n$ and $\vect{x},\vect{y}\in\IvalPow{n}$ such that $(\forall i)$
-$x_i\le y_i$ we have $\func{J}(\vect{x})\le\func{J}(\vect{y})$.
-On the other hand, axiom (b) is fulfilled iff
+% More formally, condition (a) holds if and only if for each
+% $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$ such that $(\forall i)$
+% $x_i\le y_i$ we have $\func{J}(\vect{x})\le\func{J}(\vect{y})$.
+% On the other hand, 
+More formally, axiom (b) is fulfilled iff
 for any $\vect{x}\in\IvalAnyPow$ and $y\in\Ival$ it holds
 $\func{J}(\vect{x})\le\func{J}(x_1,\dots,x_n,y)$.
-Lastly, requirement (c) holds iff for all $n$ and $\vect{x}\in\IvalPow{n}$
-we have $\func{J}(\vect{x})=\func{J}(x_{\{1\}},\dots,x_{\{n\}})$,
-where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
-i.e.~its $(n-i+1)$th order statistic.
+(a) and (c) were defined in the previous section.
+% Lastly, requirement (c) holds iff for all $n$ and $\vect{x}\in\IvalPow{n}$
+% we have $\func{J}(\vect{x})=\func{J}(x_{\{1\}},\dots,x_{\{n\}})$,
+% where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
+% i.e.~its $(n-i+1)$th order statistic.
 
 
 
