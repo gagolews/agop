@@ -1550,7 +1550,7 @@ sample $(X_{1},\dots,X_{n})$ is a function
 where $\kappa: [0,1]\to[a,b]$, called \emph{control function}, is a strictly increasing 
 continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
 \end{definition}
-
+\bigskip
 It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic} 
 $\func{S}_{\triangle}|_{\IvalPow{n}}$ (cf. Definition~\ref{s:statistic})
 associated with triangle of coefficients $\triangle=(c_{i,n})_{n\in\Naturals,i\in[n]}$
@@ -1565,6 +1565,8 @@ where $(Y_{1},\dots,Y_{n})=(\kappa^{-1}(X_{1}),\dots,\kappa^{-1}(X_{n}))$ is a
 sequence of i.i.d. random variables given by the continuous c.d.f. 
 $\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}. 
 
+\bigskip
+The exact distribution is given by the following Theorem.
 \begin{theorem}
 The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
 \begin{eqnarray*}
@@ -1575,11 +1577,11 @@ The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
 for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function.
 \end{theorem}
 
-\paragraph{Hirsch's $h$-index and its distribution.}
-
-The exact distribution of $\func{H}$ is given by the following theorem, 
-see.~\cite{Gagolewski2012:smps} for the proof.
-
+\bigskip
+Let us recall that Hirsch's $h$-index, for $x\in\Naturals^{n}_{0}$ reduced itself to a
+\emph{OWMax} operator, which is a special case of \emph{S-statistic}. Therefore, 
+the exact distribution of $\func{H}$, given by the following theorem, comes straightforward 
+from the previous results (for more details see.~\cite{Gagolewski2012:smps}).
 
 \begin{theorem}
 Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
@@ -1591,13 +1593,41 @@ Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
 \]
 where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function. 
 \end{theorem}
-
 %co oznacza ^{-0}? jest w artykule z testu dla hirsha w przypadku rozkladu, nie ma doktoracie?
 
+\bigskip
+\begin{definition}
+A $\kappa$-index of a random variable given by a c.d.f. $\func{F}$ with respect to control
+function $\kappa$ is a number $\varrho_{\kappa}\in[0,1]$ such that
+\[
+\varrho_{\kappa}=1-\func{F}(\kappa(\varrho_{\kappa})).
+\]
+\end{definition}
+For survival function, $\func{S}(x)=1-\func{F}(x)$, $\varrho_{\kappa}$
+satisfies $\varrho_{\kappa}=\func{S}(\kappa(\varrho_{\kappa}))=
+\mathbb{P}(X>\kappa(\varrho_{\kappa}))$. It is clear to see that, intuitively,
+$\varrho_{\kappa}$ is a number such that the probability of assuming a value greater 
+than $\kappa(\varrho_{\kappa})$ is equal to $\varrho_{\kappa}$. What is more, 
+in~\cite{GagolewskiGrzegorzewski2010:smps} we have following results.
+\bigskip
+\begin{theorem}
+$\func{V}_{n}$ is a strongly consistent estimator of $\varrho=\varrho_{id}$.
+\end{theorem}
 
+% Moreover, it can be shown that for any control function $\kappa$, 
+% if $X\succeq_{st}Y$, then $\varrho_{kappa,X}\geq\varrho_{\kappa,Y}$. 
+% Thus, we may consider $\varrho_{\kappa}$ as some measure of location.
 
+The asymptotic distribution of \emph{S-statistic} is given by the following 
+theorem.
 
-
+\begin{theorem}
+If $\func{G}$ is a c.d.f. differentiable at $\varrho$, then
+\[
+\func{V}_{n}\xrightarrow{D}\mathcal{N}\left(\varrho,\frac{1}{1+\func{G}'(\varrho)}
+\sqrt{\frac{\varrho(1-\varrho)}{n}}\right).
+\]
+\end{theorem}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
