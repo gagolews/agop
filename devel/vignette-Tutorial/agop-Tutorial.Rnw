@@ -787,7 +787,7 @@ is a function $\func{L}_{\triangle}:\IvalPow{n}\to\Ival$ such that
 \] for any $\vect{x}\in\IvalPow{n}$.
 \end{definition}
 
-\begin{definition}
+\begin{definition}\label{s:statistic}
 The \emph{S-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{S}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
 \[
@@ -1527,16 +1527,72 @@ TO DO: \Rfunc{pareto2.\allowbreak ftest()}.
 
 
 \subsection{Stochastic Properties of Aggregation Operators}
+% OWA, L-statistics
+% OWMax, S-statistics
+% $h$-index and its distribution
 
-OWA, L-statistics
+Let us assume that from now on that $(X_{1},\dots,X_{n})$ denotes sequence of
+independent, identically distributed random variables and let c.d.f $\func{F}$ 
+of $X_{i}\ i=1,\dots,n$ be a continuous and strictly increasing in $[a,b]$, 
+such that $a=\inf{\{x: \func{F}(x)>0\}}$ and $b=\sup{\{x:\func{F}(x)<1\}}$, $a<b$.
 
-OWMax, S-statistics
-
-$h$-index and its distribution
-
+In this section we are going to recall some basic statistical properties
+of \emph{L-} and \emph{S-statistics}. 
 
 
+\begin{definition}\label{s:statistic:kappa}
+An \emph{S-statistic} associated with function $\kappa$ and a random 
+sample $(X_{1},\dots,X_{n})$ is a function 
+\[
+\func{V}_{n,k}(X_{1},\dots,X_{n})=\bigvee_{i=1}^{n}\kappa\Big(\frac{i}{n}\Big)
+\wedge X_{(n-i+1)},
+\]
+where $\kappa: [0,1]\to[a,b]$, called \emph{control function}, is a strictly increasing 
+continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
+\end{definition}
 
+It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic} 
+$\func{S}_{\triangle}|_{\IvalPow{n}}$ (cf. Definition~\ref{s:statistic})
+associated with triangle of coefficients $\triangle=(c_{i,n})_{n\in\Naturals,i\in[n]}$
+such that $c_{i,n}=\kappa\Big(\frac{i}{n}\Big)$.
+
+Also please note that without loss of generality we may consider \emph{S-statistic}
+form Definition~\ref{s:statistic:kappa} of a form
+\[
+\func{V}_{n}(Y_{1},\dots,Y_{n})=\bigvee_{i=1}^{n}\frac{i}{n}\wedge Y_{(n-i+1)},
+\]
+where $(Y_{1},\dots,Y_{n})=(\kappa^{-1}(X_{1}),\dots,\kappa^{-1}(X_{n}))$ is a
+sequence of i.i.d. random variables given by the continuous c.d.f. 
+$\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}. 
+
+\begin{theorem}
+The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
+\begin{eqnarray*}
+\func{D}_{n}(x)&=&1-\sum_{i=1}^{n}{{n}\choose{i}}[1-\func{G}(x)]^{i}
+[G(x)]^{n-1}\\
+&=&\mathcal{I}(\func{G}(x);n-\lfloor xn\rfloor,\lfloor xn\rfloor+1),
+\end{eqnarray*}
+for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function.
+\end{theorem}
+
+\paragraph{Hirsch's $h$-index and its distribution.}
+
+The exact distribution of $\func{H}$ is given by the following theorem, 
+see.~\cite{Gagolewski2012:smps} for the proof.
+
+
+\begin{theorem}
+Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
+random variables with continuous c.d.f. $\func{F}$ defined on $\mathbb{R}_{0+}$.
+Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
+\[
+\func{D}_{n}(x)=\mathcal{I}(\func{F}(\lfloor x+1\rfloor^{-0});n-\lfloor x\rfloor,
+\lfloor x \rfloor+1),
+\]
+where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function. 
+\end{theorem}
+
+%co oznacza ^{-0}? jest w artykule z testu dla hirsha w przypadku rozkladu, nie ma doktoracie?
 
 
 
