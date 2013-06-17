@@ -273,10 +273,10 @@ intelligence, operation research), as well as many applied fields
 (economics and finance,
 pattern recognition and image processing, data fusion, 
 multicriteria decision making,
-automated reasoning etc.).'' \cite[p.~??]{GrabischETAL2009:aggregationfunctions}
+automated reasoning etc.). Although history of aggregation is probably 
+as old as mathematics (think of the arithmetic mean), its existence
+has reminded underground till only recent(...).'' \cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
 \end{quotation}
-
-%%%%%%% AS OLD AS MATHEMATICS....
 
 
 \bigskip
@@ -854,8 +854,8 @@ an \emph{L-statistic} by taking $f_{i,n}(x)=c_{i,n}x$. Similarly, by setting
 $f_{i,n}(x)=x\wedge c_{i,n}$ we obtain \emph{S-statistic} from \emph{quasi-S-statistics}, and
 by setting $f_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \emph{quasi-I-statistics}.
 
-Let now us introduce the class of symmetric maxitive, minitive and modular aggregation operators,
-cf.~\cite{CenaGagolewski2013:agop2}.
+Let now us introduce the class of symmetric maxitive, minitive and modular aggregation operators
+introduced in~\cite{CenaGagolewski2013:agop2}.
 
 \begin{definition}
 A sequence of nondecreasing functions $\vect{w}=(\func{w}_1,\func{w}_2,\dots)$,
@@ -1451,7 +1451,16 @@ TO BE DONE....
 
 
 \paragraph{Applications.}
-TO DO
+%TO DO
+
+Pareto type II distribution finds its applications in case of
+modeling, so called, extreme values, cf.~\cite{ChoulakianStephens2001:gofgpd}.
+In bibliometric, for example, Pareto type II distribution is frequently used to describe
+distribution of number of citations, see e.g. ~\cite{Glanzel2008:hconcatenation}
+(in such case it is recommended to take $k\simeq 2$) or 
+~\cite{Glanzel2007:hnewapplications,BarczaTelcs2009:paretoimplyh,Glanzel2008:statbibh}.
+Moreover, very often it is assumed that $s\ge 1$. 
+
 % 
 % Rozk³ad Pareto II rodzaju stosuje siê czêsto do modelowania 
 %  tzw.~warto¶ci ekstremalnych [por.~\citealp{ChoulakianStephens2001:gofgpd}].
