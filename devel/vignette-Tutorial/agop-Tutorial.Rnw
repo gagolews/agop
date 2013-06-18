@@ -296,8 +296,8 @@ It is available at \href{http://rstudio.org/}{www.rsudio.org}.
 \bigskip
 \package{agop} is an Open Source (licensed under GNU LGPL 3)
 package for \R$\ge$ 2.12 to which anyone can contribute.
-It started as a fork of the \package{CITAN} (Citation
-Analysis Toolpack) package for \R.
+It started as a fork of the \package{CITAN} (\textit{Citation
+Analysis Toolpack}) package for \R.
 
 To install latest ``official'' release of the 
 package available on \textit{CRAN} we type%
@@ -306,12 +306,13 @@ package available on \textit{CRAN} we type%
 Some of the features presented in this document may be missing
 in the CRAN release. Please, upgrade to the \textbf{latest} development version from
 \href{https://github.com/Rexamine/agop}{\textit{GitHub}}
-if you need the new functionality.}\ignorespaces
+if you need the new functionality.
+Note that you will need a working \lang{C}/\lang{C++} compiler.}\ignorespaces
 \fi%
 :
 
 <<eval=FALSE>>=
-# install.packages('agop') # NOT YET AVAILABLE ON CRAN
+install.packages('agop')
 @
 
 \noindent
@@ -324,6 +325,8 @@ library('devtools')
 install_github('agop', 'Rexamine')
 @
 
+\noindent
+Note that in this case you will need a working \lang{C}/\lang{C++} compiler.
 
 
 \bigskip
@@ -1225,14 +1228,13 @@ Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
 
 \section{Aggregation Operators from the Probabilistic Perspective}
 
-Theory of aggregation looks on the aggregation operators
-from the algebraic/calculus perspective. Of course, we should
-always be interested in their probabilistic properties,
+Theory of aggregation looks at the aggregation operators
+mainly from the algebraic perspective. Of course, we may also 
+be interested in their probabilistic properties,
 e.g.~in i.i.d.~RVs models (the simplest and the most ``natural''
 ones in statistics), cf.~\cite{Gagolewski2011:PhD} for discussion.
-
-In such case we assume that input data are in fact realizations
-of some random samples.
+In such case we assume that input data to be aggregated
+are in fact realizations of some random samples.
 
 In probability, an aggregation operator
 is simply called a \emph{statistic} (formalism......)
@@ -1241,15 +1243,15 @@ Let $(X_1,\dots,X_n)$ i.i.d.~$F$, where $\mathrm{supp}\,F = \Ival$.
 
 ....
 
-In social phenomena modeling, if $F$ is continuous,
+In the modeling of social phenomena, if $F$ is continuous,
 we often assume that the underlying density $f$ is decreasing
 and convex on $\Ival$, possibly with heavy-tails.
 E.g.~in the bibliometric impact assessment problem,
-this assumption reflect the fact that a high paper valuation
-is more difficult to obtain than the lower one,
+this assumption reflects the fact that higher paper valuations
+are more difficult to obtain than the lower ones,
 most of the papers have very small valuation (near $0$),
-and the probability of attaining a high note decreases no slower
-than linearly.
+and the probability of attaining a high note decreases in at least
+linear pace.
 
 
 \subsection{Some Notable Probability Distributions}
@@ -1348,14 +1350,16 @@ For both unknown $k$ and $s$ we have:
 1+\frac{1}{n} \sum_{i=1}^n \ln\left(1+x_i/\widehat{s}\right) - \frac{n}{\sum_{i=1}^n \left(1+x_i/\widehat{s}\right)^{-1}}  &=& 0. \\
 \end{array}\right.
 \end{equation}
-The second equation must be solved, unfortunately, numerically.
+Unfortunately, the second equation must be solved numerically.
 The estimation 
-procedure has been implemented in \package{agop} as TO DO: \Rfunc{pareto2.mleksestimate()}....
+procedure has been implemented in \package{agop} as TO DO: 
+\Rfunc{pareto2.mleksestimate()}....
 It is worth noting that the above system of equations may sometimes
 have no solution (as the local minimum of the likelihood function may not exist,
 see \cite{CastilloDaoudi2009:mlegpd} for discussion).
 
-In this case one of the estimators worth noting (and often better than MLE) was proposed
+In this case one of the estimators worth noting 
+(and often better than MLE) was proposed
 in \cite{ZhangStevens2009:estgpd}.
 The Zhang-Stevens MMS (\textit{minimum mean square error}) (Bayesian)
 estimator has relatively small bias (often positive) and mean squared error.
@@ -1453,8 +1457,8 @@ TO BE DONE....
 \paragraph{Applications.}
 %TO DO
 
-Pareto type II distribution finds its applications in case of
-modeling, so called, extreme values, cf.~\cite{ChoulakianStephens2001:gofgpd}.
+Pareto type II distribution finds its applications in the
+so-called extreme values modeling, cf.~\cite{ChoulakianStephens2001:gofgpd}.
 In bibliometric, for example, Pareto type II distribution is frequently used to describe
 distribution of number of citations, see e.g. ~\cite{Glanzel2008:hconcatenation}
 (in such case it is recommended to take $k\simeq 2$) or 
@@ -1531,9 +1535,9 @@ TO DO: \Rfunc{pareto2.\allowbreak ftest()}.
 % OWMax, S-statistics
 % $h$-index and its distribution
 
-Let us assume that from now on that $(X_{1},\dots,X_{n})$ denotes sequence of
+Let us assume that $(X_{1},\dots,X_{n})$ denotes a sequence of
 independent, identically distributed random variables and let c.d.f $\func{F}$ 
-of $X_{i}\ i=1,\dots,n$ be a continuous and strictly increasing in $[a,b]$, 
+of $X_{i}\ i=1,\dots,n$ be continuous and strictly increasing in $[a,b]$, 
 such that $a=\inf{\{x: \func{F}(x)>0\}}$ and $b=\sup{\{x:\func{F}(x)<1\}}$, $a<b$.
 
 In this section we are going to recall some basic statistical properties
@@ -1547,7 +1551,8 @@ sample $(X_{1},\dots,X_{n})$ is a function
 \func{V}_{n,k}(X_{1},\dots,X_{n})=\bigvee_{i=1}^{n}\kappa\Big(\frac{i}{n}\Big)
 \wedge X_{(n-i+1)},
 \]
-where $\kappa: [0,1]\to[a,b]$, called \emph{control function}, is a strictly increasing 
+where $\kappa: [0,1]\to[a,b]$, called \emph{control function},
+is a strictly increasing 
 continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
 \end{definition}
 \bigskip
@@ -1574,7 +1579,8 @@ The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
 [G(x)]^{n-1}\\
 &=&\mathcal{I}(\func{G}(x);n-\lfloor xn\rfloor,\lfloor xn\rfloor+1),
 \end{eqnarray*}
-for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function.
+for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ 
+is the regularized incomplete beta function.
 \end{theorem}
 
 \bigskip
