@@ -680,8 +680,20 @@ $\func{J}(\vect{x})\le\func{J}(x_1,\dots,x_n,y)$.
 
 \subsection{A Note on Storing Multiple Numeric Vectors in \R}
 
-Sometimes we will store the vectors of the same length
-in a matrix (column-/row-wise.... col/rownames....) \Rfunc{apply()}....
+% Sometimes we will store the vectors of the same length
+% in a matrix (column-/row-wise.... col/rownames....) \Rfunc{apply()}....
+
+Vectors of the same length can be conveniently store in a matrix. Please note 
+that \textsf{dimnames} attribute for the matrix giving the row and column names. 
+It value can be set as NULL (no names for columns and rows are given) 
+or a list of length 2 (rows and columns names respectively).
+Another simply way to set columns and row names is using \Rfunc{colnames()} 
+and \Rfunc{rownames()} functions.
+
+Function \Rfunc{apply()} evaluate the value of the given function on each row 
+or column (row- or column-wise) of the given matrix (parameter \textsf{MARGIN} 
+equal to 1 and 2 respectively).
+
 
 <<matrixexample>>=
 expertopinions <- matrix(c(
@@ -697,8 +709,12 @@ print(expertopinions)   # or print(authors)
 apply(expertopinions, 2, mean) # on each COLUMN apply the mean() function
 @
 
-...or in a list, especially when they are not of the same length....
-\Rfunc{lapply()}.... \Rfunc{sapply()}..... possibly named elements...
+% ...or in a list, especially when they are not of the same length....
+% \Rfunc{lapply()}.... \Rfunc{sapply()}..... possibly named elements...
+
+Vectors that are not of the same length can be store in the list, with 
+possibly named elements. In that case functionality of \Rfunc{apply()}
+functions is given by \Rfunc{lapply()} and \Rfunc{sapply()} functions.
 
 <<listexample>>=
 authors <- list(
@@ -715,7 +731,7 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 
 
-\subsection{...}
+\subsection{Examples of basic aggregation operators}
 
 
 % weighted mean ,OWA (L-statistics), qL
