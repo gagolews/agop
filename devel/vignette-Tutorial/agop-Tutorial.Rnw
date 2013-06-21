@@ -580,7 +580,8 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if:
 
 Idempotent aggregation operators fulfilling 
 the strong boundary conditions (see p.~\pageref{Prop:StrongBoundaryCond})
-are sometimes called \emph{averaging functions}, cf.~\cite{CITATION_NEEDED}. %%%%%%%%%%%%%%%%!!!!!!!!!!!!!!!!!!!!! Aniu, cytowanko
+are sometimes called \emph{averaging functions}, cf.~\cite{CITATION_NEEDED}. 
+%%%%%%%%%%%%%%%%!!!!!!!!!!!!!!!!!!!!! Aniu, cytowanko
 An example of such object is the arithmetic mean or median.
 
 \medskip
@@ -1015,7 +1016,8 @@ $\bigvee_{i=1}^{n}w_{i}=b=\sup\Ival$.
 Then, for any $\vect{x}\in\IvalPow{n}$:
 \begin{enumerate}
 \item The \emph{weighted maximum} associated 
-with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$, %%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CYTOWANIE: Dubois, Prade 1988 bodaj
+with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$, 
+%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CYTOWANIE: Dubois, Prade 1988 bodaj
  is defined as 
 \[\func{WMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i}).\]
 
@@ -1023,7 +1025,8 @@ with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$, %%%%%%%%%%%%%%%%%%
 with $\vect{w}$,
 $\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as 
 \[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)}),\]
-with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.   %%%%%%%% ZMIENIC NA x_{\{i\}} - zmienia sie warunki
+with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.   
+%%%%%%%% ZMIENIC NA x_{\{i\}} - zmienia sie warunki
 \end{enumerate}
 \end{definition}
 
