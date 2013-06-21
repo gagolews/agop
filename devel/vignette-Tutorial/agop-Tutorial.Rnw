@@ -29,7 +29,7 @@
 \usepackage{rotating}
 
 \newcommand{\email}[1]{\href{mailto:#1}{#1}}
-\renewcommand{\emph}[1]{\textsl{#1}}
+\renewcommand{\emph}[1]{\textbf{\textsl{#1}}}
 
 \newcommand{\package}[1]{\textsf{#1}\xspace}
 \newcommand{\program}[1]{\textsf{#1}\xspace}
@@ -101,7 +101,7 @@
 \addto\captionsenglish{\renewcommand{\tablename}{Tab.}}
 
 
-\setlength{\topsep}{1pt} % wpływa m.in. na odstęp dla verbatim
+\setlength{\topsep}{3pt} % wpływa m.in. na odstęp dla verbatim
 \tolerance=500
 \predisplaypenalty=0
 \clubpenalty=1000
@@ -255,12 +255,7 @@ opts_chunk$set(
 
 \section{Getting started}
 
-
-% introduction.....
-% aggregation.... \cite{GrabischETAL2009:aggregationfunctions}
-% -- why do we need aggregation?
-
-\begin{quotation}\it
+\begin{quotation}\it\noindent
 ``The process of combining several numerical values into a single 
 representative one is called \textbf{aggregation}, and the numerical function 
 performing this process is called \textbf{aggregation function}. 
@@ -275,15 +270,15 @@ pattern recognition and image processing, data fusion,
 multicriteria decision making,
 automated reasoning etc.). Although history of aggregation is probably 
 as old as mathematics (think of the arithmetic mean), its existence
-has reminded underground till only recent(...).'' \cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
+has reminded underground till only recent (\dots).'' \cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
 \end{quotation}
 
 
 \bigskip
-\R \cite{Rproject:home} is a free, open sourced software environment
+\R \cite{Rproject:home} is a free, open source software environment
 for statistical computing and graphics, which
 includes an implementation
-of a very powerful and quite popular high-level language called \lang{S}.
+of a very powerful and quite popular high-level language called~\lang{S}.
 It runs on all major operating systems, i.e.~\os{Windows},
 \os{Linux}, and \os{MacOS X}.
 To install \R and/or find some information on the \lang{S} language
@@ -294,10 +289,10 @@ It is available at \href{http://rstudio.org/}{www.rsudio.org}.
 
 
 \bigskip
-\package{agop} is an Open Source (licensed under GNU LGPL 3)
+\package{agop} is an open source (licensed under GNU LGPL 3)
 package for \R$\ge$ 2.12 to which anyone can contribute.
 It started as a fork of the \package{CITAN} (\textit{Citation
-Analysis Toolpack}) package for \R.
+Analysis Toolpack}, \cite{Gagolewski2011:CITAN}) package.
 
 To install latest ``official'' release of the 
 package available on \textit{CRAN} we type%
@@ -368,15 +363,18 @@ $\Ival=[0,1]$ or $\Ival=[0,\infty]$.
 A set of all vectors of arbitrary length  with elements in $\Ival$ 
 is denoted by $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ .
 
-For two vectors $\vect{x},\vect{y}\in\IvalPow{n}$
-we write $\vect{x}\le\vect{y}$ if and only if for all $i$ it holds $x_i\le y_i$.
-Moreover, all binary arithmetic operations on vectors $\vect{x},\vect{y}\in\IvalPow{n}$
-are performed element-wise,
+For two equal-length vectors $\vect{x}, \vect{y}\in\IvalPow{n}$
+we write $\vect{x}\le\vect{y}$ if and only 
+if for all $i=1,\dots,n$ it holds $x_i\le y_i$.
+Moreover, all binary arithmetic operations on vectors 
+$\vect{x}, \vect{y}\in\IvalPow{n}$ will be performed element-wise,
 e.g. $\vect{x}+\vect{y}=(x_1+y_1,\dots,x_n+y_n)\in\IvalPow{n}$.
-Similarly: $-$, $\cdot$, $/$, $\wedge$ (min), $\vee$ (max), etc.
+Similar behavior is assumed for
+$-$, $\cdot$, $/$, $\wedge$ (min), $\vee$ (max), etc.
 Additionally, each function of one variable
 $\func{f}:\Ival\to\Ival$ can be extended to the vector
-space: we write $\func{f}(\vect{x})=(\func{f}(x_1), \dots, \func{f}(x_n))$.
+space: we write $\func{f}(\vect{x})$ to denote 
+$(\func{f}(x_1), \dots, \func{f}(x_n))$.
 
 
 Let $x_{(i)}$ denote the $i$th order statistic,
@@ -400,20 +398,20 @@ class(x1)
 (x4 <- seq(1, 5, by=1.25))
 @
 
-To obtain $(n\ast c)$, e.g.~for $n=4$ and $c=1$, we call:
+To obtain $(n\ast c)$, e.g.~for $n=10$ and $c=3$, we call:
 
 <<numericexample2>>=
 rep(10, 3)
 @
 
-Please, note that in \R{} all the arithmetic operations on vectors are 
+Note that in \R{} all the arithmetic operations on vectors are 
 performed element-wise, i.e.~in a manner indicated above.
-This is called \textit{vectorization}.
+This is called \emph{vectorization}.
 The same holds for mathematical functions: they are extended to the vector space.
 
 <<vectorizedops1>>=
-x <- c(1, 3, 3, 2)
-y <- c(2 ,3,-1, 0)
+x <- c(1, 3,  3, 2)
+y <- c(2, 3, -1, 0)
 x+y
 x*y
 pmin(x,y)
@@ -423,9 +421,10 @@ abs(y)
 
 \noindent
 Thus, we calculated $\vect{x}+\vect{y}$,
-$\vect{x}\cdot\vect{y}$, $\vect{x}\wedge\vect{y}$, and $\vect{x}\vee\vect{y}$
-(try to determine yourself what happens if we deal with vector of unequal length
-is \R).
+$\vect{x}\cdot\vect{y}$, $\vect{x}\wedge\vect{y}$, $\vect{x}\vee\vect{y}$,
+and $|\vect{x}|$
+(try to determine yourself what happens if we deal 
+with vectors of unequal length is \R).
 
 Moreover, for the $\le$ relation we write:
 
@@ -433,7 +432,7 @@ Moreover, for the $\le$ relation we write:
 all(x <= y)
 @
 
-To get $x_{\{i\}}$ we have to sort the vector nonincreasingly.
+To get $x_{\{i\}}$ we have to sort the given vector nonincreasingly.
 
 <<vectorizedops3,dependson='vectorizedops2'>>=
 (xs <- sort(x, decreasing=TRUE)) # `decresing' may be misleading
@@ -452,8 +451,7 @@ faces us with the problem of constructing their synthetic descriptions.
 The aggregation theory, 
 a relatively new research domain at the border of mathematics and
 computer science, is interested in the analysis 
-of functions that may be used in the mentioned task.
-
+of functions that may be used in this task.
 Thus, we should start with the formal definition of
 objects of our interest.
 Here is the most general setting:
@@ -469,7 +467,8 @@ Here is the most general setting:
 % combining several numerical values into one, representative for the whole input.
 
 \begin{definition}
-$\func{F}: \IvalAnyPow\to\Ival$ is called an \emph{(extended) aggregation operator}
+A function $\func{F}: \IvalAnyPow\to\Ival$
+is called an \emph{(extended) aggregation operator}
 if it is at least \emph{nondecreasing} in each variable,
 i.e.~for all $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$
 if $\vect{x}\le\vect{y}$, then $\func{F}(\vect{x})\le\func{F}(\vect{y})$.
@@ -481,10 +480,19 @@ and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) \le b$.
 By nondecreasingness, however, these conditions reduce to
 $\func{F}(n\ast a)\ge a$ and $\func{F}(n\ast b)\le b$.
 
-Depending on problems to be solved, some authors assume (cf.~\cite{GrabischETAL2009:aggregationfunctions})
-that for all $n$ we have $\inf_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) =a$
+Also keep in mind that some authors assume 
+(cf.~\cite{GrabischETAL2009:aggregationfunctions})\label{Prop:StrongBoundaryCond}
+that aggregation operators must fulfill the two following \emph{strong boundary
+conditions}: for all $n$ we have 
+$\inf_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) =a$
 and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x})= b$.
+In our case, this does not necessarily hold -- we want to be
+more general.
 
+\bigskip
+Here are some interesting properties of aggregation operators.
+Later on we will characterize the classes of aggregation operators
+that fulfill them.
 
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if:
@@ -497,73 +505,91 @@ $\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
 $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 \end{definition}
 
-
-Note that it may be shown, see
+It may be shown, see
 \cite[Thm.~2.34]{GrabischETAL2009:aggregationfunctions}, that 
 $\func{F}:\IvalPow{n}\to\Ival$ is symmetric if and only if there exists
-a function $\func{G}:\IvalPow{n}\to\Ival$ such that 
-$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$.
+a function $\func{G}:\IvalAnyPow\to\Ival$ such that 
+$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$,
+i.e.~it may be defined solely using order statistics.
+Intuitively, $\func{F}$ is symmetric if its value is independent
+of the aggregated vector's elements presentation.
 
-
-\bigskip
-%Idempotence - what does it mean?
+\medskip
+Idempotence is well-known from algebra, 
+where we say that element $x$ is idempotent with respect 
+to binary operator $*$ if we have $x*x=x$. The following definition
+extends this property to $n$-ary aggregation functions,
+cf.~\cite{GrabischETAL2009:aggregationfunctions}.
+% to bym sobie darowal - latwo zauwazyc:
+% for which it simply means that 
+% for $\vect{x}\in\IvalPow{n}$ such that $x_{i}=x$ for all $i=1,\dots,n$, we have
+% $\func{F}(\vect{x})=x$.
 
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if:
-\[(\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
+\[(\forall n\in\mathbb{N})\ (\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
 \end{definition}
 
-Please note, that property introduced above -- \emph{idempotence} --
-is well known in algebra, where we say that elenemt $x$ is idempotent with respect 
-to binary operator $*$ if we have $x*x=x$. Similarly, this definition were 
-extend for $n$-ary aggregation functions, cf. \cite{GrabischETAL2009:aggregationfunctions},
-for which it simply means that 
-for $\vect{x}\in\IvalPow{n}$ such that $x_{i}=x$ for all $i=1,\dots,n$, we have
-$\func{F}(\vect{x})=x$.
-\bigskip
+Idempotent aggregation operators fulfilling 
+the strong boundary conditions (see p.~\pageref{Prop:StrongBoundaryCond})
+are sometimes called \emph{averaging functions}, cf.~\cite{CITATION_NEEDED}. %%%%%%%%%%%%%%%%!!!!!!!!!!!!!!!!!!!!! Aniu, cytowanko
+An example of such object is the arithmetic mean or median.
 
-
+\medskip
 \begin{definition}
 We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if:
 \[
 \func{F}(\vect{x}+\vect{y})=\func{F}(\vect{x})+\func{F}(\vect{y}),
 \]
-for all $\vect{x},\vect{y}\in\IvalPow{n}$ such that 
+for all $n\in\mathbb{N}, \vect{x}, \vect{y}\in\IvalPow{n}$ such that 
 $\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
 
+\medskip
 \begin{definition}
 We call $\func{F}$ \emph{minitive} if:
 \[
-(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
 \func{F}(\vect{x}\wedge
 \vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}).
 \]
 \end{definition}
 
+\medskip
 \begin{definition}
 We call $\func{F}$ \emph{maxitive} if:
 \[
-(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \func{F}(\vect{x}\vee
 \vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}).
 \] 
 \end{definition}
 
+\medskip
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MOZE ZACYTOWAC SKAD TA DEFINICJA?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  W MESIAR/MESIAROVA-ZEMANKOVA, 2011 JEST NA PEWNO
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PODANE ZRODLO
 \begin{definition}
 We call $\func{F}$ \emph{modular} if:
 \[
-(\forall n)\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
-\func{F}(\vect{x}{\vee}\vect{y})
-+\func{F}(\vect{x}{\wedge}\vect{y})=\func{F}(\vect{x})+\func{F}
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+\func{F}(\vect{x}\vee\vect{y})
++\func{F}(\vect{x}\wedge\vect{y})=\func{F}(\vect{x})+\func{F}
 (\vect{y}).
 \] 
 \end{definition}
 
+It may easily be seen that each additive operator fulfiling
+the lower strong boundary condition is also modular
+(i.e.~modularity is more general than additivity),
+% because ....................................................    %%%%% ANIU, CWICZONKO DLA CIE :)
 
-Apart from ``ordinary'' minitivity, maxitivity, and modularity
+\medskip
+Apart from the ``ordinary'' minitivity, maxitivity, and modularity
 we may introduce their symmetrized versions,
-using $\vect{x}\stackrel{S}{\vee}\vect{y}
+using $\vect{x}\stackrel{S}{+}\vect{y}
+=(x_{\{1\}}+ y_{\{1\}},\dots,x_{\{n\}}+y_{\{n\}})$,
+$\vect{x}\stackrel{S}{\vee}\vect{y}
 =(x_{\{1\}}\vee y_{\{1\}},\dots,x_{\{n\}}\vee   y_{\{n\}})$
 and
 $\vect{x}\stackrel{S}{\wedge}\vect{y}
@@ -572,21 +598,27 @@ $\vect{x}\stackrel{S}{\wedge}\vect{y}
 
 \subsection{Impact Functions and The Producers Assessment Problem}
 
-The \textbf{Producers Assessment Problem} (PAP, 
+We already noticed the important class of aggregation operators:
+the averaging functions. They may be used to represent the most ``typical''
+value of a numeric vector.
+Here is another interesting class
+that represent solutions to some very interesting practical issues.
+
+The \emph{Producers Assessment Problem} (PAP, 
 \cite{GagolewskiGrzegorzewski2011:ijar}) concerns evaluation of a set of 
-\textbf{producers} (e.g.~scientists, artists, writers, craftsman) 
-according to the \textbf{products}
-(e.g.~articles, works, books, artifacts) each entity has produced.
+\emph{producers} (e.g.~scientists, artists, writers, craftsman) 
+according to the \emph{products}
+(e.g.~scientific articles, works, books, artifacts) each entity has produced.
 It is assumed that for each of the products 
-a \textbf{rating} of quality or popularity (e.g.~number of citations
-for articles, number of sold copies for books etc.) is given.
+some quality or popularity \emph{rating} (e.g.~the number of articles'
+citations, the number of sold book copies etc.) is given.
+
 
 \begin{table}[ht]
-\centering \caption{\label{Table:InstancesPAP} The Producer
+\caption{\label{Table:InstancesPAP} The Producer
 Assessment Problem -- typical instances}
 
-\noindent
-\footnotesize
+\centering\noindent\footnotesize
 \begin{tabular}{|c||llp{3.5cm}p{3.2cm}|}
 \hline
 & Producer & Products & Rating method & Discipline \\
@@ -607,11 +639,14 @@ F & \R{} package author & Packages & PageRank values on the citation graph & Sof
 \end{tabular}
 \end{table}
 
-PAP finds its applications in many fields, like 
-for example scientometrics, webometrics, marketing, manufacturing or quality 
-engineering \cite{FranceschiniMaisano2009:hmanufacturing},
-and its main interest if focused on constructing and analyzing 
-aggregation operators which may be used in the rating task. 
+PAP instances may be found in many real-life
+situations, like those encountered
+for example scientometrics, webometrics, marketing,
+manufacturing, or quality 
+engineering, see Table~\ref{Table:InstancesPAP}
+and e.g.~\cite{FranceschiniMaisano2009:hmanufacturing}.
+Our main interest here is focused on constructing and analyzing 
+aggregation operators which may be used in the producers' rating task. 
 Such functions should take into a count the two following 
 aspects of a producer's quality:
 \begin{itemize}
@@ -621,7 +656,7 @@ aspects of a producer's quality:
 
 For the sake of illustration, we will consider PAP in the
 scientometric context, where scientists ``produce''
-papers, which receive citations.
+papers, which in turn themselves receive citations.
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
@@ -635,7 +670,7 @@ Woeginger2008:symmetryaxiom,Rousseau2008:woegingerax,Quesada2009:monotonicityh,
 Quesada2010:moreaxiomatics,GagolewskiGrzegorzewski2011:ijar,
 Gagolewski2011:PhD,FranceschiniMaisano2011:structevalh},
 that each aggregation operator
- $\func{J}:\IvalAnyPow\to\Ival$ to be applied in the PAP  should at least be:
+ $\func{F}:\IvalAnyPow\to\Ival$ to be applied in  PAP  should at least be:
 \begin{enumerate}
    \item[(a)] nondecreasing in each variable (additional
    citations received by a paper or an improvement
@@ -647,10 +682,10 @@ that each aggregation operator
 of the order of elements' presentation, i.e.~we may always assume that
 we aggregate vectors that are already sorted).
 \end{enumerate}
-Conditions (a) and (b) imply that each impact function
-is able -- at least potentially -- to describe two ``dimensions''
-of the author's output quality: (a) his/her ability to write
-eagerly-cited or highly-valuated papers and (b) his/her overall productivity.
+% Conditions (a) and (b) imply that each impact function
+% is able -- at least potentially -- to describe two ``dimensions''
+% of the author's output quality: (a) his/her ability to write
+% eagerly-cited or highly-valuated papers and (b) his/her overall productivity.
 
 % More formally, condition (a) holds if and only if for each
 % $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$ such that $(\forall i)$
@@ -658,8 +693,11 @@ eagerly-cited or highly-valuated papers and (b) his/her overall productivity.
 % On the other hand, 
 More formally, axiom (b) is fulfilled iff
 for any $\vect{x}\in\IvalAnyPow$ and $y\in\Ival$ it holds
-$\func{J}(\vect{x})\le\func{J}(x_1,\dots,x_n,y)$.
-(a) and (c) were defined in the previous section.
+$\func{F}(\vect{x})\le\func{F}(x_1,\dots,x_n,y)$.
+It may be seen that this property is \emph{arity-dependent},
+i.e.~it takes into account the number of elements to be aggregated.
+
+Moreover, (a) and (c) were defined in the previous section.
 % Lastly, requirement (c) holds iff for all $n$ and $\vect{x}\in\IvalPow{n}$
 % we have $\func{J}(\vect{x})=\func{J}(x_{\{1\}},\dots,x_{\{n\}})$,
 % where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
