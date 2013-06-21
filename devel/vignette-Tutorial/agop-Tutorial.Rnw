@@ -903,6 +903,9 @@ and the famous Hirsch $h$-index ($\func{w}_n(x)=\lfloor x\rfloor$, $c_{i,n}=i$).
 
 \subsection{Bibliometric Impact Indices}
 
+%%%%%%%%%%%% jaki poziom szczegolowosci chcesz zachowac? Napisz mi w komentarzu 
+%%%%%%%%%%%% to dopisze ewentualnie 
+
 Below we assume that $\Ival=[0,\infty]$.
 % All the functions are symmetric. The input vectors are of course
 % being sorted if necessary during calculations.
@@ -925,7 +928,7 @@ papers are cited no more that $H$ times each''.
 The $h$-index may also be expressed as a Sugeno 
 integral \cite{Sugeno1974:PhD}
 w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
-
+%nie za duzo jedno to? with respect to to?
 \package{agop} implementation: \Rfunc{index\_h()}.
 
 <<index_h>>=
@@ -933,7 +936,10 @@ index_h(c(6,5,4,2,1,0,0,0,0,0,0))
 index_h(c(-1,3,4,2)) # only for x>=0
 @
 
-This is a zero-insensitive impact function.
+\emph{Hirsch index} is a zero-insensitive impact function, denoted $\func{H}\in
+\Property{a0}$, which means that 
+for each $\vect{x}\in\IvalAnyPow$ it holds
+$\func{H}(\vect{x},0)=\func{H}(\vect{x})$.
 
 We have $\func{H}(\vect{x})\le \min\{n, x_{1}\}$.
 
@@ -970,54 +976,58 @@ nondecreasingly, then:
 where $1:n = (1, 2, 3, \dots, n)$.
 
 \paragraph{The $w$-index.}
- The $w$-index \cite{Woeginger2008:axiomatich}:
+The $w$-index (cf.~\cite{Woeginger2008:axiomatich})
+ defined as
 \begin{equation}\label{Eq:IndexW}
-\func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}.
+\func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}
 \end{equation}
-
-\package{agop} implementation: \Rfunc{index\_w()}.
-
-This is a zero-insensitive impact function.
-
-We have $\func{H}(\vect{x})\le\func{W}(\vect{x})\le 2\func{H}(\vect{x})$,
-$\func{W}(\vect{x})\le \min\{n, x_{1}\}$.
-
-
-
+is available in \package{agop} as \Rfunc{index\_w()}.
 
 Interestingly, it might be shown that if $\vect{x}$ is sorted
 nondecreasingly, then:
 \[
 \func{W}(\vect{x}) = \func{H}(\vect{x})(\mathtt{cummin}(\vect{x}+(1:n)-1)).
 \]
-
-\paragraph{The $r_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
-for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
-
-This is a zero-insensitive impact function.
+Thus, it is easily seen that this is a zero-insensitive impact function.
+What is more we have $\func{H}(\vect{x})\le\func{W}(\vect{x})\le 2\func{H}(\vect{x})$
+and $\func{W}(\vect{x})\le \min\{n, x_{1}\}$.
 
 
+\paragraph{The $r_p$-indices.} The $r_p$-index, for $p\geqslant 1$ is expressed as
+\[
+\func{r}_{p}(\vect{x})=\sup{\{r>0: \func{s}^{p,r}\trianglelefteq\vect{x}\}},
+\]
+where $\vect{s}^{p,r}=\left(\sqrt[p]{r^p-0^p},\sqrt[p]{r^p-1^p},\dots,
+\sqrt[p]{r^p-\lfloor r\rfloor ^p)}\right)$. For more details 
+see~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach}.
 
+Please note that for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
+(cf.~\cite{GagolewskiGrzegorzewski2009:geometricapproach}).
+Hence it easily seen that, this is a zero-insensitive impact function.
+
+\paragraph{The $l_p$-indices.} The $l_p$-index 
+(cf.~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach}) 
+for $p\in[1,\infty)$, $u>0$ and $v>0$ is a function 
+$\func{l}_{p}:\IvalAnyPow\to\IvalPow{2}$ given by the equation
+\[
+\func{l}_{p}(\vect{x})=\mathsf{arg}\sup_{(u,v)}{\{uv: \func{e}^{p,u,v}\trianglelefteq\vect{x}\}},
+\]
+where $\func{e}^{p,u,v}=\left(\sqrt[p]{v^{p}-(\frac{v}{u}0)^{p}},
+\sqrt[p]{v^{p}-(\frac{v}{u}1)^{p}},\dots,\sqrt[p]{v^{p}-(\frac{v}{u}\lfloor u\rfloor)^{p}}\right)$.
 
 
 \paragraph{The $\mathrm{MAXPROD}$-index.}
-The MaxProd-index \cite{Kosmulski2007:maxprod}:
+The MaxProd-index (cf.~\cite{Kosmulski2007:maxprod}) given  by the equation
 \begin{equation}\label{Eq:IndexMaxProd}
-   \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{\{i\}}: i=1,2,\ldots\right\}.
+   \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{\{i\}}: i=1,2,\ldots\right\}
 \end{equation}
-This index is a particular case of a projected $l_\infty$-index,
-see \cite{GagolewskiGrzegorzewski2009:geometricapproach}.
+is another example of zero-insensitive impact function.
+Interestingly, this index is a particular case of a projected $l_\infty$-index,
+see~\cite{GagolewskiGrzegorzewski2009:geometricapproach}, and can be also expressed
+in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure}.
 
-Shilkret integral \cite{Shilkret1971:maxitivemeasure}
+In \package{agop} MaxProd-index is implemented as \Rfunc{index\_maxprod()}.
 
-This is a zero-insensitive impact function.
-
-\package{agop} implementation: \Rfunc{index\_maxprod()}.
-
-
-
-
-\paragraph{The $l_p$-indices.}\cite{GagolewskiGrzegorzewski2009:geometricapproach}
 
 
 \paragraph{Simple transformations of the $h$-index.}
@@ -1254,9 +1264,11 @@ are in fact realizations of some random samples.
 
 In probability, an aggregation operator
 is simply called a \emph{statistic} (formalism......)
+%%% co rozumiesz przez formalism? jakies definicje wzory twierdzenia?
 
 Let $(X_1,\dots,X_n)$ i.i.d.~$F$, where $\mathrm{supp}\,F = \Ival$.
 
+%%%% ?
 ....
 
 In the modeling of social phenomena, if $F$ is continuous,
