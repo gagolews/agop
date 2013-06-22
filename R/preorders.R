@@ -33,7 +33,7 @@
 #' @param y numeric vector
 #' @return single logical value; whether x <= y
 #' 
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 pord_weakdom <- function(x, y)
 {
@@ -41,8 +41,10 @@ pord_weakdom <- function(x, y)
 }
 
 
+#' @title
 #' Create Adjacency Matrix of Given Binary Relation
 #' 
+#' @description
 #' Note that adjacency matrix  can also be conceived as a directed graph (DAG).
 #' ret[i,j] iff i <= j
 #' 
@@ -50,7 +52,7 @@ pord_weakdom <- function(x, y)
 #' @param pord function with 2 arguments, returning boolean value
 #' @param ... additional arguments passed to \code{pord}
 #' @return square 0-1 Matrix (of class \code{Matrix})
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 rel_graph <- function(x, pord, ...)
 {
@@ -71,8 +73,10 @@ rel_graph <- function(x, pord, ...)
 }
 
 
+#' @title
 #' Check if Given Adjacency Matrix is Reflexive
 #' 
+#' @description
 #' A binary relation R is reflexive, iff
 #' for all \code{x} we have \eqn{xRx}.
 #' The function just checks whether all elements
@@ -81,7 +85,7 @@ rel_graph <- function(x, pord, ...)
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return single logical value
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 is_reflexive <- function(B)
 {
@@ -91,15 +95,17 @@ is_reflexive <- function(B)
 }
 
 
+#' @title
 #' Check if Given Adjacency Matrix is Total
 #' 
+#' @description
 #' A binary relation R is total, iff
 #' for all \code{x}, \code{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return single logical value
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 is_total <- function(B)
 {
@@ -110,8 +116,10 @@ is_total <- function(B)
 
 
 
+#' @title
 #' Check if Given Adjacency Matrix is Transitive
 #' 
+#' @description
 #' A binary relation R is transitive, iff
 #' for all \code{x}, \code{y}, \code{z} we have \eqn{xRy} and \eqn{yRz}
 #' => \eqn{xRz}
@@ -119,7 +127,7 @@ is_total <- function(B)
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return single logical value
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 is_transitive <- function(B)
 {
@@ -158,13 +166,17 @@ is_transitive <- function(B)
 }
 
 
-#' De-transitivitize graph (for draving hasse diagrams)
+#' @title
+#' De-transitivitize Graph 
+#' 
+#' @description
+#' Useful for draving Hasse diagrams.
 #' 
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return object of class \code{Matrix}
-#' @family agop_binary_relations
+#' @family binary_relations
 #' @export
 de_transitive <- function(B)
 {
@@ -188,13 +200,17 @@ de_transitive <- function(B)
 
 
 
+#' @title
 #' Transitive Closure of Adjacency Matrix
+#' 
+#' @description
+#' This may be slow for large graphs.
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return object of class \code{Matrix}
 #' @export
-#' @family agop_binary_relations
+#' @family binary_relations
 closure_transitive <- function(B)
 {
    if (is_transitive(B)) return(B) # do nothing
@@ -216,18 +232,21 @@ closure_transitive <- function(B)
 
 
 
-#' Total Closure of Adjacency Matrix [fair totalization]
+#' @title
+#' Total Closure of Adjacency Matrix [Fair Totalization]
 #' 
+#' @description
 #' Fair totalization: for each pair (x,y) s.t.
 #' not xRy and not xRy let from now on xRy and yRx
 #' 
-#' if you want a total preorder, call \code{\link{make_transitive}}
+#' @details
+#' If you want a total preorder, call \code{\link{closure_transitive}}.
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' @return object of class \code{Matrix}
 #' @export
-#' @family agop_binary_relations
+#' @family binary_relations
 closure_total_fair <- function(B)
 {
    if (is(B, 'igraph')) B <- get.adjacency(B)
@@ -242,11 +261,14 @@ closure_total_fair <- function(B)
 
 
 
+#' @title
 #' Get Incomparable Pairs in an Adjacency Matrix
 #' 
+#' @description
 #' A pair (x,y) is incomparable iff
 #' not xRy and not xRy
 #'  
+#' @details
 #' See also \code{\link{get_independent_sets}} of how to generate
 #' all maximal independent sets.
 #' 
@@ -255,7 +277,7 @@ closure_total_fair <- function(B)
 #' @return integer matrix with two columns (indices of incomparable elements,
 #' not that these are pairs, and not sets: you'll get (i,j) and (j,i))
 #' @export
-#' @family agop_binary_relations
+#' @family binary_relations
 get_incomparable_pairs <- function(B)
 {
    if (is(B, 'igraph')) B <- get.adjacency(B)
@@ -267,9 +289,10 @@ get_incomparable_pairs <- function(B)
 }
 
 
+#' @title
 #' Get All Maximal Independent Sets
 #' 
-#' 
+#' @description
 #' The function generates vectors of indices \eqn{S_j=\{i_1,...,i_{k_j}\}}
 #' such that all pairs from \eqn{S_j} are incomparable
 #' (A pair (i,i') is incomparable iff
@@ -277,7 +300,7 @@ get_incomparable_pairs <- function(B)
 #' see also \code{\link{get_incomparable_pairs}}.
 #' 
 #' 
-#' 
+#' @details
 #' Note that we assume that \eqn{B} is transitive.
 #' Loops are not taken into account at all.
 #' 
@@ -287,7 +310,7 @@ get_incomparable_pairs <- function(B)
 #' an independent set of vertices numbers
 #' 
 #' @export
-#' @family agop_binary_relations
+#' @family binary_relations
 get_independent_sets <- function(B)
 {
    if (!is(B, 'igraph')) B <- graph.adjacency(B)
@@ -303,12 +326,11 @@ get_independent_sets <- function(B)
 
 
 
+#' @title
 #' Get All Equivalence Classes of a Total Binary Relation
 #' 
 #' 
-#' 
-#' 
-#' 
+#' @description
 #' Note that we assume that \eqn{B} is total, reflexive and transitive.
 #' 
 #' @param B object of class \code{igraph} or a square
@@ -319,7 +341,7 @@ get_independent_sets <- function(B)
 #' the same in each class)
 #' 
 #' @export
-#' @family agop_binary_relations
+#' @family binary_relations
 get_equivalence_classes <- function(B)
 {
    if (!is(B, 'igraph')) { BAD <- as.matrix(B); B <- graph.adjacency(B) }
