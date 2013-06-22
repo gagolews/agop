@@ -270,7 +270,8 @@ pattern recognition and image processing, data fusion,
 multicriteria decision making,
 automated reasoning etc.). Although history of aggregation is probably 
 as old as mathematics (think of the arithmetic mean), its existence
-has reminded underground till only recent (\dots).'' \cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
+has reminded underground till only recent (\dots).'' 
+\cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
 \end{quotation}
 
 
@@ -358,7 +359,7 @@ Good luck!
 Let us establish some basic notation convention
 used throughout this tutorial.
 From now on let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$.
-Note that in many practical situations we choose 
+Note that in many practical situations we commonly choose $\Ival=[-1,1]$,
 $\Ival=[0,1]$ or $\Ival=[0,\infty]$.
 A set of all vectors of arbitrary length  with elements in $\Ival$ 
 is denoted by $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ .
@@ -580,8 +581,9 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if:
 
 Idempotent aggregation operators fulfilling 
 the strong boundary conditions (see p.~\pageref{Prop:StrongBoundaryCond})
-are sometimes called \emph{averaging functions}, cf.~\cite{CITATION_NEEDED}. 
-%%%%%%%%%%%%%%%%!!!!!!!!!!!!!!!!!!!!! Aniu, cytowanko
+are sometimes called \emph{averaging functions}, cf.~\cite{GrabischETAL2009:aggregationfunctions}. 
+%%%%%%%%%%%%%%%%znalezc prace
+
 An example of such object is the arithmetic mean or median.
 
 \medskip
@@ -593,6 +595,8 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if:
 for all $n\in\mathbb{N}, \vect{x}, \vect{y}\in\IvalPow{n}$ such that 
 $\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
+Please note that if $a\leq0$, then for additivity $\func{F}$ 
+have to be such that $\func{F}(\vect{0})=0$.
 
 \medskip
 \begin{definition}
@@ -615,23 +619,32 @@ We call $\func{F}$ \emph{maxitive} if:
 \end{definition}
 
 \medskip
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% MOZE ZACYTOWAC SKAD TA DEFINICJA?
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  W MESIAR/MESIAROVA-ZEMANKOVA, 2011 JEST NA PEWNO
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  PODANE ZRODLO
+%%%%%%% podaje trzy: Beliakov, Grabish i Mesiar-Mesiarowa
+
 \begin{definition}
-We call $\func{F}$ \emph{modular} if:
+We call $\func{F}$ \emph{modular} 
+(cf.~\cite{BeliakovETAL2007:aggregation,GrabischETAL2009:aggregationfunctions,MesiarMesiarova2011:orderedmodular}) if:
 \[
 (\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
 \func{F}(\vect{x}\vee\vect{y})
 +\func{F}(\vect{x}\wedge\vect{y})=\func{F}(\vect{x})+\func{F}
-(\vect{y}).
+(\vect{y})
 \] 
+%
 \end{definition}
 
-It may easily be seen that each additive operator fulfiling
-the lower strong boundary condition is also modular
+It may easily be seen that each additive operator 
+%fulfiling the lower strong boundary condition 
+is also modular
 (i.e.~modularity is more general than additivity),
-% because ....................................................    %%%%% ANIU, CWICZONKO DLA CIE :)
+% ....................................................    %%%%% ANIU, CWICZONKO DLA CIE :)
+because since
+$(\vect{x}\vee\vect{y})+(\vect{x}\wedge\vect{y})=\vect{x}+\vect{y}$,
+we have $\func{F}(\vect{x})+\func{F}(\vect{y})=\func{F}(\vect{x}+\vect{y})=
+\func{F}((\vect{x}\vee\vect{y})+(\vect{x}\wedge\vect{y}))
+=\func{F}(\vect{x}\vee\vect{y})+\func{F}(\vect{x}\wedge\vect{y}),$
+for additive aggregation operator $\func{F}$.
+
 
 \medskip
 Apart from the ``ordinary'' minitivity, maxitivity, and modularity
@@ -990,8 +1003,9 @@ with $\vect{w}$, $\func{WAM}_\vect{w}: \IvalPow{n}\to\Ival$,
  is defined as 
 \[\func{WAM}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}.\] 
 
-\item The \emph{ordered weighted averaging operator}
-associated with $\vect{w}$, %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CYTOWANIE: Yager
+\item The \emph{ordered weighted averaging operator} (cf.~\cite{Yager:OWA})
+associated with $\vect{w}$,  
+%CYTOWANIE: Yager
 $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
  is defined as 
 \[\func{OWA}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{\{i\}}.\]
@@ -1000,12 +1014,14 @@ $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
 
 We see that both functions are idempotent, additive, and that $\func{OWA}$ is
 the symmetrized version of $\func{WAM}$.
-%%%%%%% In fact, F is idempotent if and only if............................................ ?????
+In fact, F is idempotent if and only if $\sum_{i=1}^{n}w_{i}=1$.
 Moreover, for $\vect{w}=(n\ast 1/n)$, $\func{WAM}_\vect{w}$ 
 defines the arithmetic mean (\Rfunc{mean()} in \R).
-%%%%%%%%%%% WSPOMNIEC O SREDNIEJ UCIETEJ \Rfunc{mean(x, trim=...)} JAKO CIEKAWYCH PRZYKLADACH
-
-
+\emph{Truncated mean} is an interesting example of arithmetic mean. The main differences  
+is that the calculation of the truncated mean is performed after 
+discarding given percentage of the highest and lowest vector' elements. 
+In \R we may obtained truncated mean with usage \Rfunc{mean(x, trim=...)},
+where \Rfunc{trim} parameter is the percentage of cut observations.
 
 %%%%%%%% MG: TO DO: R implementation
 
@@ -1017,16 +1033,16 @@ Then, for any $\vect{x}\in\IvalPow{n}$:
 \begin{enumerate}
 \item The \emph{weighted maximum} associated 
 with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$, 
-%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CYTOWANIE: Dubois, Prade 1988 bodaj
+% CYTOWANIE: Dubois, Prade 1988 bodaj- to chyba do ordered - patrzylam dr
  is defined as 
 \[\func{WMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i}).\]
 
-\item The \emph{ordered weighted maximum}  associated 
-with $\vect{w}$,
+\item The \emph{ordered weighted maximum} (cf.~\cite{DuboisETAL1988:makingdecision})
+associated with $\vect{w}$,
 $\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as 
-\[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)}),\]
-with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.   
-%%%%%%%% ZMIENIC NA x_{\{i\}} - zmienia sie warunki
+\[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{\{i\}}),\]
+with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.   
+% DONE % ZMIENIC NA x_{\{i\}} - zmienia sie warunki
 \end{enumerate}
 \end{definition}
 
