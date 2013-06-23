@@ -41,6 +41,35 @@ SEXP owa(SEXP x, SEXP w)
 
 
 
+/** OWMax operator
+ * 
+ * @param x numeric
+ * @param w numeric
+ * @return numeric of length 1
+ */
+SEXP owmax(SEXP x, SEXP w)
+{
+   x = prepare_arg_numeric_sorted(x, "x");
+   return wmax(x, w);
+}
+
+
+
+
+/** OWMin operator
+ * 
+ * @param x numeric
+ * @param w numeric
+ * @return numeric of length 1
+ */
+SEXP owmin(SEXP x, SEXP w)
+{
+   x = prepare_arg_numeric_sorted(x, "x");
+   return wmin(x, w);
+}
+
+
+
 
 /** WAM operator
  * 
@@ -81,6 +110,71 @@ SEXP wam(SEXP x, SEXP w)
    return ScalarReal(ret_val);
 }
 
+
+
+/** WMax operator
+ * 
+ * @param x numeric
+ * @param w numeric
+ * @return numeric of length 1
+ */
+SEXP wmax(SEXP x, SEXP w)
+{
+   x = prepare_arg_numeric(x, "x");
+   w = prepare_arg_numeric(w, "w");
+   
+   R_len_t x_length = LENGTH(x);
+   R_len_t w_length = LENGTH(w);
+   double* w_tab = REAL(w);
+   double* x_tab = REAL(x);
+   
+   if (x_length <= 0) return x;
+   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
+      return ScalarReal(NA_REAL);
+   if (x_length != w_length)
+      error("`x` and `w` should have the same length");
+   
+   double ret_val = DBL_MIN;
+   for (R_len_t i=0; i<x_length; ++i) {
+      double tmp = min(w_tab[i], x_tab[i]);
+      if (ret_val < tmp) ret_val = tmp;
+   }
+   
+   return ScalarReal(ret_val);
+}
+
+
+
+/** WMin operator
+ * 
+ * @param x numeric
+ * @param w numeric
+ * @return numeric of length 1
+ */
+SEXP wmin(SEXP x, SEXP w)
+{
+   x = prepare_arg_numeric(x, "x");
+   w = prepare_arg_numeric(w, "w");
+   
+   R_len_t x_length = LENGTH(x);
+   R_len_t w_length = LENGTH(w);
+   double* w_tab = REAL(w);
+   double* x_tab = REAL(x);
+   
+   if (x_length <= 0) return x;
+   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
+      return ScalarReal(NA_REAL);
+   if (x_length != w_length)
+      error("`x` and `w` should have the same length");
+   
+   double ret_val = DBL_MAX;
+   for (R_len_t i=0; i<x_length; ++i) {
+      double tmp = max(w_tab[i], x_tab[i]);
+      if (ret_val > tmp) ret_val = tmp;
+   }
+   
+   return ScalarReal(ret_val);
+}
 
 
 /** Function to compute the S-statistic for kappa=id, O(log n) time.

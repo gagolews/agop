@@ -101,7 +101,10 @@ SEXP index_maxprod(SEXP x); // DONE
 SEXP index_w(SEXP x);       // DONE
 SEXP owa(SEXP x, SEXP w);   // DONE
 SEXP wam(SEXP x, SEXP w);   // DONE
-
+SEXP owmax(SEXP x, SEXP w); // DONE
+SEXP wmax(SEXP x, SEXP w);  // DONE
+SEXP owmin(SEXP x, SEXP w); // DONE
+SEXP wmin(SEXP x, SEXP w);  // DONE
 
 SEXP pord_weakdom(SEXP x, SEXP y); // DONE
 

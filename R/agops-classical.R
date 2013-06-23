@@ -48,6 +48,9 @@
 #' 
 #' Both functions return the ordinary arithmetic mean by default.
 #' 
+#' There is a strong connection between the OWA operators
+#' and the Choquet integrals.
+#' 
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}, with elements in \eqn{[0,1]},
 #' and such that \eqn{\sum_i w_i=1}{sum(x)=1}; weights
@@ -68,6 +71,96 @@ owa <- function(x, w=rep(1/length(x), length(x))) {
 #' @export
 wam <- function(x, w=rep(1/length(x), length(x))) {
    .Call("wam", x, w, PACKAGE="agop")
+}
+
+
+#' @title
+#' WMax, WMin, OWMax, and OWMin Operators
+#' 
+#' @description
+#' Computes the (Ordered) Weighted Maximum/Minimum.
+#' 
+#' @details
+#' The OWMax operator is given by
+#' \deqn{
+#' \func{OWMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{\{i\}}
+#' }{
+#' OWMax_w(x) = max_i{ min{w_i, x_{i}} }
+#' }
+#' where \eqn{x_{\{i\}}}{x_{i}} denotes the \eqn{i}-th greatest
+#' value in \code{x}.
+#' 
+#' The OWMin operator is given by
+#' \deqn{
+#' \func{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{\{i\}}
+#' }{
+#' OWMin_w(x) = min_i{ max{w_i, x_{i}} }
+#' }
+#' 
+#' The WMax operator is given by
+#' \deqn{
+#' \func{WMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{i}
+#' }{
+#' WMax_w(x) = max_i{ min{w_i, x_i} }
+#' }
+#' 
+#' The WMin operator is given by
+#' \deqn{
+#' \func{WMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{i}
+#' }{
+#' WMin_w(x) = min_i{ max{w_i, x_i} }
+#' }
+#' 
+#' \code{OWMax} and \code{WMax} return the greatest value in \code{x}
+#' by default, and \code{OWMin} and \code{WMin} - the smallest value in \code{x}.
+#' 
+#' Note that e.g. in the case of OWMax operator
+#' the aggregation w.r.t. \code{w} gives the same result as
+#' that of w.r.t. \code{sort(w)}.
+#' Moreover, classically, it is assumed that if we agregate
+#' vectors with elements in \eqn{[a,b]}, then
+#' the largest weight should be equal to \eqn{b}.
+#' 
+#' There is a strong connection between the OWMax/OWMin operators
+#' and the Sugeno integrals. Additionally, it may be shown
+#' that the OWMax and OWMin classes are equivalent.
+#' 
+#' Moreover, \code{\link{index_h}} for integer data
+#' is a particular OWMax operator.
+#' 
+#' @param x numeric vector to be aggregated
+#' @param w numeric vector of the same length as \code{x}; weights
+#' @return single numeric value
+#' 
+#' @rdname owmax
+#' @name owmax
+#' @export
+#' @family aggregation_operators
+#' @references
+#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, Fuzzy Sets and Systems 28, 1988, pp. 313-331.\cr
+owmax <- function(x, w=rep(Inf, length(x))) {
+   .Call("owmax", x, w, PACKAGE="agop")
+}
+
+
+#' @rdname owmax
+#' @export
+owmin <- function(x, w=rep(-Inf, length(x))) {
+   .Call("owmin", x, w, PACKAGE="agop")
+}
+
+
+#' @rdname owmax
+#' @export
+wmax <- function(x, w=rep(Inf, length(x))) {
+   .Call("wmax", x, w, PACKAGE="agop")
+}
+
+
+#' @rdname owmax
+#' @export
+wmin <- function(x, w=rep(-Inf, length(x))) {
+   .Call("wmin", x, w, PACKAGE="agop")
 }
 
 

@@ -34,6 +34,7 @@
 #' \code{index.h} [but its usage is deprecated].
 #' 
 #' 
+#' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
 #' 
