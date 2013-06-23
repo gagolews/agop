@@ -29,6 +29,58 @@ bool comparer_greater(double i, double j) { return (i>j); }
 
 
 
+
+/**
+ * Prepare sorted numeric vector
+ * 
+ * if x is not numeric (or not coercible to), throw error.
+ * if of length 0, return numeric(0).
+ * if any NA, return NA_real_.
+ * if not sorted, return sorted.
+ * otherwise, return as-is
+ * 
+ * 
+ * @param numeric vector
+ * @param argname argument name (message formatting)
+ * @return numeric vector, sorted non-increasingly
+ */
+SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
+{
+   x = prepare_arg_double(x, argname);
+   R_len_t n = LENGTH(x);
+   if (n <= 0)
+      return x; // empty vector => return an empty vector
+      
+   double* xd = REAL(x);
+   bool sorted = true;
+   for (R_len_t i=0; i<n; ++i) {
+      if (R_IsNA(xd[i])) {
+         return ScalarReal(NA_REAL);
+      }
+      else if (sorted && (i > 1) && (xd[i-1] < xd[i])) {
+         sorted = false;
+      }
+   }
+   
+
+   
+   if (sorted)
+      return x; // it's sorted - return as-is
+   
+   std::vector<double> myvector(xd, xd+n);
+   std::sort(myvector.begin(), myvector.end(), comparer_greater);
+   
+   SEXP ret;
+   PROTECT(ret = allocVector(REALSXP, n));
+   R_len_t i = 0;
+   for (std::vector<double>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
+      REAL(ret)[i++] = *it;
+   UNPROTECT(1);
+   return ret;
+}
+
+
+
 /**
  * Prepare sorted numeric vector with elements in [0,\infty]
  * 

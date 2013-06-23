@@ -53,7 +53,7 @@
 #' index_h(authors$A)
 #' sapply(authors, index_h)
 #' 
-#' @family bibliometric_indices
+#' @family impact_functions
 #' @rdname index_h
 #' @export
 index_h <- function(x)
@@ -107,7 +107,7 @@ index.h <- index_h # deprecated
 #' @examples
 #' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
 #' 
-#' @family bibliometric_indices
+#' @family impact_functions
 #' @rdname index_g
 #' @export
 index_g <- function(x)
@@ -153,7 +153,7 @@ index_g_zi <- function(x)
 #' of an individual, and a comparison with the h-index, Cybermetrics 11(1), 2007.
 #'
 #' 
-#' @family bibliometric_indices
+#' @family impact_functions
 #' @rdname index_maxprod
 #' @export
 index_maxprod <- function(x)
@@ -183,7 +183,7 @@ index_maxprod <- function(x)
 #' Mathematical Social Sciences 56(2), 2008, 224-232.
 #'
 #' 
-#' @family bibliometric_indices
+#' @family impact_functions
 #' @rdname index_w
 #' @export
 index_w <- function(x)
@@ -322,102 +322,6 @@ index_w <- function(x)
 # 	{
 # 		.C("index_lp_infinite", as.double(x), as.integer(length(x)), out=double(2), DUP=FALSE, PACKAGE="agop")$out;
 # 	}
-# }
-
-
-
-# #' Computes the S-statistic2 w.r.t. to the identity function for data transformed by the inverse of a control function.
-# #'
-# #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-# #' where \eqn{x_i\ge x_j} for \eqn{i\le j},
-# #' and a nondecreasing function \eqn{\gamma: R\to[0,1]}{\gamma: R->[0,1]},
-# #' the \dfn{S-statistic2} (Gagolewski, Grzegorzewski, 2010) for \eqn{x} is defined as
-# #' \deqn{V_n(x)=\max_{i=1,\dots,n}\{\min\{\gamma(x_i), i/n \}\}}{V_n(x)=max{ min{i/n, \gamma(x_i)} } for i=1,\dots,n}
-# #'
-# #' If \code{disable.check} is set to \code{FALSE}, then
-# #' eventual \code{NA} values are removed from the input vector.
-# #'
-# #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-# #' the result is computed in linear time.
-# #'
-# #' @references Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties,
-# #' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis, (SMPS 2010), Springer-Verlag, 2010, 281-288.
-# #'
-# #' @title S-statistic2
-# #' @param x a vector of real numbers.
-# #' @param kappaInv a nondecreasing function ranging on [0,1], \eqn{\gamma} (see Details), the inverse of a so-called control function.
-# #' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-# #' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-# #' @return The function returns a single number or NA if improper input has been given.
-# #' @seealso \code{\link{index.h}}, \code{\link{index.g}}, \code{\link{index.rp}}, \code{\link{index.lp}}, \code{\link{Sstat}}, \code{\link{psstat}}, \code{\link{dsstat}}
-# #' @examples
-# #' x <- rpareto2(25, 1.05, 1);
-# #' kappaInv <- function(x) { pmax(0,pmin(1,x/25)); }
-# #' Sstat2(x, kappaInv, FALSE, TRUE);
-# #' @export
-# Sstat2 <- function(x, kappaInv, sorted.dec=FALSE, disable.check=FALSE)
-# {
-# 	if (!disable.check)
-# 	{
-# 		if (length(x) == 0) return(0);
-# 		if (mode(x) != "numeric") return(NA);
-# 		if (any(x < 0)) return(NA);
-# 		x <- x[!is.na(x)];
-# 	}
-# 
-# 	if (!sorted.dec)
-# 		x <- sort(x, decreasing=TRUE);
-# 
-# 	# internal method needs O(log n) time, however kappaInv(x) is O(n)
-# 	.C("Sstat2", as.double(kappaInv(x)), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-# }
-
-
-# #' Computes the S-statistic w.r.t. to a control function.
-# #'
-# #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-# #' where \eqn{x_i\ge x_j} for \eqn{i\le j},
-# #' and an increasing function \eqn{\kappa: [0,1]\to[a,b]}{\kappa: [0,1]->[a,b]} for some \eqn{a,b},
-# #' the \dfn{S-statistic} (Gagolewski, Grzegorzewski, 2010) w.r.t. \eqn{\kappa} for \eqn{x} is defined as
-# #' \deqn{V_n(x)=\max_{i=1,\dots,n}\{\min\{x_i, \kappa(i/n) \}\}}{V_n(x)=max{ min{\kappa(i/n), x_i} } for i=1,\dots,n}
-# #'
-# #' If \code{disable.check} is set to \code{FALSE}, then
-# #' eventual \code{NA} values are removed from the input vector.
-# #'
-# #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-# #' the result is computed in linear time.
-# #'
-# #' @references Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties,
-# #' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis, (SMPS 2010), Springer-Verlag, 2010, 281-288.
-# #'
-# #' @title S-statistic
-# #' @param x a vector of real numbers.
-# #' @param kappa an increasing function, \eqn{\kappa} (see Details), a so-called control function.
-# #' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-# #' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-# #' @return The function returns a single number or NA if improper input has been given.
-# #' @examples
-# #' x <- rpareto2(25, 1.05, 1);
-# #' kappa <- function(x) { pmax(0,pmin(1,x))*25; }
-# #' Sstat(x, kappa, FALSE, TRUE);
-# #' @seealso \code{\link{index.h}}, \code{\link{index.g}}, \code{\link{index.rp}}, \code{\link{index.lp}}, \code{\link{Sstat2}}, \code{\link{psstat}}, \code{\link{dsstat}}
-# #' @export
-# Sstat <- function(x, kappa, sorted.dec=FALSE, disable.check=FALSE)
-# {
-# 	if (!disable.check)
-# 	{
-# 		if (length(x) == 0) return(0);
-# 		if (mode(x) != "numeric") return(NA);
-# 		if (any(x < 0)) return(NA);
-# 		x <- x[!is.na(x)];
-# 	}
-# 
-# 	n <- length(x);
-# 
-# 	if (!sorted.dec)
-# 		x <- sort(x, decreasing=TRUE);
-# 
-# 	return (max(pmin(x,kappa((1:n)/n))));
 # }
 
 

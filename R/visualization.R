@@ -18,8 +18,14 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
+#' @title
 #' Draws a Graphical Representation of a Given Vector
 #'
+#' @description
+#' Draws a step function that represents given numeric vector
+#' with elements in \eqn{[0,\infty]}.
+#' 
+#' @details
 #' In \pkg{agop}, a given vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
 #' step function defined for \eqn{0\le y<n} and given by:
 #' \deqn{\pi(y)=x_{(n-\lfloor y+1\rfloor+1)}}{\pi(y)=x_{(n-floor(y+1)+1)}}
@@ -50,14 +56,16 @@
 #' for \code{type} of \code{'left.continuous'} and \code{'right.continuous'} only
 #' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters,
 #' see \code{\link{plot.default}}
-#' @seealso \code{\link{curve.add.rp}}, \code{\link{curve.add.lp}}, \code{\link{plot.default}}
+#' @return
+#' nothing interesting
+#' 
 #' @examples
 #' john_s <- c(11,5,4,4,3,2,2,2,2,2,1,1,1,0,0,0,0)
 #' plot_producer(john_s, main="Smith, John", col="red")
 #' @export
 #' @name plot_producer
 #' @rdname plot_producer
-#' @family agop_visualization
+#' @family visualization
 #' @aliases plot.citfun
 plot_producer <- function(x,
    type=c('left.continuous', 'right.continuous', 'curve'),

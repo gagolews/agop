@@ -65,6 +65,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(prepare_arg_double_1,       2),
    MAKE_CALL_METHOD(prepare_arg_integer_1,      2),
    MAKE_CALL_METHOD(prepare_arg_logical_1,      2),
+   MAKE_CALL_METHOD(owa,                        2),
    MAKE_CALL_METHOD(index_h,                    1),
    MAKE_CALL_METHOD(index_g,                    1),
    MAKE_CALL_METHOD(index_g_zi,                 1),

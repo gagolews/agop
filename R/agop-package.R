@@ -62,8 +62,10 @@
 #' @name agop-package
 #' @docType package
 #' @references
-#' Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part I: Axiomatic analysis under arity-dependence (AGOP 2013). \cr
-#' Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators – Part II: A simulation study (AGOP 2013).\cr
+#' Beliakov G., Pradera A., Calvo T., Aggregation Functions: A Guide for Practitioners, Springer-Verlag, 2007.\cr
+#' Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators - Part I: Axiomatic analysis under arity-dependence (AGOP 2013). \cr
+#' Cena A., Gagolewski M., OM3: ordered maxitive, minitive, and modular aggregation operators - Part II: A simulation study (AGOP 2013).\cr
+#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, Fuzzy Sets and Systems 28, 1988, pp. 313-331.\cr
 #' Gagolewski M., On the Relationship Between Symmetric Maxitive, Minitive, and Modular Aggregation Operators, Information Sciences 221, 2013, pp. 170-180. \cr
 #' Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324. \cr
 #' Gagolewski M., Mesiar R., Aggregating Different Paper Quality Measures with a Generalized h-index, Journal of Informetrics 6(4), 2012, pp. 566-579. \cr
@@ -75,6 +77,7 @@
 #' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis (AISC 77), Springer-Verlag, Heidelberg, 2010, pp. 281-288.\cr
 #' Gagolewski M., Grzegorzewski P., Arity-Monotonic Extended Aggregation Operators, In: Hüllermeier E., Kruse R., Hoffmann F. (Eds.), Information Processing and Management of Uncertainty in Knowledge-Based Systems (CCIS 80), Springer-Verlag, Heidelberg, 2010, pp. 693-702.\cr
 #' Grabisch M., Marichal J.-L.,  Mesiar R., Pap E., Aggregation functions, Cambridge University Press, 2009.\cr
-#' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
-#' 
+#' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 2005, pp. 16569-16572.\cr
+#' Shilkret, N., Maxitive measure and integration, Indag. Math. 33, 1971, pp. 109-116.\cr
+#' Yager R.R., On ordered weighted averaging aggregation operators in multicriteria decision making, IEEE Transactions on Systems, Man, and Cybernetics 18(1), 1988, pp. 183-190.\cr
 invisible(NULL)

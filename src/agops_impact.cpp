@@ -12,7 +12,7 @@
  *                                                                           *
  *   'agop' is distributed in the hope that it will be useful,               *
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.See the             *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the            *
  *   GNU Lesser General Public License for more details.                     *
  *                                                                           *
  *   You should have received a copy of the GNU Lesser General Public        *
@@ -404,86 +404,6 @@ void index_lp_infinite(double* x, int* n, double* out)
 	out[0] = (double)(k+1);
 	out[1] = x[k];
 }
-
-
-
-
-
-
-
-/** Function to compute the S-statistic for kappa=id, O(log n) time.
- *  @param x vector of numbers, 0<=x[i]<=1, sorted non-increasingly
- *  @param n pointer to the number of observations
- *  @param out one-dimensional array which stores the result
- */
-void Sstat2(double* x, int* n, double* out)
-{
-	double N = (double)(*n);
-
-	int h1 = 0;
-	int h2 = (*n)-1;
-	int m;
-	double xmulN;
-	double mp1;
-
-	if (x[0] < 1.0/N) { *out = x[0]; return; }
-
-	while (1)
-	{
-		m = (h2+h1+1)/2;
-		mp1 = (double)(m+1);
-		xmulN = N*x[m];
-		if (xmulN == mp1 || h1 == h2) {break;}
-		if (xmulN < mp1) h2 = m-1;
-		else h1 = m;
-	}
-
-#ifdef CITAN_DEBUG
-	if (!(m+1 <= *n && m+1>=0)) fprintf(stderr, "CITAN_DEBUG: Sstat2: !(m+1 <= *n && m+1>=0)\n");
-	if (m>=0 && x[m]<mp1/N) fprintf(stderr, "CITAN_DEBUG: Sstat2: m>=0 && x[m]<mp1/N\n");
-#endif
-
-	if (m+1 < *n)
-	{
-		if (mp1 > N*x[m+1]) *out = mp1/N;
-		else                *out = x[m+1];
-	}
-	else
-	{
-		*out = mp1/N;
-	}
-}
-
-
-
-/*
-void Sstat2(double* x, int* n, double* out) -- OFTEN SLOWER THAN THE ABOVE
-{
-	int i = 0;
-	int k = *n;
-	double d = 1.0/(double)k;
-
-	while (i<k)
-	{
-		if (x[i] < d)
-		{
-			if (x[i] >= (double)i/(double)k)
-				*out = x[i];
-			else
-				*out = (double)i/(double)k;
-			return;
-		}
-		++i;
-		d = (double)(i+1)/(double)k;
-	}
-
-	// i == k
-	*out = x[k-1];
-}
-*/
-
-
-
 
 
 
