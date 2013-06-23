@@ -94,25 +94,24 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname); // @TODO: R-interface, 
 SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 
 
-SEXP index_h(SEXP x);       // DONE
-SEXP index_g(SEXP x);       // DONE
-SEXP index_g_zi(SEXP x);    // DONE
-SEXP index_maxprod(SEXP x); // DONE
-SEXP index_w(SEXP x);       // DONE
-SEXP owa(SEXP x, SEXP w);   // DONE
-SEXP wam(SEXP x, SEXP w);   // DONE
-SEXP owmax(SEXP x, SEXP w); // DONE
-SEXP wmax(SEXP x, SEXP w);  // DONE
-SEXP owmin(SEXP x, SEXP w); // DONE
-SEXP wmin(SEXP x, SEXP w);  // DONE
+SEXP index_h(SEXP x);              // DONE
+SEXP index_g(SEXP x);              // DONE
+SEXP index_g_zi(SEXP x);           // DONE
+SEXP index_maxprod(SEXP x);        // DONE
+SEXP index_w(SEXP x);              // DONE
+SEXP index_rp(SEXP x, SEXP p);     // DONE
+
+SEXP owa(SEXP x, SEXP w);          // DONE
+SEXP wam(SEXP x, SEXP w);          // DONE
+SEXP owmax(SEXP x, SEXP w);        // DONE
+SEXP wmax(SEXP x, SEXP w);         // DONE
+SEXP owmin(SEXP x, SEXP w);        // DONE
+SEXP wmin(SEXP x, SEXP w);         // DONE
 
 SEXP pord_weakdom(SEXP x, SEXP y); // DONE
 
 void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 
-void index_rp_finite(double* x, int* n, double *p, double* out); // @TODO: rewrite
-
-void index_rp_infinite(double* x, int* n, double* out); // @TODO: rewrite
 
 
 

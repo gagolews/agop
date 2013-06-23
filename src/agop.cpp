@@ -36,9 +36,7 @@
  */
 static const R_CMethodDef cMethods[] = {
 	{"Sstat2",            (DL_FUNC)&Sstat2,            3},
-	{"index_rp_finite",   (DL_FUNC)&index_rp_finite,   4},
 	{"index_lp_finite",   (DL_FUNC)&index_lp_finite,   5},
-	{"index_rp_infinite", (DL_FUNC)&index_rp_infinite, 3},
 	{"index_lp_infinite", (DL_FUNC)&index_lp_infinite, 3},
 	{"pareto2_phirsch",   (DL_FUNC)&pareto2_phirsch,   5},
 	{"pareto2_dhirsch",   (DL_FUNC)&pareto2_dhirsch,   5},
@@ -76,6 +74,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_g_zi,                 1),
    MAKE_CALL_METHOD(index_maxprod,              1),
    MAKE_CALL_METHOD(index_w,                    1),
+   MAKE_CALL_METHOD(index_rp,                   2),
    MAKE_CALL_METHOD(pord_weakdom,               2),
    
    // the list must be NULL-terminated:

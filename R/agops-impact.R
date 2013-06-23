@@ -193,70 +193,59 @@ index_w <- function(x)
 }
 
 
-# #' Computes the \eqn{r_p}-index of a numeric vector for given \eqn{p}.
-# #'
-# #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-# #' where \eqn{x_i \ge x_j} for \eqn{i \le j},
-# #' the \dfn{\eqn{r_p}-index} for \eqn{p=\infty} equals to
-# #' \deqn{r_p(x)=\max_{i=1,\dots,n} \{ \min\{i,x_i\} \}}{r_p(x) = max{ min{i, x_i} } for i=1,\dots,n}
-# #' if \eqn{n \ge 1}, or \eqn{r_\infty(x)=0} otherwise.
-# #' For the definition of the \eqn{r_p}-index for \eqn{p < \infty} we refer
-# #' to (Gagolewski, Grzegorzewski, 2009).
-# #'
-# #' Note that if \eqn{x_1,\dots,x_n} are integers, then
-# #' \deqn{r_\infty(x)=H(x),} where \eqn{H} is the \eqn{h}-index (Hirsch, 2005) and
-# #' \deqn{r_1(x)=W(x),} where \eqn{W} is the \eqn{w}-index (Woeginger, 2008).
-# #'
-# #' If \code{disable.check} is set to \code{FALSE}, then
-# #' eventual \code{NA} values are removed from the input vector.
-# #'
-# #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-# #' the value of \eqn{r_\infty} is calculated in log time
-# #' (note that it may be determined in linear time using \code{max(pmin(x, 1:length(x)))}).
-# #' Otherwise, linear time is needed.
-# #'
-# #' @references
-# #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
-# #' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
-# #' Woeginger G.J., An axiomatic characterization of the Hirsch-index, Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
-# #'
-# #' @title The r_p-index
-# #' @param x a non-negative numeric vector.
-# #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
-# #' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-# #' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-# #' @return The function returns a single number or NA if improper input has been given.
-# #' @seealso \code{\link{index.h}}, \code{\link{index.g}}, \code{\link{index.lp}}, \code{\link{Sstat}}, \code{\link{Sstat2}}
-# #' @examples
-# #' x <- runif(100, 0, 100);
-# #' index.rp(x);            # the r_oo-index
-# #' floor(index.rp(x));     # the h-index
-# #' index.rp(floor(x), 1);  # the w-index
-# #' @export
-# index.rp <- function(x, p=Inf, sorted.dec=FALSE, disable.check=FALSE)
-# {
-# 	if (!disable.check)
-# 	{
-# 		if (length(x) == 0) return(0);
-# 		if (mode(x) != "numeric") return(NA);
-# 		if (any(x < 0)) return(NA);
-# 		x <- x[!is.na(x)];
-# 	}
-# 
-# 	if (mode(p) != "numeric" || length(p)!=1 || p < 1) stop("'p' should be a single numeric value >= 1");
-# 
-# 	if (!sorted.dec)
-# 		x <- sort(x, decreasing=TRUE);
-# 
-# 	if (is.finite(p))
-# 	{
-# 		if (p > 50) warning("'p' is quite large. possible accuracy problems. maybe you should try 'p'==Inf?");
-# 		.C("index_rp_finite", as.double(x), as.integer(length(x)), as.double(p), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-# 	} else
-# 	{
-# 		.C("index_rp_infinite", as.double(x), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
-# 	}
-# }
+#' @title
+#' The r_p-index
+#'
+#' @description
+#' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
+#' where \eqn{x_i \ge x_j} for \eqn{i \le j},
+#' the \dfn{\eqn{r_p}-index} for \eqn{p=\infty} equals to
+#' \deqn{r_p(x)=\max_{i=1,\dots,n} \{ \min\{i,x_i\} \}}{r_p(x) = max{ min{i, x_i} } for i=1,\dots,n}
+#' if \eqn{n \ge 1}, or \eqn{r_\infty(x)=0} otherwise.
+#' That is, it is equivalent to a particular OWMax operator,
+#' see \code{\link{owmax}}.
+#' 
+#' For the definition of the \eqn{r_p}-index for \eqn{p < \infty} we refer
+#' to (Gagolewski, Grzegorzewski, 2009).
+#'
+#' @details
+#' Note that if \eqn{x_1,\dots,x_n} are integers, then
+#' \deqn{r_\infty(x)=H(x),} where \eqn{H} is the \eqn{h}-index (Hirsch, 2005) and
+#' \deqn{r_1(x)=W(x),} where \eqn{W} is the \eqn{w}-index (Woeginger, 2008),
+#' see \code{\link{index_h}} and \code{\link{index_w}}.
+#' 
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' For historical reasons, this function is also available via its alias, \code{index.rp}
+#'  [but its usage is deprecated].
+#'
+#' @references
+#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
+#' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' Woeginger G.J., An axiomatic characterization of the Hirsch-index, Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
+#'
+#' @param x a non-negative numeric vector
+#' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
+#' @return a single numeric value
+#' @examples
+#' x <- runif(100, 0, 100);
+#' index.rp(x);            # the r_oo-index
+#' floor(index.rp(x));     # the h-index
+#' index.rp(floor(x), 1);  # the w-index
+#' @family impact_functions
+#' @rdname index_rp
+#' @export
+index_rp <- function(x, p=Inf)
+{
+   .Call("index_rp", x, p, PACKAGE="agop")
+}
+
+
+
+#' @rdname index_rp
+#' @usage index.rp(x, p = Inf) # same as index_rp(x, p), deprecated alias
+#' @export
+index.rp <- index_rp # deprecated
 
 
 

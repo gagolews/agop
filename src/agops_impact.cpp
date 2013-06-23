@@ -179,81 +179,84 @@ SEXP index_maxprod(SEXP x)
 
 
 
-/** *internal* function to compute the h-index, O(log n) time for sorted vectors.
- * This has been described in (Gagolewski, Grzegorzewski, 2009).
- * For "real-world" data (short vectors), this function is slower than the O(n)
- * version.
- *
- *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n number of observations, n >= 1
- *  @return result
+///** *internal* function to compute the h-index, O(log n) time for sorted vectors.
+// * This has been described in (Gagolewski, Grzegorzewski, 2009).
+// * For "real-world" data (short vectors), this function is slower than the O(n)
+// * version.
+// *
+// *  @param x vector of non-negative reals, sorted non-increasingly
+// *  @param n number of observations, n >= 1
+// *  @return result
+// */
+//int __index_h_log(double* x, int n)
+//{
+//   int h1 = 0;
+//	int h2 = n-1;
+//
+//	if (x[0] < 1.0) { return 0; }
+//
+//	while (1)
+//	{
+//		int m = (h2+h1+1)/2;
+//		if (x[m] == (double)m+1 || h1 == h2) {return m+1; }
+//		if (x[m] < (double)m+1) h2 = m-1;
+//		else h1 = m;
+//	}
+//}
+
+
+
+
+/** Function to compute the r_p-index
+ * 
+ *  @param x numeric
+ *  @param p numeric, >=1, length 1
+ *  @param single numeric
  */
-int __index_h_log(double* x, int n)
+SEXP index_rp(SEXP x, SEXP p)
 {
-   int h1 = 0;
-	int h2 = n-1;
+   p = prepare_arg_numeric(p, "p");
+   if (LENGTH(p) != 1)
+      error("`p` should be a single numeric value");
+   double p_val = REAL(p)[0];
+   if (R_IsNA(p_val) || p_val < 1)
+      error("`p` should be >= 1");
 
-	if (x[0] < 1.0) { return 0; }
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   R_len_t n = LENGTH(x);
+   if (n <= 0) return x;
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return ScalarReal(NA_REAL);
 
-	while (1)
-	{
-		int m = (h2+h1+1)/2;
-		if (x[m] == (double)m+1 || h1 == h2) {return m+1; }
-		if (x[m] < (double)m+1) h2 = m-1;
-		else h1 = m;
-	}
-}
+   if (isinf(p_val))
+   {
+      // this is OWMax for w=1,2,3,....
+      double ret_val = DBL_MIN;
+      for (R_len_t i=0; i<n; ++i) {
+         double tmp = min((double)(i+1), xd[i]);
+         if (ret_val < tmp) ret_val = tmp;
+      }
+      return ScalarReal(ret_val);
+   }
+   else {
+      if (p_val > 50)
+         warning("p is large but finite. possible accuracy problems.");
+         
+	   double r2p = pow((double)n, p_val);
+	   int i;
 
+   	for (i=0; i<n; ++i)
+   	{
+   		double xip = pow(xd[i], p_val);
+   		double ip  = pow((double)i, p_val);
+   		if (r2p-ip > xip)
+   			r2p = ip + xip;
+   	}
 
-
-
-/** Function to compute the r_p-index, O(n) time.
- *  @param x vector of non-negative reals, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param p pointer to the index order, 1 <= p < oo
- *  @param out pointer to the result (return value)
- */
-void index_rp_finite(double* x, int* n, double *p, double* out)
-{
-	int N = *n;
-	double P = *p;
-	double r2p = pow((double)N, P);
-	int i;
-
-	if (x[0] <= 0.0) { *out = 0.0; return; }
-
-	for (i=0; i<N; ++i)
-	{
-		double xip = pow(x[i],P);
-		double ip  = pow((double)i,P);
-		if (r2p-ip > xip)
-			r2p = ip + xip;
-	}
-
-	*out = pow(r2p, 1.0/P);
-}
-
-
-
-/** Function to compute the r_oo-index, O(log n) time.
- *  @param x vector of non-negative numbers, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param out pointer to the result (return value)
- */
-void index_rp_infinite(double* x, int* n, double* out)
-{
-	int N = *n;
-	int h =__index_h_log(x, N);
-
-	if (h < N)
-	{
-		if ((double)h < x[h])
-			*out = x[h];
-		else
-			*out = (double)h;
-	}
-	else
-		*out = (double)h;
+   	return ScalarReal(pow(r2p, 1.0/p_val));
+   }
 }
 
 
