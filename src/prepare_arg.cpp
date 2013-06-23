@@ -31,6 +31,36 @@ bool comparer_greater(double i, double j) { return (i>j); }
 
 
 /**
+ * Prepare numeric vector
+ * 
+ * if x is not numeric (or not coercible to), throw error.
+ * if of length 0, return numeric(0).
+ * if any NA, return NA_real_.
+ * otherwise, return as-is
+ * 
+ * 
+ * @param numeric vector
+ * @param argname argument name (message formatting)
+ * @return numeric vector
+ */
+SEXP prepare_arg_numeric(SEXP x, const char* argname)
+{
+   x = prepare_arg_double(x, argname);
+   R_len_t n = LENGTH(x);
+   if (n <= 0)
+      return x; // empty vector => return an empty vector
+      
+   double* xd = REAL(x);
+   for (R_len_t i=0; i<n; ++i) {
+      if (R_IsNA(xd[i])) {
+         return ScalarReal(NA_REAL);
+      }
+   }
+   return x;
+}
+
+
+/**
  * Prepare sorted numeric vector
  * 
  * if x is not numeric (or not coercible to), throw error.

@@ -81,6 +81,7 @@ using namespace std;
    
    
 SEXP vector_NA_double(R_len_t howmany); // internal
+SEXP prepare_arg_numeric(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 SEXP prepare_arg_string(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
@@ -99,7 +100,7 @@ SEXP index_g_zi(SEXP x);    // DONE
 SEXP index_maxprod(SEXP x); // DONE
 SEXP index_w(SEXP x);       // DONE
 SEXP owa(SEXP x, SEXP w);   // DONE
-
+SEXP wam(SEXP x, SEXP w);   // DONE
 
 
 SEXP pord_weakdom(SEXP x, SEXP y); // DONE

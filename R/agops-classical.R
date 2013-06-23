@@ -20,10 +20,11 @@
 
 
 #' @title
-#' OWA Operator
+#' WAM and OWA Operators
 #' 
 #' @description
-#' Computes the Ordered Weighted Averaging aggregation operator.
+#' Computes the Weghted Arithmetic Mean or the
+#' Ordered Weighted Averaging aggregation operator.
 #' 
 #' @details
 #' The OWA operator is given by
@@ -35,14 +36,25 @@
 #' where \eqn{x_{\{i\}}}{x_{i}} denotes the \eqn{i}-th greatest
 #' value in \code{x}.
 #' 
+#' The WAM operator is given by
+#' \deqn{
+#' \func{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{i}
+#' }{
+#' WAM_w(x) = sum_i(w_i * x_i)
+#' }
+#' 
 #' If the elements of \code{w} does not sum up to \eqn{1}, then
 #' they are normalized and a warning is generated.
+#' 
+#' Both functions return the ordinary arithmetic mean by default.
 #' 
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}, with elements in \eqn{[0,1]},
 #' and such that \eqn{\sum_i w_i=1}{sum(x)=1}; weights
 #' @return single numeric value
 #' 
+#' @rdname owa
+#' @name owa
 #' @export
 #' @family aggregation_operators
 #' @references
@@ -50,6 +62,14 @@
 owa <- function(x, w=rep(1/length(x), length(x))) {
    .Call("owa", x, w, PACKAGE="agop")
 }
+
+
+#' @rdname owa
+#' @export
+wam <- function(x, w=rep(1/length(x), length(x))) {
+   .Call("wam", x, w, PACKAGE="agop")
+}
+
 
 
 # #' Computes the S-statistic2 w.r.t. to the identity function for data transformed by the inverse of a control function.

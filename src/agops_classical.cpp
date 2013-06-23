@@ -36,16 +36,35 @@
 SEXP owa(SEXP x, SEXP w)
 {
    x = prepare_arg_numeric_sorted(x, "x");
-   w = prepare_arg_double(w, "w");
+   return wam(x, w);
+}
+
+
+
+
+/** WAM operator
+ * 
+ * @param x numeric
+ * @param w numeric
+ * @return numeric of length 1
+ */
+SEXP wam(SEXP x, SEXP w)
+{
+   x = prepare_arg_numeric(x, "x");
+   w = prepare_arg_numeric(w, "w");
    
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
+   double* w_tab = REAL(w);
+   double* x_tab = REAL(x);
+   
    if (x_length <= 0) return x;
+   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
+      return ScalarReal(NA_REAL);
    if (x_length != w_length)
       error("`x` and `w` should have the same length");
    
-   double* w_tab = REAL(w);
-   double* x_tab = REAL(x);
+
    double w_sum = 0.0;
    double ret_val = 0.0;
    for (R_len_t i=0; i<x_length; ++i) {
@@ -61,7 +80,6 @@ SEXP owa(SEXP x, SEXP w)
    ret_val /= w_sum;
    return ScalarReal(ret_val);
 }
-
 
 
 
