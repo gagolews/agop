@@ -21,6 +21,10 @@
 \usepackage{xspace}
 \usepackage{lmodern}
 
+\usepackage[x11names, rgb]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{snakes,arrows,shapes,patterns}
+
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \RequirePackage{graphicx,verbatim,longtable}
 \usepackage{mdwlist}
@@ -383,8 +387,9 @@ i.e.~the $i$th smallest value in $\vect{x}$.
 Moreover, for convenience,
 let $x_{\{i\}}=x_{|\vect{x}|-i+1}$ denote the $i$th greatest value in $\vect{x}$.
 
-For any $n\in\mathbb{N}$ and $c\in\Ival$ , we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
-
+For any $n\in\mathbb{N}$ and $c\in\Ival$, 
+we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
+Also, $[n]:=\{1,2,\dots,n\}$ with $[0]=\emptyset$.
 
 
 \subsection{A Note on Representing Numeric Data and Applying Operations in \R}
@@ -445,7 +450,7 @@ xs[3] # the third greatest value in x
 
 Vectors of the same length can be conveniently stored in a matrices.
 Please note 
-that the \textsf{dimnames} attribute of the matrix may define
+that the \argument{dimnames} attribute of a matrix may define
 its row and column labels. 
 Its value may be set to \texttt{NULL}
 (no names given) or to a list with two character
@@ -455,7 +460,7 @@ the \Rfunc{rownames()} and \Rfunc{colnames()} functions.
 
 The \Rfunc{apply()} function may be called to evaluate
 a given method on each matrix row  or column
-(parameter \textsf{MARGIN} set to 1 and 2, respectively).
+(parameter \argument{MARGIN} set to 1 and 2, respectively).
 
 
 <<matrixexample>>=
@@ -517,7 +522,11 @@ Here is the most general setting:
 
 \begin{definition}
 A function $\func{F}: \IvalAnyPow\to\Ival$
-is called an \emph{(extended) aggregation operator}
+is called an \emph{(extended\footnote{Extended to the
+space of vectors of arbitrary length, cf.~e.g.~\cite{CalvoMayor1999:aggregation,
+GrabischETAL2009:aggregationfunctions}; Classical approach
+considers only fixed-length vectors.
+In \package{agop} we are as much general as possible.}) aggregation operator}
 if it is at least \emph{nondecreasing} in each variable,
 i.e.~for all $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$
 if $\vect{x}\le\vect{y}$, then $\func{F}(\vect{x})\le\func{F}(\vect{y})$.
@@ -550,7 +559,7 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{symmetric} if:
 \vect{x}\cong\vect{y}\Longrightarrow\func{F}(\vect{x})=\func{F}(\vect{y}),
  \]
  where  $\vect{x}\cong\vect{y}$ if and only if there exists a permutation
-$\sigma$ of $[n]:=\{1,2,\dots,n\}$ such that
+$\sigma$ of $[n]$ such that
 $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 \end{definition}
 
@@ -1047,7 +1056,7 @@ Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
 
 
 Here are some well-known classes of aggregation operators.
-Originally, they were defined for fixed-length vector lengths
+Originally, they were defined for fixed-length vector
 and for $\Ival=[0,1]$.
 
 
@@ -1072,25 +1081,30 @@ $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
 
 We see that both functions are idempotent, additive, and that $\func{OWA}$ is
 the symmetrized version of $\func{WAM}$.
-In fact, F is idempotent if and only if $\sum_{i=1}^{n}w_{i}=1$.
-Moreover, for $\vect{w}=(n\ast 1/n)$, $\func{WAM}_\vect{w}$ 
+%%%%%%%%%%%%%%%%%In fact, F is idempotent if and only if $\sum_{i=1}^{n}w_{i}=1$. cos jest nie tak z tym faktem if is additive if it is WAM with w=.. raczej chyba, nie?
+Moreover, for $\vect{w}=(n\ast \frac{1}{n})$, $\func{WAM}_\vect{w}$ 
 defines the arithmetic mean (\Rfunc{mean()} in \R).
-\emph{Truncated mean} is an interesting example of arithmetic mean. The main differences  
-is that the calculation of the truncated mean is performed after 
-discarding given percentage of the highest and lowest vector' elements. 
-In \R we may obtained truncated mean with usage \Rfunc{mean(x, trim=...)},
-where \Rfunc{trim} parameter is the percentage of cut observations.
+\emph{Truncated mean} is an interesting example of an OWA operator
+(see \texttt{\Rfunc{mean}(x, \argument{trim=}\dots)}).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Zamiast tej humanistycznej:) dywagacji wolalbym po prostu podac przykladowy wektor w
+% The main differences  
+% is that the calculation of the truncated mean is performed after 
+% discarding given percentage of the highest and lowest vector' elements. 
+% In \R we may obtained truncated mean with usage \Rfunc{mean(x, trim=...)},
+% where \Rfunc{trim} parameter is the percentage of cut observations.
 
-In \Rfunc{agop} $\func{OWA}$ operator is available as \Rfunc{owa()}.
+In \package{agop} the WAM and OWA operators are available as
+\Rfunc{wam()} and \Rfunc{owa()}.
 
 <<owa>>=
-owa(c(1,3,5,2),rep(1,4)) 
+wam(c(1,2,2,2), c(0.1,0.4,0.4,0.1))
+owa(c(1,3,5,2), rep(1,4)) # should be normalized
 @
 
 \medskip
 \begin{definition}
 Let  $\vect{w}=(w_{1},\dots,w_{n})\in\IvalPow{n}$ be a vector such that 
-$\bigvee_{i=1}^{n}w_{i}=b=\sup\Ival$.
+$\bigvee_{i=1}^{n}w_{i}=b=\sup\,\Ival$.
 Then, for any $\vect{x}\in\IvalPow{n}$:
 \begin{enumerate}
 \item The \emph{weighted maximum} associated 
@@ -1108,16 +1122,19 @@ with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$
 \end{enumerate}
 \end{definition}
 
-\Rfunc{agop} implementation: \Rfunc{owmax()}
+\noindent
+\package{agop} implementation: \Rfunc{wmax()} and \Rfunc{owmax()}.
 
 <<owmax>>=
-owmax(1:10,1:10)
+wmax(c(1,3,5,2), Inf)
+wmax(c(1,3,5,2), rep(Inf, 4)) # greatest value /default behavior/
+owmax(1:10, 1:10)
 @
 
 \medskip
 \begin{definition}
 Let  $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that 
-$\bigvee_{i=1}^{n}w_{i}=1$, and assume $\Ival=[0,1]^{n}$.
+$\bigwedge_{i=1}^{n} w_{i}=a=\inf\,\Ival$.
 Then, for any $\vect{x}\in\IvalPow{n}$:
 
 \begin{enumerate}
@@ -1132,55 +1149,72 @@ with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
 \end{enumerate}
 \end{definition}
 
-It is clear to see that $\func{OWMax}$ operators fulfill maxitivity property and
-$\func{OWMin}$ operators fulfill minitivity property. What is more,
-interestingly it can be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions}, 
-that for each $\func{OWMax}$ operator there exist equivalent $\func{OWMin}$ 
+\noindent
+\package{agop} implementation: \Rfunc{wmin()} and \Rfunc{owmin()}.
+
+It is clear to see that OWMax operators fulfill the maxitivity property and
+OWMin operators fulfill the minitivity property. Interestingly,
+it may be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions}, 
+that for each OWMax operator there exist an equivalent OWMin
 operator and inveresly.
 
 
 \bigskip
-%%%%%%%%%%%%%%%%%%% INTRO - PRZECHODZIMY DO PRZYPADKU WEKTOROW O DOWOLNEJ DLUGOSCI
-In the previous reasoning we include only vectors of fixed lengths. 
-Let us now consider process of aggregation vectors of varying lengths. 
-Here we present extensions of operators described above into functions
-from $\IvalAnyPow$ to $\Ival$.
+As stated above, ``classical'' aggregation operators
+were defined for vectors of fixed lengths.
+Let us present some notable generalizations of these operators.
 
-
-\bigskip
+Let $\IvalPow{\Ival}$ denote the set of functions from $\Ival$ to $\Ival$.
+The following object will be needed for further considerations.
 \begin{definition}
-The \emph{triangle of functions} is a sequence $\triangle=(f_{i,n}\in\IvalPow{\Ival}: i\in [n], n\in\Naturals)$.
+A \emph{triangle of functions}
+is a sequence $\triangle=(\func{f}_{i,n}\in\IvalPow{\Ival}: i\in [n], n\in\Naturals)$.
 \end{definition}
-\bigskip
+Here is a graphical interpretation of $\triangle$:
+\begin{equation*}
+\begin{array}{cccc}
+\func{f}_{1,1} &&&\\
+\func{f}_{1,2} &\quad \func{f}_{2,2}&& \\
+\func{f}_{1,3} &\quad \func{f}_{2,3}& \quad \func{f}_{3,3}& \\
+\vdots  &\quad\vdots  &\quad\vdots   & \quad\ddots\\
+\end{array}
+\end{equation*}
 
+
+\medskip
 \begin{definition}
-Let $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$ be a triangle of functions 
+Let $\triangle=(\func{f}_{i,n})_{ i\in [n],n\in\Naturals}$ be a triangle of functions 
 such that $(\forall n)\ \sum_{i=1}^{n}\inf{\func{f}_{i,n}}\geq a$ and 
 $(\forall n)\ \sum_{i=1}^{n}\sup{\func{f}_{i,n}}\leq b$. Then  the 
 \emph{quasi-L-statistic} generated by $\triangle$
 is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}).
+\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}).
 \]
 \end{definition}
 \bigskip
 
-Please note that the quasi-L-statistic generalized $\func{OWA}$ operators, for
-which we have $\func{f}_{i,n}(x)=c_{i,n}x$, $c_{i,n}\in[0,1]$ and 
+It is easily seen that quasi-L-statistics generalize OWA operators
+if we set $\func{f}_{i,n}(x)=c_{i,n} x$, $c_{i,n}\in[0,1]$, and 
 $(\forall n)\ \sum_{i=1}^{n}c_{i,n}=1$. 
 
-Lest assume for simplicity that $\Ival=[0,b]$.
-Interestingly it has been shown (cf.~\cite{Gagolewski2012:ins}) that aggregation
-operator $\func{F}:\IvalAnyPow\to\Ival$ fulfill symmetric modularity property if and only if 
-$\func{F}$ is a nondecreasing quasi-L-statistic. What is more, in~\cite{Gagolewski2012:ins}
+Assume that $\Ival=[0,b]$.
+Interestingly, it has been shown (\cite{MesiarMesiarova2011:orderedmodular}, 
+cf.~also \cite{Gagolewski2012:ins})
+that an aggregation
+operator $\func{F}:\IvalAnyPow\to\Ival$ fulfills the
+symmetric modularity property if and only if 
+$\func{F}$ is a nondecreasing quasi-L-statistic. 
+What is more, in~\cite{Gagolewski2012:ins}
 we may find that $\func{qL}_{\triangle}$ is nondecreasing
-if and only if there exist $\triangledown=(\func{g}_{i,n})_{i\in[n],n\in\Naturals}$ such that
+if and only if there exists $\triangledown=(\func{g}_{i,n})_{i\in[n],n\in\Naturals}$
+such that
 $(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
 $(\forall n)\ \sum_{i=1}^{n}\func{g}_{i,n}\leq b$, 
 $(\forall n)\ (\forall i>1)\ \func{g}_{i,n}(0)=0$ and 
 $\func{qL}_{\triangle}=\func{qL}_{\triangledown}$.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ZDEFINIOWAC UZYWAJAC ith GREATEST a nie SMALLEST VALUE
+
 %dlaczego?
 \bigskip
 \begin{definition}
@@ -1188,56 +1222,66 @@ The \emph{quasi-S-statistic} for a given triangle of functions
 $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{qS}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}),
+\func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}),
 \] for any $\vect{x}\in\IvalAnyPow$.
 \end{definition}
 \bigskip
 
-It is easily seen that quasi-S-statistic generalized $\func{OWMax}$ 
-operators for which we have $\func{f}_{i,n}(x)=x\wedge c_{i,n}$, $c_{i,n}\in\Ival$
+Quasi-S-statistic generalize the OWMax operators,
+if $\func{f}_{i,n}(x)=x\wedge c_{i,n}$, $c_{i,n}\in\Ival$
 and $(\forall n)\ \bigvee_{i=1}^{n}c_{i,n}=b$.
 
-Moreover, it has been shown (cf.~\cite{Gagolewski2012:ins}) that every symmetric maxitive 
-aggregation operator is a nondecreasing quasi-S-statistic (i.a. without loss of generality 
-we may assume that nondecreasing quasi-S-statistic is generated by triangle of functions
-in which $(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
-$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}(a)=\func{g}_{n,n}(a)$ 
-and $(\forall n)\ \func{g}_{1,n}\preceq\dots\preceq\func{q}_{n,n}$).
+There is an equivalence between symmetric maxitive 
+aggregation operators and nondecreasing quasi-S-statistics.
+Moreover, without loss of generality 
+we may assume that a nondecreasing quasi-S-statistic 
+is always generated by triangle of functions
+in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing, 
+$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(a)=\func{f}_{n,n}(a)$ 
+and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$),
+see \cite{Gagolewski2012:ins}.
 
 \bigskip
 \begin{definition}
-The \emph{quasi-I-statistic} for a given triangle of functions 
-$\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+The \emph{quasi-I-statistic} generated by 
+$\triangle=(\func{f}_{i,n})_{ i\in [n],n\in\Naturals}$
 is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}),
+\func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}),
 \] for any $\vect{x}\in\IvalAnyPow$.
 \end{definition}
 \bigskip
 
-Quasi-I-statistic is generalizations of well-known $\func{OWMin}$ operators,
-for which we have $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and 
+Quasi-I-statistics are generalizations of the OWMin operators,
+if $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and 
 $(\forall n)\ \bigwedge_{i=1}^{n}c_{i,n}=a$.
 
-Similar like in above, it has been shown (cf.~\cite{Gagolewski2012:ins}) that every 
-symmetric minitive 
-aggregation operator is a nondecreasing quasi-I-statistic (i.a. without loss of generality 
+Like above, it has been shown that every 
+symmetric minitive aggregation operator
+is a nondecreasing quasi-I-statistic, and conversely.
+Additionally, with no loss in generality 
 we may assume that nondecreasing quasi-S-statistic is generated by triangle of functions
-in which $(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
-$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}(b)=\func{g}_{n,n}(b)$ 
-and $(\forall n)\ \func{g}_{1,n}\preceq\dots\preceq\func{q}_{n,n}$).
+in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing, 
+$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(b)=\func{f}_{n,n}(b)$ 
+and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$,
+see \cite{Gagolewski2012:ins}.
 
 \bigskip
-Many times we consider L--, S-- and I-- statistics, a special cases
-of defined above quasi-statistics, generated by a triangle of coefficient 
-(i.a.~\emph{triangle of coefficients} is a sequence 
-$\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$, cf~\cite{CalvoMayer1999:aggregation}).
-%%%%%%%%%%%%%%%%%%%% TRIANGLE OF COEFFICIENTS - TO JUZ UZYWALA TOMASA CALVO i GASPAR MAYOR, JOURNAL=TATRA MOUNTAINS COSTAM
-In fact, \emph{L-statistics} is a \emph{quasi-L-statistics} for which we have
+Note: sometimes we also consider L-, S-, and I-statistics, i.e.~special cases
+of the above-defined quasi-$\cdot$-statistics,
+generated by triangles of coefficients
+(i.e.~sequences $\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$,
+cf.~\cite{CalvoMayor1999:aggregation}).
+An \emph{L-statistic} is a {quasi-L-statistic} for which we have
 $\func{f}_{i,n}(x)=c_{i,n}x$. Similarly, by setting 
-$\func{f}_{i,n}(x)=x\wedge c_{i,n}$ we obtain \emph{S-statistic} from \emph{quasi-S-statistics}, and
-by setting $\func{f}_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \emph{quasi-I-statistics}.
+$\func{f}_{i,n}(x)=x\wedge c_{i,n}$ we obtain an \emph{S-statistic}
+from the {quasi-S-statistics} class, and
+by setting $\func{f}_{i,n}(x)=x\vee c_{i,n}$
+we get an \emph{I-statistic} from {quasi-I-statistics}.
 
+Also note that L-statistics are known from the
+probability theory. However, sometimes under this name
+some authors understand sums of a function of order statistics.
 
 
 %%%%%%%%%%%%%%%%%%%% WSPOMNIEC ZE f_i,n MOZE BYC GENEROWANE PRZEZ
@@ -1249,12 +1293,34 @@ by setting $\func{f}_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \
 
 
 \bigskip
-In~\cite{Gagolewski2012:ins} it has been shown, that 
-intersection of every two from 
-symmetric maxitive, minitive and modular operators classes is the same.
-Based on this result \emph{OM3} class (symmetric maxitive, minitive and modular 
-aggregation operators) was proposed. In~\cite{CenaGagolewski2013:agop1,CenaGagolewski2013:agop2}
-definition and basic properties of OM3 operators are given.
+Most interestingly, in~\cite{Gagolewski2012:ins} it has been shown that 
+the intersection of any two of the three ``quasi'' classes
+is the same:
+
+\begin{center}
+\scalebox{0.6}{
+\begin{tikzpicture}[>=latex',line join=bevel,]
+
+
+\draw[pattern=north east lines] (0,0)--(5,0)--(2.5,4.33)--(0,0);
+
+\draw[pattern=horizontal lines,shift={(-1.1547,-2)}] (0,0)--(5,0)--(2.5,4.33)--(0,0);
+
+\draw[pattern=north west lines,shift={(-2.309401,0)}] (0,0)--(5,0)--(2.5,4.33)--(0,0);
+
+\node[fill=white,shift={(-1.1547,-1.7)}] at (2.5,1) { \large quasi-S };
+
+\node[fill=white] at (3.2,1) { \large quasi-I };
+\node[fill=white] at (-0.5,1) { \large quasi-L };
+
+\end{tikzpicture}
+}
+\end{center}
+
+Basing on this result, the \emph{OM3} class
+(symmetric maxitive, minitive, and also modular 
+aggregation operators) was proposed
+in~\cite{CenaGagolewski2013:agop1,CenaGagolewski2013:agop2}.
 
 \bigskip
 \begin{definition}
@@ -1265,7 +1331,8 @@ $\func{w}_i :\Ival\to\Ival$,
  such that $(\forall n)$ $c_{1,n}\le c_{2,n}\le \dots \le c_{n,n}$,
  $0\le\func{w}_n(0)\le c_{1,n}$, and
  $\func{w}_n(b)=c_{n,n}$,
- generates a nondecreasing \emph{OM3 operator} $\func{M}_{\triangle,\vect{w}}:\IvalPow{n}\to\Ival$
+ generates a nondecreasing \emph{OM3 operator} 
+ $\func{M}_{\triangle,\vect{w}}:\IvalPow{n}\to\Ival$
  such that for $\vect{x}\in\IvalPow{n}$ we have:
 \begin{eqnarray*}
 \func{M}_{\triangle,\vect{w}}(\mathbf{x})&=&\bigvee_{i=1}^n
@@ -1276,20 +1343,17 @@ c_{i,n} - c_{i-1,n}\right).
 \end{definition}
 \bigskip
 
-We see that the above contains i.a.~all
+We see that the OM3 class contains i.a.~all
 order statistics (whenever $\func{w}_n(x)=x$,
 and $c_{i,n}=0$, $c_{j,n}=b$ for $i< k$, $j\ge k$, and some $k$),
 OWMax operators (for $\func{w}_n(x)=x$),
-and the famous Hirsch $h$-index ($\func{w}_n(x)=\lfloor x\rfloor$, $c_{i,n}=i$).
+and the famous 
+Hirsch $h$-index (see below).
 
 
 \subsection{Interesting Impact Functions}
 
-%%%%%%%%%%%% jaki poziom szczegolowosci chcesz zachowac? Napisz mi w komentarzu 
-%%%%%%%%%%%% to dopisze ewentualnie 
-%%%%%%%%%%%%%%%%%%%%%% BARDZO SZCZEGOLOWO! WSZYSTKO, CO WIEMY
-%%%%%%%%%%%%%%%%%%%%%% NIECH TO BEDZIE ZESTAW NAJOGOLNIEJSZYCH WYNIKOW, KTORE ZNAMY
-
+Let us go back to the Producers Assessment Problem.
 Below we assume that $\Ival=[0,\infty]$.
 % All the functions are symmetric. The input vectors are of course
 % being sorted if necessary during calculations.
@@ -1298,9 +1362,9 @@ Below we assume that $\Ival=[0,\infty]$.
 \paragraph{The $h$-index.}
 Given a sequence $\vect{x}=(x_1,\dots,x_n)\in\IvalAnyPow$,
 the \emph{Hirsch index} \cite{Hirsch2005:hindex} of $\vect{x}$ is defined as
-$\func{H}(x)=\max\{i=1,\dots,n: x_{\{i\}} \ge i\}$
-if $n \ge 1$ and $x_{\{1\}} \ge 1$, or $\func{H}(x)=0$ otherwise.
-It may be shown that the $h$-index is an zero-insensitive
+$\func{H}(\vect{x})=\max\{i=1,\dots,n: x_{\{i\}} \ge i\}$
+if $n \ge 1$ and $x_{\{1\}} \ge 1$, or $\func{H}(\vect{x})=0$ otherwise.
+It may be shown that the $h$-index is a zero-insensitive
 OM3 aggeration operator,
 see \cite{Gagolewski2013:om3}, with:
 \[
@@ -1312,7 +1376,9 @@ papers are cited no more that $H$ times each''.
 The $h$-index may also be expressed as a Sugeno 
 integral \cite{Sugeno1974:PhD}
 w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
-%nie za duzo jedno to? with respect to to?
+
+\smallskip
+\noindent
 \package{agop} implementation: \Rfunc{index\_h()}.
 
 <<index_h>>=
@@ -1320,17 +1386,23 @@ index_h(c(6,5,4,2,1,0,0,0,0,0,0))
 index_h(c(-1,3,4,2)) # only for x>=0
 @
 
-Hirsch's index is a zero-insensitive impact function, denoted $\func{H}\in
-\Property{a0}$, which means that 
-for each $\vect{x}\in\IvalAnyPow$ it holds
-$\func{H}(\vect{x},0)=\func{H}(\vect{x})$.
+Moreover, we have $\func{H}(\vect{x})\le \min\{n, x_{1}\}$.
 
-We have $\func{H}(\vect{x})\le \min\{n, x_{1}\}$.
+Note that the $h$-index was defined in original context (aggregation
+of citation counts) for integer vectors. More generally,
+it is better to use the OM3 operator
+with $\func{w}_i(x)=x=\mathrm{Id}(x)$
+and $c_{i,n}=i$ (two identity ``objects'' = one of the simplest
+setting).
+Interestingly, such aggregation operator is then
+asymptotically idempotent, i.e.~for all $x\in\Ival$
+we have $\lim_{n\to\infty} \func{M}_{\triangle,\vect{w}}(n\ast x)=x$.
 
 \paragraph{The $g$-index.}
-Egghe's $g$-index \cite{Egghe2006:g}:
+Egghe's $g$-index \cite{Egghe2006:g}
+is defined as
 $\func{G}(\vect{x})=\max\{g=1,\dots,n: \sum_{i=1}^g x_{\{g\}}\ge g^2\}$,
-available in \package{agop} as \Rfunc{index\_g()}.
+and is available in \package{agop} by calling \Rfunc{index\_g()}.
 We have $\func{G}(\vect{x})\ge \func{H}(\vect{x})$
 with $\func{G}(n\ast n)=\func{H}(n\ast n)=n$
 
@@ -1350,9 +1422,11 @@ index_g_zi(9)
 The index is interesting from the computational point of view --
 it may be calculated on the nondecreasing vector of cumulative sums,
 \texttt{\Rfunc{cumsum}(\Rfunc{sort}(x, \argument{decreasing=}TRUE))},
-however, it cannot be expressed as a symmetric maxitive aggregation operator.
+however, it cannot directly
+be expressed as a symmetric maxitive aggregation operator.
 
-Interestingly, it might be shown that if $\vect{x}$ is sorted
+However, it might be shown (see \cite{GagolewskiMesiar2013:fuzzyintbiblio}
+for the proof) that  if $\vect{x}$ is sorted
 nondecreasingly, then:
 \[
 \func{G}(\vect{x}) = \func{H}(\vect{x})(0\vee \mathtt{cummin}(\mathtt{cumsum}(x)-(1:n)^2+(1:n))),
@@ -1360,15 +1434,15 @@ nondecreasingly, then:
 where $1:n = (1, 2, 3, \dots, n)$.
 
 \paragraph{The $w$-index.}
-The $w$-index (cf.~\cite{Woeginger2008:axiomatich})
- defined as
+The $w$-index \cite{Woeginger2008:axiomatich}
+is  defined as
 \begin{equation}\label{Eq:IndexW}
 \func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}
 \end{equation}
-is available in \package{agop} as \Rfunc{index\_w()}.
+and is available in \package{agop} by calling \Rfunc{index\_w()}.
 
-Interestingly, it might be shown that if $\vect{x}$ is sorted
-nondecreasingly, then:
+Interestingly, we have shown in \cite{GagolewskiMesiar2013:fuzzyintbiblio}
+that if $\vect{x}$ is sorted nondecreasingly, then:
 \[
 \func{W}(\vect{x}) = \func{H}(\vect{x})(\mathtt{cummin}(\vect{x}+(1:n)-1)).
 \]
@@ -1389,44 +1463,53 @@ Please note that for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{
 (cf.~\cite{GagolewskiGrzegorzewski2009:geometricapproach}).
 Hence it easily seen that, this is a zero-insensitive impact function.
 
+\package{agop} implementation \Rfunc{index\_rp()}.
+
 \paragraph{The $l_p$-indices.} The $l_p$-index 
 (cf.~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach}) 
 for $p\in[1,\infty)$, $u>0$ and $v>0$ is a function 
 $\func{l}_{p}:\IvalAnyPow\to\IvalPow{2}$ given by the equation
 \[
-\func{l}_{p}(\vect{x})=\mathsf{arg}\sup_{(u,v)}{\{uv: \func{e}^{p,u,v}\trianglelefteq\vect{x}\}},
+\func{l}_{p}(\vect{x})=\mathrm{arg}\sup_{(u,v)}{\{uv: \func{e}^{p,u,v}\trianglelefteq\vect{x}\}},
 \]
 where $\func{e}^{p,u,v}=\left(\sqrt[p]{v^{p}-(\frac{v}{u}0)^{p}},
 \sqrt[p]{v^{p}-(\frac{v}{u}1)^{p}},\dots,\sqrt[p]{v^{p}-(\frac{v}{u}\lfloor u\rfloor)^{p}}\right)$.
 
+\package{agop} implementation \Rfunc{index\_lp()}.
+
+
 
 \paragraph{The $\mathrm{MAXPROD}$-index.}
-The MaxProd-index (cf.~\cite{Kosmulski2007:maxprod}) given  by the equation
+The MAXPROD-index \cite{Kosmulski2007:maxprod} is given  by the equation
 \begin{equation}\label{Eq:IndexMaxProd}
    \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{\{i\}}: i=1,2,\ldots\right\}
 \end{equation}
 is another example of zero-insensitive impact function.
 Interestingly, this index is a particular case of a projected $l_\infty$-index,
 see~\cite{GagolewskiGrzegorzewski2009:geometricapproach}, and can be also expressed
-in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure}.
+in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure},
+see \cite{GagolewskiMesiar2013:fuzzyintbiblio} for discussion.
 
-In \package{agop} MaxProd-index is implemented as \Rfunc{index\_maxprod()}.
+In \package{agop} the MAXPROD-index is implemented 
+in the \Rfunc{index\_maxprod()} function.
 
 
 
 \paragraph{Simple transformations of the $h$-index.}
-For example, The $h(2)$-index \cite{Kosmulski2006:h2}:
+Bibliometricians in many papers considered very
+simple, direct modifications of the $h$-index.
+For example, the $h(2)$-index \cite{Kosmulski2006:h2}
+is defined as:
 \begin{equation}\label{Eq:IndexH2}
 \func{H2}(\vect{x}) = \max\left\{h=0,1,2,\ldots: {x}_{h} \ge h^2\right\}. %= \left\lfloor \bigvee_{i=1,2,\dots} i\wedge x_{i}\right\rfloor
 \end{equation}
-Note that the $h(2)$-index is one of the many examples of very
-simple, direct modifications of the $h$-index.
-Many authors considered other settings than ``$h^2$'' on the right
+Some authors introduced other settings than ``$h^2$'' on the right
 side of \eqref{Eq:IndexH2}, e.g. ``$2h$'', ``$\alpha h$'' for some
 $\alpha > 0$, or ``$h^\beta$'', $\beta\ge 1$, cf.~\cite{AlonsoETAL2009:hreview}.
 
 It may easily be shown that these reduce to the $h$-index for
-properly transformed input vectors.....                               %%%%%%% JAK UZYSKAC H2 z QUASI-S?
+properly transformed input vectors,
+e.g.~$\func{H2}(\vect{x})=\func{H}(\sqrt{\vect{x}})$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
