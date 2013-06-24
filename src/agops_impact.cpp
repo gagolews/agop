@@ -261,154 +261,119 @@ SEXP index_rp(SEXP x, SEXP p)
 
 
 
-/** *internal* function for index_lp_finite
- *  check if L^p ellipse interpolating (ui,vi) and (uj,vj) contains (uk,vk)
- *  @param a2p return value #1
- *  @param b2p return value #2
- */
-void __index_lp_finite_getAB(double p, double ui, double vi, double uj, double vj, double* a2p, double* b2p)
+
+
+/** internal **/
+double2 __index_lp_finite_getAB(double p, double ui, double vi, double uj, double vj)
 {
-	double uip = pow(ui,p);
-	double ujp = pow(uj,p);
+   double uip = pow(ui,p);
+   double ujp = pow(uj,p);
 	double vip = pow(vi,p);
 	double vjp = pow(vj,p);
 	double c = uip*vjp-ujp*vip;
-
-
-#ifdef CITAN_DEBUG
-	if (c < 1e-15 && c > 1e-15)
-		fprintf(stderr, "CITAN_DEBUG: __index_lp_finite_getAB: c==0\n");
-#endif
-
-	*a2p =  c/(vjp-vip);
-	*b2p = -c/(ujp-uip);
+	return double2(c/(vjp-vip), -c/(ujp-uip));
 }
 
 
-
-/** *internal* function for index_lp_finite
- *  check if L^p ellipse interpolating (ui,vi) and (uj,vj) contains (uk,vk)
- *  @return 1 if true or 0 otherwise
- */
-int __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj)
+/** internal **/
+bool __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj)
 {
-	double a2p, b2p;
-	__index_lp_finite_getAB(p,ui,vi,uj,vj,&a2p,&b2p);
-
-#ifdef CITAN_DEBUG
-	if (a2p < 0.0)
-		fprintf(stderr, "CITAN_DEBUG: __index_lp_finite_testContains: a2p<0\n");
-	else if (a2p < 1e-15)
-		fprintf(stderr, "CITAN_DEBUG: __index_lp_finite_testContains: a2p==0\n");
-#endif
-
-	if (b2p*(1.0 - pow(uk,p)/a2p) >= pow(vk,p))
-		return 1;
-	else
-		return 0;
+   // check if L^p ellipse interpolating (ui,vi) and (uj,vj) contains (uk,vk)
+	double2 ab = __index_lp_finite_getAB(p,ui,vi,uj,vj);
+	return (ab.v2*(1.0 - pow(uk,p)/ab.v1) >= pow(vk,p));
 }
 
 
-/** Function to compute the l_p-index, O(n) time.
- *  The procedure bases on Graham's scan for determining the convex hull
- *  of a planar set, see (Gagolewski,Debski,Nowakiewicz,2009b).
- *  @param x vector of non-negative numbers, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param p pointer to the index order, 1 <= p < oo
- *  @param s array of length *n+1, used as stack
- *  @param out pointer to the result (return value)
+/** Function to compute the l_p-index
+ * 
+ *  @param x numeric
+ *  @param p numeric, >=1, length 1
+ *  @param  numeric vector of length 2
  */
-void index_lp_finite(double* x, int* n, double *p, int* s, double* out)
+SEXP index_lp(SEXP x, SEXP p)
 {
-	double P = *p;
-	double N = *n;
-	int m = 0; /* stack s is empty */
-	int i = 1;
-	int j; /*, k */
-	double a2p, b2p;
+   p = prepare_arg_numeric(p, "p");
+   if (LENGTH(p) != 1)
+      error("`p` should be a single numeric value");
+   double p_val = REAL(p)[0];
+   if (R_IsNA(p_val) || p_val < 1)
+      error("`p` should be >= 1");
+      
+   x = prepare_arg_numeric_sorted_0_infty(x, "x");
+   R_len_t n = LENGTH(x);
+   if (n <= 0)
+      return (double2(0.0, 0.0).toR());
 
-#define LP_EPS 1e-9
+   
+   double* xd = REAL(x);
+   if (R_IsNA(xd[0]))
+      return (double2(NA_REAL, NA_REAL).toR());
+   
+   if (xd[1] <= 0.0)
+      return (double2(0.0, 0.0).toR());
+   
+   if (isinf(p_val))
+   {
+      // this is OWMax for w=1,2,3,....
+      double max_prod = 0.0;
+      double2 ab;
+      for (R_len_t i=0; i<n; ++i) {
+         if (max_prod < (double)(i+1)*xd[i]) {
+            max_prod = (double)(i+1)*xd[i];
+            ab.v1 = (double)(i+1);  
+            ab.v2 = xd[i];
+         }
+      }
+      return ab.toR();
+   }
+   else {
+      if (p_val > 50)
+         warning("p is large but finite. possible accuracy problems.");
+      
+      
+// * Function to compute the l_p-index, O(n) time, p<Inf
+// *  The procedure bases on Graham's scan for determining the convex hull
+// *  of a planar set, see (Gagolewski,Debski,Nowakiewicz,2009b).
 
-	if (x[0] <= 0.0) { out[0] = 0.0; out[1] = 0.0; return; }
-
-	while (i<N && x[i] >= x[0]-LP_EPS) ++i;
-
-	s[m++] = 0; /* push 0 */
-	s[m++] = i; /* push i */
-
-	for (j=i+1; j<=N; ++j)
-	{
-		double vj = (j<N)?x[j]:0.0;
-		if (vj >= x[s[m-1]]-LP_EPS) continue;
-
-		while (m >= 2 && __index_lp_finite_testContains((double)s[m-2],x[s[m-2]], P, (double)s[m-1],x[s[m-1]], (double)j,vj))
-		{
-			--m; /* pop */
-		}
-		s[m++] = j; /* push j */
-	}
-
-	/*  now, selectMaxPair()  */
-/*  	k = 0; */
-	__index_lp_finite_getAB(P, (double)s[0],x[s[0]], (double)s[1],((s[1]<N)?x[s[1]]:0.0), &a2p, &b2p);
-	for (j=1; j<m-1; ++j)
-	{
-		double a22p, b22p;
-		__index_lp_finite_getAB(P, (double)s[j],x[s[j]], (double)s[j+1],((s[j+1]<N)?x[s[j+1]]:0.0), &a22p, &b22p);
-
-#ifdef CITAN_DEBUG
-		if (a22p < 1e-15 || b22p < 1e-15)
-			fprintf(stderr, "CITAN_DEBUG: index_lp_finite: a22p < 1e-15 || b22p < 1e-15\n");
-#endif
-
-		if (a2p*b2p < a22p*b22p)
-		{
-			a2p = a22p;
-			b2p = b22p;
-/*			k = j; */
-		}
-	}
-
-#ifdef CITAN_DEBUG
-	if (a2p < 1e-15 || b2p < 1e-15)
-		fprintf(stderr, "CITAN_DEBUG: index_lp_finite: a2p < 1e-15 || b2p < 1e-15\n");
-#endif
-
-	out[0] = pow(a2p,1.0/P);
-	out[1] = pow(b2p,1.0/P);
+      deque<double2> stack;
+      stack.push_back(double2(0.0, xd[0]));
+      int i = 0;
+      while (i<n && xd[i] >= xd[0]) ++i;
+      stack.push_back(double2((double)i, xd[i]));
+      
+      for (++i; i<=n; ++i)
+      {
+   		double vi = (i<n)?xd[i]:0.0;
+   		if (vi >= stack.back().v2) continue;
+   
+   		while (stack.size()>=2 && __index_lp_finite_testContains(
+               stack.at(stack.size()-2).v1, stack.at(stack.size()-2).v2,
+               p_val, 
+               stack.back().v1, stack.back().v2,
+               (double)i, vi))
+         {
+   			stack.pop_back();
+         }
+         stack.push_back(double2((double)i, vi));
+   	}
+      
+      /*  now, selectMaxPair()  */
+   	double2 ab = __index_lp_finite_getAB(p_val,
+         stack.at(0).v1, stack.at(0).v2,
+         stack.at(1).v1, stack.at(1).v2);
+   	for (i=1; i<stack.size()-1; ++i)
+   	{
+   		double2 ab2 = __index_lp_finite_getAB(p_val, 
+            stack.at(i).v1, stack.at(i).v2,
+            stack.at(i+1).v1, stack.at(i+1).v2);
+   
+   		if (ab.v1*ab.v2 < ab2.v1*ab2.v2)
+            ab = ab2;
+   	}
+   
+      return double2(pow(ab.v1, 1.0/p_val), pow(ab.v2, 1.0/p_val)).toR();
+   }
 }
-
-
-/** Function to compute the l_p-index, O(n) time.
- *  @param x vector of non-negative numbers, sorted non-increasingly
- *  @param n pointer to the number of observations, n >= 1
- *  @param p pointer to the index order
- *  @param out two-dimensional array which stores the result, (a,b)
- */
-void index_lp_infinite(double* x, int* n, double* out)
-{
-	int N = *n;
-	int k = 0;
-	double max = x[0];
-	int i;
-
-	if (x[0] <= 0.0) { out[0] = 0.0; out[1] = 0.0; return; }
-
-	for (i=1; i<N; i++)
-	{
-		double maxcand = x[i]*(double)(i+1);
-		if (max < maxcand)
-		{
-			k = i;
-			max = maxcand;
-		}
-	}
-
-	out[0] = (double)(k+1);
-	out[1] = x[k];
-}
-
-
 
 
 

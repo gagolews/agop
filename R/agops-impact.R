@@ -33,7 +33,7 @@
 #' For historical reasons, this function is also available via its alias,
 #' \code{index.h} [but its usage is deprecated].
 #' 
-#' 
+#' See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.
 #' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
@@ -78,7 +78,8 @@ index.h <- index_h # deprecated
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{g}-index} (Egghe, 2006) for \eqn{x} is defined as
-#' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
+#' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{
+#' G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{G(x)=0} otherwise.
 #'
 #' @details
@@ -146,6 +147,8 @@ index_g_zi <- function(x)
 #' MAXPROD index is the same as the discrete Shilkret integral of \code{x}
 #' w.r.t. the counting measure.
 #' 
+#' See \code{\link{index_lp}} for a natural generalization.
+#' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
 #' 
@@ -170,11 +173,13 @@ index_maxprod <- function(x)
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{w}-index} (Woeginger, 2008) for \eqn{x} is defined as
-#' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1\text{ for all }j=1,\dots,i\}}{W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}.
+#' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1\text{ for all }j=1,\dots,i\}}{
+#' W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}.
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
 #' 
+#' See \code{\link{index_rp}} for a natural generalization.
 #' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
@@ -200,7 +205,8 @@ index_w <- function(x)
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j} for \eqn{i \le j},
 #' the \dfn{\eqn{r_p}-index} for \eqn{p=\infty} equals to
-#' \deqn{r_p(x)=\max_{i=1,\dots,n} \{ \min\{i,x_i\} \}}{r_p(x) = max{ min{i, x_i} } for i=1,\dots,n}
+#' \deqn{r_p(x)=\max_{i=1,\dots,n} \{ \min\{i,x_i\} \}}{
+#' r_p(x) = max{ min{i, x_i} } for i=1,\dots,n}
 #' if \eqn{n \ge 1}, or \eqn{r_\infty(x)=0} otherwise.
 #' That is, it is equivalent to a particular OWMax operator,
 #' see \code{\link{owmax}}.
@@ -220,9 +226,12 @@ index_w <- function(x)
 #'  [but its usage is deprecated].
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
-#' Hirsch J.E., An index to quantify individual's scientific research output, Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
-#' Woeginger G.J., An axiomatic characterization of the Hirsch-index, Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
+#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
+#' of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
+#' Hirsch J.E., An index to quantify individual's scientific research output, 
+#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' Woeginger G.J., An axiomatic characterization of the Hirsch-index, 
+#' Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
@@ -250,68 +259,69 @@ index.rp <- index_rp # deprecated
 
 
 
-# #' Computes the \eqn{l_p}-index of a numeric vector for given \eqn{p}.
-# #'
-# #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
-# #' where \eqn{x_i \ge x_j} for \eqn{i \le j},
-# #' the \dfn{\eqn{l_p}-index} for \eqn{p=\infty} equals to
-# #' \deqn{l_p(x)=\arg\max_{(i,x_i), i=1,\dots,n} \{ i x_i \}}{l_p(x) = arg max_(i,x_i) { i*x_i } for i=1,\dots,n}
-# #' if \eqn{n \ge 1}, or \eqn{l_\infty(x)=0} otherwise.
-# #' Note that if \eqn{(i,x_i)=l_\infty(x)}, then
-# #' \deqn{MAXPROD(x) = i x_i,}{MAXPROD(x) = i*x_i,} where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007).
-# #'
-# #' For the definition of the \eqn{l_p}-index for \eqn{p < \infty} we refer
-# #' to (Gagolewski, Grzegorzewski, 2009a).
-# #'
-# #' If \code{disable.check} is set to \code{FALSE}, then
-# #' eventual \code{NA} values are removed from the input vector.
-# #'
-# #' If a non-increasingly sorted vector is given as input (set \code{sorted.dec} to \code{TRUE})
-# #' the result is computed in linear time (see Gagolewski, Debski, Nowakiewicz, 2009b).
-# #'
-# #' @references
-# #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction of scientific impact indices, Scientometrics, 81(3), 2009a, pp. 617-634.\cr
-# #' Gagolewski M., Debski M., Nowakiewicz M., Efficient algorithms for computing ''geometric'' scientific impact indices, Research Report of Systems Research Institute, Polish Academy of Sciences RB/1/2009, 2009b.\cr
-# #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output of an individual, and a comparison with the h-index, Cybermetrics, 11(1), 2007.\cr
-# #'
-# #' @title The l_p-index
-# #' @param x a non-negative numeric vector.
-# #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
-# #' @param sorted.dec logical; \code{TRUE} if the vector has already been sorted non-increasingly; defaults \code{FALSE}.
-# #' @param disable.check logical; \code{TRUE} to disable some validity checks on the input vector; defaults \code{FALSE}.
-# #' @return The function returns a numeric vector of length 2 equal to \eqn{(i,x_i)} or NA if improper input has been given.
-# #' @seealso \code{\link{index.h}}, \code{\link{index.g}}, \code{\link{index.rp}}, \code{\link{Sstat}}, \code{\link{Sstat2}}
-# #' @examples
-# #' x <- runif(100, 0, 100);
-# #' index.lp(x);                # two-dimensional value, can not be used
-# #'                             # directly in the analysis
-# #' prod(index.lp(x));          # the MAXPROD-index (one-dimensional)
-# #' mean(index.lp(x,1));        # some other one-dimensional impact index
-# #' @export
-# index.lp <- function(x, p=Inf, sorted.dec=FALSE, disable.check=FALSE)
-# {
-# 	if (!disable.check)
-# 	{
-# 		if (length(x) == 0) return(0);
-# 		if (mode(x) != "numeric") return(NA);
-# 		if (any(x < 0)) return(NA);
-# 		x <- x[!is.na(x)];
-# 	}
-# 
-# 	if (mode(p) != "numeric" || length(p)!=1 || p < 1) stop("'p' should be a single numeric value >= 1");
-# 
-# 	if (!sorted.dec)
-# 		x <- sort(x, decreasing=TRUE);
-# 
-# 	if (is.finite(p))
-# 	{
-# 		if (p > 50) warning("'p' is quite large. possible accuracy problems. maybe you should try 'p'==Inf?");
-# 		.C("index_lp_finite", as.double(x), 
-#          as.integer(length(x)), as.double(p), integer(length(x)+1), out=double(2), DUP=FALSE, PACKAGE="agop")$out;
-# 	} else
-# 	{
-# 		.C("index_lp_infinite", as.double(x), as.integer(length(x)), out=double(2), DUP=FALSE, PACKAGE="agop")$out;
-# 	}
-# }
+#' @title
+#' The l_p-index
+#'
+#' @description
+#' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
+#' where \eqn{x_i \ge x_j} for \eqn{i \le j},
+#' the \dfn{\eqn{l_p}-index} for \eqn{p=\infty} equals to
+#' \deqn{l_p(x)=\arg\max_{(i,x_i), i=1,\dots,n} \{ i x_i \}}{
+#' l_p(x) = arg max_(i,x_i) { i*x_i } for i=1,\dots,n}
+#' if \eqn{n \ge 1}, or \eqn{l_\infty(x)=0} otherwise.
+#' Note that if \eqn{(i,x_i)=l_\infty(x)}, then
+#' \deqn{MAXPROD(x) = \mathtt{prod}(l_\infty(x)) = i x_i,}{
+#' MAXPROD(x) = prod(l_\infty(x)) = i*x_i,} 
+#' where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007),
+#' see \code{\link{index_maxprod}}.
+#'
+#' For the definition of the \eqn{l_p}-index for \eqn{p < \infty} we refer
+#' to (Gagolewski, Grzegorzewski, 2009a).
+#'
+#' @details
+#' The \eqn{l_p}-index, by definition, is not an impact function, as
+#' it produces 2 numeric values. Thus, it should be projected to one dimension.
+#' However, you may set  \code{projection} 
+#' to \code{\link{identity}} to obtain the 2-dimensional index
+#' 
+#' If non-increasingly sorted vector is given, the function is O(n).
+#' 
+#' For historical reasons, this function is also available via its alias, \code{index.lp}
+#'  [but its usage is deprecated].
+#'
+#' @references
+#' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
+#' of scientific impact indices, Scientometrics, 81(3), 2009a, pp. 617-634.\cr
+#' Gagolewski M., Debski M., Nowakiewicz M., Efficient algorithms for computing 
+#' ''geometric'' scientific impact indices, Research Report of 
+#' Systems Research Institute, Polish Academy of Sciences RB/1/2009, 2009b.\cr
+#' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
+#'  of an individual, and a comparison with the h-index, Cybermetrics, 11(1), 2007.\cr
+#'
+#' @param x a non-negative numeric vector
+#' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
+#' @param projection function
+#' @return result of \code{projection}(\code{c}(\eqn{i, x_i}))
+#' @examples
+#' x <- runif(100, 0, 100)
+#' index.lp(x, Inf, identity)  # two-dimensional value, can not be used
+#'                             # directly in the analysis
+#' index.lp(x, Inf, prod))     # the MAXPROD-index (one-dimensional) [default]
+#' @family impact_functions
+#' @rdname index_lp
+#' @export
+index_lp <- function(x, p=Inf, projection=prod)
+{
+   projection(.Call("index_lp", x, p, PACKAGE="agop"))
+}
+
+
+
+#' @rdname index_lp
+#' @usage index.lp(x, p = Inf, projection = prod) # same as index_lp(x, p, projection), deprecated alias
+#' @export
+index.lp <- index_lp # deprecated
+
+
 
 

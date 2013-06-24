@@ -35,6 +35,7 @@
 #include <iostream>
 #include <algorithm>    
 #include <vector>       
+#include <deque>
 using namespace std;
 
 #define EPS 1e-12
@@ -79,6 +80,19 @@ using namespace std;
    "internal error"
    
    
+struct double2 {
+   double v1;
+   double v2;
+   double2(double v1=0.0, double v2=0.0) {this->v1=v1; this->v2=v2;}
+   SEXP toR() {
+      SEXP ret;
+      PROTECT(ret = allocVector(REALSXP, 2));
+      REAL(ret)[0] = v1;
+      REAL(ret)[1] = v2;
+      UNPROTECT(1);
+      return ret;
+   }
+};
    
 SEXP vector_NA_double(R_len_t howmany); // internal
 SEXP prepare_arg_numeric(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
@@ -100,6 +114,7 @@ SEXP index_g_zi(SEXP x);           // DONE
 SEXP index_maxprod(SEXP x);        // DONE
 SEXP index_w(SEXP x);              // DONE
 SEXP index_rp(SEXP x, SEXP p);     // DONE
+SEXP index_lp(SEXP x, SEXP p);     // DONE
 
 SEXP owa(SEXP x, SEXP w);          // DONE
 SEXP wam(SEXP x, SEXP w);          // DONE
@@ -113,15 +128,6 @@ SEXP pord_weakdom(SEXP x, SEXP y); // DONE
 void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
 
 
-
-
-int __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj); // @TODO: rewrite
-
-void __index_lp_finite_getAB(double p, double ui, double vi, double uj, double vj, double* a2p, double* b2p); // @TODO: rewrite
-
-void index_lp_finite(double* x, int* n, double *p, int* s, double* out); // @TODO: rewrite
-
-void index_lp_infinite(double* x, int* n, double* out); // @TODO: rewrite
 
 
 

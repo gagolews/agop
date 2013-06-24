@@ -47,6 +47,8 @@
 #' they are normalized and a warning is generated.
 #' 
 #' Both functions return the ordinary arithmetic mean by default.
+#' Special cases of OWA include the trimmed mean (cf. \code{\link{mean}})
+#' and winsorized mean.
 #' 
 #' There is a strong connection between the OWA operators
 #' and the Choquet integrals.
