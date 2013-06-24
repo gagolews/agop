@@ -765,6 +765,61 @@ Moreover, (a) and (c) were defined in the previous section.
 % where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
 % i.e.~its $(n-i+1)$th order statistic.
 
+Let us now consider some properties that can  be useful while aggregating vectors 
+of varying lengths. This model described situation when a~``producer'' whose quality
+has to be assessed ``outputs'' yet another ``product'' and we have to reevaluate
+his/her rating.
+
+
+\begin{definition}\label{Def:zero_insensitive}
+We call $\func{F}\in \mathcal{E}(\Ival)$ a
+\emph{zero-insensitive} aggregation operator, denoted $\func{F}\in
+\Property{a0}$, if
+for each $\vect{x}\in\IvalAnyPow$ it holds
+\(
+\func{F}(\vect{x},0)=\func{F}(\vect{x}).
+\)
+\end{definition}
+
+% In other words, if $\func{F}$ is zero-insensitive, then $0$ is its
+% so-called extended neutral element, see
+% \cite[Def.~2.108]{GrabischETAL2009:aggregationfunctions}.
+% What is more, $0$ is an idempotent element of every zero-insensitive function
+% $\func{F}$
+% such that $\func{F}(0)=0$.
+
+It is easily seen that $\Property{a0}\cap \Property{nd}\subseteq
+\Property{am}\cap \Property{nd}$,
+where $\Property{am}$ denotes arity-monotonic aggregation operators,
+see \cite{GagolewskiGrzegorzewski2010:ipmu},
+such that
+$(\forall \vect{x},\vect{y}\in\IvalAnyPow)\ \func{F}(\vect{x})\le
+\func{F}(\vect{x},\vect{y}).$
+
+Zero-sensitivity may be strengthened as follows,
+cf.~\cite{GagolewskiGrzegorzewski2010:ipmu}
+and \cite[Axiom A1]{Woeginger2008:axiomatich}.
+
+
+\begin{definition}\label{Def:Wlasnosc_F-}
+$\func{F}\in \mathcal{E}(\Ival)$ is \emph{$F$-insensitive},
+denoted $\func{F}\in \Property{F0}$, if
+\begin{equation*}
+(\forall \vect{x}\in\IvalAnyPow)\ (\forall y\in\Ival)\ y\le\func{F}(\vect{x})
+\Longrightarrow \func{F}(\vect{x},y)=\func{F}(\vect{x}).
+\end{equation*}
+\end{definition}
+
+\begin{definition}\label{Def:Wlasnosc_F+}
+$\func{F}\in \mathcal{E}(\Ival)$ is
+\emph{$F$+sensitive}, denoted $\func{F}\in \Property{F+}$,
+if
+\begin{equation*}
+(\forall \vect{x}\in\IvalAnyPow)\ (\forall y\in\Ival)\ y>\func{F}(\vect{x})
+\Longrightarrow
+\func{F}(\vect{x},y)>\func{F}(\vect{x}).
+\end{equation*}
+\end{definition}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1068,66 +1123,17 @@ with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
 \end{definition}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% JAKI JEST ZWIAZEK M/Y OWMin a OWMax? to ta sama klasa!
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CZY KTORES Z TYCH FUNKCJI SA MINITYWNE/MAKSYTYWNE? :)
+It is clear to see that $\func{OWMax}$ operators fulfill maxitivity property and
+$\func{OWMin}$ operators fulfill minitivity property. What is more,
+interestingly it can be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions}, 
+that for each $\func{OWMax}$ operator there exist equivalent $\func{OWMin}$ 
+operator and inveresly.
 
 
 \bigskip
 %%%%%%%%%%%%%%%%%%% INTRO - PRZECHODZIMY DO PRZYPADKU WEKTOROW O DOWOLNEJ DLUGOSCI
-%%%%%%%%%%%%%%%%%%%% TRIANGLE OF COEFFICIENTS - TO JUZ UZYWALA TOMASA CALVO i GASPAR MAYOR, JOURNAL=TATRA MOUNTAINS COSTAM
-.............
-%%%%%%%%%%%%%%%%%%% CHYBA BYM SOBIE DAROWAL L, S i I statystyki
-%%%%%%%%%%%%%%%%%%% OD RAZU UDERZYC w QUASI :) I tylko wspomniec
-
-\begin{definition}
-The \emph{triangle of coefficients} is a sequence $\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$.
-\end{definition}
-
-\begin{definition}
-The \emph{L-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{L}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
-\[
-\func{L}_{\triangle}(\vect{x})=\sum_{i=1}^{n}c_{i,n}x_{(n-i+1)},
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CZY SA ADDYTYWNE??????
-%%%%%%%%%%%%%%%%%%% DLA JAKICH TROJKATOW JEST TO AGGREGATION FUNCTION?
-
-\begin{definition}\label{s:statistic}
-The \emph{S-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{S}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
-\[
-\func{S}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}c_{i,n}\wedge x_{(n-i+1)},
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CZY SA MAKSYTYWNE??????
-
-\begin{definition}
-The \emph{I-statistic} for a given triangle of coefficients $\triangle=(c_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{I}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
-\[
-\func{I}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}c_{i,n}\vee x_{(n-i+1)},
-\] for any $\vect{x}\in\IvalPow{n}$.
-\end{definition}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CZY SA MINITYWNE??????
-
-Please note that the \emph{OWA} functions are a special case of \emph{L-statistics}.
-%, for whom 
-% the triangle of coefficients $\triangle=(c_{i,n})_{i\in[n],n\in\Naturals}$ satisfies 
-% $(\forall n)\ \sum_{j=1}^{n}c_{j,n}=1$ and $c_{j,n}\in [0,1]$ for $i\in [n]$. 
-Similarly, \emph{OWMax} 
-% (for triangle of 
-% coefficients such that
-% $c_{j,n}\in\Ival=[0,1]$, $\bigvee_{j=1}^{n}c_{j,n}=1$ and $c_{1,n}\geq\dots\geq c_{n,n}$) 
-and \emph{OWMin} 
-% (for triangle of coefficients such that
-% $c_{j,n}\in\Ival=[0,1]$, $\bigvee_{j=1}^{n}c_{j,n}=1$ and $c_{1,n}\leq\dots\leq c_{n,n}$)
-operators are a special cases of
-\emph{S-statistics} and \emph{I-statistics}, respectively.  
 
 \bigskip
 \begin{definition}
@@ -1136,39 +1142,82 @@ The \emph{triangle of functions} is a sequence $\triangle=(f_{i,n}\in\IvalPow{\I
 
 
 \begin{definition}
-The \emph{quasi-L-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qL}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+Let $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$ be a triangle of functions 
+such that $(\forall n)\ \sum_{i=1}^{n}\inf{\func{f}_{i,n}}\geq a$ and 
+$(\forall n)\ \sum_{i=1}^{n}\sup{\func{f}_{i,n}}\leq b$. Then  the 
+\emph{quasi-L-statistic} generated by $\triangle$
+is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
-\] for any $\vect{x}\in\IvalPow{n}$.
+\func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}).
+\]
 \end{definition}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% JAKIE WARUNKI MUSI SPELNIAC TROJKAT????????????
-%%%%%%%%%%%%%%%%%%%%%%%%%%%% WHAT ABOUT MODULARITY???????
+Please note that the quasi-L-statistic generalized $\func{OWA}$ operators, for
+which we have $\func{f}_{i,n}(x)=c_{i,n}x$, $c_{i,n}\in[0,1]$ and 
+$(\forall n)\ \sum_{i=1}^{n}c_{i,n}=1$. 
+
+Lest assume for simplicity that $\Ival=[0,b]$.
+Interestingly it has been shown (cf.~\cite{Gagolewski2012:ins}) that aggregation
+operator $\func{F}:\IvalAnyPow\to\Ival$ fulfill symmetric modularity property if and only if 
+$\func{F}$ is a nondecreasing quasi-L-statistic. What is more, in~\cite{Gagolewski2012:ins}
+we may find that $\func{qL}_{\triangle}$ is nondecreasing
+if and only if there exist $\triangledown=(\func{g}_{i,n})_{i\in[n],n\in\Naturals}$ such that
+$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
+$(\forall n)\ \sum_{i=1}^{n}\func{g}_{i,n}\leq b$, 
+$(\forall n)\ (\forall i>1)\ \func{g}_{i,n}(0)=0$ and 
+$\func{qL}_{\triangle}=\func{qL}_{\triangledown}$.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% ZDEFINIOWAC UZYWAJAC ith GREATEST a nie SMALLEST VALUE
 
 \begin{definition}
-The \emph{quasi-S-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qS}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+The \emph{quasi-S-statistic} for a given triangle of functions 
+$\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qS}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
-\] for any $\vect{x}\in\IvalPow{n}$.
+\func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}),
+\] for any $\vect{x}\in\IvalAnyPow$.
 \end{definition}
 
-%%%%%%%%% JAK TO SIE MA DO MAXITIVITY?
-%%%%%%%%%%%%%%%%%%%%%%%% BEZ STRATY OGOLNOSCI JAKIE WARUNKI???????
+It is easily seen that quasi-S-statistic generalized $\func{OWMax}$ 
+operators for which we have $\func{f}_{i,n}(x)=x\wedge c_{i,n}$, $c_{i,n}\in\Ival$
+and $(\forall n)\ \bigvee_{i=1}^{n}c_{i,n}=b$.
 
+Moreover, it has been shown (cf.~\cite{Gagolewski2012:ins}) that every symmetric maxitive 
+aggregation operator is a nondecreasing quasi-S-statistic (i.a. without loss of generality 
+we may assume that nondecreasing quasi-S-statistic is generated by triangle of functions
+in which $(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
+$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}(a)=\func{g}_{n,n}(a)$ 
+and $(\forall n)\ \func{g}_{1,n}\preceq\dots\preceq\func{q}_{n,n}$).
 
 \begin{definition}
-The \emph{quasi-I-statistic} for a given triangle of functions $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qI}_{\triangle}:\IvalPow{n}\to\Ival$ such that 
+The \emph{quasi-I-statistic} for a given triangle of functions 
+$\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
+is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
 \[
-\func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}f_{i,n}(x_{(n-i+1)}),
-\] for any $\vect{x}\in\IvalPow{n}$.
+\func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}\func{f}_{i,n}(x_{(n-i+1)}),
+\] for any $\vect{x}\in\IvalAnyPow$.
 \end{definition}
 
-It is easily seen that \emph{quasi-L-statistics} generalize \emph{L-statistics}. We obtain 
-an \emph{L-statistic} by taking $f_{i,n}(x)=c_{i,n}x$. Similarly, by setting 
+Quasi-I-statistic is generalizations of well-known $\func{OWMin}$ operators,
+for which we have $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and 
+$(\forall n)\ \bigwedge_{i=1}^{n}c_{i,n}=a$.
+
+Similar like in above, it has been shown (cf.~\cite{Gagolewski2012:ins}) that every 
+symmetric minitive 
+aggregation operator is a nondecreasing quasi-I-statistic (i.a. without loss of generality 
+we may assume that nondecreasing quasi-S-statistic is generated by triangle of functions
+in which $(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
+$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}(b)=\func{g}_{n,n}(b)$ 
+and $(\forall n)\ \func{g}_{1,n}\preceq\dots\preceq\func{q}_{n,n}$).
+
+
+Many times we consider L--, S-- and I-- statistics, a special cases
+of defined above quasi-statistics, generated by a triangle of coefficient 
+(i.a.~\emph{triangle of coefficients} is a sequence 
+$\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$, cf~\cite{}).
+%%%%%%%%%%%%%%%%%%%% TRIANGLE OF COEFFICIENTS - TO JUZ UZYWALA TOMASA CALVO i GASPAR MAYOR, JOURNAL=TATRA MOUNTAINS COSTAM
+In fact, \emph{L-statistics} is a \emph{quasi-L-statistics} for which we have
+$f_{i,n}(x)=c_{i,n}x$. Similarly, by setting 
 $f_{i,n}(x)=x\wedge c_{i,n}$ we obtain \emph{S-statistic} from \emph{quasi-S-statistics}, and
 by setting $f_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \emph{quasi-I-statistics}.
 
@@ -1183,9 +1232,14 @@ by setting $f_{i,n}(x)=x\vee c_{i,n}$ we obtain \emph{I-statistic} from \emph{qu
 
 
 \bigskip
-Let now us introduce the class of symmetric maxitive, minitive and modular aggregation operators
-introduced in~\cite{CenaGagolewski2013:agop2}.
-%%%%%%%%%%%%%% IT HAS BEEN SHOWN IN GAGOLEWSKI2012 THAT......... REKLAMA!
+In~\cite{Gagolewski2012:ins} it has been shown, that 
+intersection of every two from class of
+symmetric maxitive, minitive and modular aggregation is the same.
+Based on this result class of symmetric maxitive, minitive and modular 
+aggregation operators, \emph{OM3} operators, was proposed.
+
+In~\cite{CenaGagolewski2013:agop1,CenaGagolewski2013:agop2} definition and
+basic properties of OM3 operators are given.
 
 \begin{definition}
 A sequence of nondecreasing functions $\vect{w}=(\func{w}_1,\func{w}_2,\dots)$,
