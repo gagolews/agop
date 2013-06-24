@@ -595,8 +595,8 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if:
 for all $n\in\mathbb{N}, \vect{x}, \vect{y}\in\IvalPow{n}$ such that 
 $\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
-Please note that if $a\leq0$, then for additivity $\func{F}$ 
-have to be such that $\func{F}(\vect{0})=0$.
+Please note that for $a\leq 0$, if $\func{F}$ is additive,
+then necessarily it holds $\func{F}(\vect{0})=0$.
 
 \medskip
 \begin{definition}
@@ -637,13 +637,12 @@ It may easily be seen that each additive operator
 %fulfiling the lower strong boundary condition 
 is also modular
 (i.e.~modularity is more general than additivity),
-% ....................................................    %%%%% ANIU, CWICZONKO DLA CIE :)
-because since
+because for any additive aggregation operator $\func{F}$,
+since
 $(\vect{x}\vee\vect{y})+(\vect{x}\wedge\vect{y})=\vect{x}+\vect{y}$,
 we have $\func{F}(\vect{x})+\func{F}(\vect{y})=\func{F}(\vect{x}+\vect{y})=
 \func{F}((\vect{x}\vee\vect{y})+(\vect{x}\wedge\vect{y}))
-=\func{F}(\vect{x}\vee\vect{y})+\func{F}(\vect{x}\wedge\vect{y}),$
-for additive aggregation operator $\func{F}$.
+=\func{F}(\vect{x}\vee\vect{y})+\func{F}(\vect{x}\wedge\vect{y})$.
 
 
 \medskip
@@ -664,16 +663,17 @@ We already noticed the important class of aggregation operators:
 the averaging functions. They may be used to represent the most ``typical''
 value of a numeric vector.
 Here is another interesting class
-that represent solutions to some very interesting practical issues.
+that represents solutions to some very interesting practical issue.
 
 The \emph{Producers Assessment Problem} (PAP, 
 \cite{GagolewskiGrzegorzewski2011:ijar}) concerns evaluation of a set of 
 \emph{producers} (e.g.~scientists, artists, writers, craftsman) 
-according to the \emph{products}
-(e.g.~scientific articles, works, books, artifacts) each entity has produced.
-It is assumed that for each of the products 
-some quality or popularity \emph{rating} (e.g.~the number of articles'
-citations, the number of sold book copies etc.) is given.
+according to some quality or popularity \emph{ratings}
+% (e.g.~the number of articles'
+% citations, the number of sold book copies etc.) 
+of \emph{products}
+(e.g.~scientific articles, works, books, artifacts) that
+were outputted by an entity.
 
 
 \begin{table}[ht]
@@ -703,13 +703,13 @@ F & \R{} package author & Packages & PageRank values on the citation graph & Sof
 
 PAP instances may be found in many real-life
 situations, like those encountered
-for example scientometrics, webometrics, marketing,
+for example in scientometrics, webometrics, marketing,
 manufacturing, or quality 
 engineering, see Table~\ref{Table:InstancesPAP}
 and e.g.~\cite{FranceschiniMaisano2009:hmanufacturing}.
 Our main interest here is focused on constructing and analyzing 
 aggregation operators which may be used in the producers' rating task. 
-Such functions should take into a count the two following 
+Such functions should take into account the two following 
 aspects of a producer's quality:
 \begin{itemize}
 \item his/her ability to output highly-rated products,
@@ -718,7 +718,7 @@ aspects of a producer's quality:
 
 For the sake of illustration, we will consider PAP in the
 scientometric context, where scientists ``produce''
-papers, which in turn themselves receive citations.
+papers that are cited by peers.
 
 Let $\Ival=[0,\infty]$ represent the set of values that some a~priori chosen
 paper quality measure may take. These may of course be non-integers,
@@ -765,16 +765,18 @@ Moreover, (a) and (c) were defined in the previous section.
 % where $x_{\{i\}}$ denotes the $i$th largest value from $\vect{x}$,
 % i.e.~its $(n-i+1)$th order statistic.
 
-Let us now consider some properties that can  be useful while aggregating vectors 
-of varying lengths. This model described situation when a~``producer'' whose quality
-has to be assessed ``outputs'' yet another ``product'' and we have to reevaluate
-his/her rating.
+\bigskip
+Here is a bunch of arity-dependent properties
+that can  be useful while aggregating vectors 
+of varying lengths.
+% This model described situation when a~``producer'' whose quality
+% has to be assessed ``outputs'' yet another ``product'' and we have to reevaluate
+% his/her rating.
 
 
 \begin{definition}\label{Def:zero_insensitive}
 We call $\func{F}\in \mathcal{E}(\Ival)$ a
-\emph{zero-insensitive} aggregation operator, denoted $\func{F}\in
-\Property{a0}$, if
+\emph{zero-insensitive} aggregation operator if
 for each $\vect{x}\in\IvalAnyPow$ it holds
 \(
 \func{F}(\vect{x},0)=\func{F}(\vect{x}).
@@ -788,13 +790,13 @@ for each $\vect{x}\in\IvalAnyPow$ it holds
 % $\func{F}$
 % such that $\func{F}(0)=0$.
 
-It is easily seen that $\Property{a0}\cap \Property{nd}\subseteq
-\Property{am}\cap \Property{nd}$,
-where $\Property{am}$ denotes arity-monotonic aggregation operators,
-see \cite{GagolewskiGrzegorzewski2010:ipmu},
-such that
-$(\forall \vect{x},\vect{y}\in\IvalAnyPow)\ \func{F}(\vect{x})\le
-\func{F}(\vect{x},\vect{y}).$
+It may be seen that, under nondecreasingness,
+zero-insensitivity implies arity-monotonicity,
+see \cite{GagolewskiGrzegorzewski2010:ipmu}.
+What is interesting, each zero-insensitive impact function $\func{F}$
+may be defined by means of $\func{G}:\IvalPow{\infty}\to\Ival$
+such that $\func{F}(\vect{x}) = \func{G}(\vect{x},0,0,\dots)$,
+i.e.~of function which domain is the space of vectors of infinite length.
 
 Zero-sensitivity may be strengthened as follows,
 cf.~\cite{GagolewskiGrzegorzewski2010:ipmu}
@@ -802,18 +804,18 @@ and \cite[Axiom A1]{Woeginger2008:axiomatich}.
 
 
 \begin{definition}\label{Def:Wlasnosc_F-}
-$\func{F}\in \mathcal{E}(\Ival)$ is \emph{$F$-insensitive},
-denoted $\func{F}\in \Property{F0}$, if
+$\func{F}\in \mathcal{E}(\Ival)$ is \emph{$F$-insensitive} if
 \begin{equation*}
 (\forall \vect{x}\in\IvalAnyPow)\ (\forall y\in\Ival)\ y\le\func{F}(\vect{x})
 \Longrightarrow \func{F}(\vect{x},y)=\func{F}(\vect{x}).
 \end{equation*}
 \end{definition}
 
+Note that the above property was called R-stability in \cite{BeliakovJames2013:FSS}.
+
 \begin{definition}\label{Def:Wlasnosc_F+}
 $\func{F}\in \mathcal{E}(\Ival)$ is
-\emph{$F$+sensitive}, denoted $\func{F}\in \Property{F+}$,
-if
+\emph{$F$+sensitive} if
 \begin{equation*}
 (\forall \vect{x}\in\IvalAnyPow)\ (\forall y\in\Ival)\ y>\func{F}(\vect{x})
 \Longrightarrow
@@ -832,18 +834,18 @@ if
 
 The \Rfunc{plot\_producer()} function may be used to draw
 a graphical representation of a given numeric vector,
-i.e.~what is sometimes called a citation function in scientometrics.
+i.e.~what is sometimes called a \emph{citation function} in scientometrics.
 
 A given vector $\mathbf{x}=(x_1,\dots,x_n)$ can be represented by a
 step function defined for $0\le y<n$ and given by:
 \[
    \pi(y)=x_{(n-\lfloor y+1\rfloor+1)}.
 \]
-This function may be obtained by setting \texttt{type == 'right.continuous'}
+This function may be obtained by setting \texttt{\argument{type=}\str{'right.continuous'}}
 argument in \Rfunc{plot\_pro\-du\-cer()}.
 Recall that $x_{(i)}$ denotes $i$-th smallest value in $\vect{x}$.
 
-On the other hand, for \texttt{type == 'left.continuous'}
+On the other hand, for \texttt{\argument{type=}\str{'left.continuous'}}
 (the default), we get
 \[
 \pi(y)=x_{(n-\lfloor y\rfloor+1)}
@@ -896,9 +898,6 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 
 \section{Pre-orders}
 
-..............
-
-
 Let us consider the following relation on $\IvalAnyPow$.
 For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
 % \begin{equation}\label{Eq:partialorderingtrianglelefteq}
@@ -910,18 +909,20 @@ of \textit{sorted} vectors.
 
 
 
-In other words, we  say that an author $X$
+Intuitively, we  say that an author (scientometric
+context again) $X$
  is (weakly) dominated %(in sense of $\trianglelefteq$)
-by an author $Y$, if $X$ has no more papers than $Y$ and each
+by an author $Y,$ if $X$ has no more papers than $Y$ and each
 the $i$th most cited paper of $X$ has no more citations than
-the $i$th most cited paper of $Y$. Not that the $m-n$ least cited
+the $i$th most cited paper of $Y$. Not that the $(m-n)$ least cited
 $Y$'s papers are not taken into account here.
 Most importantly, however,
 there exist pairs of vectors
 that are \textit{incomparable} with respect to $\trianglelefteq$ (see
 the illustration below).
 
-This pre-order in \package{agop} as \Rfunc{pord\_weakdom()}.
+This pre-order in \package{agop} may be
+determined using the \Rfunc{pord\_weakdom()} function.
 
 <<pord_weakdom>>=
 c(pord_weakdom(5:1, 10:1), pord_weakdom(10:1, 5:1)) # 5:1 <= 10:1
@@ -937,7 +938,7 @@ if $\vect{x}\trianglelefteq\vect{y}$, then
 $\func{F}(\vect{x})\le \func{F}(\vect{y})$.
 Therefore, the class of  impact functions may be equivalently
 defined as all the aggregation operators
-that are nondecreasing with respect to this preorder.
+that are nondecreasing with respect to this pre-order.
 
 
 Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
@@ -966,14 +967,15 @@ plot_producer(ex1[[i]], add=(i>1), col=i)
 legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 
-get adjacency matrix for $(\{A, B, C, L, U\}, \trianglelefteq)$....
+Here is the adjacency matrix for 
+the pre-ordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
 
 <<ex1B,dependson='ex1'>>=
 ord <- rel_graph(ex1, pord_weakdom)
 print(ord)
 is_reflexive(ord)  # is reflexive
 is_transitive(ord) # is transitive
-is_total(ord)      # not a total preorder...
+is_total(ord)      # not a total pre-order...
 @
 
 \noindent
@@ -991,7 +993,7 @@ lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
 To draw the Hasse diagram, it will be good to de-transitivize
-the graph (for \ae{}sthetic reasons)....
+the graph (for \ae{}sthetic reasons).
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
@@ -1001,24 +1003,25 @@ plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
-let's apply fair totalization (set $x\trianglelefteq'' y$
+let's apply \emph{fair totalization} (set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
-y\trianglelefteq x)$ + calculate transitive closure
+y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
+for discussion), and then calculate transitive closure.
 
 
 <<ex1D,dependson='ex1C'>>=
-ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder
+ord_total <- closure_transitive(closure_total_fair(ord)) # a total pre-order
 print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
-...Note that each total preorder $\trianglelefteq''$ induces an
+Note that each total pre-order $\trianglelefteq''$ induces an
 equivalence relation ($x\simeq y$ iff $x\trianglelefteq''y$ and $y\trianglelefteq''x$;
 the equivalence classes may be ordered with $\trianglelefteq''$).
 These may be explored with the \Rfunc{get\_equivalence\_classes()}
-function....
+function.
 
 <<ex1E,dependson='ex1D'>>=
 sapply(get_equivalence_classes(ord_total), function(set) rownames(ord)[set])
