@@ -27,7 +27,7 @@
 #' @details
 #' The OWA operator is given by
 #' \deqn{
-#' \func{OWA}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{\{i\}}
+#' \mathsf{OWA}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{\{i\}}
 #' }{
 #' OWA_w(x) = sum_i(w_i * x_{i})
 #' }
@@ -36,7 +36,7 @@
 #' 
 #' The WAM operator is given by
 #' \deqn{
-#' \func{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{i}
+#' \mathsf{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{i}
 #' }{
 #' WAM_w(x) = sum_i(w_i * x_i)
 #' }
@@ -83,7 +83,7 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' @details
 #' The OWMax operator is given by
 #' \deqn{
-#' \func{OWMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{\{i\}}
+#' \mathsf{OWMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{\{i\}}
 #' }{
 #' OWMax_w(x) = max_i{ min{w_i, x_{i}} }
 #' }
@@ -92,21 +92,21 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' 
 #' The OWMin operator is given by
 #' \deqn{
-#' \func{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{\{i\}}
+#' \mathsf{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{\{i\}}
 #' }{
 #' OWMin_w(x) = min_i{ max{w_i, x_{i}} }
 #' }
 #' 
 #' The WMax operator is given by
 #' \deqn{
-#' \func{WMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{i}
+#' \mathsf{WMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{i}
 #' }{
 #' WMax_w(x) = max_i{ min{w_i, x_i} }
 #' }
 #' 
 #' The WMin operator is given by
 #' \deqn{
-#' \func{WMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{i}
+#' \mathsf{WMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{i}
 #' }{
 #' WMin_w(x) = min_i{ max{w_i, x_i} }
 #' }

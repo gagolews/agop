@@ -1638,8 +1638,15 @@ It may be shown that for $n>2$ it holds
 $\mathrm{Var}\,\widehat{k}(\vect{x})=k^2 \frac{1}{n-2}.$
 
 
-TO DO: \package{agop}: 
-\Rfunc{pareto2.mle\-kestimate()}
+\package{agop} implementation:
+\Rfunc{pareto2\_estimate\_mle()} with explicitly
+set argument \argument{s}.
+
+<<pareto2mle1>>=
+rowMeans(replicate(1000, {
+   pareto2_estimate_mle(rpareto2(50, 2, 1.5), s=1.5)
+}))
+@
 
 \bigskip
 For both unknown $k$ and $s$ we have:
@@ -1651,19 +1658,36 @@ For both unknown $k$ and $s$ we have:
 \end{array}\right.
 \end{equation}
 Unfortunately, the second equation must be solved numerically.
-The estimation 
-procedure has been implemented in \package{agop} as TO DO: 
-\Rfunc{pareto2.mleksestimate()}....
 It is worth noting that the above system of equations may sometimes
 have no solution (as the local minimum of the likelihood function may not exist,
 see \cite{CastilloDaoudi2009:mlegpd} for discussion).
+This estimator may be heavily biased and have a large mean squared
+error (of course, it is only asymptotically unbiased).
 
-In this case one of the estimators worth noting 
-(and often better than MLE) was proposed
+\package{agop} implementation:
+\Rfunc{pareto2\_estimate\_mle()} with explicitly
+set argument \argument{s}.
+
+<<pareto2mle2>>=
+rowMeans(replicate(1000, {
+   pareto2_estimate_mle(rpareto2(50, 2, 1.5))
+}), na.rm=TRUE)
+@
+
+\noindent
+We see that the estimator's performance is weak.
+
+A better (in general) estimation procedure was proposed
 in \cite{ZhangStevens2009:estgpd}.
 The Zhang-Stevens MMS (\textit{minimum mean square error}) (Bayesian)
 estimator has relatively small bias (often positive) and mean squared error.
-In \package{agop} it is available as TO DO: \Rfunc{pareto2.zsestimate()}.
+In \package{agop} it is available as: \Rfunc{pareto2\_estimate\_mmse}.
+
+<<pareto2mmse>>=
+rowMeans(replicate(1000, {
+   pareto2_estimate_mmse(rpareto2(50, 2, 1.5))
+}))
+@
 
 % W~przypadku niemo¿liwo¶ci obliczenia warto¶ci estymatorów metod± najwiêkszej
 % wiarogodno¶ci powinni¶my u¿yæ innego estymatora.
@@ -1730,8 +1754,8 @@ In \package{agop} it is available as TO DO: \Rfunc{pareto2.zsestimate()}.
 % zob.~rozdz.~\ref{Func:pareto2.zsestimate}.
 % 
 
-\paragraph{Goodness-of-fit tests.}
-TO BE DONE....
+% \paragraph{Goodness-of-fit tests.}
+% TO BE DONE....
 % \paragraph{Testowanie zgodno¶ci.}\label{Ozn:P2GoF}
 % Przedstawione estymatory mog± byæ u¿yte                                         \marginpar{GoF}
 % w~procedurze  testowania zgodno¶ci %(ang. \textit{goodness-of-fit tests})
@@ -1754,8 +1778,8 @@ TO BE DONE....
 % 
 
 
-\paragraph{Applications.}
-TO DO
+% \paragraph{Applications.}
+% TO DO
 
 % Pareto type II distribution finds its applications in the
 % so-called extreme values modeling, cf.~\cite{ChoulakianStephens2001:gofgpd}.
@@ -1825,9 +1849,14 @@ where $\text{\Rfunc{pf}}(x,d_1,d_2)$
 is the c.d.f.~of $\mathrm{F}^{[d_1,d_2]}$.
 
 \medskip
-TO DO: \Rfunc{pareto2.\allowbreak ftest()}.
+\package{agop} implementation: \Rfunc{pareto2\_test\_f()}.
 
-
+<<ftest,echo=-1>>=
+set.seed(235)
+x <- rpareto2(35, 1.2, 1)
+y <- rpareto2(25, 2.1, 1)
+pareto2_test_f(x, y, s=1)
+@
 
 
 \subsection{Stochastic Properties of Aggregation Operators}

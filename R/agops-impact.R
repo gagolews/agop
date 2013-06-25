@@ -173,7 +173,7 @@ index_maxprod <- function(x)
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{w}-index} (Woeginger, 2008) for \eqn{x} is defined as
-#' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1\text{ for all }j=1,\dots,i\}}{
+#' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1, \forall j=1,\dots,i\}}{
 #' W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}.
 #'
 #' @details
@@ -306,7 +306,7 @@ index.rp <- index_rp # deprecated
 #' x <- runif(100, 0, 100)
 #' index.lp(x, Inf, identity)  # two-dimensional value, can not be used
 #'                             # directly in the analysis
-#' index.lp(x, Inf, prod))     # the MAXPROD-index (one-dimensional) [default]
+#' index.lp(x, Inf, prod)      # the MAXPROD-index (one-dimensional) [default]
 #' @family impact_functions
 #' @rdname index_lp
 #' @export
@@ -318,7 +318,7 @@ index_lp <- function(x, p=Inf, projection=prod)
 
 
 #' @rdname index_lp
-#' @usage index.lp(x, p = Inf, projection = prod) # same as index_lp(x, p, projection), deprecated alias
+#' @usage index.lp(x, p = Inf, projection = prod)  # deprecated alias
 #' @export
 index.lp <- index_lp # deprecated
 

@@ -51,7 +51,7 @@
 #' @param extend logical; should the plot be extended infinitely to the right?
 #' Defaults to \code{FALSE}
 #' @param add logical; indicates whether to start a new plot, \code{FALSE} by default
-#' @param pch,col,lty,lwd,cex graphical parameters
+#' @param pch,col,lty,lwd,cex,xmarg graphical parameters
 #' @param col.steps,lty.steps,lwd.steps graphical parameters, used only
 #' for \code{type} of \code{'left.continuous'} and \code{'right.continuous'} only
 #' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters,

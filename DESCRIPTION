@@ -8,7 +8,7 @@ Description: Tools supporting multi-criteria decision making,
     but are not limited to, sciento-, biblio-, and informetrics.
 URL: http://www.rexamine.com/resources/agop/
 BugReports: http://github.com/Rexamine/agop/issues
-ByteCompile: FALSE
+ByteCompile: TRUE
 Type: Package
 Depends:
     R (>= 2.12.0),
