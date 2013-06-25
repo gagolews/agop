@@ -1,9 +1,7 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013 Marek Gagolewski, Anna Cena                              *
- *                                                                           *
- *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *                                                                       *
+ *   Copyright 2013 Marek Gagolewski, Anna Cena                              *                                                                 *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *

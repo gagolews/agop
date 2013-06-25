@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.1-0
-Date: 2013-06-23
+Date: 2013-06-25
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria decision making,
     including variable number of criteria, by means of
@@ -29,22 +29,10 @@ Authors@R: c(
     )
 Collate:
     'agop-package.R'
-    'distrib_hirsch.R'
-    'distrib_p2.R'
-    'distrib_sstat.R'
-    'dp2.estimate.R'
-    'dp2.goftest.R'
-    'p2.confint.h.R'
-    'p2.confint.rho.approx.R'
-    'p2.confint.rho.R'
-    'p2.estimate.R'
-    'p2.ftest.R'
-    'p2.goftest.R'
-    'p2.htest.approx.R'
-    'p2.htest.R'
-    'rho.R'
-    'fuzzy.integrals.R'
     'visualization.R'
     'preorders.R'
     'agops-impact.R'
     'agops-classical.R'
+    'distrib-pareto2.R'
+    'distrib-pareto2-estimators.R'
+    'distrib-pareto2-ftest.R'

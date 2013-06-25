@@ -31,7 +31,7 @@
 #' \code{s} \tab	the estimated parameter of scale.\cr
 #' }
 #' @export
-#' @seealso \code{\link{dpareto2}}, \code{\link{pareto2.goftest}}, \code{\link{pareto2.mlekestimate}}, \code{\link{pareto2.mleksestimate}}
+#' @family Pareto2
 #' @references
 #' Zhang J., Stevens M.A., A New and Efficient Estimation Method for the Generalized Pareto Distribution, Technometrics 51(3), 2009, 316-325.\cr
 pareto2.zsestimate <- function(x)
@@ -80,7 +80,7 @@ pareto2.zsestimate <- function(x)
 #' @return
 #' A single numeric value is returned, the unbiased ML estimator of \eqn{k}.
 #' @export
-#' @seealso \code{\link{dpareto2}}, \code{\link{pareto2.goftest}}, \code{\link{pareto2.zsestimate}}, \code{\link{pareto2.mleksestimate}}
+#' @family Pareto2
 pareto2.mlekestimate <- function(x, s)
 {
 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
@@ -116,7 +116,7 @@ pareto2.mlekestimate <- function(x, s)
 #' }
 #' or \code{NA} if the maximum of the likelihood function does not exist.
 #' @export
-#' @seealso \code{\link{dpareto2}}, \code{\link{pareto2.goftest}}, \code{\link{pareto2.zsestimate}}
+#' @family Pareto2
 pareto2.mleksestimate <- function(x, tol=1e-20, smin=1e-4, smax=20)
 {
 	if (mode(x) != "numeric") stop("'x' should be numeric");

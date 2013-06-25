@@ -1519,21 +1519,23 @@ e.g.~$\func{H2}(\vect{x})=\func{H}(\sqrt{\vect{x}})$.
 
 \section{Aggregation Operators from the Probabilistic Perspective}
 
-Theory of aggregation looks at the aggregation operators
+By default, theory of aggregation looks at the aggregation operators
 mainly from the algebraic perspective. Of course, we may also 
 be interested in their probabilistic properties,
 e.g.~in i.i.d.~RVs models (the simplest and the most ``natural''
 ones in statistics), cf.~\cite{Gagolewski2011:PhD} for discussion.
-In such case we assume that input data to be aggregated
-are in fact realizations of some random samples.
 
-In probability, an aggregation operator
-is simply called a \emph{statistic} (formalism......)
-%%% co rozumiesz przez formalism? jakies definicje wzory twierdzenia?
-%%%%%%%%%%%%%%%%%%%%% Nie, no ogolnie, co to jest statystyka :)
+Intuitively, a random variable is a method for ``producing''
+input data. An aggregation operator applied on a random variable
+(possibly multidimensional) is classically called a~\emph{statistic}.
+
+
+
+
+\subsection{Some Notable Probability Distributions}
 
 Let $(X_1,\dots,X_n)$ i.i.d.~$F$, where $\mathrm{supp}\,F = \Ival$.
-In the modeling of social phenomena, if $F$ is continuous,
+In social phenomena modeling, if $F$ is continuous,
 we often assume that the underlying density $f$ is decreasing
 and convex on $\Ival$, possibly with heavy-tails.
 E.g.~in the bibliometric impact assessment problem,
@@ -1543,8 +1545,12 @@ most of the papers have very small valuation (near $0$),
 and the probability of attaining a high note decreases in at least
 linear pace.
 
+Let us make a review of some useful statistical 
+distributions, that are not available through ``base'' \R
+(for other ones, e.g.~exponential, normal, uniform, Weibull, etc.~refer
+to the widely-available literature).
 
-\subsection{Some Notable Probability Distributions}
+
 
 \subsubsection{Pareto-Type II Distribution}
 
@@ -1552,7 +1558,8 @@ Many generalizations of the Pareto distribution
 have been proposed (GPD, \textit{Generalized Pareto Distributions},
 cf.~e.g.~\cite{VillasenorGonzalez2009:gofgpd,Zhang2010:estgpd}).
 Here we will introduce the so-called Pareto-Type II (Lomax) distribution,
-which has support $\Ival=[0,\infty]$.
+which has support $\Ival=[0,\infty]$
+and is defined with two parameters.
 
 
 Formally, $X$ follows the Pareto-II distribution
@@ -1566,26 +1573,28 @@ The cumulative distribution function of $X$ is then:
    F(x) = 1-\dfrac{s^k}{(s+x)^k}\quad (x\ge 0).
 \end{equation}
 
-TO DO: \package{agop}: \Rfunc{dpareto2()} -- \eqref{Eq:Pareto2PDF},
-\Rfunc{ppareto2()} -- \eqref{Eq:Pareto2CDF},
-and~\Rfunc{qpareto2()}... \Rfunc{rpareto2()}......
+The Pareto-Type II distribution
+is implemented in \package{agop}: \Rfunc{dpareto2()} gives the p.d.f.~\eqref{Eq:Pareto2PDF},
+\Rfunc{ppareto2()} gives the c.d.f.~\eqref{Eq:Pareto2CDF},
+\Rfunc{qpareto2()} calculates the quantile function, $F^{-1}$,
+and \Rfunc{rpare\-to2()} generates random deviates.
 
 \paragraph{Properties.}
 The expected value of $X\sim\mathrm{P2}(k,s)$
 exists for $k>1$ and is equal to 
-\[\mathbb{E}X = \frac{s}{k-1}.\]
+\(\mathbb{E}X = \frac{s}{k-1}.\)
 Variance exists for $k>2$ and is equal to
-\[\mathrm{Var}\, X = \frac{ks^2}{(k-2)(k-1)^2}.\]
+\(\mathrm{Var}\, X = \frac{ks^2}{(k-2)(k-1)^2}.\)
 More generally, the $i$-th raw moment for $k>i$ is given by:
-\[\mathbb{E}X^i = \frac{\Gamma(i+1)\Gamma(k-i)}{\Gamma(k+1)} ks^i.\]
+\(\mathbb{E}X^i = \frac{\Gamma(i+1)\Gamma(k-i)}{\Gamma(k+1)} ks^i.\)
 
 For a fixed $s$, if $X\sim \mathrm{P2}(k_x,s)$ and $Y\sim \mathrm{P2}(k_y,s)$,
 $k_x<k_y$, then $X$ stochastically dominates $Y$,
 denoted $X\succ Y$.
-On the other hand, for a fixed $k$, $X\sim \mathrm{P2}(k,s_x)$, $Y\sim \mathrm{P2}(k,s_y)$, $s_x>s_y$,
-implies $X \succ Y$.
+On the other hand, for a fixed $k$, if $X\sim \mathrm{P2}(k,s_x)$
+and $Y\sim \mathrm{P2}(k,s_y)$, then $s_x>s_y$ implies $X \succ Y$.
 
-Interestingly, if $X\sim\mathrm{P2}(k,s)$,
+Most importantly, if $X\sim\mathrm{P2}(k,s)$,
 then the conditional distribution of $X-t$ given $X>t$,
 is $\mathrm{P2}(k,s+t)$ $t \ge 0$.
 
@@ -1593,7 +1602,8 @@ Additionally, it might be shown that if $X\sim\mathrm{P2}(k,s)$,
 then $\ln(s+X)$ has c.d.f.~$F(x)=1-s^k e^{-kx}$ and
 density $f(x)=k s^k e^{-kx}$ for $x\ge\ln s$,
 i.e. has the same distribution as $Z+\ln s$, where
-$Z\sim\mathrm{Exp}(k)\equiv \Gamma(1,1/k)$.
+$Z\sim\mathrm{Exp}(k)\equiv \Gamma(1,1/k)$
+(exponential distribution).
 
 
 

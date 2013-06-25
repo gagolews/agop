@@ -1,9 +1,7 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013 Marek Gagolewski, Anna Cena                              *
- *                                                                           *
- *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *                                                                       *
+ *   Copyright 2013 Marek Gagolewski, Anna Cena                              *                                                                      *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *
@@ -177,48 +175,48 @@ SEXP wmin(SEXP x, SEXP w)
 }
 
 
-/** Function to compute the S-statistic for kappa=id, O(log n) time.
- *  @param x vector of numbers, 0<=x[i]<=1, sorted non-increasingly
- *  @param n pointer to the number of observations
- *  @param out one-dimensional array which stores the result
- */
-void Sstat2(double* x, int* n, double* out)
-{
-	double N = (double)(*n);
-
-	int h1 = 0;
-	int h2 = (*n)-1;
-	int m;
-	double xmulN;
-	double mp1;
-
-	if (x[0] < 1.0/N) { *out = x[0]; return; }
-
-	while (1)
-	{
-		m = (h2+h1+1)/2;
-		mp1 = (double)(m+1);
-		xmulN = N*x[m];
-		if (xmulN == mp1 || h1 == h2) {break;}
-		if (xmulN < mp1) h2 = m-1;
-		else h1 = m;
-	}
-
-#ifdef CITAN_DEBUG
-	if (!(m+1 <= *n && m+1>=0)) fprintf(stderr, "CITAN_DEBUG: Sstat2: !(m+1 <= *n && m+1>=0)\n");
-	if (m>=0 && x[m]<mp1/N) fprintf(stderr, "CITAN_DEBUG: Sstat2: m>=0 && x[m]<mp1/N\n");
-#endif
-
-	if (m+1 < *n)
-	{
-		if (mp1 > N*x[m+1]) *out = mp1/N;
-		else                *out = x[m+1];
-	}
-	else
-	{
-		*out = mp1/N;
-	}
-}
+///** Function to compute the S-statistic for kappa=id, O(log n) time.
+// *  @param x vector of numbers, 0<=x[i]<=1, sorted non-increasingly
+// *  @param n pointer to the number of observations
+// *  @param out one-dimensional array which stores the result
+// */
+//void Sstat2(double* x, int* n, double* out)
+//{
+//	double N = (double)(*n);
+//
+//	int h1 = 0;
+//	int h2 = (*n)-1;
+//	int m;
+//	double xmulN;
+//	double mp1;
+//
+//	if (x[0] < 1.0/N) { *out = x[0]; return; }
+//
+//	while (1)
+//	{
+//		m = (h2+h1+1)/2;
+//		mp1 = (double)(m+1);
+//		xmulN = N*x[m];
+//		if (xmulN == mp1 || h1 == h2) {break;}
+//		if (xmulN < mp1) h2 = m-1;
+//		else h1 = m;
+//	}
+//
+//#ifdef CITAN_DEBUG
+//	if (!(m+1 <= *n && m+1>=0)) fprintf(stderr, "CITAN_DEBUG: Sstat2: !(m+1 <= *n && m+1>=0)\n");
+//	if (m>=0 && x[m]<mp1/N) fprintf(stderr, "CITAN_DEBUG: Sstat2: m>=0 && x[m]<mp1/N\n");
+//#endif
+//
+//	if (m+1 < *n)
+//	{
+//		if (mp1 > N*x[m+1]) *out = mp1/N;
+//		else                *out = x[m+1];
+//	}
+//	else
+//	{
+//		*out = mp1/N;
+//	}
+//}
 
 
 

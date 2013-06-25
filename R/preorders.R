@@ -2,8 +2,6 @@
 ##
 ## Copyright 2013 Marek Gagolewski, Anna Cena
 ##
-## Parts of the code are taken from the 'CITAN' R package by Marek Gagolewski
-##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
 ## the Free Software Foundation, either version 3 of the License, or

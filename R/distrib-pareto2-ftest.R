@@ -60,7 +60,7 @@
 #' \code{data.name} \tab	a character string giving the name(s) of the data.\cr
 #' }
 #' @export
-#' @seealso \code{\link{dpareto2}}, \code{\link{pareto2.goftest}}, \code{\link{pareto2.htest}}, \code{\link{pareto2.htest.approx}}
+#' @family Pareto2
 pareto2.ftest <- function(x, y, s, alternative = c("two.sided", "less", "greater"), significance=NULL)
 {
 	alternative <- match.arg(alternative);

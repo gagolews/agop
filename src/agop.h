@@ -3,8 +3,6 @@
  *                                                                           *
  *   Copyright 2013 Marek Gagolewski, Anna Cena                              *
  *                                                                           *
- *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *                                                                       *
- *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *
  *   as published by the Free Software Foundation, either version 3          *
@@ -124,19 +122,6 @@ SEXP owmin(SEXP x, SEXP w);        // DONE
 SEXP wmin(SEXP x, SEXP w);         // DONE
 
 SEXP pord_weakdom(SEXP x, SEXP y); // DONE
-
-void Sstat2(double* x, int* n, double* out); // @TODO: rewrite
-
-
-
-
-
-
-
-void pareto2_phirsch(double* x, int* m, double* n, double* k, double* s); // @TODO: rewrite
-
-void pareto2_dhirsch(double* x, int* m, double* n, double* k, double* s); // @TODO: rewrite
-
 
 
 
