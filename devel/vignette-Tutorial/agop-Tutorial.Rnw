@@ -21,9 +21,9 @@
 \usepackage{xspace}
 \usepackage{lmodern}
 
-\usepackage[x11names, rgb]{xcolor}
+% \usepackage[x11names, rgb]{xcolor}
 \usepackage{tikz}
-\usetikzlibrary{snakes,arrows,shapes,patterns}
+\usetikzlibrary{arrows,patterns}
 
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \RequirePackage{graphicx,verbatim,longtable}
