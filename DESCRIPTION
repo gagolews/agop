@@ -4,8 +4,8 @@ Date: 2013-06-26
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria decision making,
     including variable number of criteria, by means of
-    aggregation operators and pre-ordered sets. Possible applications include,
-    but are not limited to, sciento-, biblio-, and informetrics.
+    aggregation operators and preordered sets. Possible applications include,
+    but are not limited to, scientometrics and bibliometrics.
 URL: http://www.rexamine.com/resources/agop/
 BugReports: http://github.com/Rexamine/agop/issues
 ByteCompile: TRUE

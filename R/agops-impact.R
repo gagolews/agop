@@ -78,7 +78,7 @@ index.h <- index_h # deprecated
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{g}-index} (Egghe, 2006) for \eqn{x} is defined as
-#' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\},}{
+#' \deqn{G(x)=\max\{i=1,\dots,n: \sum_{j=1}^i x_i \ge i^2\}}{
 #' G(x)=max{i=1,\dots,n: x_1+\dots+x_i \ge i^2}}
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{G(x)=0} otherwise.
 #'
@@ -139,7 +139,7 @@ index_g_zi <- function(x)
 #' Given a sequence of \eqn{n} non-negative numbers \eqn{x=(x_1,\dots,x_n)},
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{MAXPROD-index} (Kosmulski, 2007) for \eqn{x} is defined as
-#' \deqn{MAXPROD(x)=\max\{i x_i: i=1,\dots,n\}}{MAXPROD(x)=max{i x_i: i=1,\dots,n}}.
+#' \deqn{MAXPROD(x)=\max\{i x_i: i=1,\dots,n\}}{MAXPROD(x)=max{i x_i: i=1,\dots,n}}
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).
@@ -174,7 +174,7 @@ index_maxprod <- function(x)
 #' where \eqn{x_i \ge x_j \ge 0} for \eqn{i \le j},
 #' the \dfn{\eqn{w}-index} (Woeginger, 2008) for \eqn{x} is defined as
 #' \deqn{W(x)=\max\{i=1,\dots,n: x_{j}\ge i-j+1, \forall j=1,\dots,i\}}{
-#' W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}.
+#' W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}
 #'
 #' @details
 #' If non-increasingly sorted vector is given, the function is O(n).

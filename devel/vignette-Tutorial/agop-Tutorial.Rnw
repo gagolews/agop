@@ -905,14 +905,14 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Pre-orders}
+\section{Preorders}
 
 Let us consider the following relation on $\IvalAnyPow$.
 For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
 % \begin{equation}\label{Eq:partialorderingtrianglelefteq}
 $\vect{x}\trianglelefteq\vect{y}$ if and only if
 $n\le m\text{ and }x_{\{i\}}\le y_{\{i\}}$ for all $i\in\min\{n,m\}$.
-Of course, $\trianglelefteq$ is a pre-order -- it
+Of course, $\trianglelefteq$ is a preorder -- it
 would have been a partial order, if we had defined it on the set
 of \textit{sorted} vectors.
 
@@ -930,7 +930,7 @@ there exist pairs of vectors
 that are \textit{incomparable} with respect to $\trianglelefteq$ (see
 the illustration below).
 
-This pre-order in \package{agop} may be
+This preorder in \package{agop} may be
 determined using the \Rfunc{pord\_weakdom()} function.
 
 <<pord_weakdom>>=
@@ -947,7 +947,7 @@ if $\vect{x}\trianglelefteq\vect{y}$, then
 $\func{F}(\vect{x})\le \func{F}(\vect{y})$.
 Therefore, the class of  impact functions may be equivalently
 defined as all the aggregation operators
-that are nondecreasing with respect to this pre-order.
+that are nondecreasing with respect to this preorder.
 
 
 Additionally, we will write $\vect{x}\vartriangleleft\vect{y}$ if
@@ -977,14 +977,14 @@ legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 
 Here is the adjacency matrix for 
-the pre-ordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
+the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
 
 <<ex1B,dependson='ex1'>>=
 ord <- rel_graph(ex1, pord_weakdom)
 print(ord)
 is_reflexive(ord)  # is reflexive
 is_transitive(ord) # is transitive
-is_total(ord)      # not a total pre-order...
+is_total(ord)      # not a total preorder...
 @
 
 \noindent
@@ -1019,14 +1019,14 @@ for discussion), and then calculate transitive closure.
 
 
 <<ex1D,dependson='ex1C'>>=
-ord_total <- closure_transitive(closure_total_fair(ord)) # a total pre-order
+ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder
 print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
-Note that each total pre-order $\trianglelefteq''$ induces an
+Note that each total preorder $\trianglelefteq''$ induces an
 equivalence relation ($x\simeq y$ iff $x\trianglelefteq''y$ and $y\trianglelefteq''x$;
 the equivalence classes may be ordered with $\trianglelefteq''$).
 These may be explored with the \Rfunc{get\_equivalence\_classes()}
