@@ -1126,7 +1126,7 @@ with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$
 \package{agop} implementation: \Rfunc{wmax()} and \Rfunc{owmax()}.
 
 <<owmax>>=
-wmax(c(1,3,5,2), Inf)
+wmax(c(1,3,5,2), Inf) # no vectorization here!
 wmax(c(1,3,5,2), rep(Inf, 4)) # greatest value /default behavior/
 owmax(1:10, 1:10)
 @
@@ -1436,9 +1436,9 @@ where $1:n = (1, 2, 3, \dots, n)$.
 \paragraph{The $w$-index.}
 The $w$-index \cite{Woeginger2008:axiomatich}
 is  defined as
-\begin{equation}\label{Eq:IndexW}
+\begin{equation*}\label{Eq:IndexW}
 \func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}
-\end{equation}
+\end{equation*}
 and is available in \package{agop} by calling \Rfunc{index\_w()}.
 
 Interestingly, we have shown in \cite{GagolewskiMesiar2013:fuzzyintbiblio}
@@ -1481,9 +1481,9 @@ where $\func{e}^{p,u,v}=\left(\sqrt[p]{v^{p}-(\frac{v}{u}0)^{p}},
 
 \paragraph{The $\mathrm{MAXPROD}$-index.}
 The MAXPROD-index \cite{Kosmulski2007:maxprod} is given  by the equation
-\begin{equation}\label{Eq:IndexMaxProd}
+\begin{equation*}\label{Eq:IndexMaxProd}
    \func{MP}(\vect{x}) = \max\left\{i\cdot{{x}}_{\{i\}}: i=1,2,\ldots\right\}
-\end{equation}
+\end{equation*}
 is another example of zero-insensitive impact function.
 Interestingly, this index is a particular case of a projected $l_\infty$-index,
 see~\cite{GagolewskiGrzegorzewski2009:geometricapproach}, and can be also expressed
@@ -1500,9 +1500,9 @@ Bibliometricians in many papers considered very
 simple, direct modifications of the $h$-index.
 For example, the $h(2)$-index \cite{Kosmulski2006:h2}
 is defined as:
-\begin{equation}\label{Eq:IndexH2}
+\begin{equation*}\label{Eq:IndexH2}
 \func{H2}(\vect{x}) = \max\left\{h=0,1,2,\ldots: {x}_{h} \ge h^2\right\}. %= \left\lfloor \bigvee_{i=1,2,\dots} i\wedge x_{i}\right\rfloor
-\end{equation}
+\end{equation*}
 Some authors introduced other settings than ``$h^2$'' on the right
 side of \eqref{Eq:IndexH2}, e.g. ``$2h$'', ``$\alpha h$'' for some
 $\alpha > 0$, or ``$h^\beta$'', $\beta\ge 1$, cf.~\cite{AlonsoETAL2009:hreview}.
@@ -1650,13 +1650,13 @@ rowMeans(replicate(1000, {
 
 \bigskip
 For both unknown $k$ and $s$ we have:
-\begin{equation}\label{Eq:rownaniapochMLE}
+\begin{equation*}\label{Eq:rownaniapochMLE}
 \left\{
 \begin{array}{lll}
 \widehat{k} = \frac{n}{\sum_{i=1}^n \ln\left(1+x_i/\widehat{s}\right)}, \\
 1+\frac{1}{n} \sum_{i=1}^n \ln\left(1+x_i/\widehat{s}\right) - \frac{n}{\sum_{i=1}^n \left(1+x_i/\widehat{s}\right)^{-1}}  &=& 0. \\
 \end{array}\right.
-\end{equation}
+\end{equation*}
 Unfortunately, the second equation must be solved numerically.
 It is worth noting that the above system of equations may sometimes
 have no solution (as the local minimum of the likelihood function may not exist,
@@ -1864,59 +1864,17 @@ pareto2_test_f(x, y, s=1)
 % OWMax, S-statistics
 % $h$-index and its distribution
 
-Let us assume that $(X_{1},\dots,X_{n})$ denotes a sequence of
-independent, identically distributed random variables and let c.d.f $\func{F}$ 
-of $X_{i}\ i=1,\dots,n$ be continuous and strictly increasing in $[a,b]$, 
-such that $a=\inf{\{x: \func{F}(x)>0\}}$ and $b=\sup{\{x:\func{F}(x)<1\}}$, $a<b$.
 
-In this section we are going to recall some basic statistical properties
-of \emph{L-} and \emph{S-statistics}. 
+Given $(X_1,X_2,\dots)$ i.i.d.~following a continuous c.d.f.~$F$
+it is well-known, see \cite{DavidNagaraja2003:orderstatistics},
+that L-statistics with weights $c_{i,n}=\func{w}(i/n)$, for $\func{w}:[0,1]\to\Ival$,
+are asymptotically normally distributed.
+A similar result for the same weight setting
+has been shown for S-statistics, see \cite{GagolewskiGrzegorzewski2010:smps}.
 
 
-\begin{definition}\label{s:statistic:kappa}
-An \emph{S-statistic} associated with function $\kappa$ and a random 
-sample $(X_{1},\dots,X_{n})$ is a function 
-\[
-\func{V}_{n,k}(X_{1},\dots,X_{n})=\bigvee_{i=1}^{n}\kappa\Big(\frac{i}{n}\Big)
-\wedge X_{(n-i+1)},
-\]
-where $\kappa: [0,1]\to[a,b]$, called \emph{control function},
-is a strictly increasing 
-continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
-\end{definition}
-\bigskip
-It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic} 
-$\func{S}_{\triangle}|_{\IvalPow{n}}$ (cf. Definition~\ref{s:statistic})
-associated with triangle of coefficients $\triangle=(c_{i,n})_{n\in\Naturals,i\in[n]}$
-such that $c_{i,n}=\kappa\Big(\frac{i}{n}\Big)$.
-
-Also please note that without loss of generality we may consider \emph{S-statistic}
-form Definition~\ref{s:statistic:kappa} of a form
-\[
-\func{V}_{n}(Y_{1},\dots,Y_{n})=\bigvee_{i=1}^{n}\frac{i}{n}\wedge Y_{(n-i+1)},
-\]
-where $(Y_{1},\dots,Y_{n})=(\kappa^{-1}(X_{1}),\dots,\kappa^{-1}(X_{n}))$ is a
-sequence of i.i.d. random variables given by the continuous c.d.f. 
-$\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}. 
-
-\bigskip
-The exact distribution is given by the following Theorem.
-\begin{theorem}
-The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
-\begin{eqnarray*}
-\func{D}_{n}(x)&=&1-\sum_{i=1}^{n}{{n}\choose{i}}[1-\func{G}(x)]^{i}
-[G(x)]^{n-1}\\
-&=&\mathcal{I}(\func{G}(x);n-\lfloor xn\rfloor,\lfloor xn\rfloor+1),
-\end{eqnarray*}
-for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ 
-is the regularized incomplete beta function.
-\end{theorem}
-
-\bigskip
-Let us recall that Hirsch's $h$-index, for $x\in\Naturals^{n}_{0}$ reduced itself to a
-\emph{OWMax} operator, which is a special case of \emph{S-statistic}. Therefore, 
-the exact distribution of $\func{H}$, given by the following theorem, comes straightforward 
-from the previous results (for more details see.~\cite{Gagolewski2012:smps}).
+For i.i.d~samples of finite length we have e.g.~the following
+result \cite{Gagolewski2012:smps}:
 
 \begin{theorem}
 Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
@@ -1926,87 +1884,161 @@ Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
 \func{D}_{n}(x)=\mathcal{I}(\func{F}(\lfloor x+1\rfloor^{-0});n-\lfloor x\rfloor,
 \lfloor x \rfloor+1),
 \]
-where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function. 
+where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function
+(\Rfunc{pbeta()} in \R).
 \end{theorem}
 
-\bigskip
-\begin{definition}
-A $\kappa$-index of a random variable given by a c.d.f. $\func{F}$ with respect to control
-function $\kappa$ is a number $\varrho_{\kappa}\in[0,1]$ such that
-\[
-\varrho_{\kappa}=1-\func{F}(\kappa(\varrho_{\kappa})).
-\]
-\end{definition}
-For survival function, $\func{S}(x)=1-\func{F}(x)$, $\varrho_{\kappa}$
-satisfies $\varrho_{\kappa}=\func{S}(\kappa(\varrho_{\kappa}))=
-\mathbb{P}(X>\kappa(\varrho_{\kappa}))$. It is clear to see that, intuitively,
-$\varrho_{\kappa}$ is a number such that the probability of assuming a value greater 
-than $\kappa(\varrho_{\kappa})$ is equal to $\varrho_{\kappa}$. What is more, 
-in~\cite{GagolewskiGrzegorzewski2010:smps} we have following results.
-\bigskip
-\begin{theorem}
-$\func{V}_{n}$ is a strongly consistent estimator of $\varrho=\varrho_{id}$.
-\end{theorem}
+More generally, the c.d.f.~of some quasi-S-statistics
+may be expressed as an incomplete beta function,
+see \cite{GagolewskiGrzegorzewski2010:smps}.
+Note that, unlike in the case of 
+the distribution of ``ordinary'' order statistics
+(see \cite{DavidNagaraja2003:orderstatistics}),
+the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 
-% Moreover, it can be shown that for any control function $\kappa$, 
-% if $X\succeq_{st}Y$, then $\varrho_{kappa,X}\geq\varrho_{\kappa,Y}$. 
-% Thus, we may consider $\varrho_{\kappa}$ as some measure of location.
-
-The asymptotic distribution of \emph{S-statistic} is given by the following 
-theorem.
-
-\begin{theorem}
-If $\func{G}$ is a c.d.f. differentiable at $\varrho$, then
-\[
-\func{V}_{n}\xrightarrow{D}\mathcal{N}\left(\varrho,\frac{1}{1+\func{G}'(\varrho)}
-\sqrt{\frac{\varrho(1-\varrho)}{n}}\right).
-\]
-\end{theorem}
-
-Let us now consider asymptotic distribution of \emph{L-statistics}. 
-Please note, that sometimes it is used to represent $\func{L}_{\triangle}$ as 
-\[
-\func{L}_{n}=\frac{1}{n}\sum_{i=1}^{n}\func{J}\left(\frac{i}{n}\right)X_{(i)},
-\]
-where function $\func{J}(u)$ for $u\in[0,1]$ is such that $\func{J}(i/n)=nc_{i,n}$,
-$i=1,\dots,n$.
-
-We present below the asymptotic normality result for normed $\func{L}_{n}$,
-cf~\ref{DavidNagaraja2003:orderstatistics}. To this end, first define
-\[
-\mu(\func{J},\func{F})=\int_{0}^{1}\func{J}(u)\func{F}^{-1}(u)du
-\]
-and
-\[
-\sigma^{2}(\func{J},\func{F})=2\int\int_{0<u<v<1}\func{J}(u)\func{J}(v)
-u(1-v)d\func{F}^{-1}(u)d\func{F}^{-1}(v).
-\]
-%a.e. =almost everywhere
-\begin{theorem}
-Assume that $\func{var}(X_{1})<\infty$ and that $\func{J}(u)$ is bounded and 
-continuous a.e. $\func{F}^{-1}$. Then
-\[
-\lim_{n\to\infty}n\mathbb{E}(\func{L}_{n})=\mu(\func{J},\func{F}),
-\]
-\[
-\lim_{n\to\infty}n\func{var}(\func{L}_{n})=\sigma^{2}(\func{J},\func{F}),
-\]
-and if $\sigma^{2}(\func{J},\func{F})>0$,
-\[
-\func{L}^{*}_{n}=\frac{\func{L}_{n}-\mathbb{E}(\func{L}_{n})}
-{\sqrt{\func{var}(\func{L}_{n})}}\xrightarrow{D}\mathcal{N}(0,1).
-\]
-\end{theorem}
-
-What is more, it can be shown (cf.~\ref{DavidNagaraja2003:orderstatistics})
-that if $\int_{0}^{1}[u(1-u)]^{1/2}d\func{F}^{-1}(u)<\infty$ and
-$\func{J}$ is bounded and satisfies a Lipschitz condition of order
-$\alpha>\frac{1}{2}$ except perhaps at finite number of continuity points
-of $\func{F}^{-1}$,
-then we have
-\[
-\lim_{n\to\infty}n^{1/2}[\mathbb{E}(\func{L}_{n})-\mu(\func{J},\func{F})]=0.
-\]
+% Let us assume that $(X_{1},\dots,X_{n})$ denotes a sequence of
+% independent, identically distributed random variables and let c.d.f $\func{F}$ 
+% of $X_{i}\ i=1,\dots,n$ be continuous and strictly increasing in $[a,b]$, 
+% such that $a=\inf{\{x: \func{F}(x)>0\}}$ and $b=\sup{\{x:\func{F}(x)<1\}}$, $a<b$.
+% 
+% In this section we are going to recall some basic statistical properties
+% of \emph{L-} and \emph{S-statistics}. 
+% 
+% 
+% \begin{definition}\label{s:statistic:kappa}
+% An \emph{S-statistic} associated with function $\kappa$ and a random 
+% sample $(X_{1},\dots,X_{n})$ is a function 
+% \[
+% \func{V}_{n,k}(X_{1},\dots,X_{n})=\bigvee_{i=1}^{n}\kappa\Big(\frac{i}{n}\Big)
+% \wedge X_{(n-i+1)},
+% \]
+% where $\kappa: [0,1]\to[a,b]$, called \emph{control function},
+% is a strictly increasing 
+% continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
+% \end{definition}
+% \bigskip
+% It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic} 
+% $\func{S}_{\triangle}|_{\IvalPow{n}}$ (cf. Definition~\ref{s:statistic})
+% associated with triangle of coefficients $\triangle=(c_{i,n})_{n\in\Naturals,i\in[n]}$
+% such that $c_{i,n}=\kappa\Big(\frac{i}{n}\Big)$.
+% 
+% Also please note that without loss of generality we may consider \emph{S-statistic}
+% form Definition~\ref{s:statistic:kappa} of a form
+% \[
+% \func{V}_{n}(Y_{1},\dots,Y_{n})=\bigvee_{i=1}^{n}\frac{i}{n}\wedge Y_{(n-i+1)},
+% \]
+% where $(Y_{1},\dots,Y_{n})=(\kappa^{-1}(X_{1}),\dots,\kappa^{-1}(X_{n}))$ is a
+% sequence of i.i.d. random variables given by the continuous c.d.f. 
+% $\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}. 
+% 
+% \bigskip
+% The exact distribution is given by the following Theorem.
+% \begin{theorem}
+% The c.d.f. of $\func{V}_{n}(Y_{1},\dots,Y_{n})$ is given by
+% \begin{eqnarray*}
+% \func{D}_{n}(x)&=&1-\sum_{i=1}^{n}{{n}\choose{i}}[1-\func{G}(x)]^{i}
+% [G(x)]^{n-1}\\
+% &=&\mathcal{I}(\func{G}(x);n-\lfloor xn\rfloor,\lfloor xn\rfloor+1),
+% \end{eqnarray*}
+% for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ 
+% is the regularized incomplete beta function.
+% \end{theorem}
+% 
+% \bigskip
+% Let us recall that Hirsch's $h$-index, for $x\in\Naturals^{n}_{0}$ reduced itself to a
+% \emph{OWMax} operator, which is a special case of \emph{S-statistic}. Therefore, 
+% the exact distribution of $\func{H}$, given by the following theorem, comes straightforward 
+% from the previous results (for more details see.~\cite{Gagolewski2012:smps}).
+% 
+% \begin{theorem}
+% Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
+% random variables with continuous c.d.f. $\func{F}$ defined on $\mathbb{R}_{0+}$.
+% Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
+% \[
+% \func{D}_{n}(x)=\mathcal{I}(\func{F}(\lfloor x+1\rfloor^{-0});n-\lfloor x\rfloor,
+% \lfloor x \rfloor+1),
+% \]
+% where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function. 
+% \end{theorem}
+% 
+% \bigskip
+% \begin{definition}
+% A $\kappa$-index of a random variable given by a c.d.f. $\func{F}$ with respect to control
+% function $\kappa$ is a number $\varrho_{\kappa}\in[0,1]$ such that
+% \[
+% \varrho_{\kappa}=1-\func{F}(\kappa(\varrho_{\kappa})).
+% \]
+% \end{definition}
+% For survival function, $\func{S}(x)=1-\func{F}(x)$, $\varrho_{\kappa}$
+% satisfies $\varrho_{\kappa}=\func{S}(\kappa(\varrho_{\kappa}))=
+% \mathbb{P}(X>\kappa(\varrho_{\kappa}))$. It is clear to see that, intuitively,
+% $\varrho_{\kappa}$ is a number such that the probability of assuming a value greater 
+% than $\kappa(\varrho_{\kappa})$ is equal to $\varrho_{\kappa}$. What is more, 
+% in~\cite{GagolewskiGrzegorzewski2010:smps} we have following results.
+% \bigskip
+% \begin{theorem}
+% $\func{V}_{n}$ is a strongly consistent estimator of $\varrho=\varrho_{id}$.
+% \end{theorem}
+% 
+% % Moreover, it can be shown that for any control function $\kappa$, 
+% % if $X\succeq_{st}Y$, then $\varrho_{kappa,X}\geq\varrho_{\kappa,Y}$. 
+% % Thus, we may consider $\varrho_{\kappa}$ as some measure of location.
+% 
+% The asymptotic distribution of \emph{S-statistic} is given by the following 
+% theorem.
+% 
+% \begin{theorem}
+% If $\func{G}$ is a c.d.f. differentiable at $\varrho$, then
+% \[
+% \func{V}_{n}\xrightarrow{D}\mathcal{N}\left(\varrho,\frac{1}{1+\func{G}'(\varrho)}
+% \sqrt{\frac{\varrho(1-\varrho)}{n}}\right).
+% \]
+% \end{theorem}
+% 
+% Let us now consider asymptotic distribution of \emph{L-statistics}. 
+% Please note, that sometimes it is used to represent $\func{L}_{\triangle}$ as 
+% \[
+% \func{L}_{n}=\frac{1}{n}\sum_{i=1}^{n}\func{J}\left(\frac{i}{n}\right)X_{(i)},
+% \]
+% where function $\func{J}(u)$ for $u\in[0,1]$ is such that $\func{J}(i/n)=nc_{i,n}$,
+% $i=1,\dots,n$.
+% 
+% We present below the asymptotic normality result for normed $\func{L}_{n}$,
+% cf~\cite{DavidNagaraja2003:orderstatistics}. To this end, first define
+% \[
+% \mu(\func{J},\func{F})=\int_{0}^{1}\func{J}(u)\func{F}^{-1}(u)du
+% \]
+% and
+% \[
+% \sigma^{2}(\func{J},\func{F})=2\int\int_{0<u<v<1}\func{J}(u)\func{J}(v)
+% u(1-v)d\func{F}^{-1}(u)d\func{F}^{-1}(v).
+% \]
+% %a.e. =almost everywhere
+% \begin{theorem}
+% Assume that $\func{var}(X_{1})<\infty$ and that $\func{J}(u)$ is bounded and 
+% continuous a.e. $\func{F}^{-1}$. Then
+% \[
+% \lim_{n\to\infty}n\mathbb{E}(\func{L}_{n})=\mu(\func{J},\func{F}),
+% \]
+% \[
+% \lim_{n\to\infty}n\func{var}(\func{L}_{n})=\sigma^{2}(\func{J},\func{F}),
+% \]
+% and if $\sigma^{2}(\func{J},\func{F})>0$,
+% \[
+% \func{L}^{*}_{n}=\frac{\func{L}_{n}-\mathbb{E}(\func{L}_{n})}
+% {\sqrt{\func{var}(\func{L}_{n})}}\xrightarrow{D}\mathcal{N}(0,1).
+% \]
+% \end{theorem}
+% 
+% What is more, it can be shown (cf.~\ref{DavidNagaraja2003:orderstatistics})
+% that if $\int_{0}^{1}[u(1-u)]^{1/2}d\func{F}^{-1}(u)<\infty$ and
+% $\func{J}$ is bounded and satisfies a Lipschitz condition of order
+% $\alpha>\frac{1}{2}$ except perhaps at finite number of continuity points
+% of $\func{F}^{-1}$,
+% then we have
+% \[
+% \lim_{n\to\infty}n^{1/2}[\mathbb{E}(\func{L}_{n})-\mu(\func{J},\func{F})]=0.
+% \]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
