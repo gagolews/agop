@@ -50,8 +50,8 @@ SEXP prepare_arg_numeric(SEXP x, const char* argname)
       
    double* xd = REAL(x);
    for (R_len_t i=0; i<n; ++i) {
-      if (R_IsNA(xd[i])) {
-         return ScalarReal(NA_REAL);
+      if (ISNA(xd[i])) {
+         return Rf_ScalarReal(NA_REAL);
       }
    }
    return x;
@@ -82,8 +82,8 @@ SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
    double* xd = REAL(x);
    bool sorted = true;
    for (R_len_t i=0; i<n; ++i) {
-      if (R_IsNA(xd[i])) {
-         return ScalarReal(NA_REAL);
+      if (ISNA(xd[i])) {
+         return Rf_ScalarReal(NA_REAL);
       }
       else if (sorted && (i > 1) && (xd[i-1] < xd[i])) {
          sorted = false;
@@ -99,7 +99,7 @@ SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
    std::sort(myvector.begin(), myvector.end(), comparer_greater);
    
    SEXP ret;
-   PROTECT(ret = allocVector(REALSXP, n));
+   PROTECT(ret = Rf_allocVector(REALSXP, n));
    R_len_t i = 0;
    for (std::vector<double>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
       REAL(ret)[i++] = *it;
@@ -134,11 +134,11 @@ SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname)
    double* xd = REAL(x);
    bool sorted = true;
    for (R_len_t i=0; i<n; ++i) {
-      if (R_IsNA(xd[i])) {
-         return ScalarReal(NA_REAL);
+      if (ISNA(xd[i])) {
+         return Rf_ScalarReal(NA_REAL);
       }
       else if (xd[i] < 0) {
-         error(MSG__ARG_NOT_IN_O_INFTY, argname);
+         Rf_error(MSG__ARG_NOT_IN_O_INFTY, argname);
       }
       else if (sorted && (i > 1) && (xd[i-1] < xd[i])) {
          sorted = false;
@@ -154,7 +154,7 @@ SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname)
    std::sort(myvector.begin(), myvector.end(), comparer_greater);
    
    SEXP ret;
-   PROTECT(ret = allocVector(REALSXP, n));
+   PROTECT(ret = Rf_allocVector(REALSXP, n));
    R_len_t i = 0;
    for (std::vector<double>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
       REAL(ret)[i++] = *it;
@@ -183,22 +183,22 @@ SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname)
  */
 SEXP prepare_arg_string(SEXP x, const char* argname)
 {
-   if (isString(x))
+   if (Rf_isString(x))
       return x; // return as-is
-   else if (isFactor(x))
+   else if (Rf_isFactor(x))
    {
       SEXP call;
-      PROTECT(call = lang2(install("as.character"), x));
-		x = eval(call, R_GlobalEnv); // this will mark it's encoding manually
+      PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
+		x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
 		UNPROTECT(1);
       return x;
    }
-   else if (isVectorAtomic(x))
-      return coerceVector(x, STRSXP);
-   else if (isSymbol(x))
-      return ScalarString(PRINTNAME(x));
+   else if (Rf_isVectorAtomic(x))
+      return Rf_coerceVector(x, STRSXP);
+   else if (Rf_isSymbol(x))
+      return Rf_ScalarString(PRINTNAME(x));
       
-   error(MSG__ARG_EXPECTED_STRING, argname);
+   Rf_error(MSG__ARG_EXPECTED_STRING, argname);
    return x; // avoid compiler warning
 }
 
@@ -218,20 +218,20 @@ SEXP prepare_arg_string(SEXP x, const char* argname)
  */
 SEXP prepare_arg_double(SEXP x, const char* argname)
 {
-   if (isFactor(x)) 
+   if (Rf_isFactor(x)) 
    {
       SEXP call;
-      PROTECT(call = lang2(install("as.character"), x));
-      x = eval(call, R_GlobalEnv); // this will mark it's encoding manually
+      PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
+      x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
 		UNPROTECT(1);
-      return coerceVector(x, REALSXP);
+      return Rf_coerceVector(x, REALSXP);
    }
-   else if(isReal(x))
+   else if(Rf_isReal(x))
       return x; //return as-is
-   else if (isVectorAtomic(x))
-      return coerceVector(x, REALSXP);
+   else if (Rf_isVectorAtomic(x))
+      return Rf_coerceVector(x, REALSXP);
       
-   error(MSG__ARG_EXPECTED_NUMERIC, argname);
+   Rf_error(MSG__ARG_EXPECTED_NUMERIC, argname);
    return x; // avoid compiler warning
 }
 
@@ -250,20 +250,20 @@ SEXP prepare_arg_double(SEXP x, const char* argname)
  */
 SEXP prepare_arg_integer(SEXP x, const char* argname)
 {
-   if (isFactor(x)) // factors must be checked first (as they are currently represented as integer vectors)
+   if (Rf_isFactor(x)) // factors must be checked first (as they are currently represented as integer vectors)
    {
       SEXP call;
-      PROTECT(call = lang2(install("as.character"), x));
-   	x = eval(call, R_GlobalEnv); // this will mark it's encoding manually
+      PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
+   	x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
 		UNPROTECT(1);
-      return coerceVector(x, INTSXP);
+      return Rf_coerceVector(x, INTSXP);
    }
-   else if (isInteger(x))
+   else if (Rf_isInteger(x))
       return x; // return as-is
-   else if (isVectorAtomic(x))
-      return coerceVector(x, INTSXP);
+   else if (Rf_isVectorAtomic(x))
+      return Rf_coerceVector(x, INTSXP);
       
-   error(MSG__ARG_EXPECTED_INTEGER, argname);
+   Rf_error(MSG__ARG_EXPECTED_INTEGER, argname);
    return x; // avoid compiler warning
 }
 
@@ -282,20 +282,20 @@ SEXP prepare_arg_integer(SEXP x, const char* argname)
  */
 SEXP prepare_arg_logical(SEXP x, const char* argname)
 {
-   if (isFactor(x))
+   if (Rf_isFactor(x))
    {
       SEXP call;
-      PROTECT(call = lang2(install("as.character"), x));
-      x = eval(call, R_GlobalEnv); // this will mark it's encoding manually
+      PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
+      x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
 		UNPROTECT(1);
-      return coerceVector(x, LGLSXP);
+      return Rf_coerceVector(x, LGLSXP);
    }
-   else if (isLogical(x))
+   else if (Rf_isLogical(x))
       return x; // return as-is
-   else if (isVectorAtomic(x))
-      return coerceVector(x, LGLSXP);
+   else if (Rf_isVectorAtomic(x))
+      return Rf_coerceVector(x, LGLSXP);
       
-   error(MSG__ARG_EXPECTED_LOGICAL, argname);
+   Rf_error(MSG__ARG_EXPECTED_LOGICAL, argname);
    return x; // avoid compiler warning
 }
 
@@ -320,10 +320,10 @@ SEXP prepare_arg_string_1(SEXP x, const char* argname)
    R_len_t nx = LENGTH(x);
    
    if (nx <= 0)
-      error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+      Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
    
    if (nx > 1) {
-      warning(MSG__ARG_EXPECTED_1_STRING, argname);
+      Rf_warning(MSG__ARG_EXPECTED_1_STRING, argname);
 //      SEXP xold = x;
 //      PROTECT(x = allocVector(STRSXP, 1));
 //      SET_STRING_ELT(x, 0, STRING_ELT(xold, 0));
@@ -351,10 +351,10 @@ SEXP prepare_arg_double_1(SEXP x, const char* argname)
    R_len_t nx = LENGTH(x);
    
    if (nx <= 0)
-      error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+      Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
    
    if (nx > 1) {
-      warning(MSG__ARG_EXPECTED_1_NUMERIC, argname);
+      Rf_warning(MSG__ARG_EXPECTED_1_NUMERIC, argname);
 //      double x0 = REAL(x)[0];
 //      PROTECT(x = allocVector(REALSXP, 1));
 //      REAL(x)[0] = x0;
@@ -382,10 +382,10 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname)
    R_len_t nx = LENGTH(x);
    
    if (nx <= 0)
-      error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+      Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
    
    if (nx > 1) {
-      warning(MSG__ARG_EXPECTED_1_INTEGER, argname);
+      Rf_warning(MSG__ARG_EXPECTED_1_INTEGER, argname);
 //      int x0 = INTEGER(x)[0];
 //      PROTECT(x = allocVector(INTSXP, 1));
 //      INTEGER(x)[0] = x0;
@@ -413,10 +413,10 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
    R_len_t nx = LENGTH(x);
    
    if (nx <= 0)
-      error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+      Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
    
    if (nx > 1) {
-      warning(MSG__ARG_EXPECTED_1_LOGICAL, argname);
+      Rf_warning(MSG__ARG_EXPECTED_1_LOGICAL, argname);
 //      int x0 = LOGICAL(x)[0];
 //      PROTECT(x = allocVector(LGLSXP, 1));
 //      LOGICAL(x)[0] = x0;
@@ -438,10 +438,10 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 SEXP vector_NA_double(R_len_t howmany)
 {
    if (howmany < 0)
-      error(MSG__INCORRECT_INTERNAL_ARG);
+      Rf_error(MSG__INCORRECT_INTERNAL_ARG);
    
    SEXP ret;
-   PROTECT(ret = allocVector(REALSXP, howmany));
+   PROTECT(ret = Rf_allocVector(REALSXP, howmany));
    for (R_len_t i=0; i<howmany; ++i)
       REAL(ret)[i] = NA_REAL;
    UNPROTECT(1);

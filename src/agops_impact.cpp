@@ -41,8 +41,8 @@ SEXP index_h(SEXP x)
    if (n <= 0) return x;
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
       
    R_len_t i = 0;
 	while (i < n)	{
@@ -50,7 +50,7 @@ SEXP index_h(SEXP x)
 		++i;
 	}
 	
-   return ScalarReal((double) i);
+   return Rf_ScalarReal((double) i);
 }
 
 
@@ -71,8 +71,8 @@ SEXP index_g(SEXP x)
    if (n <= 0) return x;
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
       
    double sum = 0.0;
    R_len_t i = 0;
@@ -82,7 +82,7 @@ SEXP index_g(SEXP x)
 		++i;
 	}
 	
-   return ScalarReal((double) i);
+   return Rf_ScalarReal((double) i);
 }
 
 
@@ -101,8 +101,8 @@ SEXP index_g_zi(SEXP x)
    if (n <= 0) return x;
 
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
       
    double sum = 0.0;
    R_len_t i = 0;
@@ -112,7 +112,7 @@ SEXP index_g_zi(SEXP x)
 		++i;
 	}
 	
-   return ScalarReal((double) i);
+   return Rf_ScalarReal((double) i);
 }
 
 
@@ -132,13 +132,13 @@ SEXP index_w(SEXP x)
    if (n <= 0) return x;
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
       
    R_len_t w = min(xd[0],(double)n);
    for (R_len_t i=1; i < n; ++i) {
       if (xd[i] < w-i) {
-         w = (int)xd[i]+i;
+         w = (R_len_t)(xd[i]+i);
       }
       if (xd[i] == 0) {
          w = min(w,i+1);
@@ -146,7 +146,7 @@ SEXP index_w(SEXP x)
       }
 	}
 	
-   return ScalarReal((double) w);
+   return Rf_ScalarReal((double) w);
 }
 
 
@@ -166,15 +166,15 @@ SEXP index_maxprod(SEXP x)
    if (n <= 0) return x;
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
    
    double out = 0.0;
    for (R_len_t i = 0; i < n && xd[i] > 0; ++i)
       if (out < xd[i]*(double)(i+1))
          out = xd[i]*(double)(i+1);
 	
-   return ScalarReal(out);
+   return Rf_ScalarReal(out);
 }
 
 
@@ -217,20 +217,20 @@ SEXP index_rp(SEXP x, SEXP p)
 {
    p = prepare_arg_numeric(p, "p");
    if (LENGTH(p) != 1)
-      error("`p` should be a single numeric value");
+      Rf_error("`p` should be a single numeric value");
    double p_val = REAL(p)[0];
-   if (R_IsNA(p_val) || p_val < 1)
-      error("`p` should be >= 1");
+   if (ISNA(p_val) || p_val < 1)
+      Rf_error("`p` should be >= 1");
 
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    R_len_t n = LENGTH(x);
    if (n <= 0) return x;
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarReal(NA_REAL);
 
-   if (isinf(p_val))
+   if (!R_FINITE(p_val))
    {
       // this is OWMax for w=1,2,3,....
       double ret_val = DBL_MIN;
@@ -238,14 +238,14 @@ SEXP index_rp(SEXP x, SEXP p)
          double tmp = min((double)(i+1), xd[i]);
          if (ret_val < tmp) ret_val = tmp;
       }
-      return ScalarReal(ret_val);
+      return Rf_ScalarReal(ret_val);
    }
    else {
       if (p_val > 50)
-         warning("p is large but finite. possible accuracy problems.");
+         Rf_warning("p is large but finite. possible accuracy problems.");
          
 	   double r2p = pow((double)n, p_val);
-	   int i;
+	   R_len_t i;
 
    	for (i=0; i<n; ++i)
    	{
@@ -255,7 +255,7 @@ SEXP index_rp(SEXP x, SEXP p)
    			r2p = ip + xip;
    	}
 
-   	return ScalarReal(pow(r2p, 1.0/p_val));
+   	return Rf_ScalarReal(pow(r2p, 1.0/p_val));
    }
 }
 
@@ -294,10 +294,10 @@ SEXP index_lp(SEXP x, SEXP p)
 {
    p = prepare_arg_numeric(p, "p");
    if (LENGTH(p) != 1)
-      error("`p` should be a single numeric value");
+      Rf_error("`p` should be a single numeric value");
    double p_val = REAL(p)[0];
-   if (R_IsNA(p_val) || p_val < 1)
-      error("`p` should be >= 1");
+   if (ISNA(p_val) || p_val < 1)
+      Rf_error("`p` should be >= 1");
       
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    R_len_t n = LENGTH(x);
@@ -306,13 +306,13 @@ SEXP index_lp(SEXP x, SEXP p)
 
    
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
+   if (ISNA(xd[0]))
       return (double2(NA_REAL, NA_REAL).toR());
    
    if (xd[1] <= 0.0)
       return (double2(0.0, 0.0).toR());
    
-   if (isinf(p_val))
+   if (!R_FINITE(p_val))
    {
       // this is OWMax for w=1,2,3,....
       double max_prod = 0.0;
@@ -328,7 +328,7 @@ SEXP index_lp(SEXP x, SEXP p)
    }
    else {
       if (p_val > 50)
-         warning("p is large but finite. possible accuracy problems.");
+         Rf_warning("p is large but finite. possible accuracy problems.");
       
       
 // * Function to compute the l_p-index, O(n) time, p<Inf
@@ -337,7 +337,7 @@ SEXP index_lp(SEXP x, SEXP p)
 
       deque<double2> stack;
       stack.push_back(double2(0.0, xd[0]));
-      int i = 0;
+      R_len_t i = 0;
       while (i<n && xd[i] >= xd[0]) ++i;
       stack.push_back(double2((double)i, xd[i]));
       
@@ -361,7 +361,7 @@ SEXP index_lp(SEXP x, SEXP p)
    	double2 ab = __index_lp_finite_getAB(p_val,
          stack.at(0).v1, stack.at(0).v2,
          stack.at(1).v1, stack.at(1).v2);
-   	for (i=1; i<stack.size()-1; ++i)
+   	for (i=1; i<(R_len_t)stack.size()-1; ++i)
    	{
    		double2 ab2 = __index_lp_finite_getAB(p_val, 
             stack.at(i).v1, stack.at(i).v2,

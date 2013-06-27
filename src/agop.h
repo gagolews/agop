@@ -25,16 +25,26 @@
 
 // #define NDEBUG
 
-#include <R.h>
-#include <Rmath.h>
-#include <Rdefines.h>
-#include <R_ext/Rdynload.h>
 
 #include <iostream>
 #include <algorithm>    
 #include <vector>       
 #include <deque>
 using namespace std;
+
+#define R_NO_REMAP
+
+#include <R.h>
+#include <Rmath.h>
+#include <Rdefines.h>
+#include <Rinternals.h>
+#include <R_ext/Rdynload.h>
+
+
+
+
+// length macro conflicts with STL
+#undef length
 
 #define EPS 1e-12
 
@@ -81,12 +91,12 @@ using namespace std;
 struct double2 {
    double v1;
    double v2;
-   double2(double v1=0.0, double v2=0.0) {this->v1=v1; this->v2=v2;}
+   double2(double _v1=0.0, double _v2=0.0) {this->v1=_v1; this->v2=_v2;}
    SEXP toR() {
       SEXP ret;
-      PROTECT(ret = allocVector(REALSXP, 2));
-      REAL(ret)[0] = v1;
-      REAL(ret)[1] = v2;
+      PROTECT(ret = Rf_allocVector(REALSXP, 2));
+      REAL(ret)[0] = this->v1;
+      REAL(ret)[1] = this->v2;
       UNPROTECT(1);
       return ret;
    }

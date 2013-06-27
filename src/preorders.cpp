@@ -34,25 +34,25 @@ SEXP pord_weakdom(SEXP x, SEXP y)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    R_len_t nx = LENGTH(x);
    if (nx <= 0)
-      return ScalarLogical(TRUE); // x empty - y whatever
+      return Rf_ScalarLogical(TRUE); // x empty - y whatever
    double* xd = REAL(x);
-   if (R_IsNA(xd[0]))
-      return ScalarLogical(NA_LOGICAL);
+   if (ISNA(xd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
       
    y = prepare_arg_numeric_sorted_0_infty(y, "y");
    R_len_t ny = LENGTH(y);
    if (ny <= 0) 
-      return ScalarLogical(FALSE); // x is not empty
+      return Rf_ScalarLogical(FALSE); // x is not empty
    double* yd = REAL(y);
-   if (R_IsNA(yd[0]))
-      return ScalarLogical(NA_LOGICAL);
+   if (ISNA(yd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
       
    if (ny < nx)
-      ScalarLogical(FALSE); // x is definitely not dominated by y
+      Rf_ScalarLogical(FALSE); // x is definitely not dominated by y
    
    for (R_len_t i=0; i<nx; ++i) // nx <= ny
       if (xd[i] > yd[i])
-         return ScalarLogical(FALSE);
+         return Rf_ScalarLogical(FALSE);
 	
-   return ScalarLogical(TRUE);
+   return Rf_ScalarLogical(TRUE);
 }

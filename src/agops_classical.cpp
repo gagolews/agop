@@ -86,26 +86,26 @@ SEXP wam(SEXP x, SEXP w)
    double* x_tab = REAL(x);
    
    if (x_length <= 0) return x;
-   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+      return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      error("`x` and `w` should have the same length");
+      Rf_error("`x` and `w` should have the same length");
    
 
    double w_sum = 0.0;
    double ret_val = 0.0;
    for (R_len_t i=0; i<x_length; ++i) {
       if (w_tab[i] < 0)
-         error("elements in `w` should be nonnegative");
+         Rf_error("elements in `w` should be nonnegative");
       w_sum = w_sum + w_tab[i];
       ret_val += w_tab[i]*x_tab[i];
    }
    
    if (w_sum > 1.0+EPS || w_sum < 1.0-EPS)
-      warning("elements of `w` does not sum up to 1. correcting.");
+      Rf_warning("elements of `w` does not sum up to 1. correcting.");
       
    ret_val /= w_sum;
-   return ScalarReal(ret_val);
+   return Rf_ScalarReal(ret_val);
 }
 
 
@@ -127,10 +127,10 @@ SEXP wmax(SEXP x, SEXP w)
    double* x_tab = REAL(x);
    
    if (x_length <= 0) return x;
-   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+      return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      error("`x` and `w` should have the same length");
+      Rf_error("`x` and `w` should have the same length");
    
    double ret_val = DBL_MIN;
    for (R_len_t i=0; i<x_length; ++i) {
@@ -138,7 +138,7 @@ SEXP wmax(SEXP x, SEXP w)
       if (ret_val < tmp) ret_val = tmp;
    }
    
-   return ScalarReal(ret_val);
+   return Rf_ScalarReal(ret_val);
 }
 
 
@@ -160,10 +160,10 @@ SEXP wmin(SEXP x, SEXP w)
    double* x_tab = REAL(x);
    
    if (x_length <= 0) return x;
-   if (R_IsNA(w_tab[0]) || R_IsNA(x_tab[0]))
-      return ScalarReal(NA_REAL);
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+      return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      error("`x` and `w` should have the same length");
+      Rf_error("`x` and `w` should have the same length");
    
    double ret_val = DBL_MAX;
    for (R_len_t i=0; i<x_length; ++i) {
@@ -171,7 +171,7 @@ SEXP wmin(SEXP x, SEXP w)
       if (ret_val > tmp) ret_val = tmp;
    }
    
-   return ScalarReal(ret_val);
+   return Rf_ScalarReal(ret_val);
 }
 
 
