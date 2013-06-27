@@ -22,4 +22,6 @@ It started as a fork of the **[CITAN](http://staff.rexamine.com/gagolews/resourc
 
 **Homepage**: http://www.rexamine.com/resources/agop/
 
+**CRAN Record**: http://cran.r-project.org/web/packages/agop/
+
 **System requirements**: *R >= 2.14.0*
