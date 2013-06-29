@@ -1,12 +1,12 @@
 Package: agop
 Version: 0.1-3
-Date: 2013-06-27
+Date: 2013-06-29
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria decision making,
     including variable number of criteria, by means of
     aggregation operators and preordered sets. Possible applications include,
     but are not limited to, scientometrics and bibliometrics.
-URL: http://www.rexamine.com/resources/agop/
+URL: http://agop.rexamine.com
 BugReports: http://github.com/Rexamine/agop/issues
 ByteCompile: TRUE
 Type: Package
