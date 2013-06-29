@@ -20,7 +20,7 @@ It started as a fork of the **[CITAN](http://staff.rexamine.com/gagolews/resourc
 
 **Authors**: Marek Gagolewski, with contributions from Anna Cena
 
-**Homepage**: http://www.rexamine.com/resources/agop/
+**Homepage**: http://agop.rexamine.com/
 
 **CRAN Record**: http://cran.r-project.org/web/packages/agop/
 
