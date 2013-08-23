@@ -60,6 +60,8 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_rp,                   2),
    MAKE_CALL_METHOD(index_lp,                   2),
    MAKE_CALL_METHOD(pord_weakdom,               2),
+   MAKE_CALL_METHOD(pord_spread,                2),
+   MAKE_CALL_METHOD(pord_spreadsym,             2),
    
    // the list must be NULL-terminated:
    {NULL,                           NULL,                  0}

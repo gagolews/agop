@@ -42,9 +42,9 @@
 \newcommand{\Cpp}{\lang{C++}}
 \newcommand{\R}{\lang{R}}
 
-\newcommand{\Rfunc}[1]{\texttt{\hlfunctioncall{#1}}}
-\newcommand{\argument}[1]{\texttt{\hlargument{#1}}}
-\newcommand{\str}[1]{\texttt{\hlstring{#1}}}
+\newcommand{\Rfunc}[1]{\texttt{\hlkwd{#1}}}
+\newcommand{\argument}[1]{\texttt{\hlkwc{#1}}}
+\newcommand{\str}[1]{\texttt{\hlstr{#1}}}
 \newcommand{\key}[1]{{$\langle$\texttt{#1}$\rangle$}\xspace} % skrot klawiszowy
 
 \setlength{\pdfpagewidth}{\paperwidth}
@@ -134,9 +134,9 @@ if (substring(AGOPver, nchar(AGOPver)) == "0") {
 \pagestyle{fancy}
 \fancyhead[L]{}
 \fancyhead[R]{}
-\fancyhead[C]{\footnotesize\sf This tutorial reflects the state of the most 
+\fancyhead[C]{\footnotesize\sf This tutorial reflects the state of the most
 recent development version
-of \package{agop} available on 
+of \package{agop} available on
 \href{https://github.com/Rexamine/agop}{\textit{GitHub}}.\newline
 If you use the ``official'' CRAN release, some of the features may be unavailable.}
 \fi
@@ -158,8 +158,8 @@ ul. Newelska 6, 01-447 Warsaw, Poland
 
 ${}^{2}$ Rexamine, Email: \texttt{\{gagolews,cena\}@rexamine.com}
 
-\href{http://www.rexamine.com/resources/agop/}%
-{www.rexamine.com/resources/agop/}
+\href{http://agop.rexamine.com/}%
+{http://agop.rexamine.com}
 
 \bigskip
 \today
@@ -257,24 +257,24 @@ opts_chunk$set(
 
 
 
-\section{Getting started}
+\section{Getting Started}
 
 \begin{quotation}\it\noindent
-``The process of combining several numerical values into a single 
-representative one is called \textbf{aggregation}, and the numerical function 
-performing this process is called \textbf{aggregation function}. 
+``The process of combining several numerical values into a single
+representative one is called \textbf{aggregation}, and the numerical function
+performing this process is called \textbf{aggregation function}.
 This simple definition
-demonstrates the size of the field of application of aggregation: 
+demonstrates the size of the field of application of aggregation:
 applied mathematics
-(e.g.~probability, statistics, decision theory), computer science 
-(e.g.~artificial 
-intelligence, operation research), as well as many applied fields 
+(e.g.~probability, statistics, decision theory), computer science
+(e.g.~artificial
+intelligence, operation research), as well as many applied fields
 (economics and finance,
-pattern recognition and image processing, data fusion, 
+pattern recognition and image processing, data fusion,
 multicriteria decision making,
-automated reasoning etc.). Although history of aggregation is probably 
+automated reasoning etc.). Although history of aggregation is probably
 as old as mathematics (think of the arithmetic mean), its existence
-has reminded underground till only recent (\dots).'' 
+has reminded underground till only recent (\dots).''
 \cite[p.~xiii]{GrabischETAL2009:aggregationfunctions}
 \end{quotation}
 
@@ -299,7 +299,7 @@ package for \R$\ge$ 2.12 to which anyone can contribute.
 It started as a fork of the \package{CITAN} (\textit{Citation
 Analysis Toolpack}, \cite{Gagolewski2011:CITAN}) package.
 
-To install latest ``official'' release of the 
+To install latest ``official'' release of the
 package available on \textit{CRAN} we type%
 \ifDevelopmentVersion%
 \footnote{You are viewing the \textbf{development} version of the tutorial.
@@ -365,20 +365,20 @@ used throughout this tutorial.
 From now on let $\Ival=[a,b]$, possibly with $a=-\infty$ or $b=\infty$.
 Note that in many practical situations we commonly choose $\Ival=[-1,1]$,
 $\Ival=[0,1]$ or $\Ival=[0,\infty]$.
-A set of all vectors of arbitrary length  with elements in $\Ival$ 
+A set of all vectors of arbitrary length  with elements in $\Ival$
 is denoted by $\IvalAnyPow=\bigcup_{n=1}^\infty \IvalPow{n}$ .
 
 For two equal-length vectors $\vect{x}, \vect{y}\in\IvalPow{n}$
-we write $\vect{x}\le\vect{y}$ if and only 
+we write $\vect{x}\le\vect{y}$ if and only
 if for all $i=1,\dots,n$ it holds $x_i\le y_i$.
-Moreover, all binary arithmetic operations on vectors 
+Moreover, all binary arithmetic operations on vectors
 $\vect{x}, \vect{y}\in\IvalPow{n}$ will be performed element-wise,
 e.g. $\vect{x}+\vect{y}=(x_1+y_1,\dots,x_n+y_n)\in\IvalPow{n}$.
 Similar behavior is assumed for
 $-$, $\cdot$, $/$, $\wedge$ (min), $\vee$ (max), etc.
 Additionally, each function of one variable
 $\func{f}:\Ival\to\Ival$ can be extended to the vector
-space: we write $\func{f}(\vect{x})$ to denote 
+space: we write $\func{f}(\vect{x})$ to denote
 $(\func{f}(x_1), \dots, \func{f}(x_n))$.
 
 
@@ -387,7 +387,7 @@ i.e.~the $i$th smallest value in $\vect{x}$.
 Moreover, for convenience,
 let $x_{\{i\}}=x_{|\vect{x}|-i+1}$ denote the $i$th greatest value in $\vect{x}$.
 
-For any $n\in\mathbb{N}$ and $c\in\Ival$, 
+For any $n\in\mathbb{N}$ and $c\in\Ival$,
 we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
 Also, $[n]:=\{1,2,\dots,n\}$ with $[0]=\emptyset$.
 
@@ -410,7 +410,7 @@ To obtain $(n\ast c)$, e.g.~for $n=10$ and $c=3$, we call:
 rep(10, 3)
 @
 
-Note that in \R{} all the arithmetic operations on vectors are 
+Note that in \R{} all the arithmetic operations on vectors are
 performed element-wise, i.e.~in a manner indicated above.
 This is called \emph{vectorization}.
 The same holds for mathematical functions: they are extended to the vector space.
@@ -429,7 +429,7 @@ abs(y)
 Thus, we calculated $\vect{x}+\vect{y}$,
 $\vect{x}\cdot\vect{y}$, $\vect{x}\wedge\vect{y}$, $\vect{x}\vee\vect{y}$,
 and $|\vect{x}|$
-(try to determine yourself what happens if we deal 
+(try to determine yourself what happens if we deal
 with vectors of unequal length is \R).
 
 Moreover, for the $\le$ relation we write:
@@ -449,13 +449,13 @@ xs[3] # the third greatest value in x
 \subsection{A Note on Storing Multiple Numeric Vectors in \R}
 
 Vectors of the same length can be conveniently stored in a matrices.
-Please note 
+Please note
 that the \argument{dimnames} attribute of a matrix may define
-its row and column labels. 
+its row and column labels.
 Its value may be set to \texttt{NULL}
 (no names given) or to a list with two character
 vectors (rows and columns names, respectively).
-Another simple way to set the labels is by using  
+Another simple way to set the labels is by using
 the \Rfunc{rownames()} and \Rfunc{colnames()} functions.
 
 The \Rfunc{apply()} function may be called to evaluate
@@ -477,7 +477,7 @@ print(expertopinions)   # or print(authors)
 apply(expertopinions, 2, mean) #  apply the mean() function on each COLUMN
 @
 
-Vectors that are not of the same length may be store in a list (with 
+Vectors that are not of the same length may be store in a list (with
 possibly named elements). In that case, the functionality
 of \Rfunc{apply()} is provided by \Rfunc{lapply()} or
 \Rfunc{sapply()} functions.
@@ -500,24 +500,24 @@ index_h(authors) # index_h() expects an numeric vector on input
 
 \subsection{Aggregation Operators and Their Basic Properties}
 
-Dealing with huge amounts of data 
+Dealing with huge amounts of data
 faces us with the problem of constructing their synthetic descriptions.
-The aggregation theory, 
+The aggregation theory,
 a relatively new research domain at the border of mathematics and
-computer science, is interested in the analysis 
+computer science, is interested in the analysis
 of functions that may be used in this task.
 Thus, we should start with the formal definition of
 objects of our interest.
 Here is the most general setting:
 
 
-% Aggregation theory finds its applications in all the fields, 
-% where aggregating information is important: applied and pure mathematics, 
-% e.g. probability, statistics, decision theory, functional equations, operation 
-% research, computer sciences, social science, economics and finance, 
-% pattern recognition and so on. 
-% 
-% In its simplest definition aggregation denote process of 
+% Aggregation theory finds its applications in all the fields,
+% where aggregating information is important: applied and pure mathematics,
+% e.g. probability, statistics, decision theory, functional equations, operation
+% research, computer sciences, social science, economics and finance,
+% pattern recognition and so on.
+%
+% In its simplest definition aggregation denote process of
 % combining several numerical values into one, representative for the whole input.
 
 \begin{definition}
@@ -538,10 +538,10 @@ and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) \le b$.
 By nondecreasingness, however, these conditions reduce to
 $\func{F}(n\ast a)\ge a$ and $\func{F}(n\ast b)\le b$.
 
-Also keep in mind that some authors assume 
+Also keep in mind that some authors assume
 (cf.~\cite{GrabischETAL2009:aggregationfunctions})\label{Prop:StrongBoundaryCond}
 that aggregation operators must fulfill the two following \emph{strong boundary
-conditions}: for all $n$ we have 
+conditions}: for all $n$ we have
 $\inf_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x}) =a$
 and $\sup_{\vect{x}\in\IvalPow{n}} \func{F}(\vect{x})= b$.
 In our case, this does not necessarily hold -- we want to be
@@ -564,22 +564,22 @@ $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 \end{definition}
 
 It may be shown, see
-\cite[Thm.~2.34]{GrabischETAL2009:aggregationfunctions}, that 
+\cite[Thm.~2.34]{GrabischETAL2009:aggregationfunctions}, that
 $\func{F}:\IvalPow{n}\to\Ival$ is symmetric if and only if there exists
-a function $\func{G}:\IvalAnyPow\to\Ival$ such that 
+a function $\func{G}:\IvalAnyPow\to\Ival$ such that
 $\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$,
 i.e.~it may be defined solely using order statistics.
 Intuitively, $\func{F}$ is symmetric if its value is independent
 of the aggregated vector's elements presentation.
 
 \medskip
-Idempotence is well-known from algebra, 
-where we say that element $x$ is idempotent with respect 
+Idempotence is well-known from algebra,
+where we say that element $x$ is idempotent with respect
 to binary operator $*$ if we have $x*x=x$. The following definition
 extends this property to $n$-ary aggregation functions,
 cf.~\cite{GrabischETAL2009:aggregationfunctions}.
 % to bym sobie darowal - latwo zauwazyc:
-% for which it simply means that 
+% for which it simply means that
 % for $\vect{x}\in\IvalPow{n}$ such that $x_{i}=x$ for all $i=1,\dots,n$, we have
 % $\func{F}(\vect{x})=x$.
 
@@ -588,9 +588,9 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{idempotent} if:
 \[(\forall n\in\mathbb{N})\ (\forall x\in\Ival)\ \func{F}(n\ast x)=x.\]
 \end{definition}
 
-Idempotent aggregation operators fulfilling 
+Idempotent aggregation operators fulfilling
 the strong boundary conditions (see p.~\pageref{Prop:StrongBoundaryCond})
-are sometimes called \emph{averaging functions}, cf.~\cite{GrabischETAL2009:aggregationfunctions}. 
+are sometimes called \emph{averaging functions}, cf.~\cite{GrabischETAL2009:aggregationfunctions}.
 %%%%%%%%%%%%%%%%znalezc prace
 
 An example of such object is the arithmetic mean or median.
@@ -601,7 +601,7 @@ We call $\func{F}: \IvalAnyPow\to\Ival$ \emph{additive} if:
 \[
 \func{F}(\vect{x}+\vect{y})=\func{F}(\vect{x})+\func{F}(\vect{y}),
 \]
-for all $n\in\mathbb{N}, \vect{x}, \vect{y}\in\IvalPow{n}$ such that 
+for all $n\in\mathbb{N}, \vect{x}, \vect{y}\in\IvalPow{n}$ such that
 $\vect{x}+\vect{y}\in\IvalPow{n}$.
 \end{definition}
 Please note that for $a\leq 0$, if $\func{F}$ is additive,
@@ -611,7 +611,7 @@ then necessarily it holds $\func{F}(\vect{0})=0$.
 \begin{definition}
 We call $\func{F}$ \emph{minitive} if:
 \[
-(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \func{F}(\vect{x}\wedge
 \vect{y})=\func{F}(\vect{x})\wedge\func{F}(\vect{y}).
 \]
@@ -624,26 +624,26 @@ We call $\func{F}$ \emph{maxitive} if:
 (\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \func{F}(\vect{x}\vee
 \vect{y})=\func{F}(\vect{x})\vee\func{F}(\vect{y}).
-\] 
+\]
 \end{definition}
 
 \medskip
 %%%%%%% podaje trzy: Beliakov, Grabish i Mesiar-Mesiarowa
 
 \begin{definition}
-We call $\func{F}$ \emph{modular} 
+We call $\func{F}$ \emph{modular}
 (cf.~\cite{BeliakovETAL2007:aggregation,GrabischETAL2009:aggregationfunctions,MesiarMesiarova2011:orderedmodular}) if:
 \[
-(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\ 
+(\forall n\in\mathbb{N})\ (\forall \vect{x},\vect{y}\in\IvalPow{n})\
 \func{F}(\vect{x}\vee\vect{y})
 +\func{F}(\vect{x}\wedge\vect{y})=\func{F}(\vect{x})+\func{F}
 (\vect{y})
-\] 
+\]
 %
 \end{definition}
 
-It may easily be seen that each additive operator 
-%fulfiling the lower strong boundary condition 
+It may easily be seen that each additive operator
+%fulfiling the lower strong boundary condition
 is also modular
 (i.e.~modularity is more general than additivity),
 because for any additive aggregation operator $\func{F}$,
@@ -674,12 +674,12 @@ value of a numeric vector.
 Here is another interesting class
 that represents solutions to some very interesting practical issue.
 
-The \emph{Producers Assessment Problem} (PAP, 
-\cite{GagolewskiGrzegorzewski2011:ijar}) concerns evaluation of a set of 
-\emph{producers} (e.g.~scientists, artists, writers, craftsman) 
+The \emph{Producers Assessment Problem} (PAP,
+\cite{GagolewskiGrzegorzewski2011:ijar}) concerns evaluation of a set of
+\emph{producers} (e.g.~scientists, artists, writers, craftsman)
 according to some quality or popularity \emph{ratings}
 % (e.g.~the number of articles'
-% citations, the number of sold book copies etc.) 
+% citations, the number of sold book copies etc.)
 of \emph{products}
 (e.g.~scientific articles, works, books, artifacts) that
 were outputted by an entity.
@@ -713,12 +713,12 @@ F & \R{} package author & Packages & PageRank values on the citation graph & Sof
 PAP instances may be found in many real-life
 situations, like those encountered
 for example in scientometrics, webometrics, marketing,
-manufacturing, or quality 
+manufacturing, or quality
 engineering, see Table~\ref{Table:InstancesPAP}
 and e.g.~\cite{FranceschiniMaisano2009:hmanufacturing}.
-Our main interest here is focused on constructing and analyzing 
-aggregation operators which may be used in the producers' rating task. 
-Such functions should take into account the two following 
+Our main interest here is focused on constructing and analyzing
+aggregation operators which may be used in the producers' rating task.
+Such functions should take into account the two following
 aspects of a producer's quality:
 \begin{itemize}
 \item his/her ability to output highly-rated products,
@@ -761,7 +761,7 @@ we aggregate vectors that are already sorted).
 % More formally, condition (a) holds if and only if for each
 % $n$ and $\vect{x},\vect{y}\in\IvalPow{n}$ such that $(\forall i)$
 % $x_i\le y_i$ we have $\func{J}(\vect{x})\le\func{J}(\vect{y})$.
-% On the other hand, 
+% On the other hand,
 More formally, axiom (b) is fulfilled iff
 for any $\vect{x}\in\IvalAnyPow$ and $y\in\Ival$ it holds
 $\func{F}(\vect{x})\le\func{F}(x_1,\dots,x_n,y)$.
@@ -776,7 +776,7 @@ Moreover, (a) and (c) were defined in the previous section.
 
 \bigskip
 Here is a bunch of arity-dependent properties
-that can  be useful while aggregating vectors 
+that can  be useful while aggregating vectors
 of varying lengths.
 % This model described situation when a~``producer'' whose quality
 % has to be assessed ``outputs'' yet another ``product'' and we have to reevaluate
@@ -832,6 +832,11 @@ $\func{F}\in \mathcal{E}(\Ival)$ is
 \end{equation*}
 \end{definition}
 
+
+\subsection{Dispersion Operators}
+
+...TO DO... see \cite{Gagolewski2013:dispersion} ...
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -839,7 +844,7 @@ $\func{F}\in \mathcal{E}(\Ival)$ is
 \section{Visualization}
 
 
-\subsection{Depicting producers}
+\subsection{Depicting Producers}
 
 The \Rfunc{plot\_producer()} function may be used to draw
 a graphical representation of a given numeric vector,
@@ -907,6 +912,9 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 
 \section{Preorders}
 
+
+\subsection{Weak Dominance Relation (for PAP)}
+
 Let us consider the following relation on $\IvalAnyPow$.
 For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
 % \begin{equation}\label{Eq:partialorderingtrianglelefteq}
@@ -955,6 +963,25 @@ $\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
 (strict dominance).
 
 
+\subsection{Vector Spread}
+
+...TO DO...
+
+The functions \Rfunc{pord\_spread()} and \Rfunc{pord\_spreadsym()}
+can be used to compare spread of two numeric vectors,
+see \cite{Gagolewski2013:dispersion}...
+
+This relation is used in the definition of dispersion operators,
+see \cite{Gagolewski2013:dispersion}...
+
+<<spread_ex>>=
+pord_spreadsym(c(1,5,2), c(1,7,3))
+@
+
+
+
+\subsection{Operations on Preorders}
+
 \paragraph{Example.} Let us consider the 5 following vectors.
 
 
@@ -976,7 +1003,7 @@ plot_producer(ex1[[i]], add=(i>1), col=i)
 legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 
-Here is the adjacency matrix for 
+Here is the adjacency matrix for
 the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
 
 <<ex1B,dependson='ex1'>>=
@@ -998,7 +1025,7 @@ incomp <- incomp[incomp[,1]<incomp[,2],] # remove permutations: ((1,2), (2,1))->
 incomp[,] <- rownames(ord)[incomp]
 print(incomp) # all incomparable pairs
 # the other way: generate maximal independent sets
-lapply(get_independent_sets(ord), function(set) rownames(ord)[set]) 
+lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
 To draw the Hasse diagram, it will be good to de-transitivize
@@ -1008,7 +1035,7 @@ the graph (for \ae{}sthetic reasons).
 require(igraph)
 hasse <- graph.adjacency(de_transitive(ord))
 set.seed(1234567) # igraph's draving facilities are far from perfect
-plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2)) 
+plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
@@ -1040,7 +1067,6 @@ Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
 
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1065,16 +1091,16 @@ Let $\vect{w}=(w_{1},\dots,w_{n})\in[0,1]^{n}$ be a \emph{weighting vector}
 such that $\sum_{i=1}^{n}w_{i}=1$. Then, for any $\vect{x}\in\IvalPow{n}$:
 
 \begin{enumerate}
-\item The \emph{weighted arithmetic mean} associated 
+\item The \emph{weighted arithmetic mean} associated
 with $\vect{w}$, $\func{WAM}_\vect{w}: \IvalPow{n}\to\Ival$,
- is defined as 
-\[\func{WAM}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}.\] 
+ is defined as
+\[\func{WAM}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{i}.\]
 
 \item The \emph{ordered weighted averaging operator} (cf.~\cite{Yager:OWA})
-associated with $\vect{w}$,  
+associated with $\vect{w}$,
 %CYTOWANIE: Yager
 $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
- is defined as 
+ is defined as
 \[\func{OWA}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{\{i\}}.\]
 \end{enumerate}
 \end{definition}
@@ -1082,14 +1108,14 @@ $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
 We see that both functions are idempotent, additive, and that $\func{OWA}$ is
 the symmetrized version of $\func{WAM}$.
 %%%%%%%%%%%%%%%%%In fact, F is idempotent if and only if $\sum_{i=1}^{n}w_{i}=1$. cos jest nie tak z tym faktem if is additive if it is WAM with w=.. raczej chyba, nie?
-Moreover, for $\vect{w}=(n\ast \frac{1}{n})$, $\func{WAM}_\vect{w}$ 
+Moreover, for $\vect{w}=(n\ast \frac{1}{n})$, $\func{WAM}_\vect{w}$
 defines the arithmetic mean (\Rfunc{mean()} in \R).
 \emph{Truncated mean} is an interesting example of an OWA operator
 (see \texttt{\Rfunc{mean}(x, \argument{trim=}\dots)}).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Zamiast tej humanistycznej:) dywagacji wolalbym po prostu podac przykladowy wektor w
-% The main differences  
-% is that the calculation of the truncated mean is performed after 
-% discarding given percentage of the highest and lowest vector' elements. 
+% The main differences
+% is that the calculation of the truncated mean is performed after
+% discarding given percentage of the highest and lowest vector' elements.
 % In \R we may obtained truncated mean with usage \Rfunc{mean(x, trim=...)},
 % where \Rfunc{trim} parameter is the percentage of cut observations.
 
@@ -1103,21 +1129,21 @@ owa(c(1,3,5,2), rep(1,4)) # should be normalized
 
 \medskip
 \begin{definition}
-Let  $\vect{w}=(w_{1},\dots,w_{n})\in\IvalPow{n}$ be a vector such that 
+Let  $\vect{w}=(w_{1},\dots,w_{n})\in\IvalPow{n}$ be a vector such that
 $\bigvee_{i=1}^{n}w_{i}=b=\sup\,\Ival$.
 Then, for any $\vect{x}\in\IvalPow{n}$:
 \begin{enumerate}
-\item The \emph{weighted maximum} associated 
-with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$, 
+\item The \emph{weighted maximum} associated
+with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$,
 % CYTOWANIE: Dubois, Prade 1988 bodaj- to chyba do ordered - patrzylam dr
- is defined as 
+ is defined as
 \[\func{WMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{i}).\]
 
 \item The \emph{ordered weighted maximum} (cf.~\cite{DuboisETAL1988:makingdecision})
 associated with $\vect{w}$,
-$\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as 
+$\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as
 \[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{\{i\}}),\]
-with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.   
+with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.
 % DONE % ZMIENIC NA x_{\{i\}} - zmienia sie warunki
 \end{enumerate}
 \end{definition}
@@ -1133,17 +1159,17 @@ owmax(1:10, 1:10)
 
 \medskip
 \begin{definition}
-Let  $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that 
+Let  $\vect{w}=c(w_{1},\dots,w_{n})\in[0,1]^{n}$ be such that
 $\bigwedge_{i=1}^{n} w_{i}=a=\inf\,\Ival$.
 Then, for any $\vect{x}\in\IvalPow{n}$:
 
 \begin{enumerate}
-\item The \emph{weighted minimum} $\func{WMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}$ is defined as 
+\item The \emph{weighted minimum} $\func{WMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated
+with the weight vector $\vect{w}$ is defined as
 \[\func{WMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{i}).\]
 
-\item The \emph{ordered weighted minimum} $\func{OWMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated 
-with the weight vector $\vect{w}$ is defined as 
+\item The \emph{ordered weighted minimum} $\func{OWMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated
+with the weight vector $\vect{w}$ is defined as
 \[\func{OWMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{(i)}),\]
 with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
 \end{enumerate}
@@ -1154,7 +1180,7 @@ with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
 
 It is clear to see that OWMax operators fulfill the maxitivity property and
 OWMin operators fulfill the minitivity property. Interestingly,
-it may be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions}, 
+it may be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions},
 that for each OWMax operator there exist an equivalent OWMin
 operator and inveresly.
 
@@ -1183,11 +1209,11 @@ Here is a graphical interpretation of $\triangle$:
 
 \medskip
 \begin{definition}
-Let $\triangle=(\func{f}_{i,n})_{ i\in [n],n\in\Naturals}$ be a triangle of functions 
-such that $(\forall n)\ \sum_{i=1}^{n}\inf{\func{f}_{i,n}}\geq a$ and 
-$(\forall n)\ \sum_{i=1}^{n}\sup{\func{f}_{i,n}}\leq b$. Then  the 
+Let $\triangle=(\func{f}_{i,n})_{ i\in [n],n\in\Naturals}$ be a triangle of functions
+such that $(\forall n)\ \sum_{i=1}^{n}\inf{\func{f}_{i,n}}\geq a$ and
+$(\forall n)\ \sum_{i=1}^{n}\sup{\func{f}_{i,n}}\leq b$. Then  the
 \emph{quasi-L-statistic} generated by $\triangle$
-is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
+is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \[
 \func{qL}_{\triangle}(\vect{x})=\sum_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}).
 \]
@@ -1195,32 +1221,32 @@ is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \bigskip
 
 It is easily seen that quasi-L-statistics generalize OWA operators
-if we set $\func{f}_{i,n}(x)=c_{i,n} x$, $c_{i,n}\in[0,1]$, and 
-$(\forall n)\ \sum_{i=1}^{n}c_{i,n}=1$. 
+if we set $\func{f}_{i,n}(x)=c_{i,n} x$, $c_{i,n}\in[0,1]$, and
+$(\forall n)\ \sum_{i=1}^{n}c_{i,n}=1$.
 
 Assume that $\Ival=[0,b]$.
-Interestingly, it has been shown (\cite{MesiarMesiarova2011:orderedmodular}, 
+Interestingly, it has been shown (\cite{MesiarMesiarova2011:orderedmodular},
 cf.~also \cite{Gagolewski2012:ins})
 that an aggregation
 operator $\func{F}:\IvalAnyPow\to\Ival$ fulfills the
-symmetric modularity property if and only if 
-$\func{F}$ is a nondecreasing quasi-L-statistic. 
+symmetric modularity property if and only if
+$\func{F}$ is a nondecreasing quasi-L-statistic.
 What is more, in~\cite{Gagolewski2012:ins}
 we may find that $\func{qL}_{\triangle}$ is nondecreasing
 if and only if there exists $\triangledown=(\func{g}_{i,n})_{i\in[n],n\in\Naturals}$
 such that
-$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing, 
-$(\forall n)\ \sum_{i=1}^{n}\func{g}_{i,n}\leq b$, 
-$(\forall n)\ (\forall i>1)\ \func{g}_{i,n}(0)=0$ and 
+$(\forall n)\ (\forall i\in[n])\ \func{g}_{i,n}$ is nondecreasing,
+$(\forall n)\ \sum_{i=1}^{n}\func{g}_{i,n}\leq b$,
+$(\forall n)\ (\forall i>1)\ \func{g}_{i,n}(0)=0$ and
 $\func{qL}_{\triangle}=\func{qL}_{\triangledown}$.
 
 
 %dlaczego?
 \bigskip
 \begin{definition}
-The \emph{quasi-S-statistic} for a given triangle of functions 
+The \emph{quasi-S-statistic} for a given triangle of functions
 $\triangle=(f_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qS}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
+is a function $\func{qS}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \[
 \func{qS}_{\triangle}(\vect{x})=\bigvee_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}),
 \] for any $\vect{x}\in\IvalAnyPow$.
@@ -1231,21 +1257,21 @@ Quasi-S-statistic generalize the OWMax operators,
 if $\func{f}_{i,n}(x)=x\wedge c_{i,n}$, $c_{i,n}\in\Ival$
 and $(\forall n)\ \bigvee_{i=1}^{n}c_{i,n}=b$.
 
-There is an equivalence between symmetric maxitive 
+There is an equivalence between symmetric maxitive
 aggregation operators and nondecreasing quasi-S-statistics.
-Moreover, without loss of generality 
-we may assume that a nondecreasing quasi-S-statistic 
+Moreover, without loss of generality
+we may assume that a nondecreasing quasi-S-statistic
 is always generated by triangle of functions
-in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing, 
-$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(a)=\func{f}_{n,n}(a)$ 
+in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing,
+$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(a)=\func{f}_{n,n}(a)$
 and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$),
 see \cite{Gagolewski2012:ins}.
 
 \bigskip
 \begin{definition}
-The \emph{quasi-I-statistic} generated by 
+The \emph{quasi-I-statistic} generated by
 $\triangle=(\func{f}_{i,n})_{ i\in [n],n\in\Naturals}$
-is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that 
+is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \[
 \func{qI}_{\triangle}(\vect{x})=\bigwedge_{i=1}^{n}\func{f}_{i,n}(x_{\{i\}}),
 \] for any $\vect{x}\in\IvalAnyPow$.
@@ -1253,16 +1279,16 @@ is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \bigskip
 
 Quasi-I-statistics are generalizations of the OWMin operators,
-if $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and 
+if $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and
 $(\forall n)\ \bigwedge_{i=1}^{n}c_{i,n}=a$.
 
-Like above, it has been shown that every 
+Like above, it has been shown that every
 symmetric minitive aggregation operator
 is a nondecreasing quasi-I-statistic, and conversely.
-Additionally, with no loss in generality 
+Additionally, with no loss in generality
 we may assume that nondecreasing quasi-S-statistic is generated by triangle of functions
-in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing, 
-$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(b)=\func{f}_{n,n}(b)$ 
+in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing,
+$(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(b)=\func{f}_{n,n}(b)$
 and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$,
 see \cite{Gagolewski2012:ins}.
 
@@ -1273,7 +1299,7 @@ generated by triangles of coefficients
 (i.e.~sequences $\triangle=(c_{i,n}\in\Ival: i\in [n], n\in\Naturals)$,
 cf.~\cite{CalvoMayor1999:aggregation}).
 An \emph{L-statistic} is a {quasi-L-statistic} for which we have
-$\func{f}_{i,n}(x)=c_{i,n}x$. Similarly, by setting 
+$\func{f}_{i,n}(x)=c_{i,n}x$. Similarly, by setting
 $\func{f}_{i,n}(x)=x\wedge c_{i,n}$ we obtain an \emph{S-statistic}
 from the {quasi-S-statistics} class, and
 by setting $\func{f}_{i,n}(x)=x\vee c_{i,n}$
@@ -1293,7 +1319,7 @@ some authors understand sums of a function of order statistics.
 
 
 \bigskip
-Most interestingly, in~\cite{Gagolewski2012:ins} it has been shown that 
+Most interestingly, in~\cite{Gagolewski2012:ins} it has been shown that
 the intersection of any two of the three ``quasi'' classes
 is the same:
 
@@ -1318,7 +1344,7 @@ is the same:
 \end{center}
 
 Basing on this result, the \emph{OM3} class
-(symmetric maxitive, minitive, and also modular 
+(symmetric maxitive, minitive, and also modular
 aggregation operators) was proposed
 in~\cite{CenaGagolewski2013:agop1,CenaGagolewski2013:agop2}.
 
@@ -1331,7 +1357,7 @@ $\func{w}_i :\Ival\to\Ival$,
  such that $(\forall n)$ $c_{1,n}\le c_{2,n}\le \dots \le c_{n,n}$,
  $0\le\func{w}_n(0)\le c_{1,n}$, and
  $\func{w}_n(b)=c_{n,n}$,
- generates a nondecreasing \emph{OM3 operator} 
+ generates a nondecreasing \emph{OM3 operator}
  $\func{M}_{\triangle,\vect{w}}:\IvalPow{n}\to\Ival$
  such that for $\vect{x}\in\IvalPow{n}$ we have:
 \begin{eqnarray*}
@@ -1347,7 +1373,7 @@ We see that the OM3 class contains i.a.~all
 order statistics (whenever $\func{w}_n(x)=x$,
 and $c_{i,n}=0$, $c_{j,n}=b$ for $i< k$, $j\ge k$, and some $k$),
 OWMax operators (for $\func{w}_n(x)=x$),
-and the famous 
+and the famous
 Hirsch $h$-index (see below).
 
 
@@ -1373,7 +1399,7 @@ see \cite{Gagolewski2013:om3}, with:
 Interpretation: ``an author has $h$-index of $H$ if $H$ of his/her
 $n$ most cited papers have at least $H$ citations each, and the other $n-H$
 papers are cited no more that $H$ times each''.
-The $h$-index may also be expressed as a Sugeno 
+The $h$-index may also be expressed as a Sugeno
 integral \cite{Sugeno1974:PhD}
 w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
 
@@ -1456,7 +1482,7 @@ and $\func{W}(\vect{x})\le \min\{n, x_{1}\}$.
 \func{r}_{p}(\vect{x})=\sup{\{r>0: \func{s}^{p,r}\trianglelefteq\vect{x}\}},
 \]
 where $\vect{s}^{p,r}=\left(\sqrt[p]{r^p-0^p},\sqrt[p]{r^p-1^p},\dots,
-\sqrt[p]{r^p-\lfloor r\rfloor ^p)}\right)$. For more details 
+\sqrt[p]{r^p-\lfloor r\rfloor ^p)}\right)$. For more details
 see~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach}.
 
 Please note that for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{H}$
@@ -1465,9 +1491,9 @@ Hence it easily seen that, this is a zero-insensitive impact function.
 
 \package{agop} implementation \Rfunc{index\_rp()}.
 
-\paragraph{The $l_p$-indices.} The $l_p$-index 
-(cf.~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach}) 
-for $p\in[1,\infty)$, $u>0$ and $v>0$ is a function 
+\paragraph{The $l_p$-indices.} The $l_p$-index
+(cf.~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach})
+for $p\in[1,\infty)$, $u>0$ and $v>0$ is a function
 $\func{l}_{p}:\IvalAnyPow\to\IvalPow{2}$ given by the equation
 \[
 \func{l}_{p}(\vect{x})=\mathrm{arg}\sup_{(u,v)}{\{uv: \func{e}^{p,u,v}\trianglelefteq\vect{x}\}},
@@ -1490,7 +1516,7 @@ see~\cite{GagolewskiGrzegorzewski2009:geometricapproach}, and can be also expres
 in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure},
 see \cite{GagolewskiMesiar2013:fuzzyintbiblio} for discussion.
 
-In \package{agop} the MAXPROD-index is implemented 
+In \package{agop} the MAXPROD-index is implemented
 in the \Rfunc{index\_maxprod()} function.
 
 
@@ -1511,6 +1537,13 @@ It may easily be shown that these reduce to the $h$-index for
 properly transformed input vectors,
 e.g.~$\func{H2}(\vect{x})=\func{H}(\sqrt{\vect{x}})$.
 
+
+
+\subsection{Interesting Dispersion Operators}
+
+...TO DO...
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1520,7 +1553,7 @@ e.g.~$\func{H2}(\vect{x})=\func{H}(\sqrt{\vect{x}})$.
 \section{Aggregation Operators from the Probabilistic Perspective}
 
 By default, theory of aggregation looks at the aggregation operators
-mainly from the algebraic perspective. Of course, we may also 
+mainly from the algebraic perspective. Of course, we may also
 be interested in their probabilistic properties,
 e.g.~in i.i.d.~RVs models (the simplest and the most ``natural''
 ones in statistics), cf.~\cite{Gagolewski2011:PhD} for discussion.
@@ -1545,7 +1578,7 @@ most of the papers have very small valuation (near $0$),
 and the probability of attaining a high note decreases in at least
 linear pace.
 
-Let us make a review of some useful statistical 
+Let us make a review of some useful statistical
 distributions, that are not available through ``base'' \R
 (for other ones, e.g.~exponential, normal, uniform, Weibull, etc.~refer
 to the widely-available literature).
@@ -1563,7 +1596,7 @@ and is defined with two parameters.
 
 
 Formally, $X$ follows the Pareto-II distribution
-with shape parameter $k>0$ and scale parameter $s>0$, 
+with shape parameter $k>0$ and scale parameter $s>0$,
 denoted $X\sim\mathrm{P2}(k,s)$, if its density is of the form
 \begin{equation}\label{Eq:Pareto2PDF}
    f(x)=\frac{k s^k}{(s+x)^{k+1}}\quad (x\ge 0).
@@ -1581,7 +1614,7 @@ and \Rfunc{rpare\-to2()} generates random deviates.
 
 \paragraph{Properties.}
 The expected value of $X\sim\mathrm{P2}(k,s)$
-exists for $k>1$ and is equal to 
+exists for $k>1$ and is equal to
 \(\mathbb{E}X = \frac{s}{k-1}.\)
 Variance exists for $k>2$ and is equal to
 \(\mathrm{Var}\, X = \frac{ks^2}{(k-2)(k-1)^2}.\)
@@ -1598,7 +1631,7 @@ Most importantly, if $X\sim\mathrm{P2}(k,s)$,
 then the conditional distribution of $X-t$ given $X>t$,
 is $\mathrm{P2}(k,s+t)$ $t \ge 0$.
 
-Additionally, it might be shown that if $X\sim\mathrm{P2}(k,s)$, 
+Additionally, it might be shown that if $X\sim\mathrm{P2}(k,s)$,
 then $\ln(s+X)$ has c.d.f.~$F(x)=1-s^k e^{-kx}$ and
 density $f(x)=k s^k e^{-kx}$ for $x\ge\ln s$,
 i.e. has the same distribution as $Z+\ln s$, where
@@ -1612,14 +1645,14 @@ $Z\sim\mathrm{Exp}(k)\equiv \Gamma(1,1/k)$
 Let $\vect{x}=(x_1,\dots,x_n)$ be a realization of the Pareto-Type II
 i.i.d. sample with known $s>0$.
 The unbiased (corrected) maximum likelihood estimator for $k$:
-% rozk³adu Pareto II rodzaju mo¿na próbowaæ wyznaczyæ metod±  
+% rozk³adu Pareto II rodzaju mo¿na próbowaæ wyznaczyæ metod±
 % najwiêkszej wiarogodno¶ci (MLE).
 % Logarytm funkcji wiarogodno¶ci dany jest wzorem
 % \begin{eqnarray}
 % \ln \mathcal{L}(k,s;\vect{x}) &=& n\ln k + nk\ln s - (k+1)\sum_{i=1}^n \ln(s+x_i) \\
 %                               &=& n\ln k - n\ln\tfrac{1}{s}  - (k+1)\sum_{i=1}^n \ln(1+\tfrac{1}{s} x_i).
 % \end{eqnarray}
-% 
+%
 % Dla znanego $s>0$ i~danej realizacji próby $(x_1,\dots,x_n)$ mamy
 % \begin{equation}
 % \widehat{k}=\dfrac{n}{\sum_{i=1}^n \ln\left(1+\tfrac{1}{s} x_i\right)}.
@@ -1700,7 +1733,7 @@ rowMeans(replicate(1000, {
 % Jak pokazuj± wyniki symulacyjne, dla nieznanego zarówno parametru
 % $k$ jak i~$s$, estymatory te cechuj± siê lepszymi w³asno¶ciami ni¿ estymator
 % najwiêkszej wiarogodno¶ci.
-% 
+%
 % \bigskip\label{Ozn:MMSE}
 % Warto zwróciæ szczególn± uwagê na metodê szacowania warto¶ci parametrów zaproponowan±
 % przez Zhanga i Stevensa \cite{ZhangStevens2009:estgpd}.
@@ -1711,7 +1744,7 @@ rowMeans(replicate(1000, {
 
 
 
-% Niech $\theta := -\frac{1}{s}$, gdzie                                           
+% Niech $\theta := -\frac{1}{s}$, gdzie
 % $-1\le \theta < 0$.
 % Poszukujemy estymatora bayesowskiego minimalizuj±cego ¶redniokwadratow±
 % funkcjê ryzyka
@@ -1731,7 +1764,7 @@ rowMeans(replicate(1000, {
 % \[\ell(\theta; \vect{x}):=n\left( \ln(-{k}^*\theta)-1-1/{k}^* \right),\]
 % gdzie
 % \[{k}^* = n \left[\sum_{i=1}^n \ln\left(1-\theta x_i\right) \right]^{-1}.\]
-% 
+%
 % W~rozpatrywanej pracy stosowane jest nastêpuj±ce
 % przybli¿enie numeryczne wzoru \eqref{Eq:MMSEbayes}.
 % Dla $m=20+\lfloor n\rfloor$ i~$j=1,\dots,m$ niech
@@ -1752,7 +1785,7 @@ rowMeans(replicate(1000, {
 % Algorytm wyznaczaj±cy estymatory przedstawion± metod±
 % zosta³ zaimplementowany w~bibliotece \CITAN{} w~funkcji \Rfunc{pareto2.zsestimate()},
 % zob.~rozdz.~\ref{Func:pareto2.zsestimate}.
-% 
+%
 
 % \paragraph{Goodness-of-fit tests.}
 % TO BE DONE....
@@ -1765,7 +1798,7 @@ rowMeans(replicate(1000, {
 % od pozosta³ych do obserwacji w~ogonach rozk³adu),
 % por.~analizê w³asno¶ci tych testów w~pracach \cite{ChoulakianStephens2001:gofgpd,
 % ZhangStevens2009:estgpd}.
-% 
+%
 % W~bibliotece \CITAN{} udostêpnili¶my funkcjê funkcjê \Rfunc{pareto2.gof\-test()}
 % (zob. rozdz.~\ref{Func:pareto2.goftest}),
 % która domy¶lnie stosuje test Andersona-Darlinga,
@@ -1773,9 +1806,9 @@ rowMeans(replicate(1000, {
 % w~\cite{MarsagliaMarsaglia2004:adtest}.
 % To postêpowanie (wraz z omówion± wy¿ej metod± estymacji) jest równowa¿ne
 % z~przedstawionym w~pracy \cite{ZhangStevens2009:estgpd}.
-% 
-% 
-% 
+%
+%
+%
 
 
 % \paragraph{Applications.}
@@ -1785,19 +1818,19 @@ rowMeans(replicate(1000, {
 % so-called extreme values modeling, cf.~\cite{ChoulakianStephens2001:gofgpd}.
 % In bibliometric, for example, Pareto type II distribution is frequently used to describe
 % distribution of number of citations, see e.g. ~\cite{Glanzel2008:hconcatenation}
-% (in such case it is recommended to take $k\simeq 2$) or 
+% (in such case it is recommended to take $k\simeq 2$) or
 % ~\cite{Glanzel2007:hnewapplications,BarczaTelcs2009:paretoimplyh,Glanzel2008:statbibh}.
-% Moreover, very often it is assumed that $s\ge 1$. 
+% Moreover, very often it is assumed that $s\ge 1$.
 
-% 
-% Rozk³ad Pareto II rodzaju stosuje siê czêsto do modelowania 
+%
+% Rozk³ad Pareto II rodzaju stosuje siê czêsto do modelowania
 %  tzw.~warto¶ci ekstremalnych [por.~\citealp{ChoulakianStephens2001:gofgpd}].
 % Jest on zalecany w~literaturze bibliometrycznej m.in. do opisu
 % rozk³adu liczby cytowañ, por. np. \cite{Glanzel2008:hconcatenation}
 % % (tutaj wystêpuje sugestia, ¿e mo¿na przyj±æ $k\simeq 2$)
 % oraz prace \cite{Glanzel2007:hnewapplications,BarczaTelcs2009:paretoimplyh,
 % Glanzel2008:statbibh}. Czêsto zak³ada siê ponadto, i¿ $s\ge 1$.
-% 
+%
 
 
 
@@ -1845,7 +1878,7 @@ The $p$-value may be determined as follows:
 \begin{equation}
 p=2\left(\tfrac{1}{2}-\left|\text{\Rfunc{pf}}(R(\vect{x},\vect{y}), 2n_2, 2n_1)-\tfrac{1}{2}\right|\right),
 \end{equation}
-where $\text{\Rfunc{pf}}(x,d_1,d_2)$ 
+where $\text{\Rfunc{pf}}(x,d_1,d_2)$
 is the c.d.f.~of $\mathrm{F}^{[d_1,d_2]}$.
 
 \medskip
@@ -1877,7 +1910,7 @@ For i.i.d~samples of finite length we have e.g.~the following
 result \cite{Gagolewski2012:smps}:
 
 \begin{theorem}
-Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
+Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d.
 random variables with continuous c.d.f. $\func{F}$ defined on $\mathbb{R}_{0+}$.
 Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
 \[
@@ -1891,46 +1924,46 @@ where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function
 More generally, the c.d.f.~of some quasi-S-statistics
 may be expressed as an incomplete beta function,
 see \cite{GagolewskiGrzegorzewski2010:smps}.
-Note that, unlike in the case of 
+Note that, unlike in the case of
 the distribution of ``ordinary'' order statistics
 (see \cite{DavidNagaraja2003:orderstatistics}),
 the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 
 % Let us assume that $(X_{1},\dots,X_{n})$ denotes a sequence of
-% independent, identically distributed random variables and let c.d.f $\func{F}$ 
-% of $X_{i}\ i=1,\dots,n$ be continuous and strictly increasing in $[a,b]$, 
+% independent, identically distributed random variables and let c.d.f $\func{F}$
+% of $X_{i}\ i=1,\dots,n$ be continuous and strictly increasing in $[a,b]$,
 % such that $a=\inf{\{x: \func{F}(x)>0\}}$ and $b=\sup{\{x:\func{F}(x)<1\}}$, $a<b$.
-% 
+%
 % In this section we are going to recall some basic statistical properties
-% of \emph{L-} and \emph{S-statistics}. 
-% 
-% 
+% of \emph{L-} and \emph{S-statistics}.
+%
+%
 % \begin{definition}\label{s:statistic:kappa}
-% An \emph{S-statistic} associated with function $\kappa$ and a random 
-% sample $(X_{1},\dots,X_{n})$ is a function 
+% An \emph{S-statistic} associated with function $\kappa$ and a random
+% sample $(X_{1},\dots,X_{n})$ is a function
 % \[
 % \func{V}_{n,k}(X_{1},\dots,X_{n})=\bigvee_{i=1}^{n}\kappa\Big(\frac{i}{n}\Big)
 % \wedge X_{(n-i+1)},
 % \]
 % where $\kappa: [0,1]\to[a,b]$, called \emph{control function},
-% is a strictly increasing 
+% is a strictly increasing
 % continuous function such that $\kappa(0)=a$ and $\kappa(1)=b$.
 % \end{definition}
 % \bigskip
-% It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic} 
+% It is easily seen that $\func{V}_{n,k}$ is equivalent with \emph{S-statistic}
 % $\func{S}_{\triangle}|_{\IvalPow{n}}$ (cf. Definition~\ref{s:statistic})
 % associated with triangle of coefficients $\triangle=(c_{i,n})_{n\in\Naturals,i\in[n]}$
 % such that $c_{i,n}=\kappa\Big(\frac{i}{n}\Big)$.
-% 
+%
 % Also please note that without loss of generality we may consider \emph{S-statistic}
 % form Definition~\ref{s:statistic:kappa} of a form
 % \[
 % \func{V}_{n}(Y_{1},\dots,Y_{n})=\bigvee_{i=1}^{n}\frac{i}{n}\wedge Y_{(n-i+1)},
 % \]
 % where $(Y_{1},\dots,Y_{n})=(\kappa^{-1}(X_{1}),\dots,\kappa^{-1}(X_{n}))$ is a
-% sequence of i.i.d. random variables given by the continuous c.d.f. 
-% $\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}. 
-% 
+% sequence of i.i.d. random variables given by the continuous c.d.f.
+% $\func{G}:=\func{F}\circ\kappa$. For more details see~\cite{GagolewskiGrzegorzewski2010:smps}.
+%
 % \bigskip
 % The exact distribution is given by the following Theorem.
 % \begin{theorem}
@@ -1940,27 +1973,27 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 % [G(x)]^{n-1}\\
 % &=&\mathcal{I}(\func{G}(x);n-\lfloor xn\rfloor,\lfloor xn\rfloor+1),
 % \end{eqnarray*}
-% for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$ 
+% for $x\in[0,1)$, where $\mathcal{I}(p;a,b)$
 % is the regularized incomplete beta function.
 % \end{theorem}
-% 
+%
 % \bigskip
 % Let us recall that Hirsch's $h$-index, for $x\in\Naturals^{n}_{0}$ reduced itself to a
-% \emph{OWMax} operator, which is a special case of \emph{S-statistic}. Therefore, 
-% the exact distribution of $\func{H}$, given by the following theorem, comes straightforward 
+% \emph{OWMax} operator, which is a special case of \emph{S-statistic}. Therefore,
+% the exact distribution of $\func{H}$, given by the following theorem, comes straightforward
 % from the previous results (for more details see.~\cite{Gagolewski2012:smps}).
-% 
+%
 % \begin{theorem}
-% Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d. 
+% Let $\vect{X}=(X_{1},\dots,X_{n})$ be a sequence of i.i.d.
 % random variables with continuous c.d.f. $\func{F}$ defined on $\mathbb{R}_{0+}$.
 % Then the c.d.f. of $\func{H}(\vect{X})$ for $x\in[0,n)$ is given by
 % \[
 % \func{D}_{n}(x)=\mathcal{I}(\func{F}(\lfloor x+1\rfloor^{-0});n-\lfloor x\rfloor,
 % \lfloor x \rfloor+1),
 % \]
-% where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function. 
+% where $\mathcal{I}(p;a,b)$ is the regularized incomplete beta function.
 % \end{theorem}
-% 
+%
 % \bigskip
 % \begin{definition}
 % A $\kappa$-index of a random variable given by a c.d.f. $\func{F}$ with respect to control
@@ -1972,21 +2005,21 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 % For survival function, $\func{S}(x)=1-\func{F}(x)$, $\varrho_{\kappa}$
 % satisfies $\varrho_{\kappa}=\func{S}(\kappa(\varrho_{\kappa}))=
 % \mathbb{P}(X>\kappa(\varrho_{\kappa}))$. It is clear to see that, intuitively,
-% $\varrho_{\kappa}$ is a number such that the probability of assuming a value greater 
-% than $\kappa(\varrho_{\kappa})$ is equal to $\varrho_{\kappa}$. What is more, 
+% $\varrho_{\kappa}$ is a number such that the probability of assuming a value greater
+% than $\kappa(\varrho_{\kappa})$ is equal to $\varrho_{\kappa}$. What is more,
 % in~\cite{GagolewskiGrzegorzewski2010:smps} we have following results.
 % \bigskip
 % \begin{theorem}
 % $\func{V}_{n}$ is a strongly consistent estimator of $\varrho=\varrho_{id}$.
 % \end{theorem}
-% 
-% % Moreover, it can be shown that for any control function $\kappa$, 
-% % if $X\succeq_{st}Y$, then $\varrho_{kappa,X}\geq\varrho_{\kappa,Y}$. 
+%
+% % Moreover, it can be shown that for any control function $\kappa$,
+% % if $X\succeq_{st}Y$, then $\varrho_{kappa,X}\geq\varrho_{\kappa,Y}$.
 % % Thus, we may consider $\varrho_{\kappa}$ as some measure of location.
-% 
-% The asymptotic distribution of \emph{S-statistic} is given by the following 
+%
+% The asymptotic distribution of \emph{S-statistic} is given by the following
 % theorem.
-% 
+%
 % \begin{theorem}
 % If $\func{G}$ is a c.d.f. differentiable at $\varrho$, then
 % \[
@@ -1994,15 +2027,15 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 % \sqrt{\frac{\varrho(1-\varrho)}{n}}\right).
 % \]
 % \end{theorem}
-% 
-% Let us now consider asymptotic distribution of \emph{L-statistics}. 
-% Please note, that sometimes it is used to represent $\func{L}_{\triangle}$ as 
+%
+% Let us now consider asymptotic distribution of \emph{L-statistics}.
+% Please note, that sometimes it is used to represent $\func{L}_{\triangle}$ as
 % \[
 % \func{L}_{n}=\frac{1}{n}\sum_{i=1}^{n}\func{J}\left(\frac{i}{n}\right)X_{(i)},
 % \]
 % where function $\func{J}(u)$ for $u\in[0,1]$ is such that $\func{J}(i/n)=nc_{i,n}$,
 % $i=1,\dots,n$.
-% 
+%
 % We present below the asymptotic normality result for normed $\func{L}_{n}$,
 % cf~\cite{DavidNagaraja2003:orderstatistics}. To this end, first define
 % \[
@@ -2015,7 +2048,7 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 % \]
 % %a.e. =almost everywhere
 % \begin{theorem}
-% Assume that $\func{var}(X_{1})<\infty$ and that $\func{J}(u)$ is bounded and 
+% Assume that $\func{var}(X_{1})<\infty$ and that $\func{J}(u)$ is bounded and
 % continuous a.e. $\func{F}^{-1}$. Then
 % \[
 % \lim_{n\to\infty}n\mathbb{E}(\func{L}_{n})=\mu(\func{J},\func{F}),
@@ -2029,7 +2062,7 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 % {\sqrt{\func{var}(\func{L}_{n})}}\xrightarrow{D}\mathcal{N}(0,1).
 % \]
 % \end{theorem}
-% 
+%
 % What is more, it can be shown (cf.~\ref{DavidNagaraja2003:orderstatistics})
 % that if $\int_{0}^{1}[u(1-u)]^{1/2}d\func{F}^{-1}(u)<\infty$ and
 % $\func{J}$ is bounded and satisfies a Lipschitz condition of order
@@ -2059,7 +2092,7 @@ Their authors' wonderful work is fully appreciated.
 
 
 The contribution of Marek Gagolewski was partially supported
-by the European Union from resources of the European Social Fund, Project PO KL 
+by the European Union from resources of the European Social Fund, Project PO KL
 ``Information technologies: Research and their interdisciplinary
 applications'', agreement UDA-POKL.04.01.01-00-051/10-00 (March-June 2013),
 and by FNP START Scholarship from the Foundation for Polish Science (2013).

@@ -83,9 +83,9 @@ SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
    bool sorted = true;
    for (R_len_t i=0; i<n; ++i) {
       if (ISNA(xd[i])) {
-         return Rf_ScalarReal(NA_REAL);
+         return Rf_ScalarReal(NA_REAL); // at least one NA => return Scalar NA
       }
-      else if (sorted && (i > 1) && (xd[i-1] < xd[i])) {
+      else if (sorted && (i > 0) && (xd[i-1] < xd[i])) {
          sorted = false;
       }
    }
@@ -140,7 +140,7 @@ SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname)
       else if (xd[i] < 0) {
          Rf_error(MSG__ARG_NOT_IN_O_INFTY, argname);
       }
-      else if (sorted && (i > 1) && (xd[i-1] < xd[i])) {
+      else if (sorted && (i > 0) && (xd[i-1] < xd[i])) {
          sorted = false;
       }
    }

@@ -20,22 +20,87 @@
 #' Weak Dominance Relation (Preorder)
 #' 
 #' @description
-#' \eqn{x <= y} iff \eqn{nx <= ny} AND
+#' Checks whether a given numeric vector is (weakly) dominated
+#' by another vector, in terms of (sorted) elements' values
+#' and their count.
+#' 
+#' @details
+#' We say that a numeric vector \code{x}
+#' is weakly dominated by \code{y}, written as \eqn{x <= y},
+#'  iff \eqn{nx <= ny} AND
 #' for all \eqn{i = 1,...,n} \eqn{x_{(n-i+1)} <= y_{(m-i+1)}},
 #' where \eqn{nx = length(x)} and \eqn{ny = length(y)}.
 #' 
-#' @details
+#' This dominance relation is symmetric, i.e. for all permutations
+#' of input vectors' elements it gives the same value.
+#' Such preorder is tightly related to impact functions:
+#' each impact function is a morphism between
+#' wead-dominance-preordered set of vectors
+#' and the set of reals equipped with standard linear ordering
+#' (see Gagolewski, Grzegorzewski, 2013).
+#' 
+#' 
 #' This function accepts only vectors with nonnegative elements.
 #' 
 #' @param x numeric vector
 #' @param y numeric vector
-#' @return single logical value; whether x <= y
+#' @return single logical value; whether \code{x} is weakly
+#' dominated by \code{y}
+#' 
+#' @references
+#' Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic 
+#' Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, 
+#' International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
 #' 
 #' @family binary_relations
 #' @export
 pord_weakdom <- function(x, y)
 {
    .Call("pord_weakdom", x, y, PACKAGE="agop")
+}
+
+
+#' @title
+#' Compare Vectors' Spread (Preorder)
+#' 
+#' @description
+#' The \code{pord_spread} function determines
+#' one numeric vector has not greater spread than the
+#' other. Moreover, \code{pord_spreadsym} implements
+#' the symmetrized spread relation.
+#' 
+#' @details
+#' We say that \code{x} of size \eqn{n}
+#' has no greater spread than \code{y}
+#' iff for all \eqn{i,j=1,\dots,n} such
+#' that \eqn{x_i>x_j} it holds \eqn{x_i-x_j\le y_i-y_j}.
+#' Such preorder is used in the definition of
+#' dispersion operators (see Gagolewski, 2013).
+#' 
+#' These functions accept only vectors of the same size.
+#' 
+#' @param x numeric vector
+#' @param y numeric vector of the same length as \code{x}
+#' @return single logical value; whether \code{x} has no greater
+#' spread than \code{y}
+#' 
+#' @references
+#' M. Gagolewski, Dispersion Operators, in preparation, 2013.
+#' 
+#' @family binary_relations
+#' @rdname pord_spread
+#' @export
+pord_spread <- function(x, y)
+{
+   .Call("pord_spread", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname pord_spread
+#' @export
+pord_spreadsym <- function(x, y)
+{
+   .Call("pord_spreadsym", x, y, PACKAGE="agop")
 }
 
 

@@ -56,3 +56,70 @@ SEXP pord_weakdom(SEXP x, SEXP y)
 	
    return Rf_ScalarLogical(TRUE);
 }
+
+
+/** Compare vectors' spread (dispersion operators)
+ * 
+ * @param x numeric vector
+ * @param y numeric vector
+ * @return logical scalar, whether x <= y
+ */
+SEXP pord_spread(SEXP x, SEXP y)
+{
+   x = prepare_arg_numeric(x, "x");
+   y = prepare_arg_numeric(y, "y");
+
+   R_len_t nx = LENGTH(x);
+   R_len_t ny = LENGTH(y);
+   double* xd = REAL(x);
+   double* yd = REAL(y);
+   
+   if (nx > 0 && ISNA(xd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
+   if (ny > 0 && ISNA(yd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
+   
+   if (nx != ny)
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "y");
+            
+   for (R_len_t j=0; j<nx; ++j)
+      for (R_len_t i=0; i<nx; ++i)
+         if (xd[i] > xd[j] && (yd[i] <= yd[j] || yd[i] - yd[j] < xd[i] - xd[j]))
+            return Rf_ScalarLogical(FALSE);
+            
+   return Rf_ScalarLogical(TRUE);
+}
+
+
+/** Compare vectors' spread (symmetric dispersion operators)
+ * 
+ * @param x numeric vector
+ * @param y numeric vector
+ * @return logical scalar, whether x <= y
+ */
+SEXP pord_spreadsym(SEXP x, SEXP y)
+{
+   x = prepare_arg_numeric_sorted(x, "x");
+   y = prepare_arg_numeric_sorted(y, "y");
+   
+   R_len_t nx = LENGTH(x);
+   R_len_t ny = LENGTH(y);
+   double* xd = REAL(x);
+   double* yd = REAL(y);
+   
+   if (nx > 0 && ISNA(xd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
+   if (ny > 0 && ISNA(yd[0]))
+      return Rf_ScalarLogical(NA_LOGICAL);
+   
+   if (nx != ny)
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "y");
+      
+   for (R_len_t i=1; i<nx; ++i) {
+//      cerr << xd[i-1] << " " << xd[i] << " | " << yd[i-1] << " " << yd[i] <<endl;
+      if (xd[i-1] > xd[i] && (yd[i-1] <= yd[i] || yd[i-1] - yd[i] < xd[i-1] - xd[i]))
+         return Rf_ScalarLogical(FALSE);
+   }
+   
+   return Rf_ScalarLogical(TRUE);
+}

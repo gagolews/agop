@@ -48,6 +48,9 @@ using namespace std;
 
 #define EPS 1e-12
 
+#define MSG__ARGS_EXPECTED_EQUAL_SIZE \
+   "`%s` and `%s` should be of equal lengths"
+
 #define MSG__ARG_NOT_IN_O_INFTY \
    "all elements in `%s` should be in [0,Inf]"
 
@@ -116,24 +119,24 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname); // @TODO: R-interface, 
 SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
 
 
-SEXP index_h(SEXP x);              // DONE
-SEXP index_g(SEXP x);              // DONE
-SEXP index_g_zi(SEXP x);           // DONE
-SEXP index_maxprod(SEXP x);        // DONE
-SEXP index_w(SEXP x);              // DONE
-SEXP index_rp(SEXP x, SEXP p);     // DONE
-SEXP index_lp(SEXP x, SEXP p);     // DONE
+SEXP index_h(SEXP x);              
+SEXP index_g(SEXP x);              
+SEXP index_g_zi(SEXP x);           
+SEXP index_maxprod(SEXP x);        
+SEXP index_w(SEXP x);              
+SEXP index_rp(SEXP x, SEXP p);     
+SEXP index_lp(SEXP x, SEXP p);     
 
-SEXP owa(SEXP x, SEXP w);          // DONE
-SEXP wam(SEXP x, SEXP w);          // DONE
-SEXP owmax(SEXP x, SEXP w);        // DONE
-SEXP wmax(SEXP x, SEXP w);         // DONE
-SEXP owmin(SEXP x, SEXP w);        // DONE
-SEXP wmin(SEXP x, SEXP w);         // DONE
+SEXP owa(SEXP x, SEXP w);          
+SEXP wam(SEXP x, SEXP w);          
+SEXP owmax(SEXP x, SEXP w);        
+SEXP wmax(SEXP x, SEXP w);         
+SEXP owmin(SEXP x, SEXP w);        
+SEXP wmin(SEXP x, SEXP w);         
 
-SEXP pord_weakdom(SEXP x, SEXP y); // DONE
-
-
+SEXP pord_weakdom(SEXP x, SEXP y); 
+SEXP pord_spread(SEXP x, SEXP y);  
+SEXP pord_spreadsym(SEXP x, SEXP y); 
 
 
 
