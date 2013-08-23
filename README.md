@@ -18,9 +18,10 @@ has reminded underground till only recent (...).
 **agop** is an open source (LGPL 3) package for R, to which anyone can contribute.
 It started as a fork of the **[CITAN](http://staff.rexamine.com/gagolews/resources/)** package.
 
-**Authors**: Marek Gagolewski, with contributions from Anna Cena
+**Authors**: [Marek Gagolewski](http://staff.rexamine.com/gagolews),
+with contributions from [Anna Cena](http://staff.rexamine.com/cena)
 
-**Homepage**: http://www.rexamine.com/resources/agop/
+**Homepage**: http://agop.rexamine.com/
 
 **CRAN Record**: http://cran.r-project.org/web/packages/agop/
 
