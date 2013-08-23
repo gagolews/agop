@@ -6,7 +6,7 @@ test_that("index_rp", {
    expect_error(index_rp(1:10, -1))
    expect_error(index_rp(c(-1, 4, 3)))
    expect_error(index_rp(c(4, 4, -1)))
-   expect_equivalent(index_rp(numeric(0)), numeric(0))
+   expect_error(index_rp(numeric(0)))
    expect_equivalent(index_rp(c(NA, 1:10)), NA_real_)
    expect_equivalent(index_rp(c(1:10, NA)), NA_real_)
    expect_equivalent(index_rp(1:10), 5)

@@ -36,3 +36,4 @@ Collate:
     'distrib-pareto2.R'
     'distrib-pareto2-estimators.R'
     'distrib-pareto2-ftest.R'
+    'agops-dispersion.R'

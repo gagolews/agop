@@ -7,10 +7,12 @@
   to compare spread of two equal-length numeric vectors
   (see M. Gagolewski, Dispersion Operators, in preparation, 2013)
 
-* TO DO: NEW function: d2owa(): a dispersion operator defined as
+* NEW function: d2owa(): a symmetric dispersion operator defined as
   the L2 distance between a numeric vector and an OWA operator
 
 * BUGFIX: prepare_arg_numeric_sorted did not sort some vectors
+
+* all built-in agops now throw an error on empty vectors
 
 * ...TO DO...
 

@@ -85,18 +85,20 @@ SEXP wam(SEXP x, SEXP w)
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
    
-   if (x_length <= 0) return x;
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
    
 
    double w_sum = 0.0;
    double ret_val = 0.0;
    for (R_len_t i=0; i<x_length; ++i) {
       if (w_tab[i] < 0)
-         Rf_error("elements in `w` should be nonnegative");
+         Rf_error(MSG__ARG_NOT_IN_O_INFTY, "w");
       w_sum = w_sum + w_tab[i];
       ret_val += w_tab[i]*x_tab[i];
    }
@@ -126,11 +128,13 @@ SEXP wmax(SEXP x, SEXP w)
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
    
-   if (x_length <= 0) return x;
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
    
    double ret_val = DBL_MIN;
    for (R_len_t i=0; i<x_length; ++i) {
@@ -159,11 +163,13 @@ SEXP wmin(SEXP x, SEXP w)
    double* w_tab = REAL(w);
    double* x_tab = REAL(x);
    
-   if (x_length <= 0) return x;
+   if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+
    if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
       return Rf_ScalarReal(NA_REAL);
    if (x_length != w_length)
-      Rf_error("`x` and `w` should have the same length");
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
    
    double ret_val = DBL_MAX;
    for (R_len_t i=0; i<x_length; ++i) {

@@ -50,6 +50,9 @@ using namespace std;
 
 #define MSG__ARGS_EXPECTED_EQUAL_SIZE \
    "`%s` and `%s` should be of equal lengths"
+   
+#define MSG_ARG_TOO_SHORT \
+   "not enough elements in `%s`"
 
 #define MSG__ARG_NOT_IN_O_INFTY \
    "all elements in `%s` should be in [0,Inf]"
@@ -133,6 +136,8 @@ SEXP owmax(SEXP x, SEXP w);
 SEXP wmax(SEXP x, SEXP w);         
 SEXP owmin(SEXP x, SEXP w);        
 SEXP wmin(SEXP x, SEXP w);         
+
+SEXP d2owa_checkwts(SEXP w);
 
 SEXP pord_weakdom(SEXP x, SEXP y); 
 SEXP pord_spread(SEXP x, SEXP y);  

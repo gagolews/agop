@@ -59,6 +59,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_w,                    1),
    MAKE_CALL_METHOD(index_rp,                   2),
    MAKE_CALL_METHOD(index_lp,                   2),
+   MAKE_CALL_METHOD(d2owa_checkwts,             1),
    MAKE_CALL_METHOD(pord_weakdom,               2),
    MAKE_CALL_METHOD(pord_spread,                2),
    MAKE_CALL_METHOD(pord_spreadsym,             2),

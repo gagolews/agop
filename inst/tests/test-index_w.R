@@ -5,7 +5,7 @@ test_that("index_w", {
    
    expect_error(index_w(c(-1, 4, 3)))
    expect_error(index_w(c(4, 4, -1)))
-   expect_equivalent(index_w(numeric(0)), numeric(0))
+   expect_error(index_w(numeric(0)))
    expect_equivalent(index_w(c(NA, 1:10)), NA_real_)
    expect_equivalent(index_w(c(1:10, NA)), NA_real_)
    expect_equivalent(index_w(c(1)), 1)

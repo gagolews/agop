@@ -38,7 +38,7 @@ SEXP index_h(SEXP x)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -68,7 +68,7 @@ SEXP index_g(SEXP x)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -98,7 +98,7 @@ SEXP index_g_zi(SEXP x)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -129,7 +129,7 @@ SEXP index_w(SEXP x)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -163,7 +163,7 @@ SEXP index_maxprod(SEXP x)
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -224,7 +224,7 @@ SEXP index_rp(SEXP x, SEXP p)
 
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    R_len_t n = LENGTH(x);
-   if (n <= 0) return x;
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    
    double* xd = REAL(x);
    if (ISNA(xd[0]))
@@ -301,8 +301,7 @@ SEXP index_lp(SEXP x, SEXP p)
       
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
    R_len_t n = LENGTH(x);
-   if (n <= 0)
-      return (double2(0.0, 0.0).toR());
+   if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    
    double* xd = REAL(x);
@@ -374,6 +373,4 @@ SEXP index_lp(SEXP x, SEXP p)
       return double2(pow(ab.v1, 1.0/p_val), pow(ab.v2, 1.0/p_val)).toR();
    }
 }
-
-
 

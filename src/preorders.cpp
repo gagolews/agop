@@ -32,21 +32,19 @@
 SEXP pord_weakdom(SEXP x, SEXP y)
 {
    x = prepare_arg_numeric_sorted_0_infty(x, "x");
-   R_len_t nx = LENGTH(x);
-   if (nx <= 0)
-      return Rf_ScalarLogical(TRUE); // x empty - y whatever
-   double* xd = REAL(x);
-   if (ISNA(xd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
-      
    y = prepare_arg_numeric_sorted_0_infty(y, "y");
+   
+   R_len_t nx = LENGTH(x);
    R_len_t ny = LENGTH(y);
-   if (ny <= 0) 
-      return Rf_ScalarLogical(FALSE); // x is not empty
+
+   double* xd = REAL(x);
    double* yd = REAL(y);
-   if (ISNA(yd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
-      
+   
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
+   if (ISNA(xd[0])) return Rf_ScalarLogical(NA_LOGICAL);
+   if (ISNA(yd[0])) return Rf_ScalarLogical(NA_LOGICAL);
+   
    if (ny < nx)
       Rf_ScalarLogical(FALSE); // x is definitely not dominated by y
    
@@ -74,10 +72,10 @@ SEXP pord_spread(SEXP x, SEXP y)
    double* xd = REAL(x);
    double* yd = REAL(y);
    
-   if (nx > 0 && ISNA(xd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
-   if (ny > 0 && ISNA(yd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
+   if (ISNA(xd[0])) return Rf_ScalarLogical(NA_LOGICAL);
+   if (ISNA(yd[0])) return Rf_ScalarLogical(NA_LOGICAL);
    
    if (nx != ny)
       Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "y");
@@ -107,10 +105,10 @@ SEXP pord_spreadsym(SEXP x, SEXP y)
    double* xd = REAL(x);
    double* yd = REAL(y);
    
-   if (nx > 0 && ISNA(xd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
-   if (ny > 0 && ISNA(yd[0]))
-      return Rf_ScalarLogical(NA_LOGICAL);
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
+   if (ISNA(xd[0])) return Rf_ScalarLogical(NA_LOGICAL);
+   if (ISNA(yd[0])) return Rf_ScalarLogical(NA_LOGICAL);
    
    if (nx != ny)
       Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "y");

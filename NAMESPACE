@@ -1,5 +1,7 @@
 export(closure_total_fair)
 export(closure_transitive)
+export(d2owa_checkwts)
+export(d2owa)
 export(de_transitive)
 export(dpareto2)
 export(get_equivalence_classes)
