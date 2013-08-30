@@ -31,8 +31,8 @@
  */
 SEXP pord_weakdom(SEXP x, SEXP y)
 {
-   x = prepare_arg_numeric_sorted_0_infty(x, "x");
-   y = prepare_arg_numeric_sorted_0_infty(y, "y");
+   x = prepare_arg_numeric_sorted_dec(x, "x");
+   y = prepare_arg_numeric_sorted_dec(y, "y");
    
    R_len_t nx = LENGTH(x);
    R_len_t ny = LENGTH(y);
@@ -44,6 +44,9 @@ SEXP pord_weakdom(SEXP x, SEXP y)
    if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
    if (ISNA(xd[0])) return Rf_ScalarLogical(NA_LOGICAL);
    if (ISNA(yd[0])) return Rf_ScalarLogical(NA_LOGICAL);
+   
+   if (xd[nx-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
+   if (yd[ny-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "y", 0.0);
    
    if (ny < nx)
       Rf_ScalarLogical(FALSE); // x is definitely not dominated by y
@@ -97,8 +100,8 @@ SEXP pord_spread(SEXP x, SEXP y)
  */
 SEXP pord_spreadsym(SEXP x, SEXP y)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
-   y = prepare_arg_numeric_sorted(y, "y");
+   x = prepare_arg_numeric_sorted_dec(x, "x");
+   y = prepare_arg_numeric_sorted_dec(y, "y");
    
    R_len_t nx = LENGTH(x);
    R_len_t ny = LENGTH(y);

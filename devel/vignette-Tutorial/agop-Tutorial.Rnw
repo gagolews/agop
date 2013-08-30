@@ -566,10 +566,14 @@ $\vect{x}=(y_{\sigma(1)},\dots,y_{\sigma(n)})$.
 It may be shown, see
 \cite[Thm.~2.34]{GrabischETAL2009:aggregationfunctions}, that
 $\func{F}:\IvalPow{n}\to\Ival$ is symmetric if and only if there exists
-a function $\func{G}:\IvalAnyPow\to\Ival$ such that
-$\func{F}(x_{1},\dots,x_{n})=\func{G}(x_{\{1\}},\dots,x_{\{n\}})$,
-i.e.~it may be defined solely using order statistics.
-Intuitively, $\func{F}$ is symmetric if its value is independent
+a function $\func{G}':\IvalAnyPow\to\Ival$ such that
+$\func{F}(x_{1},\dots,x_{n})=\func{G}'(x_{(1)},\dots,x_{(n)})$,
+or, equivalently, a function $\func{G}'':\IvalAnyPow\to\Ival$,
+for which we have
+$\func{F}(x_{1},\dots,x_{n})=\func{G}''(x_{\{1\}},\dots,x_{\{n\}})$.
+In other words, $\func{F}$
+may be defined solely using order statistics:
+its value is independent
 of the aggregated vector's elements presentation.
 
 \medskip
@@ -658,12 +662,12 @@ we have $\func{F}(\vect{x})+\func{F}(\vect{y})=\func{F}(\vect{x}+\vect{y})=
 Apart from the ``ordinary'' minitivity, maxitivity, and modularity
 we may introduce their symmetrized versions,
 using $\vect{x}\stackrel{S}{+}\vect{y}
-=(x_{\{1\}}+ y_{\{1\}},\dots,x_{\{n\}}+y_{\{n\}})$,
+=(x_{(1)}+ y_{(1)},\dots,x_{(n)}+y_{(n)})$,
 $\vect{x}\stackrel{S}{\vee}\vect{y}
-=(x_{\{1\}}\vee y_{\{1\}},\dots,x_{\{n\}}\vee   y_{\{n\}})$
+=(x_{(1)}\vee y_{(1)},\dots,x_{(n)}\vee   y_{(n)})$
 and
 $\vect{x}\stackrel{S}{\wedge}\vect{y}
-=(x_{\{1\}}\wedge y_{\{1\}},\dots,x_{\{n\}}\wedge y_{\{n\}})$.
+=(x_{(1)}\wedge y_{(1)},\dots,x_{(n)}\wedge y_{(n)})$.
 
 
 \subsection{Impact Functions and The Producers Assessment Problem}
@@ -855,34 +859,36 @@ D2OWA (\Rfunc{d2owa()}):
 
 The \Rfunc{plot\_producer()} function may be used to draw
 a graphical representation of a given numeric vector,
-i.e.~what is sometimes called a \emph{citation function} in scientometrics.
+i.e.~what is sometimes called a \emph{citation function}
+in scientometrics.
 
-A given vector $\mathbf{x}=(x_1,\dots,x_n)$ can be represented by a
+As in the PAP we are interested in symmetric agops,
+a given vector $\mathbf{x}=(x_1,\dots,x_n)$ may be represented by a
 step function defined for $0\le y<n$ and given by:
 \[
-   \pi(y)=x_{(n-\lfloor y+1\rfloor+1)}.
+   \pi(y)=x_{\{\lfloor y+1\rfloor\}}.
 \]
 This function may be obtained by setting \texttt{\argument{type=}\str{'right.continuous'}}
 argument in \Rfunc{plot\_pro\-du\-cer()}.
-Recall that $x_{(i)}$ denotes $i$-th smallest value in $\vect{x}$.
+Recall that $x_{\{i\}}$ denotes $i$-th greatest value in $\vect{x}$.
 
 On the other hand, for \texttt{\argument{type=}\str{'left.continuous'}}
 (the default), we get
 \[
-\pi(y)=x_{(n-\lfloor y\rfloor+1)}
+\pi(y)=x_{\{\lfloor y\rfloor\}}
 \]
 for $0< y\le n$.
 
-Moreover, this function may depict the curve joining the sequence
-of points $(0, x_{(n)}), (1, x_{(n)}),\allowbreak (1, x_{(n-1)}), (2, x_{(n-1)}),
-\dots, (n, x_{(1)})$.
+Note that this function depicts the curve that joins the sequence
+of points $(0, x_{\{1\}}), (1, x_{\{1\}}),\allowbreak
+(1, x_{\{2\}}), (2, x_{\{2\}}),
+\dots, (n, x_{\{n\}})$.
 
 
 \medskip
 The \Rfunc{plot\_producer()} function behaves much like
 the well-known \R's \Rfunc{plot.default()} and allows for passing
 all its graphical parameters.
-
 For example, let us depict the state of two given producers,
 $\vect{x}^{(1)}$ and $\vect{x}^{(2)}$.
 
@@ -953,8 +959,7 @@ c(pord_weakdom(5:1, 10:1), pord_weakdom(10:1, 5:1)) # 5:1 <= 10:1
 c(pord_weakdom(3:1, 5:4),  pord_weakdom(5:4, 3:1))  # 3:1 ?? 5:4
 @
 
-We have the following result
-(Gagolewski, Grzegorzewski, \cite{GagolewskiGrzegorzewski2011:ijar}).
+The the following result was shown in \cite{GagolewskiGrzegorzewski2011:ijar}.
 Let $\func{F}\in \mathcal{E}(\Ival)$. Then $\func{F}$
 is symmetric, nondecreasing in each variable
 and arity-monotonic if and only if for any $\vect{x},\vect{y}$
@@ -1108,7 +1113,7 @@ associated with $\vect{w}$,
 %CYTOWANIE: Yager
 $\func{OWA}_\vect{w}: \IvalPow{n}\to\Ival$,
  is defined as
-\[\func{OWA}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{\{i\}}.\]
+\[\func{OWA}_\vect{w}(\vect{x})=\sum_{i=1}^{n}w_{i}x_{(i)}.\]
 \end{enumerate}
 \end{definition}
 
@@ -1149,8 +1154,7 @@ with $\vect{w}$, $\func{WMax}_\vect{w}: \IvalPow{n}\to\Ival$,
 \item The \emph{ordered weighted maximum} (cf.~\cite{DuboisETAL1988:makingdecision})
 associated with $\vect{w}$,
 $\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as
-\[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{\{i\}}),\]
-with $x_{\{1\}}\geq\dots\geq x_{\{n\}}$ and $w_{1}\geq w_{2}\geq\dots\geq w_{n}$.
+\[\func{OWMax}_\vect{w}(\vect{x})=\bigvee_{i=1}^{n}(w_{i}\wedge x_{(i)}).\]
 % DONE % ZMIENIC NA x_{\{i\}} - zmienia sie warunki
 \end{enumerate}
 \end{definition}
@@ -1173,12 +1177,11 @@ Then, for any $\vect{x}\in\IvalPow{n}$:
 \begin{enumerate}
 \item The \emph{weighted minimum} $\func{WMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated
 with the weight vector $\vect{w}$ is defined as
-\[\func{WMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{i}).\]
+\[\func{WMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}(w_{i}\vee x_{i}).\]
 
 \item The \emph{ordered weighted minimum} $\func{OWMin}_\vect{w}: \IvalPow{n}\to\Ival$ associated
 with the weight vector $\vect{w}$ is defined as
-\[\func{OWMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}((1-w_{i})\vee x_{(i)}),\]
-with $x_{(1)}\leq\dots\leq x_{(n)}$ and $w_{1}\leq w_{2}\leq\dots\leq w_{n}$.
+\[\func{OWMin}_\vect{w}(\vect{x})=\bigwedge_{i=1}^{n}(w_{i}\vee x_{(i)}).\]
 \end{enumerate}
 \end{definition}
 
@@ -1228,17 +1231,17 @@ is a function $\func{qL}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \bigskip
 
 It is easily seen that quasi-L-statistics generalize OWA operators
-if we set $\func{f}_{i,n}(x)=c_{i,n} x$, $c_{i,n}\in[0,1]$, and
+if we set $\func{f}_{i,n}(x)=c_{n-i+1,n} x$, $c_{i,n}\in[0,1]$, and
 $(\forall n)\ \sum_{i=1}^{n}c_{i,n}=1$.
 
 Assume that $\Ival=[0,b]$.
 Interestingly, it has been shown (\cite{MesiarMesiarova2011:orderedmodular},
-cf.~also \cite{Gagolewski2012:ins})
+cf.~also \cite{Gagolewski2013:om3})
 that an aggregation
 operator $\func{F}:\IvalAnyPow\to\Ival$ fulfills the
 symmetric modularity property if and only if
 $\func{F}$ is a nondecreasing quasi-L-statistic.
-What is more, in~\cite{Gagolewski2012:ins}
+What is more, in~\cite{Gagolewski2013:om3}
 we may find that $\func{qL}_{\triangle}$ is nondecreasing
 if and only if there exists $\triangledown=(\func{g}_{i,n})_{i\in[n],n\in\Naturals}$
 such that
@@ -1261,7 +1264,7 @@ is a function $\func{qS}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \bigskip
 
 Quasi-S-statistic generalize the OWMax operators,
-if $\func{f}_{i,n}(x)=x\wedge c_{i,n}$, $c_{i,n}\in\Ival$
+if $\func{f}_{i,n}(x)=x\wedge c_{n-i+1,n}$, $c_{i,n}\in\Ival$
 and $(\forall n)\ \bigvee_{i=1}^{n}c_{i,n}=b$.
 
 There is an equivalence between symmetric maxitive
@@ -1272,7 +1275,7 @@ is always generated by triangle of functions
 in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing,
 $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(a)=\func{f}_{n,n}(a)$
 and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$),
-see \cite{Gagolewski2012:ins}.
+see \cite{Gagolewski2013:om3}.
 
 \bigskip
 \begin{definition}
@@ -1286,7 +1289,7 @@ is a function $\func{qI}_{\triangle}:\IvalAnyPow\to\Ival$ such that
 \bigskip
 
 Quasi-I-statistics are generalizations of the OWMin operators,
-if $\func{f}_{i,n}(x)=x\vee c_{i,n}$, $c_{i,n}\in\Ival$ and
+if $\func{f}_{i,n}(x)=x\vee c_{n-i+1,n}$, $c_{i,n}\in\Ival$ and
 $(\forall n)\ \bigwedge_{i=1}^{n}c_{i,n}=a$.
 
 Like above, it has been shown that every
@@ -1297,7 +1300,7 @@ we may assume that nondecreasing quasi-S-statistic is generated by triangle of f
 in which $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}$ is nondecreasing,
 $(\forall n)\ (\forall i\in[n])\ \func{f}_{i,n}(b)=\func{f}_{n,n}(b)$
 and $(\forall n)\ \func{f}_{1,n}\preceq\dots\preceq\func{f}_{n,n}$,
-see \cite{Gagolewski2012:ins}.
+see \cite{Gagolewski2013:om3}.
 
 \bigskip
 Note: sometimes we also consider L-, S-, and I-statistics, i.e.~special cases
@@ -1326,7 +1329,7 @@ some authors understand sums of a function of order statistics.
 
 
 \bigskip
-Most interestingly, in~\cite{Gagolewski2012:ins} it has been shown that
+Most interestingly, in~\cite{Gagolewski2013:om3} it has been shown that
 the intersection of any two of the three ``quasi'' classes
 is the same:
 

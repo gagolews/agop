@@ -3,6 +3,10 @@
 
 0.2-0 /under development/
 
+* The definition of owa(), owmax(), and owmin() is now consistent with
+   that of (Grabisch ETAL, 2009), i.e. uses a non-increasingly sorted
+   vectors, and not non-decreasingly sorted ones.
+
 * NEW functions: pord_spread() and pord_spreadsym() --
   to compare spread of two equal-length numeric vectors
   (see M. Gagolewski, Dispersion Operators, in preparation, 2013)

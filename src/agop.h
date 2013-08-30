@@ -27,9 +27,10 @@
 
 
 #include <iostream>
-#include <algorithm>    
-#include <vector>       
+#include <algorithm>
+#include <vector>
 #include <deque>
+#include <cfloat>
 using namespace std;
 
 #define R_NO_REMAP
@@ -46,23 +47,29 @@ using namespace std;
 // length macro conflicts with STL
 #undef length
 
-#define EPS 1e-12
+#define EPS sqrt(DBL_EPSILON)
 
 #define MSG__ARGS_EXPECTED_EQUAL_SIZE \
    "`%s` and `%s` should be of equal lengths"
-   
+
 #define MSG_ARG_TOO_SHORT \
    "not enough elements in `%s`"
 
-#define MSG__ARG_NOT_IN_O_INFTY \
-   "all elements in `%s` should be in [0,Inf]"
+#define MSG__ARG_NOT_GE_A \
+   "all elements in `%s` should be not less than %g"
+
+#define MSG__ARG_NOT_LE_B \
+   "all elements in `%s` should be not greater than %g"
+
+#define MSG__ARG_NOT_IN_AB \
+   "all elements in `%s` should be in [%g,%g]"
 
 #define MSG__ARG_EXPECTED_NOT_NA \
    "missing value in argument `%s` is not supported"
 
 #define MSG__ARG_EXPECTED_NOT_EMPTY \
    "argument `%s` should be a non-empty vector"
-   
+
 #define MSG__ARG_EXPECTED_1_STRING \
    "argument `%s` should be one character string; taking the first one"
 
@@ -74,7 +81,7 @@ using namespace std;
 
 #define MSG__ARG_EXPECTED_1_NUMERIC \
    "argument `%s` should be one numeric value; taking the first one"
-   
+
 #define MSG__ARG_EXPECTED_STRING \
    "argument `%s` should be a character vector (or an object coercible to)"
 
@@ -86,14 +93,14 @@ using namespace std;
 
 #define MSG__ARG_EXPECTED_NUMERIC \
    "argument `%s` should be a numeric vector (or an object coercible to)"
-   
+
 #define MSG__INCORRECT_INTERNAL_ARG \
    "incorrect argument"
-   
+
 #define MSG__INTERNAL_ERROR \
    "internal error"
-   
-   
+
+
 struct double2 {
    double v1;
    double v2;
@@ -107,41 +114,44 @@ struct double2 {
       return ret;
    }
 };
-   
+
 SEXP vector_NA_double(R_len_t howmany); // internal
-SEXP prepare_arg_numeric(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_string(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_double(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_integer(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_logical(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_string_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_double_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_integer_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
-SEXP prepare_arg_logical_1(SEXP x, const char* argname); // @TODO: R-interface, not in NAMESPACE
+void check_range(double* x, double n, double xmin, double xmax, const char* argname);
+
+SEXP prepare_arg_numeric(SEXP x, const char* argname);
+SEXP prepare_arg_numeric_sorted_dec(SEXP x, const char* argname);
+SEXP prepare_arg_numeric_sorted_inc(SEXP x, const char* argname);
+
+SEXP prepare_arg_string(SEXP x, const char* argname);
+SEXP prepare_arg_double(SEXP x, const char* argname);
+SEXP prepare_arg_integer(SEXP x, const char* argname);
+SEXP prepare_arg_logical(SEXP x, const char* argname);
+SEXP prepare_arg_string_1(SEXP x, const char* argname);
+SEXP prepare_arg_double_1(SEXP x, const char* argname);
+SEXP prepare_arg_integer_1(SEXP x, const char* argname);
+SEXP prepare_arg_logical_1(SEXP x, const char* argname);
 
 
-SEXP index_h(SEXP x);              
-SEXP index_g(SEXP x);              
-SEXP index_g_zi(SEXP x);           
-SEXP index_maxprod(SEXP x);        
-SEXP index_w(SEXP x);              
-SEXP index_rp(SEXP x, SEXP p);     
-SEXP index_lp(SEXP x, SEXP p);     
+SEXP index_h(SEXP x);
+SEXP index_g(SEXP x);
+SEXP index_g_zi(SEXP x);
+SEXP index_maxprod(SEXP x);
+SEXP index_w(SEXP x);
+SEXP index_rp(SEXP x, SEXP p);
+SEXP index_lp(SEXP x, SEXP p);
 
-SEXP owa(SEXP x, SEXP w);          
-SEXP wam(SEXP x, SEXP w);          
-SEXP owmax(SEXP x, SEXP w);        
-SEXP wmax(SEXP x, SEXP w);         
-SEXP owmin(SEXP x, SEXP w);        
-SEXP wmin(SEXP x, SEXP w);         
+SEXP owa(SEXP x, SEXP w);
+SEXP wam(SEXP x, SEXP w);
+SEXP owmax(SEXP x, SEXP w);
+SEXP wmax(SEXP x, SEXP w);
+SEXP owmin(SEXP x, SEXP w);
+SEXP wmin(SEXP x, SEXP w);
 
 SEXP d2owa_checkwts(SEXP w);
 
-SEXP pord_weakdom(SEXP x, SEXP y); 
-SEXP pord_spread(SEXP x, SEXP y);  
-SEXP pord_spreadsym(SEXP x, SEXP y); 
+SEXP pord_weakdom(SEXP x, SEXP y);
+SEXP pord_spread(SEXP x, SEXP y);
+SEXP pord_spreadsym(SEXP x, SEXP y);
 
 
 

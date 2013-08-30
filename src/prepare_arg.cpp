@@ -22,10 +22,28 @@
 #include "agop.h"
 
 
-
-bool comparer_greater(double i, double j) { return (i>j); }
-
-
+void check_range(double* xd, double n, double xmin, double xmax, const char* argname)
+{
+   double xmax_cur = -DBL_MAX;  
+   double xmin_cur =  DBL_MAX;
+   for (R_len_t i=0; i<n; ++i) {
+      if (ISNA(xd[i])) 
+         continue;
+      if (xd[i] < xmin_cur)
+         xmin_cur = xd[i];
+      if (xd[i] > xmax_cur)
+         xmax_cur = xd[i];
+   }
+   
+   if ((xmin != -DBL_MAX && xmin_cur < xmin) || (xmax != DBL_MAX && xmax_cur > xmax)) {
+      if (xmin != -DBL_MAX && xmax != DBL_MAX)
+         Rf_error(MSG__ARG_NOT_IN_AB, argname, xmin, xmax);
+      else if (xmin != -DBL_MAX)
+         Rf_error(MSG__ARG_NOT_GE_A, argname, xmin);
+      else
+         Rf_error(MSG__ARG_NOT_LE_B, argname, xmax);
+   }
+}
 
 
 /**
@@ -37,7 +55,7 @@ bool comparer_greater(double i, double j) { return (i>j); }
  * otherwise, return as-is
  * 
  * 
- * @param numeric vector
+ * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector
  */
@@ -58,45 +76,41 @@ SEXP prepare_arg_numeric(SEXP x, const char* argname)
 }
 
 
-/**
- * Prepare sorted numeric vector
+
+/** internal comparer */
+bool __comparer_greater(double i, double j) { return (i>j); }
+
+/** internal comparer */
+bool __comparer_less(double i, double j)    { return (i<j); }
+
+
+/** Sort a numeric vector [internal]
  * 
- * if x is not numeric (or not coercible to), throw error.
- * if of length 0, return numeric(0).
- * if any NA, return NA_real_.
- * if not sorted, return sorted.
- * otherwise, return as-is
+ * @param x double vector
+ * @param decreasing should the vector be ordered non-increasingly?
  * 
- * 
- * @param numeric vector
- * @param argname argument name (message formatting)
- * @return numeric vector, sorted non-increasingly
+ * @return R double vector
  */
-SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
+SEXP __prepare_arg_sort(SEXP x, bool decreasing)
 {
-   x = prepare_arg_double(x, argname);
    R_len_t n = LENGTH(x);
-   if (n <= 0)
-      return x; // empty vector => return an empty vector
-      
+   if (n <= 1) return x; // empty, NA, or 1 element only
    double* xd = REAL(x);
+   
+   bool (*comparer)(double, double);
+   if (decreasing) comparer = __comparer_greater;
+   else            comparer = __comparer_less;
+   
    bool sorted = true;
-   for (R_len_t i=0; i<n; ++i) {
-      if (ISNA(xd[i])) {
-         return Rf_ScalarReal(NA_REAL); // at least one NA => return Scalar NA
-      }
-      else if (sorted && (i > 0) && (xd[i-1] < xd[i])) {
+   for (R_len_t i=1; i<n; ++i) {
+      if (sorted && (i > 0) && !comparer(xd[i-1], xd[i]))
          sorted = false;
-      }
    }
    
-
-   
-   if (sorted)
-      return x; // it's sorted - return as-is
+   if (sorted) return x; // it's sorted - return as-is
    
    std::vector<double> myvector(xd, xd+n);
-   std::sort(myvector.begin(), myvector.end(), comparer_greater);
+   std::sort(myvector.begin(), myvector.end(), comparer);
    
    SEXP ret;
    PROTECT(ret = Rf_allocVector(REALSXP, n));
@@ -108,59 +122,34 @@ SEXP prepare_arg_numeric_sorted(SEXP x, const char* argname)
 }
 
 
-
 /**
- * Prepare sorted numeric vector with elements in [0,\infty]
- * 
- * if x is not numeric (or not coercible to), throw error.
- * if of length 0, return numeric(0).
- * if any NA, return NA_real_.
- * if any not in [0,\infty], throw error.
- * if not sorted, return sorted.
- * otherwise, return as-is
+ * Prepare sorted numeric vector sorted non-increasingly
  * 
  * 
- * @param numeric vector
+ * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector, sorted non-increasingly
  */
-SEXP prepare_arg_numeric_sorted_0_infty(SEXP x, const char* argname)
+SEXP prepare_arg_numeric_sorted_dec(SEXP x, const char* argname)
+{
+   x = prepare_arg_numeric(x, argname);
+   return __prepare_arg_sort(x, true);
+}
+
+
+/**
+ * Prepare sorted numeric vector sorted non-decreasingly
+ *
+ * @param x numeric vector
+ * @param argname argument name (message formatting)
+ * @return numeric vector, sorted non-decreasingly
+ */
+SEXP prepare_arg_numeric_sorted_inc(SEXP x, const char* argname)
 {
    x = prepare_arg_double(x, argname);
-   R_len_t n = LENGTH(x);
-   if (n <= 0)
-      return x; // empty vector => return an empty vector
-      
-   double* xd = REAL(x);
-   bool sorted = true;
-   for (R_len_t i=0; i<n; ++i) {
-      if (ISNA(xd[i])) {
-         return Rf_ScalarReal(NA_REAL);
-      }
-      else if (xd[i] < 0) {
-         Rf_error(MSG__ARG_NOT_IN_O_INFTY, argname);
-      }
-      else if (sorted && (i > 0) && (xd[i-1] < xd[i])) {
-         sorted = false;
-      }
-   }
-   
-
-   
-   if (sorted)
-      return x; // it's sorted - return as-is
-   
-   std::vector<double> myvector(xd, xd+n);
-   std::sort(myvector.begin(), myvector.end(), comparer_greater);
-   
-   SEXP ret;
-   PROTECT(ret = Rf_allocVector(REALSXP, n));
-   R_len_t i = 0;
-   for (std::vector<double>::iterator it=myvector.begin(); it!=myvector.end(); ++it)
-      REAL(ret)[i++] = *it;
-   UNPROTECT(1);
-   return ret;
+   return __prepare_arg_sort(x, false);
 }
+
 
 
 

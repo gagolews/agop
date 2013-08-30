@@ -37,15 +37,6 @@
  */
 static const R_CallMethodDef cCallMethods[] = {
    
-   MAKE_CALL_METHOD(prepare_arg_numeric_sorted_0_infty, 2),
-   MAKE_CALL_METHOD(prepare_arg_string,         2),
-   MAKE_CALL_METHOD(prepare_arg_double,         2),
-   MAKE_CALL_METHOD(prepare_arg_integer,        2),
-   MAKE_CALL_METHOD(prepare_arg_logical,        2),
-   MAKE_CALL_METHOD(prepare_arg_string_1,       2),
-   MAKE_CALL_METHOD(prepare_arg_double_1,       2),
-   MAKE_CALL_METHOD(prepare_arg_integer_1,      2),
-   MAKE_CALL_METHOD(prepare_arg_logical_1,      2),
    MAKE_CALL_METHOD(owa,                        2),
    MAKE_CALL_METHOD(wam,                        2),
    MAKE_CALL_METHOD(wmax,                       2),

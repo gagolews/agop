@@ -33,7 +33,7 @@
  */
 SEXP owa(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wam(x, w);
 }
 
@@ -47,7 +47,7 @@ SEXP owa(SEXP x, SEXP w)
  */
 SEXP owmax(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wmax(x, w);
 }
 
@@ -62,7 +62,7 @@ SEXP owmax(SEXP x, SEXP w)
  */
 SEXP owmin(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted(x, "x");
+   x = prepare_arg_numeric_sorted_inc(x, "x");
    return wmin(x, w);
 }
 
@@ -98,7 +98,7 @@ SEXP wam(SEXP x, SEXP w)
    double ret_val = 0.0;
    for (R_len_t i=0; i<x_length; ++i) {
       if (w_tab[i] < 0)
-         Rf_error(MSG__ARG_NOT_IN_O_INFTY, "w");
+         Rf_error(MSG__ARG_NOT_GE_A, "w", 0.0);
       w_sum = w_sum + w_tab[i];
       ret_val += w_tab[i]*x_tab[i];
    }

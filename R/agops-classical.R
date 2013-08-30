@@ -27,16 +27,16 @@
 #' @details
 #' The OWA operator is given by
 #' \deqn{
-#' \mathsf{OWA}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{\{i\}}
+#' \mathsf{OWA}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}\,x_{(i)}
 #' }{
-#' OWA_w(x) = sum_i(w_i * x_{i})
+#' OWA_w(x) = sum_i(w_i * x_(i))
 #' }
-#' where \eqn{x_{\{i\}}}{x_{i}} denotes the \eqn{i}-th greatest
+#' where \eqn{x_{(i)}}{x_(i)} denotes the \eqn{i}-th smallest
 #' value in \code{x}.
 #' 
 #' The WAM operator is given by
 #' \deqn{
-#' \mathsf{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}x_{i}
+#' \mathsf{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}\,x_{i}
 #' }{
 #' WAM_w(x) = sum_i(w_i * x_i)
 #' }
@@ -54,14 +54,16 @@
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}, with elements in \eqn{[0,1]},
 #' and such that \eqn{\sum_i w_i=1}{sum(x)=1}; weights
-#' @return single numeric value
+#' @return
+#' These functions return a single numeric value.
 #' 
 #' @rdname owa
 #' @name owa
 #' @export
 #' @family aggregation_operators
 #' @references
-#' Yager R.R., On ordered weighted averaging aggregation operators in multicriteria decision making, IEEE Transactions on Systems, Man, and Cybernetics 18(1), 1988, pp. 183-190.\cr
+#' Yager R.R., On ordered weighted averaging aggregation operators in multicriteria decision making, 
+#' IEEE Transactions on Systems, Man, and Cybernetics 18(1), 1988, pp. 183-190.
 owa <- function(x, w=rep(1/length(x), length(x))) {
    .Call("owa", x, w, PACKAGE="agop")
 }
@@ -83,18 +85,18 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' @details
 #' The OWMax operator is given by
 #' \deqn{
-#' \mathsf{OWMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{\{i\}}
+#' \mathsf{OWMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{(i)}
 #' }{
-#' OWMax_w(x) = max_i{ min{w_i, x_{i}} }
+#' OWMax_w(x) = max_i{ min{w_i, x_(i)} }
 #' }
-#' where \eqn{x_{\{i\}}}{x_{i}} denotes the \eqn{i}-th greatest
+#' where \eqn{x_{(i)}}{x_(i)} denotes the \eqn{i}-th smallest
 #' value in \code{x}.
 #' 
 #' The OWMin operator is given by
 #' \deqn{
-#' \mathsf{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{\{i\}}
+#' \mathsf{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{(i)}
 #' }{
-#' OWMin_w(x) = min_i{ max{w_i, x_{i}} }
+#' OWMin_w(x) = min_i{ max{w_i, x_(i)} }
 #' }
 #' 
 #' The WMax operator is given by
@@ -114,12 +116,11 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' \code{OWMax} and \code{WMax} return the greatest value in \code{x}
 #' by default, and \code{OWMin} and \code{WMin} - the smallest value in \code{x}.
 #' 
-#' Note that e.g. in the case of OWMax operator
-#' the aggregation w.r.t. \code{w} gives the same result as
-#' that of w.r.t. \code{sort(w)}.
-#' Moreover, classically, it is assumed that if we agregate
+#' 
+#' Classically, it is assumed that if we agregate
 #' vectors with elements in \eqn{[a,b]}, then
-#' the largest weight should be equal to \eqn{b}.
+#' the largest weight for OWMax should be equal to \eqn{b}
+#' and the smallest for OWMin should be equal to \eqn{a}.
 #' 
 #' There is a strong connection between the OWMax/OWMin operators
 #' and the Sugeno integrals. Additionally, it may be shown
@@ -130,14 +131,16 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' 
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}; weights
-#' @return single numeric value
+#' @return
+#' These functions return a single numeric value.
 #' 
 #' @rdname owmax
 #' @name owmax
 #' @export
 #' @family aggregation_operators
 #' @references
-#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, Fuzzy Sets and Systems 28, 1988, pp. 313-331.\cr
+#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, 
+#' Fuzzy Sets and Systems 28, 1988, pp. 313-331.
 owmax <- function(x, w=rep(Inf, length(x))) {
    .Call("owmax", x, w, PACKAGE="agop")
 }

@@ -7,7 +7,10 @@ test_that("owa, wam", {
    expect_error(owa(1, numeric(0)))
    expect_error(owa(numeric(0),1))
    expect_equivalent(owa(1:10), 5.5)
-   expect_equivalent(owa(1:10, c(1,rep(0,9))), 10)
+   expect_equivalent(owa(1:10, c(1,rep(0,9))), 1)
+   expect_equivalent(owa(1:10, c(rep(0,9),1)), 10)
+   expect_equivalent(owa(10:1, c(1,rep(0,9))), 1)
+   expect_equivalent(owa(10:1, c(rep(0,9),1)), 10)
    expect_warning(owa(1, 2))
    
    expect_equivalent(wam(c(1,2,NA)), NA_real_)
