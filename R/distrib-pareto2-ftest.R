@@ -69,6 +69,7 @@
 #' }
 #' @export
 #' @family Pareto2
+#' @family Tests
 pareto2_test_f <- function(x, y, s, alternative = c("two.sided", "less", "greater"), significance=NULL)
 {
 	alternative <- match.arg(alternative)
@@ -77,16 +78,14 @@ pareto2_test_f <- function(x, y, s, alternative = c("two.sided", "less", "greate
 
 	x <- x[!is.na(x)]
 	nx <- length(x)
-	if (nx < 1L || any(x<0)) stop("incorrect 'x' data")
+	if (nx < 1L || any(x<0)) stop("incorrect `x` data")
 
 	y <- y[!is.na(y)]
 	ny <- length(y)
-	if (ny < 1L || any(y<0)) stop("incorrect 'y' data")
+	if (ny < 1L || any(y<0)) stop("incorrect `y` data")
 
 
-	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0")
-
-
+	stopifnot(is.numeric(s), length(s) == 1, is.finite(s), s > 0)
 
 
 	STATISTIC <- nx/ny*sum(log(1+y/s))/sum(log(1+x/s))
@@ -95,8 +94,7 @@ pareto2_test_f <- function(x, y, s, alternative = c("two.sided", "less", "greate
 	nm_alternative <- switch(alternative, two.sided = "two-sided",
 		less = "kx < ky",
 		greater = "kx > ky")
-
-
+   
 
 	if (!is.null(significance))
 	{
@@ -114,7 +112,8 @@ pareto2_test_f <- function(x, y, s, alternative = c("two.sided", "less", "greate
 			method = METHOD, data.name = DNAME)
 		class(RVAL) <- "power.htest"
 		return(RVAL)
-	} else {
+	} 
+   else {
 
 		PVAL <- ifelse(alternative == "two.sided", (0.5-abs(pf(STATISTIC, 2*ny, 2*nx)-0.5))*2,
 		        ifelse(alternative == "greater",   1-pf(STATISTIC, 2*ny, 2*nx),
