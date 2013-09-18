@@ -51,7 +51,23 @@
 exp_test_ad <- function(x)
 {
    DNAME <- deparse(substitute(x))
-   print(DNAME)
-   stop("TO DO")
+   
+   x <- x[!is.na(x)]
+   n <- length(x)
+   
+   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf) 
+   if (any(is.na(exp_test_ad_cdf[n2,])))
+      stop("Sample size too small")
+   
+   W <- .Call("exp_test_statistic", x, PACKAGE="agop")
+   pv <- if (W > exp_test_ad_cdf[1, ncol(exp_test_ad_cdf)]) 1e-16 else
+      1-splinefun(exp_test_ad_cdf[1,], exp_test_ad_cdf[n2,], method="monoH.FC")(W)
+
+   
+   res <- list(statistic=c(W=W), p.value=pv, 
+             method="Anderson-Darling exponentiality test",
+             data.name=DNAME)
+   attr(res, "class") <- "htest"
+   res
 }
 

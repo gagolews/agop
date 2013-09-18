@@ -1,7 +1,7 @@
-#points in which we calculate ecdf
-#we know that if T>0.75 then 1-ecdf(T) is approximately <0.2-0.25; 
-#we know that for T>=3 then 1-ecdf(T) is approximately <0.0009;
-#the user wants the biggest accuracy for significance level of 0.001-0.2
+# points in which we calculate ecdf
+# we know that if T>0.75 then 1-ecdf(T) is approximately <0.2-0.25; 
+# we know that for T>=3 then 1-ecdf(T) is approximately <0.0009;
+# the user wants the biggest accuracy for significance level of 0.001-0.2
 x0 <- c(0, 0.125, 0.25, 0.375, 0.5, 0.625, seq(0.75, 3, by=0.01), 3.5, 4, 10)
 
 #the smallest sample size
@@ -36,4 +36,4 @@ for (n in n_min:n_max) {
   cat(sprintf("\r%d", n))
 }
 
-saveRDS(crit,"exp_test_critical_values.rds")
+saveRDS(crit, "devel/test-ad/exp_test_ad_cdf.rds")

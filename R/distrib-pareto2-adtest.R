@@ -43,7 +43,25 @@
 pareto2_test_ad <- function(x, s=1)
 {
    DNAME <- deparse(substitute(x))
-   stopifnot(is.numeric(s), length(s) == 1, is.finite(s), s > 0)
-   stop("TO DO")
+   
+   x <- x[!is.na(x)]
+   n <- length(x)
+   
+   x <- log(1+x/s)
+   
+   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf) 
+   if (any(is.na(exp_test_ad_cdf[n2,])))
+      stop("Sample size too small")
+   
+   W <- .Call("exp_test_statistic", x, PACKAGE="agop")
+   pv <- if (W > exp_test_ad_cdf[1, ncol(exp_test_ad_cdf)]) 1e-16 else
+      1-splinefun(exp_test_ad_cdf[1,], exp_test_ad_cdf[n2,], method="monoH.FC")(W)
+   
+   
+   res <- list(statistic=c(W=W), p.value=pv, 
+               method="Anderson-Darling goodness-of-fit test for Pareto Type-II distribution",
+               data.name=DNAME)
+   attr(res, "class") <- "htest"
+   res
 }
 

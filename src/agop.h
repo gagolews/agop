@@ -153,7 +153,7 @@ SEXP pord_weakdom(SEXP x, SEXP y);
 SEXP pord_spread(SEXP x, SEXP y);
 SEXP pord_spreadsym(SEXP x, SEXP y);
 
-
+SEXP exp_test_statistic(SEXP x);
 
 
 

@@ -1799,8 +1799,16 @@ rowMeans(replicate(1000, {
 % zob.~rozdz.~\ref{Func:pareto2.zsestimate}.
 %
 
-% \paragraph{Goodness-of-fit tests.}
-% TO BE DONE....
+\paragraph{Goodness-of-fit tests.}
+\Rfunc{pareto2\_test\_ad()} ..... -- Anderson-Darling goodness-of-fit
+test (approximate p-value)..... (TO DO: describe)
+
+<<gofp2>>=
+x <- rpareto2(100, k=1, s=2)
+pareto2_test_ad(x, s=2)
+@
+
+
 % \paragraph{Testowanie zgodno¶ci.}\label{Ozn:P2GoF}
 % Przedstawione estymatory mog± byæ u¿yte                                         \marginpar{GoF}
 % w~procedurze  testowania zgodno¶ci %(ang. \textit{goodness-of-fit tests})
