@@ -230,11 +230,13 @@ is_transitive <- function(B)
 
 
 #' @title
-#' De-transitivitize Graph 
+#' Transitive Reduction of a Graph 
 #' 
 #' @description
 #' Useful for draving Hasse diagrams.
 #' 
+#' Transitive reduction is defined as a  minimal relation having
+#' the same transitive closure as R.
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
@@ -264,7 +266,7 @@ de_transitive <- function(B)
 
 
 #' @title
-#' Transitive Closure of Adjacency Matrix
+#' Transitive Closure of an Adjacency Matrix
 #' 
 #' @description
 #' This may be slow for large graphs.
@@ -296,7 +298,7 @@ closure_transitive <- function(B)
 
 
 #' @title
-#' Total Closure of Adjacency Matrix [Fair Totalization]
+#' Total Closure of an Adjacency Matrix [Fair Totalization]
 #' 
 #' @description
 #' Fair totalization: for each pair (x,y) s.t.
