@@ -8,15 +8,18 @@
    vectors, and not non-decreasingly sorted ones.
 
 * NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
-  Anderson-Darling goodness-of-fit test for the Pareto-II and
-  exponential distribution, respectively.
+   Anderson-Darling goodness-of-fit test for the Pareto-II and
+   exponential distribution, respectively.
+
+* *PENDING* NEW disribution: discretized Pareto-Type II (floor of Pareto Type-II):
+   useful for modeling some phenomenae in social sciences
 
 * NEW functions: pord_spread() and pord_spreadsym() --
-  to compare spread of two equal-length numeric vectors
-  (see M. Gagolewski, Dispersion Operators, in preparation, 2013)
+   to compare spread of two equal-length numeric vectors
+   (see M. Gagolewski, Dispersion Operators, in preparation, 2013)
 
 * NEW function: d2owa(): a symmetric dispersion operator defined as
-  the L2 distance between a numeric vector and an OWA operator
+   the L2 distance between a numeric vector and an OWA operator
 
 * BUGFIX: prepare_arg_numeric_sorted did not sort some vectors
 

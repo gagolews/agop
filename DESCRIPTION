@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.2-0
-Date: 2013-09-18
+Date: 2013-10-29
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria decision making,
     including variable number of criteria, by means of
@@ -39,3 +39,4 @@ Collate:
     'agops-dispersion.R'
     'distrib-exp-adtest.R'
     'distrib-pareto2-adtest.R'
+    'distrib-dpareto2.R'

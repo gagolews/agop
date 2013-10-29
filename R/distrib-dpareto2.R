@@ -19,22 +19,21 @@
 
 
 #' @title
-#' Pareto Type-II (Lomax) Distribution
+#' Discretized Pareto Type-II (Lomax) Distribution
 #' 
 #' @description
-#' Density, cumulative distribution function,
+#' Probability mass function, cumulative distribution function,
 #' quantile function, and random generation for the 
-#' Pareto Type-II (Lomax)  
-#' distribution with shape
+#' Discretized Pareto Type-II distribution with shape
 #' parameter \eqn{k>0} and scale parameter \eqn{s>0}.
 #' 
 #' TO DO: rewrite in C, add NA handling
 #' 
 #' @details
-#' If \eqn{X\sim\mathrm{P2}(k,s)}{X~P2(k,s)},
-#' then \eqn{\mathrm{supp}\,X=[0,\infty)}{supp X=[0,\infty)}.
-#' The c.d.f. for \eqn{x\ge 0} is given by \deqn{F(x)=1-s^k/(s+x)^k}
-#' and the density by \deqn{f(x)=k s^k/(s+x)^{k+1}.}
+#' If \eqn{X\sim\mathrm{DP2}(k,s)}{X~DP2(k,s)},
+#' then \eqn{\lfloor Y\rfloor=X}{floor(Y)=X},
+#' where \eqn{Y} has ordinary Pareto Type-II
+#' distribution, see \code{\link{ppareto2()}}.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities
@@ -45,35 +44,37 @@
 #' probabilities are \eqn{P(X \le x)}, and \eqn{P(X > x)} otherwise
 #' @return 
 #' numeric vector;
-#' \code{dpareto2} gives the density,
-#' \code{ppareto2} gives the cumulative distribution function,
-#' \code{qpareto2} calculates the quantile function,
-#' and \code{rpareto2} generates random deviates.
+#' \code{ddpareto2} gives the probability mass function,
+#' \code{pdpareto2} gives the cumulative distribution function,
+#' \code{qdpareto2} calculates the quantile function,
+#' and \code{rdpareto2} generates random deviates.
 #' 
 #' @export
-#' @rdname Pareto2
+#' @rdname DiscretizedPareto2
 #' @family distributions
-#' @family Pareto2
-rpareto2 <- function(n, k=1, s=1)
+#' @family DiscretizedPareto2
+rdpareto2 <- function(n, k=1, s=1)
 {
    stopifnot(is.numeric(k), k > 0)
    stopifnot(is.numeric(s), s > 0)
    # n checked by runif
-	s*((runif(n)^(-1.0/k)) - 1.0)
+	floor(s * ((runif(n)^(-1.0/k)) - 1.0))
 }
 
 
 
 #' @export
-#' @rdname Pareto2
-ppareto2 <- function(q, k=1, s=1, lower.tail=TRUE)
+#' @rdname DiscretizedPareto2
+pdpareto2 <- function(q, k=1, s=1, lower.tail=TRUE)
 {
    stopifnot(is.numeric(k), k > 0)
    stopifnot(is.numeric(s), s > 0)
    stopifnot(is.numeric(q))
-	ret <- ifelse(q<0, 0, (1-(s/(s+q))^k))
-   if (identical(lower.tail[1], FALSE))
-      ret <- 1-ret
+   ret <- numeric(length(q)) # inits with zeros
+   wp <- (q>=0)
+   ret[wp] <- 1.0-(s/(s+floor(q[wp]+1.0)))^k
+   if (identical(lower.tail, FALSE))
+      1-ret
    else
       ret
 }
@@ -81,25 +82,36 @@ ppareto2 <- function(q, k=1, s=1, lower.tail=TRUE)
 
 
 #' @export
-#' @rdname Pareto2
-qpareto2 <- function(p, k=1, s=1, lower.tail=TRUE)
+#' @rdname DiscretizedPareto2
+qdpareto2 <- function(p, k=1, s=1, lower.tail=TRUE)
 {
    stopifnot(is.numeric(k), k > 0)
    stopifnot(is.numeric(s), s > 0)
    stopifnot(is.numeric(p))
-   if (identical(lower.tail[1], FALSE))
-      p <- 1-p
-	ifelse(p<0 | p>1, NaN, s*((1-p)^(-1/k)-1))
+   if (identical(lower.tail, FALSE))
+      p <- 1.0-p
+   stop("TO DO")
+#    ret <- numeric(length(p)) # inits with zeros
+#    wp <- (p>=0.0 & p<=1.0)
+#    ret[wp] <- s*((1.0-p[wp])^(-1/k)-1.0)
+#    ints <- (abs(ret[wp]-round(ret[wp])) < sqrt(.Machine$double.eps))
+#    ret[wp][ints] <- round(ret[wp][ints])
+#    ret[wp] <- floor(ret[wp])-1
+#    ret[!wp] <- NaN
+#    ret
 }
 
 
 
 #' @export
-#' @rdname Pareto2
-dpareto2 <- function(x, k=1, s=1)
+#' @rdname DiscretizedPareto2
+ddpareto2 <- function(x, k=1, s=1)
 {
    stopifnot(is.numeric(k), k > 0)
    stopifnot(is.numeric(s), s > 0)
    stopifnot(is.numeric(x))
-	ifelse(x<=0, 0, k/(s+x)*(s/(s+x))^k)
+   ret <- numeric(length(x)) # inits with zeros
+   wp <- (x == floor(x) & x>=0)
+   ret[wp] <- (s/(s+x[wp]))^k-(s/(s+x[wp]+1.0))^k
+   ret
 }
