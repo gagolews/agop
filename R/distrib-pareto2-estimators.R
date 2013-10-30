@@ -18,10 +18,10 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title Parameter Estimation in the Pareto-II Distribution (MMSE)
+#' @title Parameter Estimation in the Pareto Type-II Distribution Family (MMSE)
 #' 
 #' @description
-#' Finds the MMS estimator of the type II Pareto distribution parameters
+#' Finds the MMS estimator of the Pareto Type-II distribution parameters
 #' using the Bayesian method (and the R code) developed by
 #' Zhang and Stevens (2009).
 #'
@@ -72,10 +72,10 @@ pareto2_estimate_mmse <- function(x)
 
 
 
-#' @title Parameter Estimation in the Pareto-II Distribution (MLE)
+#' @title Parameter Estimation in the Pareto Type-II Distribution Family (MLE)
 #' 
 #' @description
-#' Finds the maximum likelihood estimator of the type II Pareto distribution's
+#' Finds the maximum likelihood estimator of the Pareto Type-II distribution's
 #' shape parameter \eqn{k} and, if not given explicitly,
 #'  scale parameter \eqn{s}.
 #'

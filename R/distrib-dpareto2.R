@@ -27,7 +27,7 @@
 #' Discretized Pareto Type-II distribution with shape
 #' parameter \eqn{k>0} and scale parameter \eqn{s>0}.
 #' 
-#' TO DO: rewrite in C, add NA handling
+#' TO DO: rewrite in C, add NA handling, add working qdpareto2()
 #' 
 #' @details
 #' If \eqn{X\sim\mathrm{DP2}(k,s)}{X~DP2(k,s)},
