@@ -11,9 +11,14 @@
    Anderson-Darling goodness-of-fit test for the Pareto-II and
    exponential distribution, respectively.
 
-* *PENDING* NEW disribution: discretized Pareto-Type II (floor of Pareto Type-II):
+* *PENDING* NEW disribution implemented: discretized Pareto-Type II
+   (floor of Pareto Type-II):
    useful for modeling some phenomenae in social sciences;
-   dpareto2_estimate_mle() for MLE estimators
+   dpareto2_estimate_mle() for MLE estimators;
+   XXX() chi-square-based approximate goodness of fit test
+
+* *PENDING* BUGFIX: closure_transitive - resulting matrix
+   was not necessarily transitive; the function has been rewritten in C++
 
 * NEW functions: pord_spread() and pord_spreadsym() --
    to compare spread of two equal-length numeric vectors

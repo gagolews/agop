@@ -282,6 +282,8 @@ closure_transitive <- function(B)
    if (is(B, 'igraph')) B <- get.adjacency(B)
    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
    
+   stop('resulting matrix is not necessarily transitive')
+   
    # slow as hell!
    n <- nrow(B)
    for (i in 1:n) {
