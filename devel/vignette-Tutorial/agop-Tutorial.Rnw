@@ -1058,7 +1058,7 @@ print(incomp) # all incomparable pairs
 lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
-To draw the Hasse diagram, it will be good to de-transitivize
+To draw the Hasse diagram, it will be good to base on transitive reduction of
 the graph (for \ae{}sthetic reasons).
 \index{\Rfunc{de\_transitive()}}
 
@@ -1073,7 +1073,7 @@ $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
 let's apply \emph{fair totalization} (set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
-for discussion), and then calculate transitive closure.%
+for discussion), and then calculate the transitive closure.%
 \index{\Rfunc{closure\_transitive()}}%
 \index{\Rfunc{closure\_total\_fair()}}%
 

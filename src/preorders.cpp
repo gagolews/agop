@@ -170,9 +170,9 @@ SEXP is_total(SEXP x)
    int* xp = INTEGER(x);
    for (R_len_t i=0; i<n; ++i) {
       for (R_len_t j=i; j<n; ++j) {
-         if ( xp[i+j*n] == NA_LOGICAL &&  xp[j+i*n] == NA_LOGICAL
-          ||  xp[i+j*n] == NA_LOGICAL && !xp[j+i*n]
-          || !xp[i+j*n]               &&  xp[j+i*n] == NA_LOGICAL)
+         if (( xp[i+j*n] == NA_LOGICAL &&  xp[j+i*n] == NA_LOGICAL )
+          || ( xp[i+j*n] == NA_LOGICAL && !xp[j+i*n]               )
+          || (!xp[i+j*n]               &&  xp[j+i*n] == NA_LOGICAL ))
             return Rf_ScalarLogical(NA_LOGICAL);
          else if (!xp[i+j*n] && !xp[j+i*n]) // NA_LOGICAL != 0
             return Rf_ScalarLogical(FALSE);
@@ -238,10 +238,10 @@ SEXP closure_transitive(SEXP x)
       yp[i] = xp[i];
    }
    
-   for (R_len_t k=0; k<n; ++k) { // Warshall's algorithm with
+   for (R_len_t k=0; k<n; ++k) { // Warshall's algorithm
       for (R_len_t i=0; i<n; ++i) {
          for (R_len_t j=0; j<n; ++j) {
-            yp[i+n*j] = yp[i+n*j] || (yp[i+n*k] && yp[k+n*j]);
+            yp[i+n*j] = (yp[i+n*j] || (yp[i+n*k] && yp[k+n*j]));
          }
       }
    }

@@ -13,25 +13,27 @@
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):
-   useful for modeling some phenomenae in social sciences;
-   dpareto2_estimate_mle() for MLE estimators;
-   XXX() chi-square-based approximate goodness of fit test
-
-* *PENDING* BUGFIX: closure_transitive - resulting matrix
-   was not necessarily transitive; the function has been rewritten in C++
+   useful for modeling some phenomena in social sciences;
+   see dpareto2_estimate_mle() for MLE estimators;
+   and ddpareto2(), pdpareto2(), rdpareto2(), qdpareto2()
+   for standard d.f. implementations.
 
 * NEW functions: pord_spread() and pord_spreadsym() --
    to compare spread of two equal-length numeric vectors
-   (see Gagolewski M., Dispersion Operators, submitted, 2013)
+   (see Gagolewski M., Dispersion Operators, submitted, 2013).
 
 * NEW function: d2owa(): a symmetric dispersion operator defined as
-   the L2 distance between a numeric vector and an OWA operator
+   the L2 distance between a numeric vector and an OWA operator.
 
 * Rewritten to C++: is_reflexive(), is_total(), is_transitive(), .....
 
-* BUGFIX: prepare_arg_numeric_sorted (C++) did not sort some vectors
+* BUGFIX: closure_transitive() - resulting matrix
+   was not necessarily transitive; the function has been rewritten in C++
+   and now uses the Warshall algorithm (1962).
 
-* all built-in agops now throw an error on empty vectors
+* BUGFIX: prepare_arg_numeric_sorted (C++) did not sort some vectors.
+
+* all built-in agops now throw an error on empty vectors.
 
 * ...TO DO...
 
