@@ -16,10 +16,10 @@ has reminded underground till only recent (...).
  [Grabisch et al, 2009, p. xiii]"
  
 **agop** is an open source (LGPL 3) package for R, to which anyone can contribute.
-It started as a fork of the **[CITAN](http://staff.rexamine.com/gagolews/resources/)** package.
+It started as a fork of the **[CITAN](http://gagolewski.rexamine.com/resources/)** package.
 
-**Authors**: [Marek Gagolewski](http://staff.rexamine.com/gagolews),
-with contributions from [Anna Cena](http://staff.rexamine.com/cena)
+**Authors**: [Marek Gagolewski](http://gagolewski.rexamine.com/),
+with contributions from [Anna Cena](http://cena.rexamine.com/)
 
 **Homepage**: http://agop.rexamine.com/
 
