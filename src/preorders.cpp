@@ -28,6 +28,8 @@
  * @param x numeric vector
  * @param y numeric vector
  * @return logical scalar, whether x <= y
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP pord_weakdom(SEXP x, SEXP y)
 {
@@ -64,6 +66,8 @@ SEXP pord_weakdom(SEXP x, SEXP y)
  * @param x numeric vector
  * @param y numeric vector
  * @return logical scalar, whether x <= y
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP pord_spread(SEXP x, SEXP y)
 {
@@ -97,6 +101,8 @@ SEXP pord_spread(SEXP x, SEXP y)
  * @param x numeric vector
  * @param y numeric vector
  * @return logical scalar, whether x <= y
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP pord_spreadsym(SEXP x, SEXP y)
 {
@@ -124,3 +130,23 @@ SEXP pord_spreadsym(SEXP x, SEXP y)
    
    return Rf_ScalarLogical(TRUE);
 }
+
+
+/** Check if a binary relation is reflexive
+ * 
+ * @param x square logical matrix
+ * @return logical scalar
+ */
+SEXP is_reflexive(SEXP x)
+{
+   x = prepare_arg_logical_square_matrix(x, "B");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+   for (R_len_t i=0; i<n; ++i)
+      if (xp[i+i*n] != NA_LOGICAL && !xp[i+i*n])
+         return Rf_ScalarLogical(FALSE);
+   return Rf_ScalarLogical(TRUE);
+}
+
+

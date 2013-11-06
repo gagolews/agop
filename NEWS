@@ -27,7 +27,7 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator
 
-* Rewritten to C++: ...
+* Rewritten to C++: is_reflexive(), .....
 
 * BUGFIX: prepare_arg_numeric_sorted (C++) did not sort some vectors
 

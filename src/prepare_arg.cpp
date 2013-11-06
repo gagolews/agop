@@ -416,6 +416,30 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 }
 
 
+/** Prepare logical argument - one value
+ * 
+ * If there are 0 elements -> error
+ * If there are >1 elements -> warning
+ * 
+ * @param x R object to be checked/coerced
+ * @param argname argument name (message formatting)
+ * @return always an R logical vector with >=1 element
+ * 
+ * @version 0.1 (Marek Gagolewski)
+ */
+SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname)
+{
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   if (LENGTH(dim) != 2)
+      Rf_error(MSG__DIM_LENGTH, argname);
+   if (INTEGER(dim)[0] != INTEGER(dim)[1])
+      Rf_error(MSG__DIM_NOTEQUAL, argname);
+   x = prepare_arg_logical(x, argname);
+   Rf_setAttrib(x, R_DimSymbol, dim);
+   return x;
+}
+
+
 /** 
  *  Creates a numeric vector filled with \code{NA_real_}
  * 

@@ -100,6 +100,12 @@ using namespace std;
 #define MSG__INTERNAL_ERROR \
    "internal error"
 
+#define MSG__DIM_LENGTH \
+   "incorent number of dimensions in %s"
+   
+#define MSG__DIM_NOTEQUAL \
+   "dimensions in %s should be equal"
+   
 
 struct double2 {
    double v1;
@@ -130,7 +136,7 @@ SEXP prepare_arg_string_1(SEXP x, const char* argname);
 SEXP prepare_arg_double_1(SEXP x, const char* argname);
 SEXP prepare_arg_integer_1(SEXP x, const char* argname);
 SEXP prepare_arg_logical_1(SEXP x, const char* argname);
-
+SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname);
 
 SEXP index_h(SEXP x);
 SEXP index_g(SEXP x);
@@ -152,6 +158,7 @@ SEXP d2owa_checkwts(SEXP w);
 SEXP pord_weakdom(SEXP x, SEXP y);
 SEXP pord_spread(SEXP x, SEXP y);
 SEXP pord_spreadsym(SEXP x, SEXP y);
+SEXP is_reflexive(SEXP x);
 
 SEXP exp_test_statistic(SEXP x);
 

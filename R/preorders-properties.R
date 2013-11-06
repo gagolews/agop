@@ -32,10 +32,10 @@
 #' @export
 is_reflexive <- function(B)
 {
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   B <- as.logical(B)
-   all(Matrix::diag(B) != 0) # TO DO: add .Call
+   .Call("is_reflexive", as.matrix(B), PACKAGE="agop") # args checked internally 
+   # stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+   #B <- as.logical(B)
+   #all(Matrix::diag(B) != 0) # TO DO: add .Call
 }
 
 
