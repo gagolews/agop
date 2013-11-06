@@ -125,6 +125,9 @@ if (substring(AGOPver, nchar(AGOPver)) == "0") {
 @
 
 
+\usepackage{makeidx}
+\makeindex
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,7 +150,7 @@ If you use the ``official'' CRAN release, some of the features may be unavailabl
 \begin{center}
 {\LARGE\sf A Guide to the \package{agop} {\Sexpr{AGOPver}} Package for \R}
 
-{\large\sf\textit{Aggregation Operators in \R}}
+{\large\sf\textit{Aggregation Operators and Preordered Sets in \R}}
 
 \bigskip
 {\large Marek Gagolewski${}^{1,2}$, Anna Cena${}^{1,2}$}
@@ -326,7 +329,9 @@ install_github('agop', 'Rexamine')
 @
 
 \noindent
-Note that in this case you will need a working \lang{C}/\lang{C++} compiler.
+Note that in this case you will need a working \lang{C}/\lang{C++} compiler%
+\footnote{\os{Windows} users should have \textsf{Rtools} installed, see \href{http://cran.r-project.org/bin/windows/Rtools/}%
+{cran.r-project.org/bin/windows/Rtools/}.}.
 
 
 \bigskip
@@ -843,12 +848,14 @@ $\func{F}\in \mathcal{E}(\Ival)$ is
 
 ...TO DO... see \cite{GagolewskiXXXX:dispersion} ...
 
-D2OWA (\Rfunc{d2owa()}):
+D2OWA (\index{\Rfunc{d2owa()}}\Rfunc{d2owa()}):
 
 \[
 \func{D2OWA}_\vect{w}(\vect{x}) = \sqrt{\frac{1}{n}
    \sum_{i=1}^n \left(x_i-\func{OWA}_\vect{w}(\vect{x})\right)^2}
 \]
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -859,7 +866,7 @@ D2OWA (\Rfunc{d2owa()}):
 
 \subsection{Depicting Producers}
 
-The \Rfunc{plot\_producer()} function may be used to draw
+The \index{\Rfunc{plot\_producer()}}\Rfunc{plot\_producer()} function may be used to draw
 a graphical representation of a given numeric vector,
 i.e.~what is sometimes called a \emph{citation function}
 in scientometrics.
@@ -870,7 +877,8 @@ step function defined for $0\le y<n$ and given by:
 \[
    \pi(y)=x_{\{\lfloor y+1\rfloor\}}.
 \]
-This function may be obtained by setting \texttt{\argument{type=}\str{'right.continuous'}}
+This function may be obtained by setting
+\texttt{\argument{type=}\str{'right.continuous'}}
 argument in \Rfunc{plot\_pro\-du\-cer()}.
 Recall that $x_{\{i\}}$ denotes $i$-th greatest value in $\vect{x}$.
 
@@ -888,7 +896,7 @@ of points $(0, x_{\{1\}}), (1, x_{\{1\}}),\allowbreak
 
 
 \medskip
-The \Rfunc{plot\_producer()} function behaves much like
+The \index{\Rfunc{plot\_producer()}}\Rfunc{plot\_producer()} function behaves much like
 the well-known \R's \Rfunc{plot.default()} and allows for passing
 all its graphical parameters.
 For example, let us depict the state of two given producers,
@@ -954,7 +962,8 @@ that are \textit{incomparable} with respect to $\trianglelefteq$ (see
 the illustration below).
 
 This preorder in \package{agop} may be
-determined using the \Rfunc{pord\_weakdom()} function.
+determined using the \index{\Rfunc{pord\_weakdom()}}\Rfunc{pord\_weakdom()}
+function.
 
 <<pord_weakdom>>=
 c(pord_weakdom(5:1, 10:1), pord_weakdom(10:1, 5:1)) # 5:1 <= 10:1
@@ -981,7 +990,8 @@ $\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
 
 ...TO DO...
 
-The functions \Rfunc{pord\_spread()} and \Rfunc{pord\_spreadsym()}
+The functions \index{\Rfunc{pord\_spread()}}\Rfunc{pord\_spread()}
+and \index{\Rfunc{pord\_spreadsym()}}\Rfunc{pord\_spreadsym()}
 can be used to compare spread of two numeric vectors,
 see \cite{GagolewskiXXXX:dispersion}...
 
@@ -1020,6 +1030,10 @@ legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 Here is the adjacency matrix for
 the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
 
+\index{\Rfunc{is\_reflexive()}}%
+\index{\Rfunc{is\_transitive()}}%
+\index{\Rfunc{is\_total()}}%
+
 <<ex1B,dependson='ex1'>>=
 ord <- rel_graph(ex1, pord_weakdom)
 print(ord)
@@ -1031,7 +1045,9 @@ is_total(ord)      # not a total preorder...
 \noindent
 We see that we have $A \text{??} B$, $A \text{??} C$,
 $B \text{??} C$ (no pair from $\{A,B,C\}$ is comparable
-w.r.t.~$\trianglelefteq$):
+w.r.t.~$\trianglelefteq$):%
+\index{\Rfunc{get\_incomparable\_pairs()}}%
+\index{\Rfunc{get\_independent\_sets()}}
 
 <<ex1B2,dependson='ex1B'>>=
 incomp <- get_incomparable_pairs(ord)
@@ -1044,6 +1060,7 @@ lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 
 To draw the Hasse diagram, it will be good to de-transitivize
 the graph (for \ae{}sthetic reasons).
+\index{\Rfunc{de\_transitive()}}
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
@@ -1056,8 +1073,9 @@ $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
 let's apply \emph{fair totalization} (set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
-for discussion), and then calculate transitive closure.
-
+for discussion), and then calculate transitive closure.%
+\index{\Rfunc{closure\_transitive()}}%
+\index{\Rfunc{closure\_total\_fair()}}%
 
 <<ex1D,dependson='ex1C'>>=
 ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder
@@ -1070,7 +1088,8 @@ plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 Note that each total preorder $\trianglelefteq''$ induces an
 equivalence relation ($x\simeq y$ iff $x\trianglelefteq''y$ and $y\trianglelefteq''x$;
 the equivalence classes may be ordered with $\trianglelefteq''$).
-These may be explored with the \Rfunc{get\_equivalence\_classes()}
+These may be explored with the
+\index{\Rfunc{get\_equivalence\_classes()}}\Rfunc{get\_equivalence\_classes()}
 function.
 
 <<ex1E,dependson='ex1D'>>=
@@ -1134,7 +1153,7 @@ defines the arithmetic mean (\Rfunc{mean()} in \R).
 % where \Rfunc{trim} parameter is the percentage of cut observations.
 
 In \package{agop} the WAM and OWA operators are available as
-\Rfunc{wam()} and \Rfunc{owa()}.
+\index{\Rfunc{wam()}}\Rfunc{wam()} and \index{\Rfunc{owa()}}\Rfunc{owa()}.
 
 <<owa>>=
 wam(c(1,2,2,2), c(0.1,0.4,0.4,0.1))
@@ -1162,7 +1181,8 @@ $\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as
 \end{definition}
 
 \noindent
-\package{agop} implementation: \Rfunc{wmax()} and \Rfunc{owmax()}.
+\package{agop} implementation: \index{\Rfunc{wmax()}}\Rfunc{wmax()}
+and \index{\Rfunc{owmax()}}\Rfunc{owmax()}.
 
 <<owmax>>=
 wmax(c(1,3,5,2), Inf) # no vectorization here!
@@ -1188,7 +1208,8 @@ with the weight vector $\vect{w}$ is defined as
 \end{definition}
 
 \noindent
-\package{agop} implementation: \Rfunc{wmin()} and \Rfunc{owmin()}.
+\package{agop} implementation: \index{\Rfunc{wmin()}}\Rfunc{wmin()}
+and \index{\Rfunc{owmin()}}\Rfunc{owmin()}.
 
 It is clear to see that OWMax operators fulfill the maxitivity property and
 OWMin operators fulfill the minitivity property. Interestingly,
@@ -1417,7 +1438,7 @@ w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
 
 \smallskip
 \noindent
-\package{agop} implementation: \Rfunc{index\_h()}.
+\package{agop} implementation: \index{\Rfunc{index\_h()}}\Rfunc{index\_h()}.
 
 <<index_h>>=
 index_h(c(6,5,4,2,1,0,0,0,0,0,0))
@@ -1440,14 +1461,16 @@ we have $\lim_{n\to\infty} \func{M}_{\triangle,\vect{w}}(n\ast x)=x$.
 Egghe's $g$-index \cite{Egghe2006:g}
 is defined as
 $\func{G}(\vect{x})=\max\{g=1,\dots,n: \sum_{i=1}^g x_{\{g\}}\ge g^2\}$,
-and is available in \package{agop} by calling \Rfunc{index\_g()}.
+and is available in \package{agop} by calling
+\index{\Rfunc{index\_g()}}\Rfunc{index\_g()}.
 We have $\func{G}(\vect{x})\ge \func{H}(\vect{x})$
 with $\func{G}(n\ast n)=\func{H}(n\ast n)=n$
 
 
 Note that this aggregation operator is not zero-insensitive,
 for example $\func{G}(9,0)=2$ and $\func{G}(9,0,0)=3$.
-Thus, we also provide the \Rfunc{index\_g\_zi()} function,
+Thus, we also provide the
+\index{\Rfunc{index\_g\_zi()}}\Rfunc{index\_g\_zi()} function,
 which treats $\vect{x}$ as it would be padded with $0$s.
 
 
@@ -1477,7 +1500,8 @@ is  defined as
 \begin{equation*}\label{Eq:IndexW}
 \func{W}(\vect{x}) = \max\left\{w=0,1,2,\ldots: {x}_{\{i\}} \ge w-i+1, i=1,\dots,w\right\}
 \end{equation*}
-and is available in \package{agop} by calling \Rfunc{index\_w()}.
+and is available in \package{agop} by calling
+\index{\Rfunc{index\_w()}}\Rfunc{index\_w()}.
 
 Interestingly, we have shown in \cite{GagolewskiMesiarXXXX:integrals}
 that if $\vect{x}$ is sorted nondecreasingly, then:
@@ -1501,7 +1525,7 @@ Please note that for integer vectors we have $r_1=\func{W}$ and $r_\infty=\func{
 (cf.~\cite{GagolewskiGrzegorzewski2009:geometricapproach}).
 Hence it easily seen that, this is a zero-insensitive impact function.
 
-\package{agop} implementation \Rfunc{index\_rp()}.
+\package{agop} implementation \index{\Rfunc{index\_rp()}}\Rfunc{index\_rp()}.
 
 \paragraph{The $l_p$-indices.} The $l_p$-index
 (cf.~\cite{Gagolewski2011:PhD,GagolewskiGrzegorzewski2009:geometricapproach})
@@ -1513,7 +1537,7 @@ $\func{l}_{p}:\IvalAnyPow\to\IvalPow{2}$ given by the equation
 where $\func{e}^{p,u,v}=\left(\sqrt[p]{v^{p}-(\frac{v}{u}0)^{p}},
 \sqrt[p]{v^{p}-(\frac{v}{u}1)^{p}},\dots,\sqrt[p]{v^{p}-(\frac{v}{u}\lfloor u\rfloor)^{p}}\right)$.
 
-\package{agop} implementation \Rfunc{index\_lp()}.
+\package{agop} implementation \index{\Rfunc{index\_lp()}}\Rfunc{index\_lp()}.
 
 
 
@@ -1529,7 +1553,7 @@ in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure},
 see \cite{GagolewskiMesiarXXXX:integrals} for discussion.
 
 In \package{agop} the MAXPROD-index is implemented
-in the \Rfunc{index\_maxprod()} function.
+in the \index{\Rfunc{index\_maxprod()}}\Rfunc{index\_maxprod()} function.
 
 
 
@@ -1619,10 +1643,11 @@ The cumulative distribution function of $X$ is then:
 \end{equation}
 
 The Pareto-Type II distribution
-is implemented in \package{agop}: \Rfunc{dpareto2()} gives the p.d.f.~\eqref{Eq:Pareto2PDF},
-\Rfunc{ppareto2()} gives the c.d.f.~\eqref{Eq:Pareto2CDF},
-\Rfunc{qpareto2()} calculates the quantile function, $F^{-1}$,
-and \Rfunc{rpare\-to2()} generates random deviates.
+is implemented in \package{agop}:
+\index{\Rfunc{dpareto2()}}\Rfunc{dpareto2()} gives the p.d.f.~\eqref{Eq:Pareto2PDF},
+\index{\Rfunc{ppareto2()}}\Rfunc{ppareto2()} gives the c.d.f.~\eqref{Eq:Pareto2CDF},
+\index{\Rfunc{qpareto2()}}\Rfunc{qpareto2()} calculates the quantile function, $F^{-1}$,
+and \index{\Rfunc{rpareto2()}}\Rfunc{rpare\-to2()} generates random deviates.
 
 \paragraph{Properties.}
 The expected value of $X\sim\mathrm{P2}(k,s)$
@@ -1684,8 +1709,8 @@ $\mathrm{Var}\,\widehat{k}(\vect{x})=k^2 \frac{1}{n-2}.$
 
 
 \package{agop} implementation:
-\Rfunc{pareto2\_estimate\_mle()} with explicitly
-set argument \argument{s}.
+\index{\Rfunc{pareto2\_estimate\_mle()}}\Rfunc{pareto2\_estimate\_mle()}
+with explicitly set argument \argument{s}.
 
 <<pareto2mle1>>=
 rowMeans(replicate(1000, {
@@ -1710,7 +1735,7 @@ This estimator may be heavily biased and have a large mean squared
 error (of course, it is only asymptotically unbiased).
 
 \package{agop} implementation:
-\Rfunc{pareto2\_estimate\_mle()} with explicitly
+\index{\Rfunc{pareto2\_estimate\_mle()}}\Rfunc{pareto2\_estimate\_mle()} with explicitly
 set argument \argument{s}.
 
 <<pareto2mle2>>=
@@ -1726,7 +1751,8 @@ A better (in general) estimation procedure was proposed
 in \cite{ZhangStevens2009:estgpd}.
 The Zhang-Stevens MMS (\textit{minimum mean square error}) (Bayesian)
 estimator has relatively small bias (often positive) and mean squared error.
-In \package{agop} it is available as: \Rfunc{pareto2\_estimate\_mmse}.
+In \package{agop} it is available as:
+\index{\Rfunc{pareto2\_estimate\_mmse()}}\Rfunc{pareto2\_estimate\_mmse}.
 
 <<pareto2mmse>>=
 rowMeans(replicate(1000, {
@@ -1800,8 +1826,13 @@ rowMeans(replicate(1000, {
 %
 
 \paragraph{Goodness-of-fit tests.}
-\Rfunc{pareto2\_test\_ad()} ..... -- Anderson-Darling goodness-of-fit
+\index{\Rfunc{pareto2\_test\_ad()}}\Rfunc{pareto2\_test\_ad()} ..... -- Anderson-Darling goodness-of-fit
 test (approximate p-value)..... (TO DO: describe)
+for known $s$
+by means of the
+\index{\Rfunc{exp\_test\_ad()}}\Rfunc{exp\_test\_ad()} function and
+the above-mentioned relationship between Pareto-Type II distributions
+and Exponential ones.
 
 <<gofp2>>=
 x <- rpareto2(100, k=1, s=2)
@@ -1902,7 +1933,8 @@ where $\text{\Rfunc{pf}}(x,d_1,d_2)$
 is the c.d.f.~of $\mathrm{F}^{[d_1,d_2]}$.
 
 \medskip
-\package{agop} implementation: \Rfunc{pareto2\_test\_f()}.
+\package{agop} implementation:
+\index{\Rfunc{pareto2\_test\_f()}}\Rfunc{pareto2\_test\_f()}.
 
 <<ftest,echo=-1>>=
 set.seed(235)
@@ -1910,6 +1942,23 @@ x <- rpareto2(35, 1.2, 1)
 y <- rpareto2(25, 2.1, 1)
 pareto2_test_f(x, y, s=1)
 @
+
+
+\subsubsection{Discretized Pareto-Type II Distribution}
+
+We would say that $X\sim\mathrm{DP2}(k,s)$,
+i.e.~it follows the \emph{discretized Pareto-Type II distribution}
+with shape parameter $k>0$ and scale parameter $s>0$,
+if $X=\lfloor Y\rfloor$, where $Y\sum\mathrm{P2}(k,s)$.
+
+......TO BE DONE......
+
+The Discretized Pareto-Type II distribution
+is implemented in \package{agop}:
+\index{\Rfunc{ddpareto2()}}\Rfunc{ddpareto2()} gives the p.m.f.,
+\index{\Rfunc{pdpareto2()}}\Rfunc{pdpareto2()} gives the c.d.f.,
+\index{\Rfunc{qdpareto2()}}\Rfunc{qdpareto2()} calculates the quantile function,
+and \index{\Rfunc{rdpareto2()}}\Rfunc{rdpare\-to2()} generates random deviates.
 
 
 \subsection{Stochastic Properties of Aggregation Operators}
@@ -2125,5 +2174,7 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 %     to .bashrc
 \bibliography{gagolewski,gagolewski_temp,aggregation,probstat,%
 r,bibliometrics,unsorted}
+
+\printindex
 
 \end{document}
