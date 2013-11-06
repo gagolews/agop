@@ -25,4 +25,4 @@ with contributions from [Anna Cena](http://staff.rexamine.com/cena)
 
 **CRAN Record**: http://cran.r-project.org/web/packages/agop/
 
-**System requirements**: *R >= 2.14.0*
+**System requirements**: *R >= 2.12.0*
