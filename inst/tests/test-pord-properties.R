@@ -54,3 +54,51 @@ test_that("is_transitive", {
               1,0,0,1,
               0,0,0,0),ncol=4, byrow=TRUE)))
 })
+
+
+test_that("closure_transitive", {
+   
+   expect_equivalent(closure_transitive(
+     matrix(c(0,0,0,1,
+              0,0,1,0,
+              1,0,0,0,
+              0,0,0,0),ncol=4, byrow=TRUE)),
+     matrix(c(0,0,0,1,
+              1,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE))
+   
+   expect_equivalent(closure_transitive(
+     matrix(c(0,0,0,1,
+              1,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE)),
+     matrix(c(0,0,0,1,
+              1,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE))
+   
+   expect_true(is_transitive(closure_transitive(
+     matrix(c(0,0,0,1,
+              1,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE))))
+   
+   # random graphs:
+   expect_true(is_transitive(closure_transitive(
+     matrix(runif(625)>0.1, ncol=25, byrow=TRUE))))
+   
+   expect_true(is_transitive(closure_transitive(
+     matrix(runif(625)>0.3, ncol=25, byrow=TRUE))))
+   
+   expect_true(is_transitive(closure_transitive(
+     matrix(runif(625)>0.5, ncol=25, byrow=TRUE))))
+   
+   expect_true(is_transitive(closure_transitive(
+     matrix(runif(625)>0.7, ncol=25, byrow=TRUE))))
+   
+   expect_true(is_transitive(closure_transitive(
+     matrix(runif(625)>0.9, ncol=25, byrow=TRUE))))
+})
+
+

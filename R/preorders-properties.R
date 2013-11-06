@@ -156,7 +156,13 @@ de_transitive <- function(B)
 #' Transitive Closure of an Adjacency Matrix
 #' 
 #' @description
-#' This may be slow for large graphs.
+#' A transitive closure of R is the minimal
+#' superset of R such that it is transitive.
+#' 
+#' @details
+#' Here we use the Warshall algorithm (1962),
+#' which runs in \eqn{O(n^3)} time, where
+#' \eqn{n} is the number of rows in \code{B}.
 #' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
@@ -165,23 +171,7 @@ de_transitive <- function(B)
 #' @family binary_relations
 closure_transitive <- function(B)
 {
-   if (is_transitive(B)) return(B) # do nothing
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   
-   stop('resulting matrix is not necessarily transitive')
-   
-   # slow as hell!
-   n <- nrow(B)
-   for (i in 1:n) {
-      for (j in 1:n) {
-         for (k in 1:n) {
-            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
-               B[i,k] <- 1
-         }
-      }
-   }
-   B
+   .Call("closure_transitive", as.matrix(B), PACKAGE="agop") # args checked internally
 }
 
 

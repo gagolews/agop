@@ -57,6 +57,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(is_reflexive,               1),
    MAKE_CALL_METHOD(is_total,                   1),
    MAKE_CALL_METHOD(is_transitive,              1),
+   MAKE_CALL_METHOD(closure_transitive,         1),
    MAKE_CALL_METHOD(exp_test_statistic,         1),
    
    // the list must be NULL-terminated:

@@ -136,6 +136,8 @@ SEXP pord_spreadsym(SEXP x, SEXP y)
  * 
  * @param x square logical matrix
  * @return logical scalar
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP is_reflexive(SEXP x)
 {
@@ -157,6 +159,8 @@ SEXP is_reflexive(SEXP x)
  * 
  * @param x square logical matrix
  * @return logical scalar
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP is_total(SEXP x)
 {
@@ -183,6 +187,8 @@ SEXP is_total(SEXP x)
  * 
  * @param x square logical matrix
  * @return logical scalar
+ * 
+ * @version 0.1 (Marek Gagolewski)
  */
 SEXP is_transitive(SEXP x)
 {
@@ -208,3 +214,37 @@ SEXP is_transitive(SEXP x)
 }
 
 
+/** Get the transitive closure of a binary relation
+ * 
+ * @param x square logical matrix
+ * @return square logical matrix
+ * 
+ * @version 0.1 (Marek Gagolewski)
+ */
+SEXP closure_transitive(SEXP x)
+{
+   x = prepare_arg_logical_square_matrix(x, "B");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+
+   SEXP y = Rf_allocVector(INTSXP, n*n);
+   int* yp = INTEGER(y);
+   Rf_setAttrib(y, R_DimSymbol, dim);
+
+   for (R_len_t i=0; i<n*n; ++i) {
+      if (xp[i] == NA_LOGICAL)
+         Rf_error(MSG__ARG_EXPECTED_NOT_NA, "B");
+      yp[i] = xp[i];
+   }
+   
+   for (R_len_t k=0; k<n; ++k) { // Warshall's algorithm with
+      for (R_len_t i=0; i<n; ++i) {
+         for (R_len_t j=0; j<n; ++j) {
+            yp[i+n*j] = yp[i+n*j] || (yp[i+n*k] && yp[k+n*j]);
+         }
+      }
+   }
+   
+   return y;
+}
