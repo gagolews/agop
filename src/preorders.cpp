@@ -186,13 +186,24 @@ SEXP is_total(SEXP x)
  */
 SEXP is_transitive(SEXP x)
 {
-//   x = prepare_arg_logical_square_matrix(x, "B");
-//   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
-//   R_len_t n = INTEGER(dim)[0];
-//   int* xp = INTEGER(x);
-//   for (R_len_t i=0; i<n; ++i)
-//      if (xp[i+i*n] != NA_LOGICAL && !xp[i+i*n])
-//         return Rf_ScalarLogical(FALSE);
+   x = prepare_arg_logical_square_matrix(x, "B");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+   for (R_len_t i=0; i<n; ++i) {
+      for (R_len_t j=0; j<n; ++j) {
+         if (i == j) continue; // don't care
+         if (xp[i+j*n] == NA_LOGICAL)
+            return Rf_ScalarLogical(NA_LOGICAL); // this could be done better
+         if (!xp[i+j*n]) continue; // nothing more to check
+         for (R_len_t k=0; k<n; ++k) {
+            if (xp[i+k*n] == NA_LOGICAL || xp[j+k*n] == NA_LOGICAL)
+               return Rf_ScalarLogical(NA_LOGICAL); // this could be done better
+            if (xp[j+k*n] && !xp[i+k*n])
+               return Rf_ScalarLogical(FALSE);
+         }
+      }
+   }
    return Rf_ScalarLogical(TRUE);
 }
 

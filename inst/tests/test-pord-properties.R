@@ -23,3 +23,34 @@ test_that("is_total", {
    expect_true(is_total(matrix(c(TRUE,NA,TRUE,TRUE), nrow=2)))
    
 })
+
+test_that("is_transitive", {
+   
+   expect_true(is_transitive(matrix(c(TRUE), nrow=1)))
+   expect_true(is_transitive(matrix(c(TRUE, FALSE, FALSE, TRUE), nrow=2)))
+   expect_true(is_transitive(matrix(c(FALSE, FALSE, FALSE, FALSE), nrow=2)))
+   
+   expect_false(is_transitive(
+     matrix(c(0,0,0,1,
+              0,0,1,0,
+              1,0,0,0,
+              0,0,0,0),ncol=4, byrow=TRUE)))
+   
+   expect_false(is_transitive(
+     matrix(c(0,0,0,1,
+              0,0,1,0,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE)))
+   
+   expect_false(is_transitive(
+     matrix(c(0,0,0,1,
+              0,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE)))
+   
+   expect_true(is_transitive(
+     matrix(c(0,0,0,1,
+              1,0,1,1,
+              1,0,0,1,
+              0,0,0,0),ncol=4, byrow=TRUE)))
+})
