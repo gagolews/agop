@@ -143,9 +143,56 @@ SEXP is_reflexive(SEXP x)
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
-   for (R_len_t i=0; i<n; ++i)
-      if (xp[i+i*n] != NA_LOGICAL && !xp[i+i*n])
+   for (R_len_t i=0; i<n; ++i) {
+      if (xp[i+i*n] == NA_LOGICAL)
+         return Rf_ScalarLogical(NA_LOGICAL);
+      else if (!xp[i+i*n])
          return Rf_ScalarLogical(FALSE);
+   }
+   return Rf_ScalarLogical(TRUE);
+}
+
+
+/** Check if a binary relation is total
+ * 
+ * @param x square logical matrix
+ * @return logical scalar
+ */
+SEXP is_total(SEXP x)
+{
+   x = prepare_arg_logical_square_matrix(x, "B");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+   for (R_len_t i=0; i<n; ++i) {
+      for (R_len_t j=i; j<n; ++j) {
+         if ( xp[i+j*n] == NA_LOGICAL &&  xp[j+i*n] == NA_LOGICAL
+          ||  xp[i+j*n] == NA_LOGICAL && !xp[j+i*n]
+          || !xp[i+j*n]               &&  xp[j+i*n] == NA_LOGICAL)
+            return Rf_ScalarLogical(NA_LOGICAL);
+         else if (!xp[i+j*n] && !xp[j+i*n]) // NA_LOGICAL != 0
+            return Rf_ScalarLogical(FALSE);
+      }
+   }
+   return Rf_ScalarLogical(TRUE);
+}
+
+
+
+/** Check if a binary relation is transitive
+ * 
+ * @param x square logical matrix
+ * @return logical scalar
+ */
+SEXP is_transitive(SEXP x)
+{
+//   x = prepare_arg_logical_square_matrix(x, "B");
+//   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+//   R_len_t n = INTEGER(dim)[0];
+//   int* xp = INTEGER(x);
+//   for (R_len_t i=0; i<n; ++i)
+//      if (xp[i+i*n] != NA_LOGICAL && !xp[i+i*n])
+//         return Rf_ScalarLogical(FALSE);
    return Rf_ScalarLogical(TRUE);
 }
 

@@ -46,6 +46,8 @@ is_reflexive <- function(B)
 #' A binary relation \eqn{R} is total, iff
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
+#' A total relation is necessarily reflexive.
+#' 
 #' @param B object of class \code{igraph} or a square
 #' 0-1 matrix of class \code{Matrix} or \code{matrix}
 #' 
@@ -54,10 +56,11 @@ is_reflexive <- function(B)
 #' @export
 is_total <- function(B)
 {
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   B <- as.logical(B)
-   all(B + Matrix::t(B) != 0) # TO DO: add .Call
+   .Call("is_total", as.matrix(B), PACKAGE="agop") # args checked internally 
+   #if (is(B, 'igraph')) B <- get.adjacency(B)
+   #stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+   #B <- as.logical(B)
+   #all(B + Matrix::t(B) != 0) # TO DO: add .Call
 }
 
 
@@ -77,6 +80,7 @@ is_total <- function(B)
 #' @export
 is_transitive <- function(B)
 {
+   .Call("is_transitive", as.matrix(B), PACKAGE="agop") # args checked internally 
 #    # version 0.1
 #    if (is(B, 'igraph')) B <- get.adjacency(B)
 #    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
@@ -93,18 +97,18 @@ is_transitive <- function(B)
 #    }
 #    TRUE
    
-   # version 0.2
-   if (!is(B, 'igraph')) B <- graph.adjacency(B)
-   n <- vcount(B)
-   for (i in 1:n) { # for each vertex
-      # do breadth-first search from each vertex
-      # transitivity holds iff each reachable vertex is within distance of 1
-      disti <- graph.bfs(B, root=i, unreachable=FALSE, order=FALSE, dist=TRUE)$dist
-      disti <- disti[!is.nan(disti)]
-      if (length(disti) > 0 && any(disti > 1))
-         return(FALSE)
-   }
-   TRUE # reached here -> no FALSE -> is transitive :-)
+#    # version 0.2
+#    if (!is(B, 'igraph')) B <- graph.adjacency(B)
+#    n <- vcount(B)
+#    for (i in 1:n) { # for each vertex
+#       # do breadth-first search from each vertex
+#       # transitivity holds iff each reachable vertex is within distance of 1
+#       disti <- graph.bfs(B, root=i, unreachable=FALSE, order=FALSE, dist=TRUE)$dist
+#       disti <- disti[!is.nan(disti)]
+#       if (length(disti) > 0 && any(disti > 1))
+#          return(FALSE)
+#    }
+#    TRUE # reached here -> no FALSE -> is transitive :-)
    
    
    # version 0.3 - todo

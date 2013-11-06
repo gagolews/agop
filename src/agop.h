@@ -159,6 +159,8 @@ SEXP pord_weakdom(SEXP x, SEXP y);
 SEXP pord_spread(SEXP x, SEXP y);
 SEXP pord_spreadsym(SEXP x, SEXP y);
 SEXP is_reflexive(SEXP x);
+SEXP is_total(SEXP x);
+SEXP is_transitive(SEXP x);
 
 SEXP exp_test_statistic(SEXP x);
 
