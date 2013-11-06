@@ -4,12 +4,12 @@
 0.2-0 /under development/
 
 * The definition of owa(), owmax(), and owmin() is now consistent with
-   that of (Grabisch ETAL, 2009), i.e. uses a non-increasingly sorted
-   vectors, and not non-decreasingly sorted ones.
+   that of (Grabisch et al., 2009), i.e. uses nondecreasing
+   vectors, and not nonincreasing ones.
 
 * NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
-   Anderson-Darling goodness-of-fit test for the Pareto-II and
-   exponential distribution, respectively.
+   Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
+   parameter) and exponential distribution, respectively.
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):
@@ -22,12 +22,14 @@
 
 * NEW functions: pord_spread() and pord_spreadsym() --
    to compare spread of two equal-length numeric vectors
-   (see M. Gagolewski, Dispersion Operators, in preparation, 2013)
+   (see Gagolewski M., Dispersion Operators, submitted, 2013)
 
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator
 
-* BUGFIX: prepare_arg_numeric_sorted did not sort some vectors
+* Rewritten to C++: ...
+
+* BUGFIX: prepare_arg_numeric_sorted (C++) did not sort some vectors
 
 * all built-in agops now throw an error on empty vectors
 

@@ -41,3 +41,6 @@ Collate:
     'distrib-pareto2-adtest.R'
     'distrib-dpareto2.R'
     'distrib-dpareto2-estimators.R'
+    'preorders-definitions.R'
+    'preorders-other.R'
+    'preorders-properties.R'

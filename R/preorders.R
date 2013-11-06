@@ -37,20 +37,23 @@
 #' each impact function is a morphism between
 #' wead-dominance-preordered set of vectors
 #' and the set of reals equipped with standard linear ordering
-#' (see Gagolewski, Grzegorzewski, 2013).
+#' (see Gagolewski, Grzegorzewski, 2011).
 #' 
 #' 
-#' This function accepts only vectors with nonnegative elements.
+#' This function only accepts vectors with nonnegative elements.
 #' 
 #' @param x numeric vector
 #' @param y numeric vector
+#' 
 #' @return single logical value; whether \code{x} is weakly
 #' dominated by \code{y}
 #' 
 #' @references
 #' Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic 
 #' Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, 
-#' International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.
+#' International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.\cr
+#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
+#'  Journal of Informetrics 7(4), 2013, pp. 792-802.
 #' 
 #' @family binary_relations
 #' @export
@@ -81,11 +84,13 @@ pord_weakdom <- function(x, y)
 #' 
 #' @param x numeric vector
 #' @param y numeric vector of the same length as \code{x}
-#' @return single logical value; whether \code{x} has no greater
+#' 
+#' @return Both functions return a single logical value,
+#' which states whether \code{x} has no greater
 #' spread than \code{y}
 #' 
 #' @references
-#' M. Gagolewski, Dispersion Operators, in preparation, 2013.
+#' Gagolewski M., Dispersion Operators, submitted paper, 2013.
 #' 
 #' @family binary_relations
 #' @rdname pord_spread
@@ -105,16 +110,27 @@ pord_spreadsym <- function(x, y)
 
 
 #' @title
-#' Create Adjacency Matrix of Given Binary Relation
+#' Create Adjacency Matrix of a Given Binary Relation
 #' 
 #' @description
-#' Note that adjacency matrix  can also be conceived as a directed graph (DAG).
-#' ret[i,j] iff i <= j
+#' Returns an adjacency matrix storing results
+#' of comparisons with \code{pord}
+#'  of all pairs of elements in \code{x}.
+#' 
+#' 
+#' @details
+#' Note that an adjacency matrix
+#' can also be conceived as a directed graph (DAG)
+#' We have
+#' \code{ret[i,j] == 1} iff \eqn{v_i \le v_j}{v_i <= v_j}.
 #' 
 #' @param x list with elements to compare, preferrably named
-#' @param pord function with 2 arguments, returning boolean value
+#' @param pord a function with two arguments, returning boolean value,
+#' e.g. \code{\link{pord_spread}}, \code{\link{pord_spreadsym}},
+#' or \code{\link{pord_weakdom}}
 #' @param ... additional arguments passed to \code{pord}
-#' @return square 0-1 Matrix (of class \code{Matrix})
+#' 
+#' @return Returns a square 0-1 Matrix (of class \code{Matrix}).
 #' @family binary_relations
 #' @export
 rel_graph <- function(x, pord, ...)

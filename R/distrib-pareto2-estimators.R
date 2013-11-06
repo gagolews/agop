@@ -37,7 +37,7 @@
 #' @family Pareto2
 #' @references
 #' Zhang J., Stevens M.A., A New and Efficient Estimation Method 
-#' for the Generalized Pareto Distribution, Technometrics 51(3), 2009, 316-325.\cr
+#' for the Generalized Pareto Distribution, Technometrics 51(3), 2009, 316-325.
 pareto2_estimate_mmse <- function(x)
 {
    stopifnot(is.numeric(x), length(x) >= 2, is.finite(x), x >= 0)

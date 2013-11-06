@@ -27,10 +27,13 @@
 #' Sample size should not be smaller than 3. Missing values
 #' are removed from \code{x} before applying the procedure.
 #' 
-#' The p-value is approximate.... DETAILS....
-#' 
-#' .....TO DO.....
-#'
+#' The p-value is approximate: its distribution
+#' has been estimated by taking 2500000 MC samples.
+#' For performance and space reasons,
+#' the estimated distribution is recreated by a spline interpolation
+#' on a fixed number of points.
+#' In result, the resulting p-value distribution may not necessarily
+#' be uniform for p>>0.5.
 #' 
 #' @param x a non-negative numeric vector of data values
 #' 
@@ -47,7 +50,8 @@
 #' @references
 #' Anderson T.W., Darling D.A.,
 #' A Test of Goodness-of-Fit, Journal of the American Statistical Association 49, 
-#' 1954, pp. 765-769.
+#' 1954, pp. 765-769.\cr
+#' TO DO: where does the test statistic come from?
 exp_test_ad <- function(x)
 {
    DNAME <- deparse(substitute(x))
