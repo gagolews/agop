@@ -3,6 +3,8 @@
 
 0.2-0 /under development/
 
+* All functions dealing with binary relations now have "rel_" prefix.
+
 * The definition of owa(), owmax(), and owmin() is now consistent with
    that of (Grabisch et al., 2009), i.e. uses nondecreasing
    vectors, and not nonincreasing ones.
@@ -25,13 +27,13 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
-* Rewritten to C++: is_reflexive(), is_total(), is_transitive(), .....
+* Rewritten to C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), .....
 
-* BUGFIX: closure_transitive() - resulting matrix
+* BUGFIX: rel_closure_transitive() - resulting matrix
    was not necessarily transitive; the function has been rewritten in C++
    and now uses the Warshall algorithm (1962).
 
-* BUGFIX: prepare_arg_numeric_sorted (C++) did not sort some vectors.
+* BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
 
 * all built-in agops now throw an error on empty vectors.
 
@@ -41,13 +43,13 @@
 
 0.1-3 /2013-06-27/
 
-* Complier errors on Solaris Studio removed
+* Compiler errors on Solaris Studio removed.
 
 ***************************************************************************
 
 0.1-1 /2013-06-26/
 
 * initial release
-  [the package started as a lightweight fork of the CITAN package]
+  [the package started as a lightweight fork of the CITAN package].
 
 ***************************************************************************

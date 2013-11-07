@@ -158,10 +158,10 @@ SEXP d2owa_checkwts(SEXP w);
 SEXP pord_weakdom(SEXP x, SEXP y);
 SEXP pord_spread(SEXP x, SEXP y);
 SEXP pord_spreadsym(SEXP x, SEXP y);
-SEXP is_reflexive(SEXP x);
-SEXP is_total(SEXP x);
-SEXP is_transitive(SEXP x);
-SEXP closure_transitive(SEXP x);
+SEXP rel_is_reflexive(SEXP x);
+SEXP rel_is_total(SEXP x);
+SEXP rel_is_transitive(SEXP x);
+SEXP rel_closure_transitive(SEXP x);
 
 SEXP exp_test_statistic(SEXP x);
 

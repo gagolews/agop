@@ -933,8 +933,74 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Preorders}
+\section{Binary Relations}
 
+The \package{agop} package includes many functions
+aiming to deal with binary relations
+defined on finite sets $V=\{v_1,\dots,v_n\}$.
+Each binary relation $R\subseteq V\times V$ may
+be represented by a square 0-1\footnote{Or, equivalently, logical;
+we have \texttt{\Rfunc{as.logical}(0) == FALSE} and
+\texttt{\Rfunc{as.logical}(x) == TRUE} if $\mathtt{x}\neq 0$,
+and, on the other hand, \texttt{\Rfunc{as.integer}(FALSE) == 0}
+\texttt{\Rfunc{as.integer}(TRUE) == 1}.}
+matrix $A=(a_{i,j})_{i,j=1,\dots,n}$
+such that $a_{i,j} = 1$ if and only if $v_i R v_j$.
+
+Note that we write $R\subseteq R'$ if $v_i R v_j \Longrightarrow v_i R' v_j$,
+and that if $R = V\times V$ then for all $i,j$ it holds $v_i R v_j$.
+
+Table \ref{Tab:binrelprops} contains an overview of the most often
+considered properties of binary relations.
+Moreover, Table \ref{Tab:reltypes} lists popular classes of relations.
+
+\begin{table}[ht!]
+\centering
+\caption{\label{Tab:binrelprops} Properties of binary relations.}
+
+\smallskip\noindent
+\begin{tabular}{lll}
+\hline
+\bf Property & \bf Definition & \package{agop} implementation \\
+\hline\hline
+Reflexivity  & $(\forall i)$ $v_i R v_i$ & \index{\Rfunc{rel\_is\_reflexive()}}\Rfunc{rel\_is\_reflexive()} \\
+Irreflexivity & TO DO \\
+Symmetry     & $(\forall i,j)$ $v_i R v_j \Rightarrow v_j R v_i$ & TO DO \\%\index{rel\_is\_symmetric()}\Rfunc{rel\_is\_symmetric()} \\
+Antisymmetry & TO DO \\
+Asymmetry & TO DO \\
+Totality     & $(\forall i,j)$ $v_i R v_j\text{ or }v_j R v_i$ & \index{\Rfunc{rel\_is\_total()}}\Rfunc{rel\_is\_total()} \\
+Transitivity & $(\forall i,j,k)$ $v_i R v_i\text{ and }v_j R v_k \Rightarrow v_i R v_k$ & \index{\Rfunc{rel\_is\_transitive()}}\Rfunc{rel\_is\_transitive()} \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+\centering
+\caption{\label{Tab:reltypes} Types of binary relations.}
+
+\smallskip\noindent
+\begin{tabular}{lll}
+\hline
+\bf Class & \bf Properties \\
+\hline\hline
+Preorder  & reflexive, transitive \\
+Total Preorder  & total ($\Rightarrow$ reflexive), transitive \\
+Partial Order  & reflexive, antisymmetric, transitive \\
+Total Order  & total ($\Rightarrow$ reflexive), antisymmetric, transitive \\
+Equivalence Relation & symmetric, reflexive, transitive \\
+\hline
+\end{tabular}
+\end{table}
+
+\paragraph{Reductions and closures}
+Transitive closure (minimal transitive $R'\supseteq R$)
+\index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
+
+TO DO
+
+\paragraph{Operations on relations}
+TO DO (union, intersect, diff, composition)
 
 \subsection{Weak Dominance Relation (for PAP)}
 
@@ -1028,18 +1094,21 @@ legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 
 Here is the adjacency matrix for
-the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$.
+the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$
+created with the \index{\Rfunc{rel\_graph()}}\Rfunc{rel\_graph()} function,
+that takes each pair of elements from the list passed as its first argument
+and compares them with a given function passed as its second argument.
 
-\index{\Rfunc{is\_reflexive()}}%
-\index{\Rfunc{is\_transitive()}}%
-\index{\Rfunc{is\_total()}}%
+\index{\Rfunc{rel\_is\_reflexive()}}%
+\index{\Rfunc{rel\_is\_transitive()}}%
+\index{\Rfunc{rel\_is\_total()}}%
 
 <<ex1B,dependson='ex1'>>=
-ord <- rel_graph(ex1, pord_weakdom)
+ord <- rel_graph(ex1, pord_weakdom) # compare each (ex1[[i]], ex1[[j]]) with pord_weakdom
 print(ord)
-is_reflexive(ord)  # is reflexive
-is_transitive(ord) # is transitive
-is_total(ord)      # not a total preorder...
+rel_is_reflexive(ord)  # is reflexive
+rel_is_transitive(ord) # is transitive
+rel_is_total(ord)      # not a total preorder...
 @
 
 \noindent
@@ -1074,11 +1143,11 @@ let's apply \emph{fair totalization} (set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
 for discussion), and then calculate the transitive closure.%
-\index{\Rfunc{closure\_transitive()}}%
+\index{\Rfunc{rel\_closure\_transitive()}}%
 \index{\Rfunc{closure\_total\_fair()}}%
 
 <<ex1D,dependson='ex1C'>>=
-ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder
+ord_total <- rel_closure_transitive(closure_total_fair(ord)) # a total preorder
 print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)

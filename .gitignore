@@ -27,6 +27,7 @@ agop.Rproj
 *.toc
 *.bbl
 *.blg
+*.idx
 devel/vignette-Tutorial/agop-Tutorial.tex
 devel/vignette-Tutorial/agop-Tutorial.pdf
 cache-knitr

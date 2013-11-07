@@ -16,87 +16,84 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 #' @title
-#' Check if a Given Adjacency Matrix is Reflexive
+#' Check if a Binary Relation is Reflexive
 #' 
 #' @description
 #' A binary relation \eqn{R} is reflexive, iff
 #' for all \eqn{x} we have \eqn{xRx}.
-#' The function just checks whether all elements
-#' on the diagonal of \code{B} are non-zeros.
 #' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}.
+#' @details
+#' The function just checks whether all elements
+#' on the diagonal of \code{R} are non-zeros,
+#' i.e. it has \eqn{O(n)} time complexity,
+#' where \eqn{n} is the number of rows in \code{R}.
+#' 
+#' Any missing value on the diagonal outputs \code{NA}.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
 #' 
 #' @return Returns a single logical value.
 #' @family binary_relations
 #' @export
-is_reflexive <- function(B)
+rel_is_reflexive <- function(R)
 {
-   .Call("is_reflexive", as.matrix(B), PACKAGE="agop") # args checked internally 
-   # stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   #B <- as.logical(B)
-   #all(Matrix::diag(B) != 0) # TO DO: add .Call
+   .Call("rel_is_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally 
 }
 
 
 #' @title
-#' Check if a Given Adjacency Matrix is Total
+#' Check if a Binary Relation is Total
 #' 
 #' @description
 #' A binary relation \eqn{R} is total, iff
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
-#' A total relation is necessarily reflexive.
+#' @details
+#' Note that a total relation is necessarily reflexive.
 #' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' The algorithm has \eqn{O(n^2)} time complexity,
+#' where \eqn{n} is the number of rows in \code{R}.
+#' 
+#' If \code{R[i,j]} and \code{R[j,i]} is \code{NA}
+#' for some \eqn{(i,j)}, then the functions outputs \code{NA}.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
 #' 
 #' @return single logical value
 #' @family binary_relations
 #' @export
-is_total <- function(B)
+rel_is_total <- function(R)
 {
-   .Call("is_total", as.matrix(B), PACKAGE="agop") # args checked internally 
-   #if (is(B, 'igraph')) B <- get.adjacency(B)
-   #stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   #B <- as.logical(B)
-   #all(B + Matrix::t(B) != 0) # TO DO: add .Call
+   .Call("rel_is_total", as.matrix(R), PACKAGE="agop") # args checked internally 
 }
 
 
 
 #' @title
-#' Check if a Given Adjacency Matrix is Transitive
+#' Check if a Binary Relation is Transitive
 #' 
 #' @description
 #' A binary relation \eqn{R} is transitive, iff
 #' for all \eqn{x}, \eqn{y}, \eqn{z} we have \eqn{xRy} and \eqn{yRz}
 #' \eqn{\Longrightarrow}{=>} \eqn{xRz}.
 #' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}
-#' @return single logical value
+#' @details
+#' The algorithm has \eqn{O(n^3)} time complexity, pessimistically.
+#' 
+#' If \code{R} contains missing values behind the diagonal,
+#' the result will be \code{NA}.
+#' 
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
+#' @return Returns a single logical value.
 #' @family binary_relations
 #' @export
-is_transitive <- function(B)
+rel_is_transitive <- function(R)
 {
-   .Call("is_transitive", as.matrix(B), PACKAGE="agop") # args checked internally 
-#    # version 0.1
-#    if (is(B, 'igraph')) B <- get.adjacency(B)
-#    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-#    # slow as hell!
-#    # @TODO - make faster
-#    n <- nrow(B)
-#    for (i in 1:n) {
-#       for (j in 1:n) {
-#          for (k in 1:n) {
-#             if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && !as.logical(B[i,k]))
-#                return(FALSE)
-#          }
-#       }
-#    }
-#    TRUE
-   
+   .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally 
 #    # version 0.2
 #    if (!is(B, 'igraph')) B <- graph.adjacency(B)
 #    n <- vcount(B)
@@ -109,15 +106,40 @@ is_transitive <- function(B)
 #          return(FALSE)
 #    }
 #    TRUE # reached here -> no FALSE -> is transitive :-)
-   
-   
-   # version 0.3 - todo
-   # use shortest.paths()
 }
 
 
+
 #' @title
-#' Transitive Reduction of a Graph 
+#' Transitive Closure of a Binary Relation
+#' 
+#' @description
+#' A transitive closure of \eqn{R} is the minimal
+#' superset of \eqn{R} such that it is transitive.
+#' 
+#' @details
+#' Here we use the Warshall algorithm (1962),
+#' which runs in \eqn{O(n^3)} time, where
+#' \eqn{n} is the number of rows in \code{R}.
+#' The function preserves \code{\link{dimnames}} of \code{R}.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
+#' @return Returns a logical square matrix.
+#' @export
+#' @family binary_relations
+rel_closure_transitive <- function(R)
+{
+   R <- as.matrix(R)
+   Rprim <- .Call("rel_closure_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
+   dimnames(Rprim) <- dimnames(R)
+   Rprim
+}
+
+
+
+#' @title
+#' Transitive Reduction of a Binary Relation 
 #' 
 #' @description
 #' Useful for draving Hasse diagrams.
@@ -125,8 +147,8 @@ is_transitive <- function(B)
 #' Transitive reduction is defined as a  minimal relation having
 #' the same transitive closure as R.
 #' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
 #' @return object of class \code{Matrix}
 #' @family binary_relations
 #' @export
@@ -152,32 +174,9 @@ de_transitive <- function(B)
 
 
 
-#' @title
-#' Transitive Closure of an Adjacency Matrix
-#' 
-#' @description
-#' A transitive closure of R is the minimal
-#' superset of R such that it is transitive.
-#' 
-#' @details
-#' Here we use the Warshall algorithm (1962),
-#' which runs in \eqn{O(n^3)} time, where
-#' \eqn{n} is the number of rows in \code{B}.
-#' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}
-#' @return object of class \code{Matrix}
-#' @export
-#' @family binary_relations
-closure_transitive <- function(B)
-{
-   .Call("closure_transitive", as.matrix(B), PACKAGE="agop") # args checked internally
-}
-
-
 
 #' @title
-#' Total Closure of an Adjacency Matrix [Fair Totalization]
+#' Total Closure of a Binary Relation [Fair Totalization]
 #' 
 #' @description
 #' Fair totalization: for each pair (x,y) s.t.
@@ -186,8 +185,8 @@ closure_transitive <- function(B)
 #' @details
 #' If you want a total preorder, call \code{\link{closure_transitive}}.
 #' 
-#' @param B object of class \code{igraph} or a square
-#' 0-1 matrix of class \code{Matrix} or \code{matrix}
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
 #' @return object of class \code{Matrix}
 #' @export
 #' @family binary_relations

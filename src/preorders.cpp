@@ -139,9 +139,9 @@ SEXP pord_spreadsym(SEXP x, SEXP y)
  * 
  * @version 0.1 (Marek Gagolewski)
  */
-SEXP is_reflexive(SEXP x)
+SEXP rel_is_reflexive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "B");
+   x = prepare_arg_logical_square_matrix(x, "R");
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
@@ -162,9 +162,9 @@ SEXP is_reflexive(SEXP x)
  * 
  * @version 0.1 (Marek Gagolewski)
  */
-SEXP is_total(SEXP x)
+SEXP rel_is_total(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "B");
+   x = prepare_arg_logical_square_matrix(x, "R");
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
@@ -190,9 +190,9 @@ SEXP is_total(SEXP x)
  * 
  * @version 0.1 (Marek Gagolewski)
  */
-SEXP is_transitive(SEXP x)
+SEXP rel_is_transitive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "B");
+   x = prepare_arg_logical_square_matrix(x, "R");
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
@@ -221,9 +221,9 @@ SEXP is_transitive(SEXP x)
  * 
  * @version 0.1 (Marek Gagolewski)
  */
-SEXP closure_transitive(SEXP x)
+SEXP rel_closure_transitive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "B");
+   x = prepare_arg_logical_square_matrix(x, "R");
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
