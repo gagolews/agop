@@ -27,11 +27,12 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
-* Rewritten to C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), .....
-
 * BUGFIX: rel_closure_transitive() - resulting matrix
    was not necessarily transitive; the function has been rewritten in C++
    and now uses the Warshall algorithm (1962).
+
+* Rewritten to C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), 
+   rel_closure_total_fair(), .....
 
 * BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
 

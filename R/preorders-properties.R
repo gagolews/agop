@@ -15,6 +15,7 @@
 ## You should have received a copy of the GNU Lesser General Public License
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
+
 #' @title
 #' Check if a Binary Relation is Reflexive
 #' 
@@ -121,7 +122,9 @@ rel_is_transitive <- function(R)
 #' Here we use the Warshall algorithm (1962),
 #' which runs in \eqn{O(n^3)} time, where
 #' \eqn{n} is the number of rows in \code{R}.
+#' 
 #' The function preserves \code{\link{dimnames}} of \code{R}.
+#' Missing values are not allowed and result in an error.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation
@@ -179,27 +182,36 @@ de_transitive <- function(B)
 #' Total Closure of a Binary Relation [Fair Totalization]
 #' 
 #' @description
-#' Fair totalization: for each pair (x,y) s.t.
-#' not xRy and not xRy let from now on xRy and yRx
+#' Fair totalizatio of \eqn{R} is a superset \eqn{R'} of \eqn{R}
+#' such that if not \eqn{xRy} and not \eqn{yRx}
+#' then \eqn{xR'y} and \eqn{yRx}.
 #' 
 #' @details
-#' If you want a total preorder, call \code{\link{closure_transitive}}.
+#' Note that a total binary relation is always reflexive.
+#' 
+#' Even if \eqn{R} is transitive, the resulting relation
+#' may not necessarily fulfill this property.
+#' If you want a total preorder,
+#' call \code{\link{rel_closure_transitive}} afterwards.
+#' 
+#' Missing values are not allowed and result in an error.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation
-#' @return object of class \code{Matrix}
+#' 
+#' @return Returns a logical square matrix.
 #' @export
 #' @family binary_relations
-closure_total_fair <- function(B)
+#' 
+#' @references
+#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
+#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+rel_closure_total_fair <- function(R)
 {
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   
-   B2 <- B + Matrix::t(B)
-   # 0s lie symmetricly over diagonal and indicate incomparable pairs
-   wh <- Matrix::which(B2 == 0, arr.ind=TRUE)
-   B[wh] <- 1
-   B
+   R <- as.matrix(R)
+   Rprim <- .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
+   dimnames(Rprim) <- dimnames(R)
+   Rprim
 }
 
 

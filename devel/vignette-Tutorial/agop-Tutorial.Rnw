@@ -994,8 +994,17 @@ Equivalence Relation & symmetric, reflexive, transitive \\
 \end{table}
 
 \paragraph{Reductions and closures}
-Transitive closure (minimal transitive $R'\supseteq R$)
+To find the transitive closure of a given binary relation
+$R$, i.e.~the minimal transitive $R'\supseteq R$,
+we call \package{agop}'s
 \index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
+function.
+
+To determine the fair total closure, see \cite{Gagolewski2013:fair},
+i.e.~minimal total $R'\supseteq R$ such that
+if $\neg xRy$ and $\neg xRy$ then $xR'y$ and $yR'x$,
+we call
+\index{\Rfunc{rel\_closure\_total\_fair()()}}\Rfunc{rel\_closure\_total\_fair()}.
 
 TO DO
 
@@ -1139,15 +1148,17 @@ plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
-let's apply \emph{fair totalization} (set $x\trianglelefteq'' y$
+let's determine the \emph{fair total closure} of $\trianglelefteq$
+(set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
-for discussion), and then calculate the transitive closure.%
+for discussion), and then calculate its transitive closure,
+as the resulting matrix may not necessarily be transitive.%
 \index{\Rfunc{rel\_closure\_transitive()}}%
-\index{\Rfunc{closure\_total\_fair()}}%
+\index{\Rfunc{rel\_closure\_total\_fair()}}%
 
 <<ex1D,dependson='ex1C'>>=
-ord_total <- rel_closure_transitive(closure_total_fair(ord)) # a total preorder
+ord_total <- rel_closure_transitive(rel_closure_total_fair(ord)) # a total preorder
 print(ord_total)
 hasse <- graph.adjacency(de_transitive(ord_total))
 set.seed(1234)

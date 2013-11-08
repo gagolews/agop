@@ -234,7 +234,7 @@ SEXP rel_closure_transitive(SEXP x)
 
    for (R_len_t i=0; i<n*n; ++i) {
       if (xp[i] == NA_LOGICAL)
-         Rf_error(MSG__ARG_EXPECTED_NOT_NA, "B");
+         Rf_error(MSG__ARG_EXPECTED_NOT_NA, "R"); // missing values are not allowed
       yp[i] = xp[i];
    }
    
@@ -248,3 +248,42 @@ SEXP rel_closure_transitive(SEXP x)
    
    return y;
 }
+
+
+
+/** Get the fair totalization of a binary relation
+ * 
+ * @param x square logical matrix
+ * @return square logical matrix
+ * 
+ * @version 0.1 (Marek Gagolewski)
+ */
+SEXP rel_closure_total_fair(SEXP x)
+{
+   x = prepare_arg_logical_square_matrix(x, "R");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+
+   SEXP y = Rf_allocVector(INTSXP, n*n);
+   int* yp = INTEGER(y);
+   Rf_setAttrib(y, R_DimSymbol, dim);
+
+   for (R_len_t i=0; i<n*n; ++i) {
+      if (xp[i] == NA_LOGICAL)
+         Rf_error(MSG__ARG_EXPECTED_NOT_NA, "R"); // missing values are not allowed
+      yp[i] = xp[i];
+   }
+   
+   for (R_len_t i=0; i<n; ++i) {
+      for (R_len_t j=i; j<n; ++j) {
+         if (!yp[i+n*j] && !yp[j+n*i]) {
+            yp[i+n*j] = TRUE;
+            yp[j+n*i] = TRUE;
+         }
+      }
+   }
+   
+   return y;
+}
+
