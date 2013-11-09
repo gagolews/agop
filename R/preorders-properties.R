@@ -19,64 +19,57 @@
 
 
 #' @title
-#' Check if a Binary Relation is Total
+#' Total Binary Relations
 #' 
 #' @description
 #' A binary relation \eqn{R} is total, iff
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @details
-#' Note that a total relation is necessarily reflexive,
+#' Note that each total relation is also reflexive,
 #' see \code{\link{rel_is_reflexive}}.
 #' 
+#' \code{rel_is_total} determines if a given binary relation
+#' \code{R} is total.
 #' The algorithm has \eqn{O(n^2)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
-#' 
 #' If \code{R[i,j]} and \code{R[j,i]} is \code{NA}
 #' for some \eqn{(i,j)}, then the functions outputs \code{NA}.
 #' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
+#' Fair totalization of \eqn{R}, performed by
+#' \code{rel_closure_total_fair}, is the minimal superset \eqn{R'} of \eqn{R}
+#' such that if not \eqn{xRy} and not \eqn{yRx}
+#' then \eqn{xR'y} and \eqn{yR'x} (see Gagolewski, 2013).
 #' 
-#' @return single logical value
+#' Even if \code{R} is transitive, the resulting relation
+#' may not necessarily fulfill this property.
+#' If you want a total preorder,
+#' call \code{\link{rel_closure_transitive}} afterwards.
+#' Missing values in \code{R} are not allowed and result in an error.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation on a finite set.
+#' 
+#' @references
+#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
+#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+#' 
+#' @return \code{rel_is_total} returns a single logical value.
+#' 
+#' \code{rel_closure_reflexive} returns a logical square matrix.
+#' \code{\link{dimnames}} of \code{R} are preserved.
+#' 
 #' @family binary_relations
 #' @export
+#' @rdname rel_total
 rel_is_total <- function(R)
 {
    .Call("rel_is_total", as.matrix(R), PACKAGE="agop") # args checked internally 
 }
 
 
-
-
-#' @title
-#' Total Closure of a Binary Relation [Fair Totalization]
-#' 
-#' @description
-#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
-#' such that if not \eqn{xRy} and not \eqn{yRx}
-#' then \eqn{xR'y} and \eqn{yRx}.
-#' 
-#' @details
-#' Note that a total binary relation is always reflexive.
-#' 
-#' Even if \eqn{R} is transitive, the resulting relation
-#' may not necessarily fulfill this property.
-#' If you want a total preorder,
-#' call \code{\link{rel_closure_transitive}} afterwards.
-#' 
-#' Missing values are not allowed and result in an error.
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' 
-#' @return Returns a logical square matrix.
 #' @export
-#' @family binary_relations
-#' 
-#' @references
-#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
-#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+#' @rdname rel_total
 rel_closure_total_fair <- function(R)
 {
    .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
