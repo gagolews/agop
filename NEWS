@@ -30,9 +30,10 @@
    and now uses the Warshall algorithm (1962).
 
 * All functions dealing with binary relations now have "rel_" prefix.
+  Moreover, de_transitive() has been renamed to rel_reduction_transitive().
 
-* Rewritten to C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), 
-   rel_closure_total_fair(), .....
+* Rewritten in C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), 
+   rel_closure_total_fair(), rel_reduction_transitive() [TO DO], .....
 
 * New functions dealing with binary relations:
    rel_closure_reflexive(), rel_reduction_reflexive(), ....

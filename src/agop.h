@@ -162,6 +162,7 @@ SEXP rel_is_reflexive(SEXP x);
 SEXP rel_is_total(SEXP x);
 SEXP rel_is_transitive(SEXP x);
 SEXP rel_closure_transitive(SEXP x);
+SEXP rel_reduction_transitive(SEXP x);
 SEXP rel_closure_reflexive(SEXP x);
 SEXP rel_reduction_reflexive(SEXP x);
 SEXP rel_closure_total_fair(SEXP x);

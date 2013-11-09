@@ -999,6 +999,8 @@ $R$, i.e.~the minimal transitive $R'\supseteq R$,
 we call \package{agop}'s
 \index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
 function.
+TO DO: \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
+-- it is particularly useful when drawing Hasse diagrams of preoredered sets.
 
 To determine the reflexive closure,
 i.e.~the minimal reflexive $R'\supseteq R$
@@ -1147,11 +1149,11 @@ lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 
 To draw the Hasse diagram, it will be good to base on transitive reduction of
 the graph (for \ae{}sthetic reasons).
-\index{\Rfunc{de\_transitive()}}
+\index{\Rfunc{rel\_reduction\_transitive()}}
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
-hasse <- graph.adjacency(de_transitive(ord))
+hasse <- graph.adjacency(rel_reduction_transitive(ord))
 set.seed(1234567) # igraph's draving facilities are far from perfect
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
@@ -1164,12 +1166,13 @@ y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
 for discussion), and then calculate its transitive closure,
 as the resulting matrix may not necessarily be transitive.%
 \index{\Rfunc{rel\_closure\_transitive()}}%
+\index{\Rfunc{rel\_reduction\_transitive()}}%
 \index{\Rfunc{rel\_closure\_total\_fair()}}%
 
 <<ex1D,dependson='ex1C'>>=
 ord_total <- rel_closure_transitive(rel_closure_total_fair(ord)) # a total preorder
 print(ord_total)
-hasse <- graph.adjacency(de_transitive(ord_total))
+hasse <- graph.adjacency(rel_reduction_transitive(ord_total))
 set.seed(1234)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @

@@ -48,57 +48,42 @@ rel_is_total <- function(R)
 
 
 
-#' @title
-#' Check if a Binary Relation is Transitive
-#' 
-#' @description
-#' A binary relation \eqn{R} is transitive, iff
-#' for all \eqn{x}, \eqn{y}, \eqn{z} we have \eqn{xRy} and \eqn{yRz}
-#' \eqn{\Longrightarrow}{=>} \eqn{xRz}.
-#' 
-#' @details
-#' The algorithm has \eqn{O(n^3)} time complexity, pessimistically.
-#' 
-#' If \code{R} contains missing values behind the diagonal,
-#' the result will be \code{NA}.
-#' 
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' @return Returns a single logical value.
-#' @family binary_relations
-#' @export
-rel_is_transitive <- function(R)
-{
-   .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally 
-}
-
-
 
 #' @title
-#' Transitive Closure of a Binary Relation
+#' Total Closure of a Binary Relation [Fair Totalization]
 #' 
 #' @description
-#' A transitive closure of \eqn{R} is the minimal
-#' superset of \eqn{R} such that it is transitive.
+#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
+#' such that if not \eqn{xRy} and not \eqn{yRx}
+#' then \eqn{xR'y} and \eqn{yRx}.
 #' 
 #' @details
-#' Here we use the Warshall algorithm (1962),
-#' which runs in \eqn{O(n^3)} time, where
-#' \eqn{n} is the number of rows in \code{R}.
+#' Note that a total binary relation is always reflexive.
 #' 
-#' The function preserves \code{\link{dimnames}} of \code{R}.
+#' Even if \eqn{R} is transitive, the resulting relation
+#' may not necessarily fulfill this property.
+#' If you want a total preorder,
+#' call \code{\link{rel_closure_transitive}} afterwards.
+#' 
 #' Missing values are not allowed and result in an error.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation
+#' 
 #' @return Returns a logical square matrix.
 #' @export
 #' @family binary_relations
-rel_closure_transitive <- function(R)
+#' 
+#' @references
+#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
+#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+rel_closure_total_fair <- function(R)
 {
-   .Call("rel_closure_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
+   .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
 }
+
+
+
 
 
 
@@ -121,11 +106,11 @@ rel_closure_transitive <- function(R)
 #' 
 #' Reflexive closure of a binary relation \eqn{R},
 #' determined by \code{rel_closure_reflexive},
-#' is a minimal reflexive superset \eqn{R'} of \eqn{R}.
+#' is the minimal reflexive superset \eqn{R'} of \eqn{R}.
 #' 
 #' Reflexive reduction of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_reflexive},
-#' is a minimal subset \eqn{R'} of \eqn{R},
+#' is the minimal subset \eqn{R'} of \eqn{R},
 #' such that the reflexive closures of \eqn{R} and \eqn{R'} are equal.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
@@ -162,70 +147,96 @@ rel_reduction_reflexive <- function(R)
    .Call("rel_reduction_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
+
+
 #' @title
-#' Total Closure of a Binary Relation [Fair Totalization]
+#' Transitive Binary Relations
 #' 
 #' @description
-#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
-#' such that if not \eqn{xRy} and not \eqn{yRx}
-#' then \eqn{xR'y} and \eqn{yRx}.
+#' A binary relation \eqn{R} is transitive, iff
+#' for all \eqn{x}, \eqn{y}, \eqn{z} we have \eqn{xRy} and \eqn{yRz}
+#' \eqn{\Longrightarrow}{=>} \eqn{xRz}.
 #' 
 #' @details
-#' Note that a total binary relation is always reflexive.
+#' \code{rel_is_transitive} finds out if a given binary relation
+#' is transitive. The algorithm has \eqn{O(n^3)} time complexity,
+#' pessimistically, where
+#' \eqn{n} is the number of rows in \code{R}.
+#' If \code{R} contains missing values behind the diagonal,
+#' the result will be \code{NA}.
 #' 
-#' Even if \eqn{R} is transitive, the resulting relation
-#' may not necessarily fulfill this property.
-#' If you want a total preorder,
-#' call \code{\link{rel_closure_transitive}} afterwards.
+#' Transitive closure of a binary relation \eqn{R},
+#' determined by \code{rel_closure_transitive},
+#' is the minimal superset of \eqn{R} such that it is transitive.
+#' Here we use the well-known Warshall algorithm (1962),
+#' which runs in \eqn{O(n^3)} time.
 #' 
-#' Missing values are not allowed and result in an error.
+#' Transitive reduction of a binary relation \eqn{R},
+#' determined by \code{rel_reduction_transitive},
+#' is a minimal subset \eqn{R'} of \eqn{R},
+#' such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
+#' Note that prior to calculating the reduction, we determine
+#' the closure of \code{R}.
+#' This function is particularly useful for draving Hasse diagrams
+#' of a (pre)ordered set, see Examples.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
+#' representing a binary relation on a finite set.
 #' 
-#' @return Returns a logical square matrix.
-#' @export
+#' @return The \code{rel_closure_transitive} and
+#' \code{rel_reduction_transitive} functions
+#' return a logical square matrix. \code{\link{dimnames}}
+#' of \code{R} are preserved.
+#' 
+#' On the other hand, \code{rel_is_transitive} returns
+#' a single logical value.
+#' 
+#' 
+#' @examples
+#' \dontrun{
+#' # Let ord be a total preorder (a total and transitive binary relation)
+#' # === Plot the Hasse diagram of ord ===
+#' # ===  requires the igraph package  ===
+#' hasse <- graph.adjacency(rel_reduction_transitive(ord))
+#' plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
+#' }
+#' 
 #' @family binary_relations
-#' 
-#' @references
-#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
-#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
-rel_closure_total_fair <- function(R)
+#' @rdname rel_transitive
+#' @export
+rel_is_transitive <- function(R)
 {
-   .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
+   .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally 
 }
 
 
-#' @title
-#' Transitive Reduction of a Binary Relation 
-#' 
-#' @description
-#' Useful for draving Hasse diagrams.
-#' 
-#' Transitive reduction is defined as a  minimal relation having
-#' the same transitive closure as R.
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' @return object of class \code{Matrix}
-#' @family binary_relations
+#' @rdname rel_transitive
 #' @export
-de_transitive <- function(B)
+rel_closure_transitive <- function(R)
 {
-   if (is(B, 'igraph')) B <- get.adjacency(B)
-   stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-   
-   # slow as hell!
-   n <- nrow(B)
-   Matrix::diag(B) <- 0
-   for (i in 1:n) {
-      for (j in 1:n) {
-         for (k in 1:n) {
-            if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && as.logical(B[i,k])
-               && !as.logical(B[k,i]) && !as.logical(B[k,j]) && !as.logical(B[j,i]))
-               B[i,k] <- 0
-         }
-      }
-   }
-   B
+   .Call("rel_closure_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
+}
+
+
+#' @rdname rel_transitive
+#' @export
+rel_reduction_transitive <- function(R)
+{
+   .Call("rel_reduction_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
+#    if (is(B, 'igraph')) B <- get.adjacency(B)
+#    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
+#    
+#    # slow as hell!
+#    n <- nrow(B)
+#    Matrix::diag(B) <- 0
+#    for (i in 1:n) {
+#       for (j in 1:n) {
+#          for (k in 1:n) {
+#             if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && as.logical(B[i,k])
+#                && !as.logical(B[k,i]) && !as.logical(B[k,j]) && !as.logical(B[j,i]))
+#                B[i,k] <- 0
+#          }
+#       }
+#    }
+#    B
 }

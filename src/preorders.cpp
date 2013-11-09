@@ -251,6 +251,23 @@ SEXP rel_closure_transitive(SEXP x)
 }
 
 
+/** Get the transitive reduction of a binary relation
+ * 
+ * @param x square logical matrix
+ * @return square logical matrix
+ * 
+ * @version 0.2 (Marek Gagolewski)
+ */
+SEXP rel_reduction_transitive(SEXP x)
+{
+   SEXP y = rel_closure_transitive(x);
+   // is logical matrix, dimnames are preserved, we may overwrite its elements
+   
+   Rf_error("TO DO");
+   
+   return y;
+}
+
 
 /** Get the reflexive closure of a binary relation
  * 
