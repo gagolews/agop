@@ -282,6 +282,36 @@ SEXP rel_closure_reflexive(SEXP x)
 }
 
 
+/** Get the reflexive reduction of a binary relation
+ * 
+ * @param x square logical matrix
+ * @return square logical matrix
+ * 
+ * @version 0.2 (Marek Gagolewski)
+ */
+SEXP rel_reduction_reflexive(SEXP x)
+{
+   x = prepare_arg_logical_square_matrix(x, "R");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+
+   SEXP y = Rf_allocVector(LGLSXP, n*n);
+   int* yp = INTEGER(y);
+   Rf_setAttrib(y, R_DimSymbol, dim);
+   Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
+
+   for (R_len_t i=0; i<n*n; ++i) {
+      yp[i] = xp[i];
+   }
+   
+   for (R_len_t i=0; i<n; ++i) 
+      yp[i+n*i] = FALSE;
+   
+   return y;
+}
+
+
 /** Get the fair totalization of a binary relation
  * 
  * @param x square logical matrix

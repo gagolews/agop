@@ -16,31 +16,6 @@
 ## along with 'agop'. If not, see <http://www.gnu.org/licenses/>.
 
 
-#' @title
-#' Check if a Binary Relation is Reflexive
-#' 
-#' @description
-#' A binary relation \eqn{R} is reflexive, iff
-#' for all \eqn{x} we have \eqn{xRx}.
-#' 
-#' @details
-#' The function just checks whether all elements
-#' on the diagonal of \code{R} are non-zeros,
-#' i.e. it has \eqn{O(n)} time complexity,
-#' where \eqn{n} is the number of rows in \code{R}.
-#' 
-#' Any missing value on the diagonal outputs \code{NA}.
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' 
-#' @return Returns a single logical value.
-#' @family binary_relations
-#' @export
-rel_is_reflexive <- function(R)
-{
-   .Call("rel_is_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally 
-}
 
 
 #' @title
@@ -51,7 +26,8 @@ rel_is_reflexive <- function(R)
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @details
-#' Note that a total relation is necessarily reflexive.
+#' Note that a total relation is necessarily reflexive,
+#' see \code{\link{rel_is_reflexive}}.
 #' 
 #' The algorithm has \eqn{O(n^2)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
@@ -129,27 +105,62 @@ rel_closure_transitive <- function(R)
 
 
 #' @title
-#' Total Closure of a Binary Relation [Fair Totalization]
+#' Reflexive Binary Relations
 #' 
 #' @description
-#' Reflexive closure of \eqn{R} is a minimal reflexive
-#' superset \eqn{R'} of \eqn{R}.
+#' A binary relation \eqn{R} is reflexive, iff
+#' for all \eqn{x} we have \eqn{xRx}.
 #' 
 #' @details
-#' The function preserves \code{\link{dimnames}} of \code{R}.
+#' \code{rel_is_reflexive} finds out if a given binary relation
+#' is reflexive. The function just checks whether all elements
+#' on the diagonal of \code{R} are non-zeros,
+#' i.e. it has \eqn{O(n)} time complexity,
+#' where \eqn{n} is the number of rows in \code{R}.
+#' Any missing value on the diagonal results in \code{NA}.
+#' 
+#' Reflexive closure of a binary relation \eqn{R},
+#' determined by \code{rel_closure_reflexive},
+#' is a minimal reflexive superset \eqn{R'} of \eqn{R}.
+#' 
+#' Reflexive reduction of a binary relation \eqn{R},
+#' determined by \code{rel_reduction_reflexive},
+#' is a minimal subset \eqn{R'} of \eqn{R},
+#' such that the reflexive closures of \eqn{R} and \eqn{R'} are equal.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
+#' representing a binary relation on a finite set.
 #' 
-#' @return Returns a logical square matrix.
+#' @return The \code{rel_closure_reflexive} and
+#' \code{rel_reduction_reflexive} functions
+#' return a logical square matrix. \code{\link{dimnames}}
+#' of \code{R} are preserved.
+#' 
+#' On the other hand, \code{rel_is_reflexive} returns
+#' a single logical value.
+#' 
 #' @export
 #' @family binary_relations
+#' @rdname rel_reflexive
+rel_is_reflexive <- function(R)
+{
+   .Call("rel_is_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally 
+}
+
+#' @export
+#' @rdname rel_reflexive
 rel_closure_reflexive <- function(R)
 {
    .Call("rel_closure_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
 
+#' @export
+#' @rdname rel_reflexive
+rel_reduction_reflexive <- function(R)
+{
+   .Call("rel_reduction_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
+}
 
 #' @title
 #' Total Closure of a Binary Relation [Fair Totalization]

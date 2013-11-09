@@ -1003,6 +1003,11 @@ function.
 To determine the reflexive closure,
 i.e.~the minimal reflexive $R'\supseteq R$
 call \index{\Rfunc{rel\_closure\_reflexive()()}}\Rfunc{rel\_closure\_reflexive()}.
+On the other hand, with a call to
+\index{\Rfunc{rel\_reduction\_reflexive()()}}\Rfunc{rel\_reduction\_reflexive()}
+we get the reflexive reduction of $R$,
+i.e.~the minimal $R'\subseteq R$ such that
+the reflexive closures of $R'$  and $R$ are equal.
 
 To determine the fair total closure, see \cite{Gagolewski2013:fair},
 i.e.~minimal total $R'\supseteq R$ such that

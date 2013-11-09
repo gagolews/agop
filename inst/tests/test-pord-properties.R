@@ -109,8 +109,9 @@ test_that("rel_closure_transitive", {
 test_that("rel_closure_reflexive", {
    
    expect_equivalent(rel_closure_reflexive(
-     matrix(0,ncol=4, nrow=4, byrow=TRUE)),
-     matrix(diag(4),ncol=4, byrow=TRUE))
+         matrix(0,ncol=4, nrow=4, byrow=TRUE)
+      ),
+      matrix(diag(4),ncol=4, byrow=TRUE))
    
    
    A <- structure(as.logical(diag(4)), dimnames=list(LETTERS[1:4], LETTERS[1:4]), dim=c(4,4))
@@ -131,6 +132,19 @@ test_that("rel_closure_reflexive", {
    
    expect_true(rel_is_total(rel_closure_total_fair(
      matrix(runif(625)>0.9, ncol=25, byrow=TRUE))))
+})
+
+
+test_that("rel_reduction_reflexive", {
+   
+   expect_equivalent(rel_reduction_reflexive(
+         matrix(diag(4),ncol=4, nrow=4, byrow=TRUE)
+      ),
+      matrix(0,ncol=4, byrow=TRUE))
+   
+   A <- structure(as.logical(diag(4)), dimnames=list(LETTERS[1:4], LETTERS[1:4]), dim=c(4,4))
+   expect_identical(rel_closure_reflexive(rel_reduction_reflexive(A)), A)
+   
 })
 
 
