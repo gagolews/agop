@@ -430,12 +430,14 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname)
 {
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
    if (LENGTH(dim) != 2)
       Rf_error(MSG__DIM_LENGTH, argname);
    if (INTEGER(dim)[0] != INTEGER(dim)[1])
       Rf_error(MSG__DIM_NOTEQUAL, argname);
    x = prepare_arg_logical(x, argname);
    Rf_setAttrib(x, R_DimSymbol, dim);
+   Rf_setAttrib(x, R_DimNamesSymbol, dimNames);
    return x;
 }
 

@@ -103,6 +103,35 @@ test_that("rel_closure_transitive", {
 })
 
 
+test_that("rel_closure_reflexive", {
+   
+   expect_equivalent(rel_closure_reflexive(
+     matrix(0,ncol=4, nrow=4, byrow=TRUE)),
+     matrix(diag(4),ncol=4, byrow=TRUE))
+   
+   
+   A <- structure(as.logical(diag(4)), dimnames=list(LETTERS[1:4], LETTERS[1:4]), dim=c(4,4))
+   expect_identical(rel_closure_reflexive(A), A)
+   
+   # random graphs:
+   expect_true(rel_is_reflexive(rel_closure_reflexive(
+     matrix(runif(625)>0.1, ncol=25, byrow=TRUE))))
+   
+   expect_true(rel_is_reflexive(rel_closure_reflexive(
+     matrix(runif(625)>0.3, ncol=25, byrow=TRUE))))
+   
+   expect_true(rel_is_reflexive(rel_closure_reflexive(
+     matrix(runif(625)>0.5, ncol=25, byrow=TRUE))))
+   
+   expect_true(rel_is_reflexive(rel_closure_reflexive(
+     matrix(runif(625)>0.7, ncol=25, byrow=TRUE))))
+   
+   expect_true(rel_is_total(rel_closure_total_fair(
+     matrix(runif(625)>0.9, ncol=25, byrow=TRUE))))
+})
+
+
+
 test_that("rel_closure_total_fair", {
    
    expect_equivalent(rel_closure_total_fair(

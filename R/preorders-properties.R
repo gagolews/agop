@@ -182,7 +182,33 @@ de_transitive <- function(B)
 #' Total Closure of a Binary Relation [Fair Totalization]
 #' 
 #' @description
-#' Fair totalizatio of \eqn{R} is a superset \eqn{R'} of \eqn{R}
+#' Reflexive closure of \eqn{R} is a minimal reflexive
+#' superset \eqn{R'} of \eqn{R}.
+#' 
+#' @details
+#' The function preserves \code{\link{dimnames}} of \code{R}.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
+#' 
+#' @return Returns a logical square matrix.
+#' @export
+#' @family binary_relations
+rel_closure_reflexive <- function(R)
+{
+   R <- as.matrix(R)
+   Rprim <- .Call("rel_closure_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
+   dimnames(Rprim) <- dimnames(R)
+   Rprim
+}
+
+
+
+#' @title
+#' Total Closure of a Binary Relation [Fair Totalization]
+#' 
+#' @description
+#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
 #' such that if not \eqn{xRy} and not \eqn{yRx}
 #' then \eqn{xR'y} and \eqn{yRx}.
 #' 
@@ -213,5 +239,4 @@ rel_closure_total_fair <- function(R)
    dimnames(Rprim) <- dimnames(R)
    Rprim
 }
-
 

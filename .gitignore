@@ -28,6 +28,8 @@ agop.Rproj
 *.bbl
 *.blg
 *.idx
+*.ilg
+*.ind
 devel/vignette-Tutorial/agop-Tutorial.tex
 devel/vignette-Tutorial/agop-Tutorial.pdf
 cache-knitr

@@ -1000,6 +1000,10 @@ we call \package{agop}'s
 \index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
 function.
 
+To determine the reflexive closure,
+i.e.~the minimal reflexive $R'\supseteq R$
+call \index{\Rfunc{rel\_closure\_reflexive()()}}\Rfunc{rel\_closure\_reflexive()}.
+
 To determine the fair total closure, see \cite{Gagolewski2013:fair},
 i.e.~minimal total $R'\supseteq R$ such that
 if $\neg xRy$ and $\neg xRy$ then $xR'y$ and $yR'x$,

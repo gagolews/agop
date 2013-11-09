@@ -3,8 +3,6 @@
 
 0.2-0 /under development/
 
-* All functions dealing with binary relations now have "rel_" prefix.
-
 * The definition of owa(), owmax(), and owmin() is now consistent with
    that of (Grabisch et al., 2009), i.e. uses nondecreasing
    vectors, and not nonincreasing ones.
@@ -31,8 +29,13 @@
    was not necessarily transitive; the function has been rewritten in C++
    and now uses the Warshall algorithm (1962).
 
+* All functions dealing with binary relations now have "rel_" prefix.
+
 * Rewritten to C++: rel_is_reflexive(), rel_is_total(), rel_is_transitive(), 
    rel_closure_total_fair(), .....
+
+* New functions dealing with binary relations:
+   rel_closure_reflexive(), ....
 
 * BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
 
