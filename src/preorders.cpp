@@ -67,7 +67,7 @@ SEXP pord_weakdom(SEXP x, SEXP y)
  * @param y numeric vector
  * @return logical scalar, whether x <= y
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP pord_spread(SEXP x, SEXP y)
 {
@@ -102,7 +102,7 @@ SEXP pord_spread(SEXP x, SEXP y)
  * @param y numeric vector
  * @return logical scalar, whether x <= y
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP pord_spreadsym(SEXP x, SEXP y)
 {
@@ -137,7 +137,7 @@ SEXP pord_spreadsym(SEXP x, SEXP y)
  * @param x square logical matrix
  * @return logical scalar
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_reflexive(SEXP x)
 {
@@ -160,7 +160,7 @@ SEXP rel_is_reflexive(SEXP x)
  * @param x square logical matrix
  * @return logical scalar
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_total(SEXP x)
 {
@@ -188,7 +188,7 @@ SEXP rel_is_total(SEXP x)
  * @param x square logical matrix
  * @return logical scalar
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_transitive(SEXP x)
 {
@@ -219,7 +219,7 @@ SEXP rel_is_transitive(SEXP x)
  * @param x square logical matrix
  * @return square logical matrix
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_transitive(SEXP x)
 {
@@ -231,6 +231,7 @@ SEXP rel_closure_transitive(SEXP x)
    SEXP y = Rf_allocVector(LGLSXP, n*n);
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
+   Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
 
    for (R_len_t i=0; i<n*n; ++i) {
       if (xp[i] == NA_LOGICAL)
@@ -256,7 +257,7 @@ SEXP rel_closure_transitive(SEXP x)
  * @param x square logical matrix
  * @return square logical matrix
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_reflexive(SEXP x)
 {
@@ -268,6 +269,7 @@ SEXP rel_closure_reflexive(SEXP x)
    SEXP y = Rf_allocVector(LGLSXP, n*n);
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
+   Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
 
    for (R_len_t i=0; i<n*n; ++i) {
       yp[i] = xp[i];
@@ -285,7 +287,7 @@ SEXP rel_closure_reflexive(SEXP x)
  * @param x square logical matrix
  * @return square logical matrix
  * 
- * @version 0.1 (Marek Gagolewski)
+ * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_total_fair(SEXP x)
 {
@@ -297,6 +299,7 @@ SEXP rel_closure_total_fair(SEXP x)
    SEXP y = Rf_allocVector(LGLSXP, n*n);
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
+   Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
 
    for (R_len_t i=0; i<n*n; ++i) {
       if (xp[i] == NA_LOGICAL)

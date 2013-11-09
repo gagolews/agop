@@ -95,18 +95,6 @@ rel_is_total <- function(R)
 rel_is_transitive <- function(R)
 {
    .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally 
-#    # version 0.2
-#    if (!is(B, 'igraph')) B <- graph.adjacency(B)
-#    n <- vcount(B)
-#    for (i in 1:n) { # for each vertex
-#       # do breadth-first search from each vertex
-#       # transitivity holds iff each reachable vertex is within distance of 1
-#       disti <- graph.bfs(B, root=i, unreachable=FALSE, order=FALSE, dist=TRUE)$dist
-#       disti <- disti[!is.nan(disti)]
-#       if (length(disti) > 0 && any(disti > 1))
-#          return(FALSE)
-#    }
-#    TRUE # reached here -> no FALSE -> is transitive :-)
 }
 
 
@@ -133,12 +121,68 @@ rel_is_transitive <- function(R)
 #' @family binary_relations
 rel_closure_transitive <- function(R)
 {
-   R <- as.matrix(R)
-   Rprim <- .Call("rel_closure_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
-   dimnames(Rprim) <- dimnames(R)
-   Rprim
+   .Call("rel_closure_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
+
+
+
+
+#' @title
+#' Total Closure of a Binary Relation [Fair Totalization]
+#' 
+#' @description
+#' Reflexive closure of \eqn{R} is a minimal reflexive
+#' superset \eqn{R'} of \eqn{R}.
+#' 
+#' @details
+#' The function preserves \code{\link{dimnames}} of \code{R}.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
+#' 
+#' @return Returns a logical square matrix.
+#' @export
+#' @family binary_relations
+rel_closure_reflexive <- function(R)
+{
+   .Call("rel_closure_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
+}
+
+
+
+#' @title
+#' Total Closure of a Binary Relation [Fair Totalization]
+#' 
+#' @description
+#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
+#' such that if not \eqn{xRy} and not \eqn{yRx}
+#' then \eqn{xR'y} and \eqn{yRx}.
+#' 
+#' @details
+#' Note that a total binary relation is always reflexive.
+#' 
+#' Even if \eqn{R} is transitive, the resulting relation
+#' may not necessarily fulfill this property.
+#' If you want a total preorder,
+#' call \code{\link{rel_closure_transitive}} afterwards.
+#' 
+#' Missing values are not allowed and result in an error.
+#' 
+#' @param R an object coercible to a 0-1 (logical) square matrix,
+#' representing a binary relation
+#' 
+#' @return Returns a logical square matrix.
+#' @export
+#' @family binary_relations
+#' 
+#' @references
+#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
+#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+rel_closure_total_fair <- function(R)
+{
+   .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
+}
 
 
 #' @title
@@ -174,69 +218,3 @@ de_transitive <- function(B)
    }
    B
 }
-
-
-
-
-#' @title
-#' Total Closure of a Binary Relation [Fair Totalization]
-#' 
-#' @description
-#' Reflexive closure of \eqn{R} is a minimal reflexive
-#' superset \eqn{R'} of \eqn{R}.
-#' 
-#' @details
-#' The function preserves \code{\link{dimnames}} of \code{R}.
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' 
-#' @return Returns a logical square matrix.
-#' @export
-#' @family binary_relations
-rel_closure_reflexive <- function(R)
-{
-   R <- as.matrix(R)
-   Rprim <- .Call("rel_closure_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
-   dimnames(Rprim) <- dimnames(R)
-   Rprim
-}
-
-
-
-#' @title
-#' Total Closure of a Binary Relation [Fair Totalization]
-#' 
-#' @description
-#' Fair totalization of \eqn{R} is a superset \eqn{R'} of \eqn{R}
-#' such that if not \eqn{xRy} and not \eqn{yRx}
-#' then \eqn{xR'y} and \eqn{yRx}.
-#' 
-#' @details
-#' Note that a total binary relation is always reflexive.
-#' 
-#' Even if \eqn{R} is transitive, the resulting relation
-#' may not necessarily fulfill this property.
-#' If you want a total preorder,
-#' call \code{\link{rel_closure_transitive}} afterwards.
-#' 
-#' Missing values are not allowed and result in an error.
-#' 
-#' @param R an object coercible to a 0-1 (logical) square matrix,
-#' representing a binary relation
-#' 
-#' @return Returns a logical square matrix.
-#' @export
-#' @family binary_relations
-#' 
-#' @references
-#' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
-#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
-rel_closure_total_fair <- function(R)
-{
-   R <- as.matrix(R)
-   Rprim <- .Call("rel_closure_total_fair", as.matrix(R), PACKAGE="agop") # args checked internally
-   dimnames(Rprim) <- dimnames(R)
-   Rprim
-}
-

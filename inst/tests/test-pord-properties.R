@@ -59,6 +59,9 @@ test_that("rel_is_transitive", {
 
 test_that("rel_closure_transitive", {
    
+   A <- structure(as.logical(diag(4)), dimnames=list(LETTERS[1:4], LETTERS[1:4]), dim=c(4,4))
+   expect_identical(rel_closure_transitive(A), A)
+   
    expect_equivalent(rel_closure_transitive(
      matrix(c(0,0,0,1,
               0,0,1,0,
@@ -144,6 +147,9 @@ test_that("rel_closure_total_fair", {
               1,0,1,1,
               0,1,1,1),ncol=4, byrow=TRUE))
    
+   
+   A <- structure(rep(TRUE, 16), dimnames=list(LETTERS[1:4], LETTERS[1:4]), dim=c(4,4))
+   expect_identical(rel_closure_transitive(A), A)
    
    # random graphs:
    expect_true(rel_is_total(rel_closure_total_fair(

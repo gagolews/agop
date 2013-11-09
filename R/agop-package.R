@@ -18,7 +18,7 @@
 
 
 
-#' @title Aggregation Operators Package for R
+#' @title Aggregation Operators and Preordered Sets Package for R
 #' 
 #' @description
 #' ``The process of combining several numerical values into a single 
@@ -51,7 +51,7 @@
 #' Anna Cena \email{cena@@rexamine.com} [ctb]
 #'
 #' \bold{Keywords}: aggregation, bibliometrics, scientometrics, scientific impact,
-#' webometrics, preorders, means, OWA, OWMax, OWMin, Hirsch's h-index,
+#' webometrics, preorders, binary relations, means, OWA, OWMax, OWMin, Hirsch's h-index,
 #' Egghe's g-index.
 #' 
 #' \bold{Acknowledgments}: 
