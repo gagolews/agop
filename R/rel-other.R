@@ -147,7 +147,7 @@ get_equivalence_classes <- function(B)
 {
    if (!is(B, 'igraph')) { BAD <- as.matrix(B); B <- graph.adjacency(B) }
    else { BAD <- as.matrix(get.adjacency(B)) }
-   stopifnot(is_total(BAD), is_transitive(BAD))
+   stopifnot(rel_is_total(BAD), rel_is_transitive(BAD))
    
    # now B - igraph
    # now BAD - matrix
