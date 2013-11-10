@@ -110,46 +110,42 @@ pord_spreadsym <- function(x, y)
 
 
 #' @title
-#' Create an Adjacency Matrix for a Given Binary Relation
+#' Create an Adjacency Matrix Representing a Binary Relation
 #' 
 #' @description
-#' Returns an adjacency matrix storing results
+#' Returns a binary relation that represents results
 #' of comparisons with \code{pord}
-#'  of all pairs of elements in \code{x}.
-#' 
-#' 
-#' @details
-#' Note that an adjacency matrix
-#' can also be conceived as a directed graph (DAG)
-#' We have
-#' \code{ret[i,j] == 1} iff \eqn{v_i \le v_j}{v_i <= v_j}.
+#' of all pairs of elements in \code{x}.
+#' We have \code{ret[i,j] == pord(x[[i]], x[[j]], ...)}.
 #' 
 #' @param x list with elements to compare, preferrably named
-#' @param pord a function with two arguments, returning boolean value,
+#' @param pord a function with two arguments, returning a single boolean value,
 #' e.g. \code{\link{pord_spread}}, \code{\link{pord_spreadsym}},
 #' or \code{\link{pord_weakdom}}
 #' @param ... additional arguments passed to \code{pord}
 #' 
-#' @return Returns a square 0-1 Matrix (of class \code{Matrix},
-#' note that it may be a sparse matrix).
+#' @return Returns a square logical matrix.
+#' \code{\link{dimnames}} of the matrix correspond
+#' to \code{\link{names}} of \code{x}.
 #' 
 #' @family binary_relations
 #' @export
 rel_graph <- function(x, pord, ...)
 {
    stopifnot(is.list(x))
+   stopifnot(is.function(pord))
    n <- length(x)
-   ord <- matrix(0L, nrow=n, ncol=n)
+   ord <- matrix(FALSE, nrow=n, ncol=n)
    colnames(ord) <- names(x)
    rownames(ord) <- names(x)
    
    for (i in seq_along(x)) {
       for (j in seq_along(x)) {
          if (pord(x[[i]], x[[j]], ...))
-            ord[i,j] <- 1L
+            ord[i,j] <- TRUE
       }
    }
    
-   Matrix(ord)
+   ord
 }
 

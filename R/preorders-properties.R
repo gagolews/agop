@@ -164,7 +164,8 @@ rel_reduction_reflexive <- function(R)
 #' Here we use the well-known Warshall algorithm (1962),
 #' which runs in \eqn{O(n^3)} time.
 #' 
-#' Transitive reduction of a binary relation \eqn{R},
+#' Transitive reduction,
+#' see Aho et al. 1972, of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_transitive},
 #' is a minimal subset \eqn{R'} of \eqn{R},
 #' such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
@@ -184,6 +185,12 @@ rel_reduction_reflexive <- function(R)
 #' On the other hand, \code{rel_is_transitive} returns
 #' a single logical value.
 #' 
+#' @references
+#' Aho A.V., Garey M.R., Ullman J.D.,
+#' The Transitive Reduction of a Directed Graph,
+#' SIAM Journal on Computing 1(2), 1972, pp. 131-137.\cr
+#' Warshall S., A theorem on Boolean matrices,
+#' Journal of the ACM 9(1), 1962, pp. 11-12.
 #' 
 #' @examples
 #' \dontrun{

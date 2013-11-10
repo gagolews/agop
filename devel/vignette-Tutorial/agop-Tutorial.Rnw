@@ -935,8 +935,17 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 
 \section{Binary Relations}
 
-The \package{agop} package includes many functions
-aiming to deal with binary relations
+The \package{agop} package includes a few functions
+aiming to deal with binary relations%
+\footnote{On CRAN there is also a package \package{relations},
+see \cite{MeyerHornik2013:relationspkg}, that
+provides data structures and algorithms for $k$-ary
+relations with arbitrary domains, featuring relational algebra,
+predicate functions, and fitters for consensus relations.
+For some time, \package{agop}'s functionality will
+be a subset of \package{relations}'s (yet faster).
+In future versions, however, we'd like to add fuzzy relations
+handling.}
 defined on finite sets $V=\{v_1,\dots,v_n\}$.
 Each binary relation $R\subseteq V\times V$ may
 be represented by a square 0-1\footnote{Or, equivalently, logical;
@@ -994,24 +1003,28 @@ Equivalence Relation & symmetric, reflexive, transitive \\
 \end{table}
 
 \paragraph{Reductions and closures}
-To find the transitive closure of a given binary relation
+To find the \emph{transitive closure},
+cf.~\cite{Warshall1962:transitiveclosure},
+of a given binary relation
 $R$, i.e.~the minimal transitive $R'\supseteq R$,
 we call \package{agop}'s
 \index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
 function.
+
+\emph{transitive reduction}, see \cite{AhoGareyUllman1972:transitivereduction},
 TO DO: \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
 -- it is particularly useful when drawing Hasse diagrams of preoredered sets.
 
-To determine the reflexive closure,
+To determine the \emph{reflexive closure},
 i.e.~the minimal reflexive $R'\supseteq R$
 call \index{\Rfunc{rel\_closure\_reflexive()()}}\Rfunc{rel\_closure\_reflexive()}.
 On the other hand, with a call to
 \index{\Rfunc{rel\_reduction\_reflexive()()}}\Rfunc{rel\_reduction\_reflexive()}
-we get the reflexive reduction of $R$,
+we get the \emph{reflexive reduction} of $R$,
 i.e.~the minimal $R'\subseteq R$ such that
 the reflexive closures of $R'$  and $R$ are equal.
 
-To determine the fair total closure, see \cite{Gagolewski2013:fair},
+To determine the \emph{fair total closure}, see \cite{Gagolewski2013:fair},
 i.e.~minimal total $R'\supseteq R$ such that
 if $\neg xRy$ and $\neg xRy$ then $xR'y$ and $yR'x$,
 we call

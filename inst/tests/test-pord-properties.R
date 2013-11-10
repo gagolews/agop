@@ -183,3 +183,14 @@ test_that("rel_closure_total_fair", {
 })
 
 
+# A <- matrix(runif(100)>0.9, ncol=10, byrow=TRUE)
+# AT <- rel_closure_transitive(A)
+# rel_is_transitive(AT)
+# tmp <- as.relation(AT)
+# str(tmp)
+# require('microbenchmark')
+# microbenchmark(relation_is_transitive(tmp), rel_is_transitive(AT))
+# A
+# A %*% A
+# A[,] <- A - A & as.logical((A%*%A))
+# A
