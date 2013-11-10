@@ -36,7 +36,10 @@
    rel_closure_total_fair(), rel_reduction_transitive() [TO DO], .....
 
 * New functions dealing with binary relations:
-   rel_closure_reflexive(), rel_reduction_reflexive(), ....
+   rel_closure_reflexive(), rel_reduction_reflexive(), 
+   rel_is_symmetric(), rel_closure_symmetric(), ....
+   Note that in future releases of agop we plan to add
+   procedures that deal with fuzzy relations.
 
 * BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
 

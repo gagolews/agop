@@ -51,17 +51,25 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_rp,                   2),
    MAKE_CALL_METHOD(index_lp,                   2),
    MAKE_CALL_METHOD(d2owa_checkwts,             1),
+   
    MAKE_CALL_METHOD(pord_weakdom,               2),
    MAKE_CALL_METHOD(pord_spread,                2),
    MAKE_CALL_METHOD(pord_spreadsym,             2),
+   
    MAKE_CALL_METHOD(rel_is_transitive,          1),
    MAKE_CALL_METHOD(rel_closure_transitive,     1),
    MAKE_CALL_METHOD(rel_reduction_transitive,   1),
+   
    MAKE_CALL_METHOD(rel_is_reflexive,           1),
    MAKE_CALL_METHOD(rel_closure_reflexive,      1),
    MAKE_CALL_METHOD(rel_reduction_reflexive,    1),
+   
    MAKE_CALL_METHOD(rel_is_total,               1),
    MAKE_CALL_METHOD(rel_closure_total_fair,     1),
+   
+   MAKE_CALL_METHOD(rel_is_symmetric,           1),
+   MAKE_CALL_METHOD(rel_closure_symmetric,      1),
+   
    MAKE_CALL_METHOD(exp_test_statistic,         1),
    
    // the list must be NULL-terminated:

@@ -974,7 +974,7 @@ Moreover, Table \ref{Tab:reltypes} lists popular classes of relations.
 \hline\hline
 Reflexivity  & $(\forall i)$ $v_i R v_i$ & \index{\Rfunc{rel\_is\_reflexive()}}\Rfunc{rel\_is\_reflexive()} \\
 Irreflexivity & TO DO \\
-Symmetry     & $(\forall i,j)$ $v_i R v_j \Rightarrow v_j R v_i$ & TO DO \\%\index{rel\_is\_symmetric()}\Rfunc{rel\_is\_symmetric()} \\
+Symmetry     & $(\forall i,j)$ $v_i R v_j \Rightarrow v_j R v_i$ & \index{rel\_is\_symmetric()}\Rfunc{rel\_is\_symmetric()} \\
 Antisymmetry & TO DO \\
 Asymmetry & TO DO \\
 Totality     & $(\forall i,j)$ $v_i R v_j\text{ or }v_j R v_i$ & \index{\Rfunc{rel\_is\_total()}}\Rfunc{rel\_is\_total()} \\
@@ -1017,20 +1017,27 @@ TO DO: \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transi
 
 To determine the \emph{reflexive closure},
 i.e.~the minimal reflexive $R'\supseteq R$
-call \index{\Rfunc{rel\_closure\_reflexive()()}}\Rfunc{rel\_closure\_reflexive()}.
+call \index{\Rfunc{rel\_closure\_reflexive()}}\Rfunc{rel\_closure\_reflexive()}.
 On the other hand, with a call to
-\index{\Rfunc{rel\_reduction\_reflexive()()}}\Rfunc{rel\_reduction\_reflexive()}
+\index{\Rfunc{rel\_reduction\_reflexive()}}\Rfunc{rel\_reduction\_reflexive()}
 we get the \emph{reflexive reduction} of $R$,
 i.e.~the minimal $R'\subseteq R$ such that
 the reflexive closures of $R'$  and $R$ are equal.
+In other words, $R'$ is the largest irreflexive relation
+contained in $R$.
 
-To determine the \emph{fair total closure}, see \cite{Gagolewski2013:fair},
+To determine the so-called
+\emph{fair total closure}, see \cite{Gagolewski2013:fair},
 i.e.~minimal total $R'\supseteq R$ such that
 if $\neg xRy$ and $\neg xRy$ then $xR'y$ and $yR'x$,
 we call
-\index{\Rfunc{rel\_closure\_total\_fair()()}}\Rfunc{rel\_closure\_total\_fair()}.
+\index{\Rfunc{rel\_closure\_total\_fair()}}\Rfunc{rel\_closure\_total\_fair()}.
 
-TO DO
+The \emph{symmetric closure},
+the smallest symmetric binary relation that contains a given one,
+is available via a call to
+\index{\Rfunc{rel\_closure\_symmetric()}}\Rfunc{rel\_closure\_symmetric()}.
+%%% TO DO: rel_reduction_symmetric -- ?
 
 \paragraph{Operations on relations}
 TO DO (union, intersect, diff, composition)
