@@ -48,7 +48,7 @@
 #' Special cases of OWA include the trimmed mean (cf. \code{\link{mean}})
 #' and winsorized mean.
 #' 
-#' There is a strong connection between the OWA operators
+#' There is a strong, well-known connection between the OWA operators
 #' and the Choquet integrals.
 #' 
 #' @param x numeric vector to be aggregated
@@ -62,8 +62,11 @@
 #' @export
 #' @family aggregation_operators
 #' @references
-#' Yager R.R., On ordered weighted averaging aggregation operators in multicriteria decision making, 
-#' IEEE Transactions on Systems, Man, and Cybernetics 18(1), 1988, pp. 183-190.
+#' Choquet G., Theory of capacities, \emph{Annales de l’institut Fourier} 5 (1954), pp. 131-295.
+#' 
+#' Yager R.R., On ordered weighted averaging aggregation operators 
+#' in multicriteria decision making, 
+#' \emph{IEEE Transactions on Systems, Man, and Cybernetics} 18(1), 1988, pp. 183-190.
 owa <- function(x, w=rep(1/length(x), length(x))) {
    .Call("owa", x, w, PACKAGE="agop")
 }
@@ -123,7 +126,8 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' and the smallest for OWMin should be equal to \eqn{a}.
 #' 
 #' There is a strong connection between the OWMax/OWMin operators
-#' and the Sugeno integrals. Additionally, it may be shown
+#' and the Sugeno integrals w.r.t. some monotone measures.
+#' Additionally, it may be shown
 #' that the OWMax and OWMin classes are equivalent.
 #' 
 #' Moreover, \code{\link{index_h}} for integer data
@@ -140,7 +144,13 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' @family aggregation_operators
 #' @references
 #' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, 
-#' Fuzzy Sets and Systems 28, 1988, pp. 313-331.
+#'    \emph{Fuzzy Sets and Systems} 28, 1988, pp. 313-331.
+#' 
+#' Dubois D., Prade H., Semantics of quotient operators in fuzzy
+#'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
+#' 
+#' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
+#'    PhD thesis, Tokyo Institute of Technology, 1974.
 owmax <- function(x, w=rep(Inf, length(x))) {
    .Call("owmax", x, w, PACKAGE="agop")
 }

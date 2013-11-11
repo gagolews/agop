@@ -45,6 +45,63 @@
 #' For more infrmation refer to the Package Vignette.
 #' Its most recent version is available at
 #' \url{http://github.com/Rexamine/agop/raw/master/inst/doc/agop-Tutorial.pdf}.
+#' 
+#' @section Package Facilities:
+#' 
+#' \itemize{
+#'    \item Predefined classes of aggregation operators:
+#'    \itemize{
+#'       \item \code{\link{wam}}, \code{\link{owa}},
+#'       \code{\link{wmax}}, \code{\link{wmin}},
+#'       \code{\link{owmax}}, \code{\link{owmin}} -- classical
+#'       aggregations functions;
+#'       \item \code{\link{index_h}}, \code{\link{index_g}},
+#'       \code{\link{index_g_zi}}, \code{\link{index_maxprod}},
+#'       \code{\link{index_h}}, \code{\link{index_w}},
+#'       \code{\link{index_lp}}, \code{\link{index_rp}}
+#'         -- impact functions
+#'       useful in the Producers Assessment Problem;
+#'       \item \code{\link{d2owa}} -- dispersion functions;
+#'       for other see also \code{\link{var}},
+#'       \code{\link{sd}}, and \code{\link{range}};
+#'    }
+#'    \item Functions dealing with preorders and other binary relations
+#'    on finite sets:
+#'    \itemize{
+#'       \item \code{\link{pord_weakdom}},
+#'       \code{\link{pord_spread}}, \code{\link{pord_spreadsym}} --
+#'       particular preorders in the space of numeric vectors;
+#'       see also \code{\link{rel_graph}} for computing a binary
+#'       relation for a given set of vectors;
+#'       \item TO DO.....
+#'       \item TO DO.....
+#'    }
+#'    \item Statistical distributions:
+#'    \itemize{
+#'       \item \code{\link{ppareto2}}, \code{\link{dpareto2}},
+#'       \code{\link{dpareto2}}, \code{\link{rpareto2}}
+#'       -- (continuous) Pareto Type-II distribution;
+#'       see \code{\link{pareto2_estimate_mle}}
+#'       and \code{\link{pareto2_estimate_mmse}}
+#'       for parameter estimation,
+#'       \code{\link{pareto2_test_ad}} for a goodness-of-fit
+#'       test, and \code{\link{pareto2_test_f}} for
+#'       a two-sample test for equality of the shape parameter;
+#'       \item \code{\link{pdpareto2}}, \code{\link{ddpareto2}},
+#'       \code{\link{ddpareto2}}, \code{\link{rdpareto2}}
+#'       -- (discretized) Pareto Type-II distribution;
+#'       see \code{\link{dpareto2_estimate_mle}} for
+#'       parameter estimation;
+#'       \item \code{\link{exp_test_ad}} -- Anderson-Darling
+#'       (approximate) goodness-of-fit test for the
+#'       Exponential distribution;
+#'    }
+#'    \item Data visualization:
+#'    \itemize{
+#'       \item \code{\link{plot_producer}} -- draws a graphical
+#'       representation of a numeric vector.
+#'    }
+#' }
 #'
 #' @author
 #' Marek Gagolewski \email{gagolews@@rexamine.com} [aut,cre],\cr
@@ -77,8 +134,19 @@
 #'    \emph{Aggregation Functions in Theory and in Practise} (AISC 228), 
 #'    Springer-Verlag, Heidelberg, 2013, pp. 105-115.
 #'    
+#' Choquet G., Theory of capacities, \emph{Annales de l’institut Fourier} 5 (1954), pp. 131-295.
+#' 
 #' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, 
 #'    \emph{Fuzzy Sets and Systems} 28, 1988, pp. 313-331.
+#'    
+#' Dubois D., Prade H., Semantics of quotient operators in fuzzy
+#'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
+#'    
+#' Gagolewski M., \emph{Dispersion Functions: Aggregation Operators that
+#'    Measure Variability, Spread, or Scatter of Numeric Sequences}, 
+#'    submitted paper, 2013.
+#' 
+#' Gagolewski M., \emph{Symmetric Dispersion Functions}, in preparation, 2013.
 #'    
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
 #'    \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
@@ -152,10 +220,10 @@
 #'    PhD thesis, Tokyo Institute of Technology, 1974.
 #'    
 #' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
-#'    integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, 795-797.
+#'    integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795-797.
 #'    
 #' Woeginger G. J., An axiomatic characterization of the Hirsch-index.
-#'    \emph{Mathematical Social Sciences} 56(2), 2008, 224-232.
+#'    \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 #'    
 #' Yager R.R., On ordered weighted averaging aggregation operators 
 #'    in multicriteria decision making, \emph{IEEE Transactions on Systems, 

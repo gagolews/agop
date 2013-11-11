@@ -17,7 +17,7 @@
 
 
 #' @title
-#' Weak Dominance Relation (Preorder)
+#' Weak Dominance Relation (Preorder) in the Producer Assessment Problem
 #' 
 #' @description
 #' Checks whether a given numeric vector 
@@ -73,6 +73,7 @@
 #' \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
 #' 
 #' @family binary_relations
+#' @family impact_functions
 #' @export
 pord_weakdom <- function(x, y)
 {
@@ -81,23 +82,39 @@ pord_weakdom <- function(x, y)
 
 
 #' @title
-#' Compare Vectors' Spread (Preorder)
+#' Compare Spreads of Vectors (Preorder)
 #' 
 #' @description
-#' The \code{pord_spread} function determines
+#' These functions determine whether
 #' one numeric vector has not greater spread than the
-#' other. Moreover, \code{pord_spreadsym} implements
-#' the symmetrized spread relation.
+#' other
+#' 
 #' 
 #' @details
-#' We say that \code{x} of size \eqn{n}
-#' has no greater spread than \code{y}
+#' These functions accept only vectors of the same size.
+#' [TO DO: should not it return \code{FALSE} or \code{NA} in this case?]
+#' 
+#' We say that \bold{x} of size \eqn{n}
+#' is of \emph{no greater spread} than \bold{y}
 #' iff for all \eqn{i,j=1,\dots,n} such
 #' that \eqn{x_i>x_j} it holds \eqn{x_i-x_j\le y_i-y_j}.
-#' Such preorder is used in the definition of
-#' dispersion operators (see Gagolewski, 2013).
+#' Such a preorder is used in the definition of
+#' dispersion functions (see Gagolewski, 2013)
+#' and is implemented in \code{pord_spread},
 #' 
-#' These functions accept only vectors of the same size.
+#' 
+#' Moreover, \code{pord_spreadsym} implements
+#' the relation corresponding to symmetrized dispersion
+#' functions, i.e. which acts on sorted vectors.
+#' 
+#' \cr
+#' Note that the class of dispersion functions includes
+#' e.g. the sample variance (see \code{\link{var}}),
+#' standard veriation (see  \code{\link{sd}}),
+#' range (see  \code{\link{range}} and then  \code{\link{diff}}),
+#' interquartile range (see  \code{\link{IQR}}),
+#' median absolute deviation (MAD).
+#' 
 #' 
 #' @param x numeric vector
 #' @param y numeric vector of the same length as \code{x}
@@ -107,9 +124,14 @@ pord_weakdom <- function(x, y)
 #' spread than \code{y}
 #' 
 #' @references
-#' Gagolewski M., Dispersion Operators, submitted paper, 2013.
+#' Gagolewski M., \emph{Dispersion Functions: Aggregation Operators that
+#'    Measure Variability, Spread, or Scatter of Numeric Sequences}, 
+#'    submitted paper, 2013.
+#' 
+#' Gagolewski M., \emph{Symmetric Dispersion Functions}, in preparation, 2013.
 #' 
 #' @family binary_relations
+#' @family dispersion_functions
 #' @rdname pord_spread
 #' @export
 pord_spread <- function(x, y)

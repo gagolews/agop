@@ -28,7 +28,7 @@
 #' 
 #' @param x a non-negative numeric vector
 #' @return
-#' a numeric vector  with the following named components:
+#' Returns a numeric vector  with the following named components:
 #' \itemize{
 #' \item \code{k} - estimated parameter of shape,
 #' \item \code{s} - estimated parameter of scale.
@@ -37,7 +37,7 @@
 #' @family Pareto2
 #' @references
 #' Zhang J., Stevens M.A., A New and Efficient Estimation Method 
-#' for the Generalized Pareto Distribution, Technometrics 51(3), 2009, 316-325.
+#' for the Generalized Pareto Distribution, \emph{Technometrics} 51(3), 2009, pp. 316-325.
 pareto2_estimate_mmse <- function(x)
 {
    stopifnot(is.numeric(x), length(x) >= 2, is.finite(x), x >= 0)
@@ -94,7 +94,7 @@ pareto2_estimate_mmse <- function(x)
 #' @param smax upper bound for the scale parameter to look for
 #' @param tol the desired accuracy (convergence tolerance)
 #' @return
-#' a numeric vector  with the following named components:
+#' Returns a numeric vector  with the following named components:
 #' \itemize{
 #' \item \code{k} - estimated parameter of shape
 #' \item \code{s} - estimated (or known, see the \code{s} argument) parameter of scale

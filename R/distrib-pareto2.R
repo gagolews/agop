@@ -28,7 +28,7 @@
 #' distribution with shape
 #' parameter \eqn{k>0} and scale parameter \eqn{s>0}.
 #' 
-#' TO DO: rewrite in C, add NA handling
+#' [TO DO: rewrite in C, add NA handling]
 #' 
 #' @details
 #' If \eqn{X\sim\mathrm{P2}(k,s)}{X~P2(k,s)},

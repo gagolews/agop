@@ -25,7 +25,7 @@
 #' the normalized L2 distance between a numeric vector and an OWA operator.
 #' 
 #' @details
-#' D2OWA is a symmetric dispersion operator.
+#' D2OWA is a symmetric dispersion function
 #' It is defined as
 #' \code{d2owa(x) == sqrt(mean((x-owa(x,w))^2))}.
 #' Not all weights, however, generate a proper function of this kind;
@@ -42,9 +42,13 @@
 #' 
 #' @rdname d2owa
 #' @export
-#' @family dispersion_operators
+#' @family dispersion_functions
 #' @references
-#' Yager R.R., On ordered weighted averaging aggregation operators in multicriteria decision making, IEEE Transactions on Systems, Man, and Cybernetics 18(1), 1988, pp. 183-190.\cr
+#' Gagolewski M., \emph{Symmetric dispersion operators}, in preparation, 2013.
+#' 
+#' Yager R.R., On ordered weighted averaging aggregation operators 
+#' in multicriteria decision making, \emph{IEEE Transactions on Systems, 
+#' Man, and Cybernetics} 18(1), 1988, pp. 183-190.
 d2owa_checkwts <- function(w) {
    .Call("d2owa_checkwts", w, PACKAGE="agop")
 }
@@ -54,7 +58,7 @@ d2owa_checkwts <- function(w) {
 #' @export
 d2owa <- function(x, w=rep(1/length(x), length(x))) {
    if (!d2owa_checkwts(w)) 
-      stop('given weighting vector does not generate a dispersion operator')
+      stop('given weighting vector does not generate a dispersion function')
    sqrt(mean((x-owa(x,w))^2))
 }
 

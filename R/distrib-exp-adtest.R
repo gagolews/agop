@@ -49,9 +49,9 @@
 #' 
 #' @references
 #' Anderson T.W., Darling D.A.,
-#' A Test of Goodness-of-Fit, Journal of the American Statistical Association 49, 
-#' 1954, pp. 765-769.\cr
-#' TO DO: where does the test statistic come from?
+#' A Test of Goodness-of-Fit, 
+#' \emph{Journal of the American Statistical Association} 49, 
+#' 1954, pp. 765-769.
 exp_test_ad <- function(x)
 {
    DNAME <- deparse(substitute(x))

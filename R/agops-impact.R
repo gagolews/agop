@@ -43,13 +43,13 @@
 #' 
 #' @references
 #' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' \emph{Proceedings of the National Academy of Sciences} 102(46), 16569-16572, 2005.
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
 #' 
 #' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
 #'    PhD thesis, Tokyo Institute of Technology, 1974.
 #'
 #' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
-#' integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, 795-797.
+#' integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795-797.
 #' 
 #' @examples
 #' authors <- list(  # a list of numeric sequences
@@ -108,7 +108,7 @@ index.h <- index_h # deprecated
 #' 
 #' @references
 #' Egghe L., Theory and practise of the g-index, 
-#' \emph{Scientometrics} 69(1), 131-152, 2006.
+#' \emph{Scientometrics} 69(1), 2006, pp. 131-152.
 #' 
 #' 
 #' @examples
@@ -192,7 +192,7 @@ index_maxprod <- function(x)
 #' 
 #' @references
 #' Woeginger G. J., An axiomatic characterization of the Hirsch-index.
-#' \emph{Mathematical Social Sciences} 56(2), 2008, 224-232.
+#' \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 #'
 #' 
 #' @family impact_functions
@@ -233,13 +233,13 @@ index_w <- function(x)
 #'
 #' @references
 #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, \emph{Scientometrics}, 81(3), 2009, pp. 617-634.
+#' of scientific impact indices, \emph{Scientometrics} 81(3), 2009, pp. 617-634.
 #' 
 #' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' \emph{Proceedings of the National Academy of Sciences} 102(46), 16569-16572, 2005.
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
 #' 
 #' Woeginger G.J., An axiomatic characterization of the Hirsch-index, 
-#' \emph{Mathematical Social Sciences}, 56(2), 224-232, 2008.
+#' \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
@@ -303,7 +303,7 @@ index.rp <- index_rp # deprecated
 #'
 #' @references
 #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, \emph{Scientometrics}, 81(3), 2009a, pp. 617-634.
+#' of scientific impact indices, \emph{Scientometrics} 81(3), 2009a, pp. 617-634.
 #' 
 #' Gagolewski M., Debski M., Nowakiewicz M., 
 #'    \emph{Efficient Algorithm for Computing Certain Graph-Based Monotone 
@@ -312,7 +312,7 @@ index.rp <- index_rp # deprecated
 #'    ISBN:978-80-227-4067-8, 2013, pp. 17-23.
 #' 
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
-#'  of an individual, and a comparison with the h-index, \emph{Cybermetrics}, 11(1), 2007.
+#'  of an individual, and a comparison with the h-index, \emph{Cybermetrics} 11(1), 2007.
 #'  
 #'  Shilkret, N., Maxitive measure and integration, 
 #'    \emph{Indag. Math.} 33, 1971, pp. 109-116.
