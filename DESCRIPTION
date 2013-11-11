@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.2-0
-Date: 2013-11-09
+Date: 2013-11-11
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria decision making,
     including variable number of criteria, by means of
@@ -47,3 +47,4 @@ Collate:
     'rel-totality.R'
     'rel-transitivity.R'
     'rel-DELETE_ME.R'
+    'rel-irreflexivity.R'

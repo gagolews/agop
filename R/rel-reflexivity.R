@@ -29,7 +29,7 @@
 #' on the diagonal of \code{R} are non-zeros,
 #' i.e. it has \eqn{O(n)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
-#' Any missing value on the diagonal results in \code{NA}.
+#' Missing values on the diagonal may result in \code{NA}.
 #' 
 #' Reflexive closure of a binary relation \eqn{R},
 #' determined by \code{rel_closure_reflexive},

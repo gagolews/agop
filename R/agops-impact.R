@@ -35,13 +35,21 @@
 #' 
 #' See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.
 #' 
+#' The h-index is the same as the discrete Sugeno integral of \code{x}
+#' w.r.t. the counting measure (cf. Torra, Narukawa, 2008).
+#' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
 #' 
 #' @references
 #' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 16569-16572, 2005.
+#' 
+#' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
+#'    PhD thesis, Tokyo Institute of Technology, 1974.
 #'
+#' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
+#' integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, 795-797.
 #' 
 #' @examples
 #' authors <- list(  # a list of numeric sequences
@@ -89,22 +97,19 @@ index.h <- index_h # deprecated
 #' see Examples section. \code{index_g_zi} is its zero-sensitive variant:
 #' it assumes that the aggregated vector is padded with zeros.
 #' 
-#' The h-index is the same as the discrete Sugeno integral of \code{x}
-#' w.r.t. the counting measure (cf. Torra, Narukawa, 2008).
-#' 
 #' If non-increasingly sorted vector is given, the function is O(n).
 #' 
 #' For historical reasons, this function is also available via its alias,
-#' \code{index.h} [but its usage is deprecated].
+#' \code{index.g} [but its usage is deprecated].
 #' 
 #' 
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
 #' 
 #' @references
-#' Egghe L., Theory and practise of the g-index, Scientometrics 69(1), 131-152, 2006.\cr
-#' Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
-#' integrals. IEEE Transactions on Fuzzy Systems 16(3), 2008, 795-797.\cr
+#' Egghe L., Theory and practise of the g-index, 
+#' \emph{Scientometrics} 69(1), 131-152, 2006.
+#' 
 #' 
 #' @examples
 #' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
@@ -154,7 +159,8 @@ index_g_zi <- function(x)
 #' 
 #' @references
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
-#' of an individual, and a comparison with the h-index, Cybermetrics 11(1), 2007.
+#' of an individual, and a comparison with the h-index,
+#' \emph{Cybermetrics} 11(1), 2007.
 #'
 #' 
 #' @family impact_functions
@@ -186,7 +192,7 @@ index_maxprod <- function(x)
 #' 
 #' @references
 #' Woeginger G. J., An axiomatic characterization of the Hirsch-index.
-#' Mathematical Social Sciences 56(2), 2008, 224-232.
+#' \emph{Mathematical Social Sciences} 56(2), 2008, 224-232.
 #'
 #' 
 #' @family impact_functions
@@ -227,11 +233,13 @@ index_w <- function(x)
 #'
 #' @references
 #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, Scientometrics, 81(3), 2009, pp. 617-634.\cr
+#' of scientific impact indices, \emph{Scientometrics}, 81(3), 2009, pp. 617-634.
+#' 
 #' Hirsch J.E., An index to quantify individual's scientific research output, 
-#' Proceedings of the National Academy of Sciences 102(46), 16569-16572, 2005.\cr
+#' \emph{Proceedings of the National Academy of Sciences} 102(46), 16569-16572, 2005.
+#' 
 #' Woeginger G.J., An axiomatic characterization of the Hirsch-index, 
-#' Mathematical Social Sciences, 56(2), 224-232, 2008.\cr
+#' \emph{Mathematical Social Sciences}, 56(2), 224-232, 2008.
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).
@@ -274,6 +282,9 @@ index.rp <- index_rp # deprecated
 #' MAXPROD(x) = prod(l_\infty(x)) = i*x_i,} 
 #' where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007),
 #' see \code{\link{index_maxprod}}.
+#' Moreover, such index corresponds to the Shilkret integral
+#' of \eqn{x} w.r.t. some monotone measure,
+#' cf. (Gagolewski, Debski, Nowakiewicz, 2013).
 #'
 #' For the definition of the \eqn{l_p}-index for \eqn{p < \infty} we refer
 #' to (Gagolewski, Grzegorzewski, 2009a).
@@ -284,19 +295,27 @@ index.rp <- index_rp # deprecated
 #' However, you may set  \code{projection} 
 #' to \code{\link{identity}} to obtain the 2-dimensional index
 #' 
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If non-increasingly sorted vector is given, the function is O(n)
+#' for any \eqn{p}, see (Gagolewski, Debski, Nowakiewicz, 2013).
 #' 
-#' For historical reasons, this function is also available via its alias, \code{index.lp}
-#'  [but its usage is deprecated].
+#' For historical reasons, this function is also available via its alias,
+#' \code{index.lp} [but its usage is deprecated].
 #'
 #' @references
 #' Gagolewski M., Grzegorzewski P., A geometric approach to the construction 
-#' of scientific impact indices, Scientometrics, 81(3), 2009a, pp. 617-634.\cr
-#' Gagolewski M., Debski M., Nowakiewicz M., Efficient algorithms for computing 
-#' ''geometric'' scientific impact indices, Research Report of 
-#' Systems Research Institute, Polish Academy of Sciences RB/1/2009, 2009b.\cr
+#' of scientific impact indices, \emph{Scientometrics}, 81(3), 2009a, pp. 617-634.
+#' 
+#' Gagolewski M., Debski M., Nowakiewicz M., 
+#'    \emph{Efficient Algorithm for Computing Certain Graph-Based Monotone 
+#'    Integrals: the lp-Indices}, In: Mesiar R., Bacigal T. (Eds.),
+#'    \emph{Proc. Uncertainty Modelling}, STU Bratislava, 
+#'    ISBN:978-80-227-4067-8, 2013, pp. 17-23.
+#' 
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
-#'  of an individual, and a comparison with the h-index, Cybermetrics, 11(1), 2007.\cr
+#'  of an individual, and a comparison with the h-index, \emph{Cybermetrics}, 11(1), 2007.
+#'  
+#'  Shilkret, N., Maxitive measure and integration, 
+#'    \emph{Indag. Math.} 33, 1971, pp. 109-116.
 #'
 #' @param x a non-negative numeric vector
 #' @param p index order, \eqn{p \in [1,\infty]}{p in [1,\infty]}; defaults \eqn{\infty} (\code{Inf}).

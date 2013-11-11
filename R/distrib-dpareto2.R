@@ -33,7 +33,7 @@
 #' If \eqn{X\sim\mathrm{DP2}(k,s)}{X~DP2(k,s)},
 #' then \eqn{\lfloor Y\rfloor=X}{floor(Y)=X},
 #' where \eqn{Y} has ordinary Pareto Type-II
-#' distribution, see \code{\link{ppareto2()}}.
+#' distribution, see \code{\link{ppareto2}}.
 #'
 #' @param x,q vector of quantiles
 #' @param p vector of probabilities

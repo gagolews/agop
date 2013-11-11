@@ -37,7 +37,8 @@
 
 * New functions dealing with binary relations:
    rel_closure_reflexive(), rel_reduction_reflexive(), 
-   rel_is_symmetric(), rel_closure_symmetric(), ....
+   rel_is_symmetric(), rel_closure_symmetric(), 
+   rel_is_irreflexive(), ....
    Note that in future releases of agop we plan to add
    procedures that deal with fuzzy relations.
 
