@@ -22,7 +22,7 @@
 #' Total Binary Relations
 #' 
 #' @description
-#' A binary relation \eqn{R} is total, iff
+#' A binary relation \eqn{R} is \emph{total}, iff
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @details
@@ -36,10 +36,16 @@
 #' If \code{R[i,j]} and \code{R[j,i]} is \code{NA}
 #' for some \eqn{(i,j)}, then the functions outputs \code{NA}.
 #' 
-#' Fair totalization of \eqn{R}, performed by
+#' \cr
+#' The problem of finding a total closure or reduction
+#' is not well-defined in general.
+#' 
+#' When dealing with preorders, however, the following
+#' closure may be useful, see (Gagolewski, 2013).
+#' \emph{Fair totalization} of \eqn{R}, performed by
 #' \code{rel_closure_total_fair}, is the minimal superset \eqn{R'} of \eqn{R}
 #' such that if not \eqn{xRy} and not \eqn{yRx}
-#' then \eqn{xR'y} and \eqn{yR'x} (see Gagolewski, 2013).
+#' then \eqn{xR'y} and \eqn{yR'x}.
 #' 
 #' Even if \code{R} is transitive, the resulting relation
 #' may not necessarily fulfill this property.
@@ -52,7 +58,7 @@
 #' 
 #' @references
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
-#'    Journal of Informetrics 7(4), 2013, pp. 792-802.\cr
+#'    \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.\cr
 #' 
 #' @return \code{rel_is_total} returns a single logical value.
 #' 

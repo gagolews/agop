@@ -21,14 +21,15 @@
 #' Symmetric Binary Relations
 #' 
 #' @description
-#' A binary relation \eqn{R} is symmetric, iff
+#' A binary relation \eqn{R} is \emph{symmetric}, iff
 #' for all \eqn{x, y} we have \eqn{xRy} \eqn{\Rightarrow}{=>} \eqn{yRx}.
 #' 
 #' @details
 #' \code{rel_is_symmetric} finds out if a given binary relation
 #' is symmetric. Any missing value behind the diagonal results in \code{NA}.
 #' 
-#' Symmetric closure of a binary relation \eqn{R},
+#' \cr
+#' The \emph{symmetric closure} of a binary relation \eqn{R},
 #' determined by \code{rel_closure_symmetric},
 #' is the smallest symmetric binary relation that contains \eqn{R}.
 #' Here, any missing values in \code{R} result in an error.

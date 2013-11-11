@@ -20,40 +20,57 @@
 #' Weak Dominance Relation (Preorder)
 #' 
 #' @description
-#' Checks whether a given numeric vector is (weakly) dominated
-#' by another vector, in terms of (sorted) elements' values
-#' and their count.
+#' Checks whether a given numeric vector 
+#' of arbitrary length is (weakly) dominated
+#' by another vector, possibly of different length,
+#' in terms of (sorted) elements' values and their number.
 #' 
 #' @details
-#' We say that a numeric vector \code{x}
-#' is weakly dominated by \code{y}, written as \eqn{x <= y},
-#'  iff \eqn{nx <= ny} AND
-#' for all \eqn{i = 1,...,n} \eqn{x_{(n-i+1)} <= y_{(m-i+1)}},
-#' where \eqn{nx = length(x)} and \eqn{ny = length(y)}.
-#' 
-#' This dominance relation is symmetric, i.e. for all permutations
-#' of input vectors' elements it gives the same value.
-#' Such preorder is tightly related to impact functions:
-#' each impact function is a morphism between
-#' wead-dominance-preordered set of vectors
-#' and the set of reals equipped with standard linear ordering
-#' (see Gagolewski, Grzegorzewski, 2011).
-#' 
-#' 
 #' This function only accepts vectors with nonnegative elements.
 #' 
-#' @param x numeric vector
-#' @param y numeric vector
+#' We say that a numeric vector \bold{x}
+#' of length \eqn{n_x}
+#' is \emph{weakly dominated} by \bold{y}
+#' of length \eqn{n_y}
+#' denoted as \bold{x} \eqn{\trianglelefteq}{<=_WD} \bold{y},
+#' iff
+#' \enumerate{
+#' \item \eqn{n_x\le n_y} and
+#' \item for all \eqn{i=1,\dots,n} it holds
+#'    \eqn{x_{(n_x-i+1)}\le y_{(n_y-i+1)}}.
+#' }
 #' 
-#' @return single logical value; whether \code{x} is weakly
+#' This relation is a preorder: it is reflexive (see \code{\link{rel_is_reflexive}})
+#' and transitive (see \code{\link{rel_is_transitive}}),
+#' but not necessarily total  (see \code{\link{rel_is_total}}).
+#' See \code{\link{rel_graph}} for a convenient function
+#' to calculate the relationship between all pairs of elements
+#' of a given set.
+#' 
+#' Note that this dominance relation gives the same value
+#' for all permutations of input vectors' element.
+#' Such a preorder is tightly related to symmetric impact functions:
+#' each impact function is a morphism between
+#' weak-dominance-preordered set of vectors
+#' and the set of reals equipped with standard linear ordering
+#' (see Gagolewski, Grzegorzewski, 2011
+#' and Gagolewski, 2013).
+#' 
+#' 
+#' @param x numeric vector with nonnegative elements
+#' @param y numeric vector with nonnegative elements
+#' 
+#' @return Returns a single logical value
+#' indicating whether \code{x} is weakly
 #' dominated by \code{y}
 #' 
 #' @references
 #' Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic 
 #' Aggregation Operators and Its Relation to Bibliometric Impact Assessment of Individuals, 
-#' International Journal of Approximate Reasoning 52(9), 2011, pp. 1312-1324.\cr
+#' \emph{International Journal of Approximate Reasoning} 52(9), 2011, pp. 1312-1324.
+#' 
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
-#'  Journal of Informetrics 7(4), 2013, pp. 792-802.
+#' \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
 #' 
 #' @family binary_relations
 #' @export

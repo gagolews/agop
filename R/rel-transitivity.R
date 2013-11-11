@@ -21,7 +21,7 @@
 #' Transitive Binary Relations
 #' 
 #' @description
-#' A binary relation \eqn{R} is transitive, iff
+#' A binary relation \eqn{R} is \emph{transitive}, iff
 #' for all \eqn{x}, \eqn{y}, \eqn{z} we have \eqn{xRy} and \eqn{yRz}
 #' \eqn{\Longrightarrow}{=>} \eqn{xRz}.
 #' 
@@ -33,19 +33,20 @@
 #' If \code{R} contains missing values behind the diagonal,
 #' the result will be \code{NA}.
 #' 
-#' Transitive closure of a binary relation \eqn{R},
+#' \cr
+#' The \emph{transitive closure} of a binary relation \eqn{R},
 #' determined by \code{rel_closure_transitive},
 #' is the minimal superset of \eqn{R} such that it is transitive.
 #' Here we use the well-known Warshall algorithm (1962),
 #' which runs in \eqn{O(n^3)} time.
 #' 
-#' Transitive reduction,
-#' see Aho et al. 1972, of a binary relation \eqn{R},
+#' \cr
+#' The \emph{transitive reduction},
+#' see (Aho et al. 1972), of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_transitive},
-#' is a minimal subset \eqn{R'} of \eqn{R},
+#' is a minimal unique subset \eqn{R'} of \eqn{R},
 #' such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
-#' Note that prior to calculating the reduction, we determine
-#' the closure of \code{R}.
+#' ** TO DO **
 #' This function is particularly useful for draving Hasse diagrams
 #' of a (pre)ordered set, see Examples.
 #' 
@@ -63,9 +64,10 @@
 #' @references
 #' Aho A.V., Garey M.R., Ullman J.D.,
 #' The Transitive Reduction of a Directed Graph,
-#' SIAM Journal on Computing 1(2), 1972, pp. 131-137.\cr
+#' \emph{SIAM Journal on Computing} 1(2), 1972, pp. 131-137.
+#' 
 #' Warshall S., A theorem on Boolean matrices,
-#' Journal of the ACM 9(1), 1962, pp. 11-12.
+#' \emph{Journal of the ACM} 9(1), 1962, pp. 11-12.
 #' 
 #' @examples
 #' \dontrun{
