@@ -17,39 +17,33 @@
 
 
 #' @title
-#' Irreflexive Binary Relations
+#' Assymetric Binary Relations
 #' 
 #' @description
-#' A binary relation \eqn{R} is \emph{irreflexive}
-#' (or antireflexive), iff
-#' for all \eqn{x} we have \eqn{\neg xRx}{!xRx}.
+#' A binary relation \eqn{R} is \emph{asymmetric}, iff
+#' for all \eqn{x, y} we have \eqn{xRy} \eqn{\Rightarrow}{=>}
+#' \eqn{\neg yRx}{!yRx}.
 #' 
 #' @details
-#' \code{rel_is_irreflexive} finds out if a given binary relation
-#' is irreflexive. The function just checks whether all elements
-#' on the diagonal of \code{R} are zeros,
-#' i.e. it has \eqn{O(n)} time complexity,
-#' where \eqn{n} is the number of rows in \code{R}.
-#' Missing values on the diagonal may result in \code{NA}.
+#' Note that an asymmetric relation is necessarily irreflexive,
+#' cf. \code{\link{rel_is_irreflexive}}.
 #' 
-#' \cr
-#' When dealing with loops,
-#' i.e. elements related with themselves, you may be interested
-#' in finding a reflexive closure,
-#' see \code{\link{rel_closure_reflexive}},
-#' or a reflexive reduction,
-#' see \code{rel_reduction_reflexive}.
+#' \code{rel_is_asymmetric} finds out if a given binary relation
+#' is asymmetric. Missing values in \code{R} may result in \code{NA}.
+#' 
+#' Also, check out \code{\link{rel_closure_symmetric}}
+#' for the symmetric closure of \code{R}.
 #' 
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
 #' 
-#' @return \code{rel_is_irreflexive} returns
+#' @return \code{rel_is_asymmetric} returns
 #' a single logical value.
 #' 
 #' @export
 #' @family binary_relations
-#' @rdname rel_irreflexive
-rel_is_irreflexive <- function(R)
+#' @rdname rel_asymmetric
+rel_is_asymmetric <- function(R)
 {
-   .Call("rel_is_irreflexive", as.matrix(R), PACKAGE="agop") # args checked internally 
+   .Call("rel_is_asymmetric", as.matrix(R), PACKAGE="agop") # args checked internally 
 }

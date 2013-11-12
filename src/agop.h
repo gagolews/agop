@@ -161,6 +161,10 @@ SEXP pord_spreadsym(SEXP x, SEXP y);
 
 SEXP rel_is_irreflexive(SEXP x);
 
+SEXP rel_is_asymmetric(SEXP x);
+
+SEXP rel_is_antisymmetric(SEXP x);
+
 SEXP rel_is_reflexive(SEXP x);
 SEXP rel_closure_reflexive(SEXP x);
 SEXP rel_reduction_reflexive(SEXP x);

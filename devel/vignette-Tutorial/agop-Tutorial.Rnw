@@ -983,8 +983,8 @@ predicate functions, and fitters for consensus relations.
 For some time, \package{agop}'s functionality will
 be a subset of \package{relations}'s (yet faster).
 In future versions, however, we'd like to add fuzzy relations
-handling.}
-defined on finite sets $V=\{v_1,\dots,v_n\}$.
+handling.} defined on finite sets consisting
+of distinctive elements $V=\{v_1,\dots,v_n\}$.
 Each binary relation $R\subseteq V\times V$ may
 be represented by a square 0-1\footnote{Or, equivalently, logical;
 we have \texttt{\Rfunc{as.logical}(0) == FALSE} and
@@ -1013,8 +1013,8 @@ Moreover, Table \ref{Tab:reltypes} lists popular classes of relations.
 Reflexivity  & $(\forall i)$ $v_i R v_i$ & \index{\Rfunc{rel\_is\_reflexive()}}\Rfunc{rel\_is\_reflexive()} \\
 Irreflexivity& $(\forall i)$ $\neg v_i R v_i$ & \index{\Rfunc{rel\_is\_irreflexive()}}\Rfunc{rel\_is\_irreflexive()} \\
 Symmetry     & $(\forall i,j)$ $v_i R v_j \Rightarrow v_j R v_i$ & \index{\Rfunc{rel\_is\_symmetric()}}\Rfunc{rel\_is\_symmetric()} \\
-Antisymmetry & $(\forall i,j)$ $v_i R v_j$ and $v_j R v_i$ $\Rightarrow$ $v_i=v_j$ & TO DO \\
-Asymmetry    & $(\forall i,j)$ $v_i R v_j \Rightarrow \neg v_j R v_i$ & TO DO \\
+Antisymmetry & $(\forall i,j)$ $v_i R v_j$ and $v_j R v_i$ $\Rightarrow$ $i=j$ & \index{\Rfunc{rel\_is\_antisymmetric()}}\Rfunc{rel\_is\_antisymmetric()} \\
+Asymmetry    & $(\forall i,j)$ $v_i R v_j \Rightarrow \neg v_j R v_i$ & \index{\Rfunc{rel\_is\_asymmetric()}}\Rfunc{rel\_is\_asymmetric()} \\
 Totality     & $(\forall i,j)$ $v_i R v_j\text{ or }v_j R v_i$ & \index{\Rfunc{rel\_is\_total()}}\Rfunc{rel\_is\_total()} \\
 Transitivity & $(\forall i,j,k)$ $v_i R v_i\text{ and }v_j R v_k \Rightarrow v_i R v_k$ & \index{\Rfunc{rel\_is\_transitive()}}\Rfunc{rel\_is\_transitive()} \\
 \hline
@@ -1031,11 +1031,11 @@ Transitivity & $(\forall i,j,k)$ $v_i R v_i\text{ and }v_j R v_k \Rightarrow v_i
 \hline
 \bf Class & \bf Properties \\
 \hline\hline
-Preorder  & reflexive, transitive \\
-Total Preorder  & total ($\Rightarrow$ reflexive), transitive \\
-Partial Order  & reflexive, antisymmetric, transitive \\
-Total Order  & total ($\Rightarrow$ reflexive), antisymmetric, transitive \\
-Equivalence Relation & symmetric, reflexive, transitive \\
+preorder (quasiorder) & reflexive, transitive \\
+total preorder (weak order, preference) & total ($\Rightarrow$ reflexive), transitive \\%($\Rightarrow$ Preorder) \\
+partial order  & reflexive, transitive, antisymmetric \\
+linear order  & total ($\Rightarrow$ reflexive), transitive, antisymmetric \\
+equivalence relation & symmetric, reflexive, transitive \\%($\Rightarrow$ preorder) \\
 \hline
 \end{tabular}
 \end{table}

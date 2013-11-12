@@ -22,7 +22,8 @@
 #' Total Binary Relations
 #' 
 #' @description
-#' A binary relation \eqn{R} is \emph{total}, iff
+#' A binary relation \eqn{R} is \emph{total}
+#' (or \emph{strong complete}), iff
 #' for all \eqn{x}, \eqn{y} we have \eqn{xRy} or \eqn{yRx}.
 #' 
 #' @details

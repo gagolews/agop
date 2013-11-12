@@ -48,12 +48,10 @@ rel_graph <- function(x, pord, ...)
    colnames(ord) <- names(x)
    rownames(ord) <- names(x)
    
-   for (i in seq_along(x)) {
-      for (j in seq_along(x)) {
+   for (i in seq_along(x))
+      for (j in seq_along(x))
          if (pord(x[[i]], x[[j]], ...))
             ord[i,j] <- TRUE
-      }
-   }
    
    ord
 }

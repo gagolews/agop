@@ -29,6 +29,8 @@
    was not necessarily transitive; the function has been rewritten in C++
    and now uses the Warshall algorithm (1962).
 
+* *** Possibly TO DO: remove dependency Matrix and igraph ***
+
 * All functions dealing with binary relations now have "rel_" prefix.
   Moreover, de_transitive() has been renamed to rel_reduction_transitive().
 
@@ -36,9 +38,9 @@
    rel_closure_total_fair(), rel_reduction_transitive() [TO DO], .....
 
 * New functions dealing with binary relations:
-   rel_closure_reflexive(), rel_reduction_reflexive(), 
-   rel_is_symmetric(), rel_closure_symmetric(), 
-   rel_is_irreflexive(), ....
+   rel_closure_reflexive(), rel_reduction_reflexive(), rel_is_symmetric(),
+   rel_closure_symmetric(), rel_is_irreflexive(), rel_is_asymmetric(),
+   rel_is_antisymmetric(), ....
    Note that in future releases of agop we plan to add
    procedures that deal with fuzzy relations.
 

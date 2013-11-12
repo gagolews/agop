@@ -58,6 +58,10 @@ static const R_CallMethodDef cCallMethods[] = {
    
    MAKE_CALL_METHOD(rel_is_irreflexive,         1),
    
+   MAKE_CALL_METHOD(rel_is_asymmetric,          1),
+   
+   MAKE_CALL_METHOD(rel_is_antisymmetric,       1),
+   
    MAKE_CALL_METHOD(rel_is_transitive,          1),
    MAKE_CALL_METHOD(rel_closure_transitive,     1),
    MAKE_CALL_METHOD(rel_reduction_transitive,   1),
