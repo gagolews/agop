@@ -20,7 +20,7 @@
 
 
 #' @title Parameter Estimation in the Discretized Pareto-Type II Distribution Family (MLE)
-#' 
+#'
 #' @description
 #' Finds the maximum likelihood estimator of the Discretized Pareto Type-II distribution's
 #' shape parameter \eqn{k} and scale parameter \eqn{s}.
@@ -28,7 +28,7 @@
 #' @details
 #' Note that the maximum of the likelihood function may not exist
 #' for some input vectors. This estimator may have large mean squared error.
-#' 
+#'
 #' @param x a non-negative numeric vector
 #' @param kmin,kmax lower and upper bound for the shape parameter to look for
 #' @param smin,smax lower and upper bound for the scale parameter to look for
@@ -39,7 +39,7 @@
 #' \item \code{k} - estimated parameter of shape
 #' \item \code{s} - estimated parameter of scale
 #' }
-#' or \code{c(NA, NA)} if the maximum of the likelihood function 
+#' or \code{c(NA, NA)} if the maximum of the likelihood function
 #' could not be found.
 #' @export
 #' @family DiscretizedPareto2
@@ -51,7 +51,7 @@ dpareto2_estimate_mle <- function(x, k0=1, s0=1, kmin=1e-4, smin=1e-4, kmax=100,
    }
    res<-optim(c(k0, s0), like, x=x, method="L-BFGS-B",
       lower=c(kmin, smin), upper=c(kmax, smax))
-   
+
    if (res$convergence!=0)
       c(k=NA_real_, s=NA_real_)
    else

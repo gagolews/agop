@@ -26,7 +26,7 @@
 
 
 /** Check weights for the D2OWA operator
- * 
+ *
  * @param w numeric
  * @return scalar logical
  */
@@ -34,23 +34,23 @@ SEXP d2owa_checkwts(SEXP w) {
    w = prepare_arg_numeric(w, "w");
    R_len_t wn = LENGTH(w);
    double* wd = REAL(w);
-   
+
    if (wn <= 1) Rf_error(MSG_ARG_TOO_SHORT, "w");
    if (ISNA(wd[0]))
       return Rf_ScalarLogical(NA_LOGICAL);
-      
+
    double ws = 0.0;
    for (R_len_t i=0; i<wn; ++i) {
       if (wd[i] < 0)
          Rf_error(MSG__ARG_NOT_GE_A, "w", 0.0);
       ws += wd[i];
    }
-      
+
    vector<double> zeta(wn-1);
    zeta[wn-2] = wd[wn-1]/ws;
    for (int i=wn-3; i>=0; --i)
       zeta[i] = zeta[i+1] + wd[i+1]/ws;
-      
+
    for (int p=1; p<=wn-2; ++p) {
       for (int i=wn-1; i>p; --i) {
          if ((i-p)*(i-p) < 4*p*(wn-i))
@@ -59,7 +59,6 @@ SEXP d2owa_checkwts(SEXP w) {
             return Rf_ScalarLogical(FALSE);
       }
    }
-   
+
    return Rf_ScalarLogical(TRUE);
 }
-

@@ -18,11 +18,11 @@
 
 #' @title
 #' Reflexive Binary Relations
-#' 
+#'
 #' @description
 #' A binary relation \eqn{R} is reflexive, iff
 #' for all \eqn{x} we have \eqn{xRx}.
-#' 
+#'
 #' @details
 #' \code{rel_is_reflexive} finds out if a given binary relation
 #' is reflexive. The function just checks whether all elements
@@ -30,34 +30,34 @@
 #' i.e. it has \eqn{O(n)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
 #' Missing values on the diagonal may result in \code{NA}.
-#' 
+#'
 #' Reflexive closure of a binary relation \eqn{R},
 #' determined by \code{rel_closure_reflexive},
 #' is the minimal reflexive superset \eqn{R'} of \eqn{R}.
-#' 
+#'
 #' Reflexive reduction of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_reflexive},
 #' is the minimal subset \eqn{R'} of \eqn{R},
 #' such that the reflexive closures of \eqn{R} and \eqn{R'} are equal
 #' i.e. the largest irreflexive relation contained in \eqn{R}.
-#' 
+#'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
-#' 
+#'
 #' @return The \code{rel_closure_reflexive} and
 #' \code{rel_reduction_reflexive} functions
 #' return a logical square matrix. \code{\link{dimnames}}
 #' of \code{R} are preserved.
-#' 
+#'
 #' On the other hand, \code{rel_is_reflexive} returns
 #' a single logical value.
-#' 
+#'
 #' @export
 #' @family binary_relations
 #' @rdname rel_reflexive
 rel_is_reflexive <- function(R)
 {
-   .Call("rel_is_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally 
+   .Call("rel_is_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
 #' @export
@@ -74,4 +74,3 @@ rel_reduction_reflexive <- function(R)
 {
    .Call("rel_reduction_reflexive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
-

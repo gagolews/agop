@@ -24,17 +24,17 @@
 
 void check_range(double* xd, double n, double xmin, double xmax, const char* argname)
 {
-   double xmax_cur = -DBL_MAX;  
+   double xmax_cur = -DBL_MAX;
    double xmin_cur =  DBL_MAX;
    for (R_len_t i=0; i<n; ++i) {
-      if (ISNA(xd[i])) 
+      if (ISNA(xd[i]))
          continue;
       if (xd[i] < xmin_cur)
          xmin_cur = xd[i];
       if (xd[i] > xmax_cur)
          xmax_cur = xd[i];
    }
-   
+
    if ((xmin != -DBL_MAX && xmin_cur < xmin) || (xmax != DBL_MAX && xmax_cur > xmax)) {
       if (xmin != -DBL_MAX && xmax != DBL_MAX)
          Rf_error(MSG__ARG_NOT_IN_AB, argname, xmin, xmax);
@@ -48,13 +48,13 @@ void check_range(double* xd, double n, double xmin, double xmax, const char* arg
 
 /**
  * Prepare numeric vector
- * 
+ *
  * if x is not numeric (or not coercible to), throw error.
  * if of length 0, return numeric(0).
  * if any NA, return NA_real_.
  * otherwise, return as-is
- * 
- * 
+ *
+ *
  * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector
@@ -65,7 +65,7 @@ SEXP prepare_arg_numeric(SEXP x, const char* argname)
    R_len_t n = LENGTH(x);
    if (n <= 0)
       return x; // empty vector => return an empty vector
-      
+
    double* xd = REAL(x);
    for (R_len_t i=0; i<n; ++i) {
       if (ISNA(xd[i])) {
@@ -85,10 +85,10 @@ bool __comparer_less(double i, double j)    { return (i<j); }
 
 
 /** Sort a numeric vector [internal]
- * 
+ *
  * @param x double vector
  * @param decreasing should the vector be ordered non-increasingly?
- * 
+ *
  * @return R double vector
  */
 SEXP __prepare_arg_sort(SEXP x, bool decreasing)
@@ -96,22 +96,22 @@ SEXP __prepare_arg_sort(SEXP x, bool decreasing)
    R_len_t n = LENGTH(x);
    if (n <= 1) return x; // empty, NA, or 1 element only
    double* xd = REAL(x);
-   
+
    bool (*comparer)(double, double);
    if (decreasing) comparer = __comparer_greater;
    else            comparer = __comparer_less;
-   
+
    bool sorted = true;
    for (R_len_t i=1; i<n; ++i) {
       if (sorted && (i > 0) && !comparer(xd[i-1], xd[i]))
          sorted = false;
    }
-   
+
    if (sorted) return x; // it's sorted - return as-is
-   
+
    std::vector<double> myvector(xd, xd+n);
    std::sort(myvector.begin(), myvector.end(), comparer);
-   
+
    SEXP ret;
    PROTECT(ret = Rf_allocVector(REALSXP, n));
    R_len_t i = 0;
@@ -124,8 +124,8 @@ SEXP __prepare_arg_sort(SEXP x, bool decreasing)
 
 /**
  * Prepare sorted numeric vector sorted non-increasingly
- * 
- * 
+ *
+ *
  * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector, sorted non-increasingly
@@ -160,13 +160,13 @@ SEXP prepare_arg_numeric_sorted_inc(SEXP x, const char* argname)
 
 /**
  * Prepare character vector argument
- * 
+ *
  * If the object cannot be coerced, then an error will be generated
- * 
+ *
  * @param x a character vector or an object that can be coerced to a character vector
  * @param argname argument name (message formatting)
  * @return character vector
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  * @version 0.2 (Marek Gagolewski) - argname added
  */
@@ -178,15 +178,15 @@ SEXP prepare_arg_string(SEXP x, const char* argname)
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
-		x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-		UNPROTECT(1);
+   	x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
+   	UNPROTECT(1);
       return x;
    }
    else if (Rf_isVectorAtomic(x))
       return Rf_coerceVector(x, STRSXP);
    else if (Rf_isSymbol(x))
       return Rf_ScalarString(PRINTNAME(x));
-      
+
    Rf_error(MSG__ARG_EXPECTED_STRING, argname);
    return x; // avoid compiler warning
 }
@@ -195,31 +195,31 @@ SEXP prepare_arg_string(SEXP x, const char* argname)
 
 /**
  * Prepare numeric vector argument
- * 
+ *
  * If the object cannot be coerced, then an error will be generated
- * 
+ *
  * @param x a numeric vector or an object that can be coerced to a numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector
- * 
+ *
  * @version 0.1 (Bartek Tartanus)
  * @version 0.2 (Marek Gagolewski) - argname added
  */
 SEXP prepare_arg_double(SEXP x, const char* argname)
 {
-   if (Rf_isFactor(x)) 
+   if (Rf_isFactor(x))
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
       x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-		UNPROTECT(1);
+   	UNPROTECT(1);
       return Rf_coerceVector(x, REALSXP);
    }
    else if(Rf_isReal(x))
       return x; //return as-is
    else if (Rf_isVectorAtomic(x))
       return Rf_coerceVector(x, REALSXP);
-      
+
    Rf_error(MSG__ARG_EXPECTED_NUMERIC, argname);
    return x; // avoid compiler warning
 }
@@ -227,13 +227,13 @@ SEXP prepare_arg_double(SEXP x, const char* argname)
 
 /**
  * Prepare integer vector argument
- * 
+ *
  * If the object cannot be coerced, then an error will be generated
- * 
+ *
  * @param x an integer vector or an object that can be coerced to an integer vector
  * @param argname argument name (message formatting)
  * @return integer vector
- * 
+ *
  * @version 0.1 (Bartek Tartanus)
  * @version 0.2 (Marek Gagolewski) - argname added
  */
@@ -244,14 +244,14 @@ SEXP prepare_arg_integer(SEXP x, const char* argname)
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
    	x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-		UNPROTECT(1);
+   	UNPROTECT(1);
       return Rf_coerceVector(x, INTSXP);
    }
    else if (Rf_isInteger(x))
       return x; // return as-is
    else if (Rf_isVectorAtomic(x))
       return Rf_coerceVector(x, INTSXP);
-      
+
    Rf_error(MSG__ARG_EXPECTED_INTEGER, argname);
    return x; // avoid compiler warning
 }
@@ -259,13 +259,13 @@ SEXP prepare_arg_integer(SEXP x, const char* argname)
 
 /**
  * Prepare logical vector argument
- * 
+ *
  * If the object cannot be coerced, then an error will be generated
- * 
+ *
  * @param x a logical vector or an object that can be coerced to a logical vector
  * @param argname argument name (message formatting)
  * @return logical vector
- * 
+ *
  * @version 0.1 (Bartek Tartanus)
  * @version 0.2 (Marek Gagolewski) - argname added
  */
@@ -276,14 +276,14 @@ SEXP prepare_arg_logical(SEXP x, const char* argname)
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
       x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-		UNPROTECT(1);
+   	UNPROTECT(1);
       return Rf_coerceVector(x, LGLSXP);
    }
    else if (Rf_isLogical(x))
       return x; // return as-is
    else if (Rf_isVectorAtomic(x))
       return Rf_coerceVector(x, LGLSXP);
-      
+
    Rf_error(MSG__ARG_EXPECTED_LOGICAL, argname);
    return x; // avoid compiler warning
 }
@@ -293,138 +293,138 @@ SEXP prepare_arg_logical(SEXP x, const char* argname)
 
 
 /** Prepare string argument - one string
- * 
+ *
  * If there are 0 elements -> error
  * If there are >1 elements -> warning
- * 
+ *
  * @param x R object to be checked/coerced
  * @param argname argument name (message formatting)
  * @return always an R character vector with >=1 element
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  */
 SEXP prepare_arg_string_1(SEXP x, const char* argname)
 {
    x = prepare_arg_string(x, argname);
    R_len_t nx = LENGTH(x);
-   
+
    if (nx <= 0)
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
-   
+
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_STRING, argname);
 //      SEXP xold = x;
 //      PROTECT(x = allocVector(STRSXP, 1));
 //      SET_STRING_ELT(x, 0, STRING_ELT(xold, 0));
-//      UNPROTECT(1);      
+//      UNPROTECT(1);
    }
-   
+
    return x;
 }
 
 
 /** Prepare double argument - one value
- * 
+ *
  * If there are 0 elements -> error
  * If there are >1 elements -> warning
- * 
+ *
  * @param x R object to be checked/coerced
  * @param argname argument name (message formatting)
  * @return always an R double vector with >=1 element
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  */
 SEXP prepare_arg_double_1(SEXP x, const char* argname)
 {
    x = prepare_arg_double(x, argname);
    R_len_t nx = LENGTH(x);
-   
+
    if (nx <= 0)
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
-   
+
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_NUMERIC, argname);
 //      double x0 = REAL(x)[0];
 //      PROTECT(x = allocVector(REALSXP, 1));
 //      REAL(x)[0] = x0;
-//      UNPROTECT(1);      
+//      UNPROTECT(1);
    }
-   
+
    return x;
 }
 
 
 /** Prepare integer argument - one value
- * 
+ *
  * If there are 0 elements -> error
  * If there are >1 elements -> warning
- * 
+ *
  * @param x R object to be checked/coerced
  * @param argname argument name (message formatting)
  * @return always an R integer vector with >=1 element
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  */
 SEXP prepare_arg_integer_1(SEXP x, const char* argname)
 {
    x = prepare_arg_integer(x, argname);
    R_len_t nx = LENGTH(x);
-   
+
    if (nx <= 0)
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
-   
+
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_INTEGER, argname);
 //      int x0 = INTEGER(x)[0];
 //      PROTECT(x = allocVector(INTSXP, 1));
 //      INTEGER(x)[0] = x0;
-//      UNPROTECT(1);      
+//      UNPROTECT(1);
    }
-   
-   return x;   
+
+   return x;
 }
 
 
 /** Prepare logical argument - one value
- * 
+ *
  * If there are 0 elements -> error
  * If there are >1 elements -> warning
- * 
+ *
  * @param x R object to be checked/coerced
  * @param argname argument name (message formatting)
  * @return always an R logical vector with >=1 element
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  */
 SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 {
    x = prepare_arg_logical(x, argname);
    R_len_t nx = LENGTH(x);
-   
+
    if (nx <= 0)
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
-   
+
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_LOGICAL, argname);
 //      int x0 = LOGICAL(x)[0];
 //      PROTECT(x = allocVector(LGLSXP, 1));
 //      LOGICAL(x)[0] = x0;
-//      UNPROTECT(1);      
+//      UNPROTECT(1);
    }
-   
-   return x;      
+
+   return x;
 }
 
 
 /** Prepare logical argument - one value
- * 
+ *
  * If there are 0 elements -> error
  * If there are >1 elements -> warning
- * 
+ *
  * @param x R object to be checked/coerced
  * @param argname argument name (message formatting)
  * @return always an R logical vector with >=1 element
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
  */
 SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname)
@@ -442,25 +442,24 @@ SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname)
 }
 
 
-/** 
+/**
  *  Creates a numeric vector filled with \code{NA_real_}
- * 
+ *
  *  @param howmany length of the vector, \code{howmany >= 0}
  *  @return a numeric vector of length \code{howmany}
- * 
+ *
  * @version 0.1 (Marek Gagolewski)
 */
 SEXP vector_NA_double(R_len_t howmany)
 {
    if (howmany < 0)
       Rf_error(MSG__INCORRECT_INTERNAL_ARG);
-   
+
    SEXP ret;
    PROTECT(ret = Rf_allocVector(REALSXP, howmany));
    for (R_len_t i=0; i<howmany; ++i)
       REAL(ret)[i] = NA_REAL;
    UNPROTECT(1);
-   
-   return ret;   
-}
 
+   return ret;
+}

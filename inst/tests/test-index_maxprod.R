@@ -2,7 +2,7 @@ require('testthat')
 
 
 test_that("index_maxprod", {
-   
+
    expect_error(index_maxprod(c(-1, 4, 3)))
    expect_error(index_maxprod(c(4, 4, -1)))
    expect_error(index_maxprod(numeric(0)))
@@ -15,5 +15,5 @@ test_that("index_maxprod", {
    expect_equivalent(index_maxprod(rep(10,1)), 10)
    expect_equivalent(index_maxprod(rep(10,2)), 20)
 
-   
+
 })

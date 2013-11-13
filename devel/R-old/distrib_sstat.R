@@ -43,10 +43,10 @@
 #' @seealso \code{\link{Sstat}}, \code{\link{Sstat2}}, \code{\link{psstat}}, \code{\link{rho.get}}
 dsstat <- function(x, n, cdf, pdf, kappa, kappaInvDer, ...)
 {
-	(cdf(kappa(x), ...)^(n-floor(x*n)-1))*
-	((1-cdf(kappa(x), ...))^floor(x*n))*
-	(pdf(kappa(x), ...)/abs(kappaInvDer(kappa(x))))/
-	(beta(n-floor(x*n),floor(x*n)+1))
+   (cdf(kappa(x), ...)^(n-floor(x*n)-1))*
+   ((1-cdf(kappa(x), ...))^floor(x*n))*
+   (pdf(kappa(x), ...)/abs(kappaInvDer(kappa(x))))/
+   (beta(n-floor(x*n),floor(x*n)+1))
 }
 
 
@@ -84,11 +84,11 @@ dsstat <- function(x, n, cdf, pdf, kappa, kappaInvDer, ...)
 #' @seealso \code{\link{Sstat}}, \code{\link{Sstat2}}, \code{\link{dsstat}}, \code{\link{rho.get}}
 psstat <- function(x, n, cdf, kappa, ...)
 {
-	warn <- getOption("warn");
-	options("warn"=-1);
-	y <- ifelse(x>1-1e-16, 1.0,
-	     ifelse(x<  1e-16, 0.0,
-	                       pbeta(cdf(kappa(x), ...), n-floor(n*x),floor(n*x)+1)));
-	options("warn"=warn);
-	return(y);
+   warn <- getOption("warn");
+   options("warn"=-1);
+   y <- ifelse(x>1-1e-16, 1.0,
+        ifelse(x<  1e-16, 0.0,
+                          pbeta(cdf(kappa(x), ...), n-floor(n*x),floor(n*x)+1)));
+   options("warn"=warn);
+   return(y);
 }

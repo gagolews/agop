@@ -2,7 +2,7 @@ require('testthat')
 
 
 test_that("index_g", {
-   
+
    expect_error(index_g(c(-1, 4, 3)))
    expect_error(index_g(c(4, 4, -1)))
    expect_error(index_g(numeric(0)))
@@ -15,14 +15,14 @@ test_that("index_g", {
    expect_equivalent(index_g(rep(1,1)), 1)
    expect_equivalent(index_g(rep(100,100)), 100)
    expect_equivalent(index_g(rep(1000000,1000000)), 1000000)
-   
+
 })
 
 
 
 
 test_that("index_g_zi", {
-   
+
    expect_error(index_g_zi(c(-1, 4, 3)))
    expect_error(index_g_zi(c(4, 4, -1)))
    expect_error(index_g_zi(numeric(0)))
@@ -35,5 +35,5 @@ test_that("index_g_zi", {
    expect_equivalent(index_g_zi(rep(1,1)), 1)
    expect_equivalent(index_g_zi(rep(100,100)), 100)
    expect_equivalent(index_g_zi(rep(1000000,1000000)), 1000000)
-   
+
 })

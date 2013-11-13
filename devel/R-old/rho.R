@@ -55,6 +55,6 @@
 #' rho.get(ppareto2, kappa, 1, 1)             # golden ratio
 rho.get <- function(cdf, kappa, ..., tol=1e-20)
 {
-	uniroot(function(x) { 1-cdf(kappa(x), ...)-x; },
-		c(0,1), tol=tol)$root;
+   uniroot(function(x) { 1-cdf(kappa(x), ...)-x; },
+   	c(0,1), tol=tol)$root;
 }

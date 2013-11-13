@@ -2,7 +2,7 @@ require('testthat')
 
 
 test_that("discr. pareto2", {
-   
+
    expect_equivalent(pdpareto2(0.4), 1-pdpareto2(0.4, lower.tail=FALSE))
    expect_true(all(rdpareto2(1000) >= 0))
    expect_true(all((x <- rdpareto2(1000)) == floor(x)))

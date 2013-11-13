@@ -19,37 +19,36 @@
 
 #' @title
 #' Symmetric Binary Relations
-#' 
+#'
 #' @description
 #' A binary relation \eqn{R} is \emph{symmetric}, iff
 #' for all \eqn{x, y} we have \eqn{xRy} \eqn{\Rightarrow}{=>} \eqn{yRx}.
-#' 
+#'
 #' @details
 #' \code{rel_is_symmetric} finds out if a given binary relation
 #' is symmetric. Any missing value behind the diagonal results in \code{NA}.
-#' 
-#' \cr
+#'
 #' The \emph{symmetric closure} of a binary relation \eqn{R},
 #' determined by \code{rel_closure_symmetric},
 #' is the smallest symmetric binary relation that contains \eqn{R}.
 #' Here, any missing values in \code{R} result in an error.
-#' 
+#'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
-#' 
+#'
 #' @return The \code{rel_closure_symmetric} function
 #' returns a logical square matrix. \code{\link{dimnames}}
 #' of \code{R} are preserved.
-#' 
+#'
 #' On the other hand, \code{rel_is_symmetric} returns
 #' a single logical value.
-#' 
+#'
 #' @export
 #' @family binary_relations
 #' @rdname rel_symmetric
 rel_is_symmetric <- function(R)
 {
-   .Call("rel_is_symmetric", as.matrix(R), PACKAGE="agop") # args checked internally 
+   .Call("rel_is_symmetric", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
 #' @export

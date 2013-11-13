@@ -20,15 +20,15 @@
 
 #' @title
 #' Discretized Pareto Type-II (Lomax) Distribution [TO DO]
-#' 
+#'
 #' @description
 #' Probability mass function, cumulative distribution function,
-#' quantile function, and random generation for the 
+#' quantile function, and random generation for the
 #' Discretized Pareto Type-II distribution with shape
 #' parameter \eqn{k>0} and scale parameter \eqn{s>0}.
-#' 
+#'
 #' [TO DO: rewrite in C, add NA handling, add working qdpareto2()]
-#' 
+#'
 #' @details
 #' If \eqn{X\sim\mathrm{DP2}(k,s)}{X~DP2(k,s)},
 #' then \eqn{\lfloor Y\rfloor=X}{floor(Y)=X},
@@ -42,13 +42,13 @@
 #' @param s vector of scale parameters, \eqn{s>0}
 #' @param lower.tail logical; if \code{TRUE} (default),
 #' probabilities are \eqn{P(X \le x)}, and \eqn{P(X > x)} otherwise
-#' @return 
+#' @return
 #' numeric vector;
 #' \code{ddpareto2} gives the probability mass function,
 #' \code{pdpareto2} gives the cumulative distribution function,
 #' \code{qdpareto2} calculates the quantile function,
 #' and \code{rdpareto2} generates random deviates.
-#' 
+#'
 #' @export
 #' @rdname DiscretizedPareto2
 #' @family distributions
@@ -58,7 +58,7 @@ rdpareto2 <- function(n, k=1, s=1)
    stopifnot(is.numeric(k), k > 0)
    stopifnot(is.numeric(s), s > 0)
    # n checked by runif
-	floor(s * ((runif(n)^(-1.0/k)) - 1.0))
+   floor(s * ((runif(n)^(-1.0/k)) - 1.0))
 }
 
 

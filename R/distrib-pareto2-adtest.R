@@ -17,7 +17,7 @@
 
 
 #' @title Anderson-Darling Test for the Pareto Type-II Distribution
-#' 
+#'
 #' @description
 #' Performs an approximate Anderson-Darling goodness-of-fit
 #' test, which verifies the null hypothesis:
@@ -29,39 +29,38 @@
 #' exponential distribution with parameter \eqn{k}.
 #' Thus, this function transforms the input vector,
 #' and performs the same steps as \code{\link{exp_test_ad}}.
-#' 
+#'
 #' @param x a non-negative numeric vector of data values
 #' @param s the known scale parameter, \eqn{s>0}
-#' 
+#'
 #' @return
 #' A list of the class \code{htest} is returned,
 #' see \code{\link{exp_test_ad}}.
-#' 
+#'
 #' @export
 #' @family Pareto2
 #' @family Tests
 pareto2_test_ad <- function(x, s=1)
 {
    DNAME <- deparse(substitute(x))
-   
+
    x <- x[!is.na(x)]
    n <- length(x)
-   
+
    x <- log(1+x/s)
-   
-   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf) 
+
+   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf)
    if (any(is.na(exp_test_ad_cdf[n2,])))
       stop("Sample size too small")
-   
+
    W <- .Call("exp_test_statistic", x, PACKAGE="agop")
    pv <- if (W > exp_test_ad_cdf[1, ncol(exp_test_ad_cdf)]) 1e-16 else
       1-splinefun(exp_test_ad_cdf[1,], exp_test_ad_cdf[n2,], method="monoH.FC")(W)
-   
-   
-   res <- list(statistic=c(W=W), p.value=pv, 
+
+
+   res <- list(statistic=c(W=W), p.value=pv,
                method="Anderson-Darling goodness-of-fit test for Pareto Type-II distribution",
                data.name=DNAME)
    attr(res, "class") <- "htest"
    res
 }
-

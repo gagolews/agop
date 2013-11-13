@@ -37,7 +37,7 @@ invisible(NULL)
 # #
 # # 	return(POW);
 # # }
-# 
+#
 # # #' /internal-generalized version/
 # # .htest.acceptreg.improve <- function(n, cdf, wyg, j0, j1, alpha, verbose, PARAM, ...)
 # # {
@@ -77,30 +77,30 @@ invisible(NULL)
 # #
 # # 	return(wyg);
 # # }
-# 
-# 
-# 
+#
+#
+#
 # #' /internal/
 # .pareto2.htest.getpowerupper <- function(n, wyg, K_X, K_Y, s)
 # {
 # 	x <- (0:n);
-# 
+#
 # 	stopifnot(length(wyg)==n+1);
-# 
+#
 # 	POW <- numeric(length(K_X));
 # 	for (i in 1:length(K_X))
 # 	{
 # 		POW[i] <- 1-sum(pareto2.dhirsch(x,n,K_X[i],s)*pareto2.phirsch(x+wyg+0.25,n,K_Y[i],s));
 # 	}
-# 
+#
 # 	return(POW);
 # }
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
 # #' /internal/
 # .pareto2.htest.getsize_optimized <- function(n, x, wyg, K, s, dhirp2mat)
 # {
@@ -109,18 +109,18 @@ invisible(NULL)
 # 	{
 # 		POW[i] <- 1-sum(dhirp2mat[i,]*pareto2.phirsch(x+wyg+0.25,n,K[i], s));
 # 	}
-# 
+#
 # 	return(POW);
 # }
-# 
-# 
+#
+#
 # #' /internal/
 # .pareto2.htest.acceptreg.improve2 <- function(n, wyg, alpha, verbose, K, s)
 # {
 # 	epsbound <- 1e-7;
 # 	wn <- n+1;
-# 
-# 
+#
+#
 # 	# prepare input data for .pareto2.htest.getsize_optimized
 # 	# this significanlty speeds up computations
 # 	xhir0n <- (0:n);
@@ -128,58 +128,58 @@ invisible(NULL)
 # 	for (i in 1:length(K))
 # 		dhirp2mat[i,] <- pareto2.dhirsch(xhir0n,n,K[i],s);
 # 	# -------------------------------------------------------
-# 
+#
 # 	stopifnot(length(wyg)==wn);
-# 
+#
 # 	v <- max(wyg);
 # 	wyg <- rep(v,wn);
 # 	stopifnot(max(.pareto2.htest.getsize_optimized(n, xhir0n, wyg, K, s, dhirp2mat)) <= alpha);
 # 	stopifnot(max(.pareto2.htest.getsize_optimized(n, xhir0n, wyg-1, K, s, dhirp2mat)) > alpha);
-# 
+#
 # 	k1 <- wn-1;
 # 	while (max(.pareto2.htest.getsize_optimized(n, xhir0n, c(rep(v-1,k1), rep(v,wn-k1)), K, s, dhirp2mat))>=alpha)
 # 		k1 <- k1-1;
-# 
+#
 # 	k1 <- k1+1;
 # 	k0 <- k1-1;
 # 	maxdiff <- 2;
 # # 	while (max(.pareto2.htest.getsize_optimized(n, xhir0n, c(rep(v,k0), rep(v-1,wn-k0)), K, s, dhirp2mat))>=alpha)
 # # 		k0 <- k0+1;
-# 
+#
 # 	cat(sprintf("wn=%g; k0=%g; k1=%g; maxdiff=%g\n", wn, k0, k1, maxdiff));
 # 	stopifnot(k0<k1);
-# 
-# 
+#
+#
 # 	sizemax <- 0;
 # 	qualmax <- 10;
 # 	wygmax <- wyg;
-# 
+#
 # 	imprrec <- function(wyg, k0, k1)
 # 	{
 # 		if (k0 <= 0 && k1 > wn) return();
-# 
+#
 # # 		if (k0 <= 0) k0 <- 1;
 # # 		if (k1 > wn) k1 <- wn;
 # 		v0 <- ifelse(k0<=0, wyg[1], wyg[k0]);
 # 		v1 <- ifelse(k1>wn, wyg[wn], wyg[k1]);
-# 
+#
 # 		j0 <- 0;
 # 		while(T)
 # 		{
 # 			if (k0 >= 1) wyg [1:k0] <- v0-j0;
-# 
+#
 # 			j1 <- 0;
 # 			while (T)
 # 			{
 # 				if (k1 <= wn) wyg[k1:wn] <- v1-j1;
-# 
+#
 # 				POW <- .pareto2.htest.getsize_optimized(n, xhir0n, wyg, K, s, dhirp2mat);
 # 				mp <- max(POW);
-# 
+#
 # 				if (mp <= alpha)
 # 				{
 # 					mep <- mean((POW-alpha)^2);
-# 
+#
 # 					if (mep<=qualmax)
 # 					{
 # 						wygmax <<- wyg;
@@ -188,27 +188,27 @@ invisible(NULL)
 # 						cat(sprintf("size=%.5f and q=%.5f. ", sizemax, qualmax));
 # 						print(wyg);
 # 					}
-# 
+#
 # 					imprrec(wyg, k0-1, k1+1);
 # 				} else {
 # 					j1 <- maxdiff;
 # 				}
-# 
+#
 # 				j1 <- j1 + 1;
 # 				if (v1-j1 < 0 || j1 > maxdiff || k1 > wn) break;
 # 			}
-# 
+#
 # 			j0 <- j0 + 1;
 # 			if (v0-j0 < 0 || j0 > maxdiff || k0 < 1) break;
 # 		}
 # 	}
-# 
+#
 # 	imprrec(wygmax, k0, k1);
 # # 	imprrec(wygmax, 0, k1);
 # # 	imprrec(wygmax, k0, wn+1);
-# 
+#
 # 	wyg <- wygmax;
-# 
+#
 # # 	for (i in j0:j1)
 # # 	{
 # # 		lbound <- ifelse(i>1 && i < wn, min(wyg[i-1], wyg[i+1]), 0)
@@ -233,25 +233,25 @@ invisible(NULL)
 # # 			}
 # # 		}
 # # 	}
-# 
+#
 # 	if (verbose)
 # 	{
 # 		POW <- .pareto2.htest.getsize_optimized(n, xhir0n, wyg, K, s, dhirp2mat);
 # 		cat(sprintf("%3.0f%% complete in current iteration, q=%.4f.\r", 100, mean(POW)));
 # 	}
-# 
+#
 # 	return(wyg);
 # }
-# 
-# 
-# 
+#
+#
+#
 # #' /internal/
 # .pareto2.htest.acceptreg.improve <- function(n, wyg, j0, j1, alpha, verbose, K, s)
 # {
 # 	epsbound <- 1e-7;
 # 	wn <- n+1;
-# 
-# 
+#
+#
 # 	# prepare input data for .pareto2.htest.getsize_optimized
 # 	# this significanlty speeds up computations
 # 	xhir0n <- (0:n);
@@ -259,9 +259,9 @@ invisible(NULL)
 # 	for (i in 1:length(K))
 # 		dhirp2mat[i,] <- pareto2.dhirsch(xhir0n,n,K[i],s);
 # 	# -------------------------------------------------------
-# 
-# 
-# 
+#
+#
+#
 # 	for (i in j0:j1)
 # 	{
 # 		lbound <- ifelse(i>1 && i < wn, min(wyg[i-1], wyg[i+1]), 0)
@@ -278,7 +278,7 @@ invisible(NULL)
 # 				}
 # 				if (wyg[i] == lbound) break;
 # 			}
-# 
+#
 # 			if (verbose)
 # 			{
 # 				POW <- .pareto2.htest.getsize_optimized(n, xhir0n, wyg, K, s, dhirp2mat);
@@ -286,29 +286,29 @@ invisible(NULL)
 # 			}
 # 		}
 # 	}
-# 
+#
 # 	if (verbose)
 # 	{
 # 		POW <- .pareto2.htest.getsize_optimized(n, xhir0n, wyg, K, s, dhirp2mat);
 # 		cat(sprintf("%3.0f%% complete in current iteration, q=%.4f.\r", 100, mean(POW)));
 # 	}
-# 
+#
 # 	return(wyg);
 # }
-# 
-# 
+#
+#
 # #' /internal/
 # .pareto2.htest.getK <- function(n, drho, s)
 # {
 # 	# control function:
 # 	kappa    <- function(x) { pmax(0,pmin(1,x))*n; }
-# 
+#
 # 	# kappa-indices (rho) for which to determine the power function
 # 	RHO <- c(1e-3,seq(1e-3+drho, 1-drho-1e-3, drho), 1-1e-3);
 # 	nrho <- length(RHO);
-# 
+#
 # 	stopifnot(RHO[1]<RHO[length(RHO)] && RHO[1]<RHO[2]);
-# 
+#
 # 	K   <- numeric(nrho);
 # 	for (i in 1:nrho)
 # 	{
@@ -318,12 +318,12 @@ invisible(NULL)
 # 			}, c(1e-15,ifelse(i==1,1e15,K[i-1])), # note that we assume RHO is sorted increasingly-that's much faster
 # 			   s, RHO[i], kappa, tol=1e-20)$root;
 # 	}
-# 
+#
 # 	return(K);
 # }
-# 
-# 
-# 
+#
+#
+#
 # #' Performs \eqn{h}-test for equality of shape parameters
 # #' of two samples from the Pareto type-II distributions with known
 # #' and equal scale parameters, \eqn{s>0}.
@@ -372,46 +372,46 @@ invisible(NULL)
 # pareto2.htest <- function(x, y, s, alternative = c("two.sided", "less", "greater"), significance=0.05, wyg=NULL, verbose=TRUE, drho=0.005, K=NULL, improve=TRUE)
 # {
 # 	if (length(significance) != 1 || significance <= 0 || significance >= 1) stop("incorrect significance level");
-# 
+#
 # 	if (significance > 0.2) warning("'significance' is possibly incorrect");
-# 
+#
 # 	alternative <- match.arg(alternative);
 # 	DNAME <- deparse(substitute(x));
 # 	DNAME <- paste(DNAME, "and", deparse(substitute(y)));
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (length(drho) != 1 || drho < 0.001 || drho > 0.1)
 # 		stop("drho should be a single numeric value in [0.000001, 0.1]");
-# 
+#
 # 	if (!is.null(K) && (mode(K) != "numeric" || length(K) < 10 || any(K<=0) || any(is.infinite(K))))
 # 		stop("incorrect 'K'");
-# 
+#
 # 	if (mode(x) != "numeric" || mode(y) != "numeric") stop("non-numeric data given");
-# 
+#
 # 	x <- x[!is.na(x)];
 # 	n <- length(x);
 # 	if (n < 1L || any(x<0)) stop("incorrect 'x' data");
-# 
+#
 # 	y <- y[!is.na(y)];
 # 	if (length(y) < 1L || any(y<0)) stop("incorrect 'y' data");
-# 
+#
 # 	if (length(y) != n) stop("non-equal-sized vectors given on input");
-# 
+#
 # # 	if (n > 50 && is.null(wyg)) warning("n is large - Do you know what you're doing? It's damn slow! :-)");
-# 
-# 
+#
+#
 # 	HY <- index.h(y,disable.check=TRUE);
 # 	HX <- index.h(x,disable.check=TRUE);
 # 	STATISTIC <- HY-HX;
 # 	names(STATISTIC) <- "H";
-# 
+#
 # 	METHOD <- "Two-sample h-test for equality of shape parameters for Type II-Pareto distributions with known common scale parameter";
-# 
+#
 # 	nm_alternative <- switch(alternative, two.sided = "two-sided",
 # 			less = "kx < ky",
 # 			greater = "kx > ky");
-# 
+#
 # 	if (alternative == "two.sided") {
 # 		powerscale <- 2;
 # 	} else {
@@ -420,11 +420,11 @@ invisible(NULL)
 # 	alpha <- significance/powerscale;
 # 	size <- NA;
 # 	qual <- NA;
-# 
+#
 # 	wn <- n+1;     # number of possible h-index values
-# 
+#
 # 	# -----------------------------------------------------------------------
-# 
+#
 # 	if (is.null(wyg))
 # 	{
 # 		if (is.null(K))
@@ -433,16 +433,16 @@ invisible(NULL)
 # 			if (verbose) cat(sprintf("Determining 'K' for 'drho'=%g...\n", drho));
 # 			K <- .pareto2.htest.getK(n, drho, s)
 # 		}
-# 
-# 
+#
+#
 # 		# determine bound of the acceptation region that is independent on the value
 # 		# of the h-indices (constant 'wyg')
 # 		if (verbose) cat(sprintf("Determining h-independent bound of the acceptation region...\n"));
-# 
+#
 # 		v <- 0L; # initial solution
 # 		wyg <- rep(v,wn) # a constant function of observed h-index
 # 		POW <- .pareto2.htest.getpowerupper(n, wyg, K, K, s);
-# 
+#
 # 		while (max(POW) > alpha)
 # 		{
 # 			v <- v+1L;
@@ -450,7 +450,7 @@ invisible(NULL)
 # 			wyg <- rep(v,wn) # a constant function of observed h-index
 # 			POW <- .pareto2.htest.getpowerupper(n, wyg, K, K, s);
 # 		}
-# 
+#
 # 		if (verbose)
 # 		{
 # 			size <- max(POW)*powerscale;
@@ -459,10 +459,10 @@ invisible(NULL)
 # 				v, n, size, qual));
 # 		}
 # 	} else { # wyg is not null
-# 
+#
 # 		if (length(wyg) != n+1 || mode(wyg) != "numeric" || any(wyg<0) || any(wyg>n))
 # 			stop("incorrect 'wyg' for this test case");
-# 
+#
 # 		if (verbose || improve) # check whether given 'wyg' guarantees desired significance level
 # 		{
 # 			if (is.null(K))
@@ -471,7 +471,7 @@ invisible(NULL)
 # 				if (verbose) cat(sprintf("Determining 'K' for 'drho'=%g...\n", drho));
 # 				K <- .pareto2.htest.getK(n, drho, s);
 # 			}
-# 
+#
 # 			POW <- .pareto2.htest.getpowerupper(n, wyg, K, K, s);
 # 			if (verbose)
 # 			{
@@ -480,23 +480,23 @@ invisible(NULL)
 # 				cat(sprintf("Given test size=%f and qual=%f for n=%d.\n",
 # 					size, qual, n));
 # 			}
-# 
+#
 # 			if (max(POW) > alpha) stop("Given 'wyg' does not guarantee desired significance level");
 # 		}
 # 	}
-# 
-# 
+#
+#
 # 	# improve the acceptation region
 # 	if (improve)
 # 	{
 # 		if (verbose) cat(sprintf("Improving h-dependent bounds of the acceptation region...\n"));
-# 
+#
 # # 				wyg <- .htest.acceptregimprove(n, ppareto2, wyg, 1, wn,  alpha, verbose, K, s);
 # # 				wyg <- .htest.acceptregimprove(n, ppareto2, wyg, wn, 1,  alpha, verbose, K, s);
 # # 		wyg <- .pareto2.htest.acceptreg.improve(n, wyg, wn, 1, alpha, verbose, K, s)
 # # 		wyg <- .pareto2.htest.acceptreg.improve(n, wyg, 1, wn, alpha, verbose, K, s)
 # 		wyg <- .pareto2.htest.acceptreg.improve2(n, wyg, alpha, verbose, K, s);
-# 
+#
 # 		if (verbose)
 # 		{
 # 			POW <- .pareto2.htest.getpowerupper(n, wyg, K, K, s);
@@ -507,10 +507,10 @@ invisible(NULL)
 # 			stopifnot(max(POW) <= alpha);
 # 		}
 # 	}
-# 
-# 
+#
+#
 # 	# -----------------------------------------------------------------------
-# 
+#
 # 	if (alternative == "two.sided") {
 # 		if (HX<HY)
 # 		{
@@ -533,7 +533,7 @@ invisible(NULL)
 # 			RESULT <- (abs(STATISTIC)>wyg[HX+1]);
 # 		}
 # 	}
-# 
+#
 # 	RVAL <- list(statistic = STATISTIC, result = RESULT, alternative = nm_alternative,
 # 		method = METHOD, data.name = DNAME, wyg = wyg, size = size, qual = qual);
 # 	class(RVAL) <- "power.htest";

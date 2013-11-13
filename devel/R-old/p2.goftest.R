@@ -57,16 +57,16 @@ invisible(NULL)
 # {
 # # 	alternative <- match.arg(alternative);
 # 	DNAME <- deparse(substitute(x));
-# 
+#
 # 	method <- match.arg(method);
-# 
+#
 # 	x <- x[!is.na(x)];
 # 	nx <- length(x);
 # 	if (nx < 2L || any(x<0)) stop("incorrect 'x' data");
-# 
+#
 # 	if (!is.null(s) && (mode(s) != "numeric" || length(s) != 1 || s <= 0)) stop("'s' should be > 0");
 # 	if (!is.null(k) && (mode(k) != "numeric" || length(k) != 1 || k <= 0)) stop("'k' should be > 0");
-# 
+#
 # 	if (is.null(s)) {
 # 		if (!is.null(k)) warning("'k' given but 's' not given. ignoring");
 # 		params <- pareto2.zsestimate(x);
@@ -74,27 +74,21 @@ invisible(NULL)
 # 		if (is.null(k)) k <- pareto2.mlekestimate(x, s);
 # 		params <- list(k=k, s=s);
 # 	}
-# 
+#
 # 	stopifnot(params$k > 0 && is.finite(params$k));
 # 	stopifnot(params$s > 0 && is.finite(params$s));
-# 
+#
 # 	RVAL <- switch(method,
 # 		"anderson-darling" = ad.test(x, ppareto2, params$k, params$s),
 # 		"kolmogorov" = ks.test(x, "ppareto2", params$k, params$s)
 # 	);
-# 
+#
 # 	RVAL$method = switch(method,
 # 		"anderson-darling" = sprintf("Anderson-Darling Goodness-of-Fit test for the Pareto-II distribution P2(%g, %g)", params$k, params$s),
 # 		"kolmogorov" = sprintf("Kolmogorov Goodness-of-Fit test for the Pareto-II distribution P2(%g, %g)", params$k, params$s),
 # 	);
-# 	
+#
 # 	RVAL$data.name <- DNAME;
-# 
+#
 # 	return(RVAL);
 # }
-
-
-
-
-
-

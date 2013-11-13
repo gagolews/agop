@@ -19,12 +19,12 @@
 
 #' @title
 #' Transitive Binary Relations
-#' 
+#'
 #' @description
 #' A binary relation \eqn{R} is \emph{transitive}, iff
 #' for all \eqn{x}, \eqn{y}, \eqn{z} we have \eqn{xRy} and \eqn{yRz}
 #' \eqn{\Longrightarrow}{=>} \eqn{xRz}.
-#' 
+#'
 #' @details
 #' \code{rel_is_transitive} finds out if a given binary relation
 #' is transitive. The algorithm has \eqn{O(n^3)} time complexity,
@@ -32,15 +32,13 @@
 #' \eqn{n} is the number of rows in \code{R}.
 #' If \code{R} contains missing values behind the diagonal,
 #' the result will be \code{NA}.
-#' 
-#' \cr
+#'
 #' The \emph{transitive closure} of a binary relation \eqn{R},
 #' determined by \code{rel_closure_transitive},
 #' is the minimal superset of \eqn{R} such that it is transitive.
 #' Here we use the well-known Warshall algorithm (1962),
 #' which runs in \eqn{O(n^3)} time.
-#' 
-#' \cr
+#'
 #' The \emph{transitive reduction},
 #' see (Aho et al. 1972), of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_transitive},
@@ -49,26 +47,26 @@
 #' ** TO DO **
 #' This function is particularly useful for draving Hasse diagrams
 #' of a (pre)ordered set, see Examples.
-#' 
+#'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
-#' 
+#'
 #' @return The \code{rel_closure_transitive} and
 #' \code{rel_reduction_transitive} functions
 #' return a logical square matrix. \code{\link{dimnames}}
 #' of \code{R} are preserved.
-#' 
+#'
 #' On the other hand, \code{rel_is_transitive} returns
 #' a single logical value.
-#' 
+#'
 #' @references
 #' Aho A.V., Garey M.R., Ullman J.D.,
 #' The Transitive Reduction of a Directed Graph,
 #' \emph{SIAM Journal on Computing} 1(2), 1972, pp. 131-137.
-#' 
+#'
 #' Warshall S., A theorem on Boolean matrices,
 #' \emph{Journal of the ACM} 9(1), 1962, pp. 11-12.
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' # Let ord be a total preorder (a total and transitive binary relation)
@@ -77,13 +75,13 @@
 #' hasse <- graph.adjacency(rel_reduction_transitive(ord))
 #' plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 #' }
-#' 
+#'
 #' @family binary_relations
 #' @rdname rel_transitive
 #' @export
 rel_is_transitive <- function(R)
 {
-   .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally 
+   .Call("rel_is_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
 
@@ -102,7 +100,7 @@ rel_reduction_transitive <- function(R)
    .Call("rel_reduction_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
 #    if (is(B, 'igraph')) B <- get.adjacency(B)
 #    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-#    
+#
 #    # slow as hell!
 #    n <- nrow(B)
 #    Matrix::diag(B) <- 0

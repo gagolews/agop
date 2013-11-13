@@ -51,14 +51,14 @@ invisible(NULL)
 # discrpareto2.goftest <- function(x, k=NULL, s=NULL, kmin=1e-4, kmax=100, smin=1e-4, smax=100)
 # {
 # 	DNAME <- deparse(substitute(x));
-# 
+#
 # 	x <- x[!is.na(x)];
 # 	nx <- length(x);
 # 	if (nx < 2L || any(x<0)) stop("incorrect 'x' data");
-# 
+#
 # 	if (!is.null(s) && (mode(s) != "numeric" || length(s) != 1 || s <= 0)) stop("'s' should be > 0");
 # 	if (!is.null(k) && (mode(k) != "numeric" || length(k) != 1 || k <= 0)) stop("'k' should be > 0");
-# 
+#
 # 	if (is.null(s)) {
 # 		if (!is.null(k)) warning("'k' given but 's' not given. ignoring");
 # 		par <- discrpareto2.mleksestimate(x, kmin=kmin, kmax=kmax, smin=smin, smax=smax);
@@ -66,31 +66,31 @@ invisible(NULL)
 # 		if (is.null(k)) k <- discrpareto2.mlekestimate(x, s, kmin=kmin, kmax=kmax);
 # 		par <- list(k=k, s=s);
 # 	}
-# 
+#
 # 	stopifnot(par$k > 0 && is.finite(par$k));
 # 	stopifnot(par$s > 0 && is.finite(par$s));
-# 
+#
 # 	## -------------------------------------------------------------------
-# 
+#
 # 	sn <- min(floor(sqrt(nx)), ceiling(1/ppareto2(1, par$k, par$s)));
-# 
+#
 # 	if (sn < 3) stop("could not create at least 3 classes.");
-# 	
+#
 # 	q <- qpareto2(seq(0, 1, length=sn+1), par$k, par$s);
 # 	q <- ceiling(q);
-# 	
+#
 # 	if (length(unique(q))!=length(q))
 # 		stop("could not create distinct classes for given 'x'.");
-# 	
+#
 # 	p <- ppareto2(q[-1], par$k, par$s)-ppareto2(q[-(sn+1)], par$k, par$s);
-# 	
+#
 # 	x <- table(cut(x, breaks=q, right=F));
-# 	
+#
 # 	RVAL <- chisq.test(x, p=p, rescale.p=TRUE);
-# 
+#
 # 	RVAL$method <-  sprintf("Chi-square goodness-of-fit test for the discretized Pareto-II distribution DP2(%g, %g)", par$k, par$s);
 # 	RVAL$data.name <- DNAME;
-# 	
+#
 # 	return(RVAL);
 # }
-# 
+#

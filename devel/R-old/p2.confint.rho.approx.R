@@ -49,41 +49,41 @@ invisible(NULL)
 # pareto2.confint.rho.approx.lower <- function(v, kappa, kappaInvDer, s, n, conf.level=0.95, tol=1e-20)
 # {
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (!is.numeric(v) || length(v) != 1)
 # 		stop("v must be a single numeric value");
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (v < 1e-6) return(0.0);
 # # 	if (v > 1-1e-13) return (1.0);
 # 	if (gamma < 1e-5) return(0.0);
-# 
-# 
+#
+#
 # 	bord <- uniroot(function(rho, v, kappa, kappaInvDer, s, n, gamma)
 # 	{
 # 		k <- uniroot(function(k, s, kappa, rho) {
 # 				1-ppareto2(kappa(rho), k, s)-rho
 # 			}, c(1e-15,1e10), s, kappa, rho, tol=tol)$root;
-# 
+#
 # # 		k <- log(rho)/(log(s/(s+rho))); # round-off errors :-(
 # # 		k <- log1p(rho-1)/(log1p(s/(s+rho)-1)); # round-off errors :-(
-# 
+#
 # 		gprimerho <- dpareto2(kappa(rho), k, s)/abs(kappaInvDer(kappa(rho)));
-# 
+#
 # 		qnorm(1-gamma, rho, sqrt(rho*(1-rho)/n)/(1+gprimerho))-v;
 # 	}, c(1e-7,1-1e-7), v, kappa, kappaInvDer, s, n, gamma, tol=tol)$root;
-# 
+#
 # 	return(bord);
-# 
+#
 # # 	return(qnorm(gamma/2, v, sqrt(v*(1-v)/n)/(1+gprime)));
 # }
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
 # #' Computes the approximate (asymptotic) right-sided confidence interval for the \eqn{\rho}-index of
 # #' a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.
@@ -113,42 +113,42 @@ invisible(NULL)
 # pareto2.confint.rho.approx.upper <- function(v, kappa, kappaInvDer, s, n, conf.level=0.95, tol=1e-20)
 # {
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (!is.numeric(v) || length(v) != 1)
 # 		stop("v must be a single numeric value");
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (v > 1-1e-6) return(1.0);
 # # 	if (v < 1e-13) return (0.0);
 # 	if (gamma < 1e-5) return(1.0);
-# 
-# 
+#
+#
 # 	bord <- uniroot(function(rho, v, kappa, kappaInvDer, s, n, gamma)
 # 	{
 # 		k <- uniroot(function(k, s, kappa, rho) {
 # 				1-ppareto2(kappa(rho), k, s)-rho
 # 			}, c(1e-15,1e10), s, kappa, rho, tol=tol)$root;
-# 
+#
 # # 		k <- log(rho)/(log(s/(s+rho))); # round-off errors :-(
 # # 		k <- log1p(rho-1)/(log1p(s/(s+rho)-1)); # round-off errors :-(
-# 
+#
 # 		gprimerho <- dpareto2(kappa(rho), k, s)/abs(kappaInvDer(kappa(rho)));
-# 
+#
 # 		qnorm(gamma, rho, sqrt(rho*(1-rho)/n)/(1+gprimerho))-v;
 # 	}, c(1e-7,1-1e-7), v, kappa, kappaInvDer, s, n, gamma, tol=tol)$root;
-# 
+#
 # 	return(bord);
-# 
+#
 # # 	return(qnorm(gamma/2, v, sqrt(v*(1-v)/n)/(1+gprime)));
 # }
-# 
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
+#
 # #' Computes the approximate (asymptotic) two-sided confidence interval for the \eqn{\rho}-index of
 # #' a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.

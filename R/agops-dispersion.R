@@ -19,11 +19,11 @@
 
 #' @title
 #' D2OWA Operators
-#' 
+#'
 #' @description
 #' Calculates the D2OWA operator, i.e.
 #' the normalized L2 distance between a numeric vector and an OWA operator.
-#' 
+#'
 #' @details
 #' D2OWA is a symmetric dispersion function
 #' It is defined as
@@ -31,23 +31,23 @@
 #' Not all weights, however, generate a proper function of this kind;
 #' \code{d2owa_checkwts} may be used to check that.
 #' For \code{d2owa}, if \code{w} is not proper, an error is thrown.
-#' 
+#'
 #' \code{w} is automatically normalized so that its elements sums up to 1.
-#' 
+#'
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}, with elements in \eqn{[0,1]},
 #' and such that \eqn{\sum_i w_i=1}{sum(x)=1}; weights
 #' @return For \code{d2owa}, a single numeric value is returned.
 #' On the other hand, \code{d2owa_checkwts} returns a single logical value.
-#' 
+#'
 #' @rdname d2owa
 #' @export
 #' @family dispersion_functions
 #' @references
 #' Gagolewski M., \emph{Symmetric dispersion operators}, in preparation, 2013.
-#' 
-#' Yager R.R., On ordered weighted averaging aggregation operators 
-#' in multicriteria decision making, \emph{IEEE Transactions on Systems, 
+#'
+#' Yager R.R., On ordered weighted averaging aggregation operators
+#' in multicriteria decision making, \emph{IEEE Transactions on Systems,
 #' Man, and Cybernetics} 18(1), 1988, pp. 183-190.
 d2owa_checkwts <- function(w) {
    .Call("d2owa_checkwts", w, PACKAGE="agop")
@@ -57,8 +57,7 @@ d2owa_checkwts <- function(w) {
 #' @rdname d2owa
 #' @export
 d2owa <- function(x, w=rep(1/length(x), length(x))) {
-   if (!d2owa_checkwts(w)) 
+   if (!d2owa_checkwts(w))
       stop('given weighting vector does not generate a dispersion function')
    sqrt(mean((x-owa(x,w))^2))
 }
-

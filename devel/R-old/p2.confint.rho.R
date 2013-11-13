@@ -102,12 +102,12 @@ invisible(NULL)
 # # 	list(root = lower, f.root = f(lower, ...), iter = iter,
 # #         estim.prec = upper-lower)
 # # }
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
 # #' Computes the exact right-sided confidence interval for the \eqn{\rho}-index of
 # #' a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.
@@ -137,34 +137,34 @@ invisible(NULL)
 # 	# rho_lower = min{rho: D_n,rho (v-) <= gamma}
 # 	# will be found by:
 # 	# klower = max{k: psstat(v-,n,ppareto2,kappa,k,s)<=gamma}
-# 
+#
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (!is.numeric(v) || length(v) != 1)
 # 		stop("v must be a single numeric value")
-# 
+#
 # # 	if (v < 1e-13) return(0.0);
 # 	if (v > 1-1e-6) return(1.0);
 # 	if (gamma < 1e-9) return(1.0);
-# 
-# 
+#
+#
 # 	xsol <- uniroot(function(x,v,kappa,s,n,gamma) {
 # 		psstat(v,n,ppareto2,kappa,x,s)-gamma;
 # 	}, c(0,1e25),v,kappa,s,n,gamma, tol=tol, maxiter=1000)$root;
-# 
+#
 # # 	xsol <- .argmaxle(function(x,v,kappa,s,n,gamma) {
 # # 		psstat(v,n,ppareto2,kappa,x,s)-gamma;
 # # 	}, c(max(0,xsol_initial-1e-6),xsol_initial+1e-6),v,kappa,s,n,gamma, tol=tol, maxiter=10000)$root;
-# 
+#
 # 	rho.get(ppareto2, kappa, xsol, s,tol=tol); # return value
 # }
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
 # #' Computes the exact left-sided confidence interval for the \eqn{\rho}-index of
 # #' a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.
@@ -195,36 +195,36 @@ invisible(NULL)
 # 	# rho_lower = max{rho: D_n,rho (v) >= 1-gamma}
 # 	# will be found by:
 # 	# klower = min{k: psstat(v,n,ppareto2,kappa,k,s)>=1-gamma}
-# 
+#
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (!is.numeric(v) || length(v) != 1)
 # 		stop("v must be a single numeric value")
-# 
+#
 # 	if (v < 1e-6) return(0.0);
 # # 	if (v > 1-1e-13) return (1.0);
 # 	if (gamma < 1e-9) return(0.0);
-# 
+#
 # 	v <- max(0,v-1e-12);
-# 
+#
 # 	xsol <- uniroot(function(x,v,kappa,s,n,gamma) {
 # 		psstat(v,n,ppareto2,kappa,x,s)-1+gamma;
 # 	}, c(0,1e25),v,kappa,s,n,gamma, tol=tol, maxiter=1000)$root;
-# 
+#
 # # 	xsol <- .argmaxgreater(function(x,v,kappa,s,n,gamma) {
 # # 		psstat(v,n,ppareto2,kappa,x,s)-1+gamma;
 # # 	}, c(max(0,xsol_initial-1e-6),xsol_initial+1e-6),v,kappa,s,n,gamma, tol=tol, maxiter=10000)$root;
-# 
+#
 # 	rho.get(ppareto2, kappa, xsol, s,tol=tol); # return value
 # }
-# 
-# 
-# 
-# 
-# 
-# 
+#
+#
+#
+#
+#
+#
 # #' Computes the exact two-sided confidence interval for the \eqn{\rho}-index of
 # #' a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.
@@ -258,6 +258,6 @@ invisible(NULL)
 # 		pareto2.confint.rho.upper(v,kappa,s,n,1-gamma*0.5,tol)
 # 	));
 # }
-# 
-# 
-# 
+#
+#
+#

@@ -17,7 +17,7 @@
 
 
 #' @title Anderson-Darling Test for Exponentiality
-#' 
+#'
 #' @description
 #' Performs an approximate Anderson-Darling goodness-of-fit
 #' test, which verifies the null hypothesis:
@@ -26,7 +26,7 @@
 #' @details
 #' Sample size should not be smaller than 3. Missing values
 #' are removed from \code{x} before applying the procedure.
-#' 
+#'
 #' The p-value is approximate: its distribution
 #' has been estimated by taking 2500000 MC samples.
 #' For performance and space reasons,
@@ -34,44 +34,43 @@
 #' on a fixed number of points.
 #' In result, the resulting p-value distribution may not necessarily
 #' be uniform for p>>0.5.
-#' 
+#'
 #' @param x a non-negative numeric vector of data values
-#' 
+#'
 #' @return
 #' A list of the class \code{htest} is returned,
 #' just like in many other testing methods,
 #' see e.g. \code{\link{ks.test}}.
-#' 
+#'
 #' @export
 #' @seealso \code{\link{pexp}}
-#' 
+#'
 #' @family Tests
-#' 
+#'
 #' @references
 #' Anderson T.W., Darling D.A.,
-#' A Test of Goodness-of-Fit, 
-#' \emph{Journal of the American Statistical Association} 49, 
+#' A Test of Goodness-of-Fit,
+#' \emph{Journal of the American Statistical Association} 49,
 #' 1954, pp. 765-769.
 exp_test_ad <- function(x)
 {
    DNAME <- deparse(substitute(x))
-   
+
    x <- x[!is.na(x)]
    n <- length(x)
-   
-   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf) 
+
+   n2 <- if(n < nrow(exp_test_ad_cdf)) n else nrow(exp_test_ad_cdf)
    if (any(is.na(exp_test_ad_cdf[n2,])))
       stop("Sample size too small")
-   
+
    W <- .Call("exp_test_statistic", x, PACKAGE="agop")
    pv <- if (W > exp_test_ad_cdf[1, ncol(exp_test_ad_cdf)]) 1e-16 else
       1-splinefun(exp_test_ad_cdf[1,], exp_test_ad_cdf[n2,], method="monoH.FC")(W)
 
-   
-   res <- list(statistic=c(W=W), p.value=pv, 
+
+   res <- list(statistic=c(W=W), p.value=pv,
              method="Anderson-Darling exponentiality test",
              data.name=DNAME)
    attr(res, "class") <- "htest"
    res
 }
-

@@ -19,11 +19,11 @@
 
 #' @title
 #' WAM and OWA Operators
-#' 
+#'
 #' @description
 #' Computes the Weghted Arithmetic Mean or the
 #' Ordered Weighted Averaging aggregation operator.
-#' 
+#'
 #' @details
 #' The OWA operator is given by
 #' \deqn{
@@ -33,39 +33,40 @@
 #' }
 #' where \eqn{x_{(i)}}{x_(i)} denotes the \eqn{i}-th smallest
 #' value in \code{x}.
-#' 
+#'
 #' The WAM operator is given by
 #' \deqn{
 #' \mathsf{WAM}_\mathtt{w}(\mathtt{x})=\sum_{i=1}^{n} w_{i}\,x_{i}
 #' }{
 #' WAM_w(x) = sum_i(w_i * x_i)
 #' }
-#' 
+#'
 #' If the elements of \code{w} does not sum up to \eqn{1}, then
 #' they are normalized and a warning is generated.
-#' 
+#'
 #' Both functions return the ordinary arithmetic mean by default.
 #' Special cases of OWA include the trimmed mean (cf. \code{\link{mean}})
 #' and winsorized mean.
-#' 
+#'
 #' There is a strong, well-known connection between the OWA operators
 #' and the Choquet integrals.
-#' 
+#'
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}, with elements in \eqn{[0,1]},
 #' and such that \eqn{\sum_i w_i=1}{sum(x)=1}; weights
 #' @return
 #' These functions return a single numeric value.
-#' 
+#'
 #' @rdname owa
 #' @name owa
 #' @export
 #' @family aggregation_operators
 #' @references
-#' Choquet G., Theory of capacities, \emph{Annales de l’institut Fourier} 5 (1954), pp. 131-295.
-#' 
-#' Yager R.R., On ordered weighted averaging aggregation operators 
-#' in multicriteria decision making, 
+#' Choquet G., Theory of capacities, \emph{Annales de l'institut Fourier} 5,
+#'    1954, pp. 131-295.
+#'
+#' Yager R.R., On ordered weighted averaging aggregation operators
+#' in multicriteria decision making,
 #' \emph{IEEE Transactions on Systems, Man, and Cybernetics} 18(1), 1988, pp. 183-190.
 owa <- function(x, w=rep(1/length(x), length(x))) {
    .Call("owa", x, w, PACKAGE="agop")
@@ -81,10 +82,10 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 
 #' @title
 #' WMax, WMin, OWMax, and OWMin Operators
-#' 
+#'
 #' @description
 #' Computes the (Ordered) Weighted Maximum/Minimum.
-#' 
+#'
 #' @details
 #' The OWMax operator is given by
 #' \deqn{
@@ -94,61 +95,61 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' }
 #' where \eqn{x_{(i)}}{x_(i)} denotes the \eqn{i}-th smallest
 #' value in \code{x}.
-#' 
+#'
 #' The OWMin operator is given by
 #' \deqn{
 #' \mathsf{OWMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{(i)}
 #' }{
 #' OWMin_w(x) = min_i{ max{w_i, x_(i)} }
 #' }
-#' 
+#'
 #' The WMax operator is given by
 #' \deqn{
 #' \mathsf{WMax}_\mathtt{w}(\mathtt{x})=\bigvee_{i=1}^{n} w_{i}\wedge x_{i}
 #' }{
 #' WMax_w(x) = max_i{ min{w_i, x_i} }
 #' }
-#' 
+#'
 #' The WMin operator is given by
 #' \deqn{
 #' \mathsf{WMin}_\mathtt{w}(\mathtt{x})=\bigwedge_{i=1}^{n} w_{i}\vee x_{i}
 #' }{
 #' WMin_w(x) = min_i{ max{w_i, x_i} }
 #' }
-#' 
+#'
 #' \code{OWMax} and \code{WMax} return the greatest value in \code{x}
 #' by default, and \code{OWMin} and \code{WMin} - the smallest value in \code{x}.
-#' 
-#' 
+#'
+#'
 #' Classically, it is assumed that if we agregate
 #' vectors with elements in \eqn{[a,b]}, then
 #' the largest weight for OWMax should be equal to \eqn{b}
 #' and the smallest for OWMin should be equal to \eqn{a}.
-#' 
+#'
 #' There is a strong connection between the OWMax/OWMin operators
 #' and the Sugeno integrals w.r.t. some monotone measures.
 #' Additionally, it may be shown
 #' that the OWMax and OWMin classes are equivalent.
-#' 
+#'
 #' Moreover, \code{\link{index_h}} for integer data
 #' is a particular OWMax operator.
-#' 
+#'
 #' @param x numeric vector to be aggregated
 #' @param w numeric vector of the same length as \code{x}; weights
 #' @return
 #' These functions return a single numeric value.
-#' 
+#'
 #' @rdname owmax
 #' @name owmax
 #' @export
 #' @family aggregation_operators
 #' @references
-#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching, 
+#' Dubois D., Prade H., Testemale C., Weighted fuzzy pattern matching,
 #'    \emph{Fuzzy Sets and Systems} 28, 1988, pp. 313-331.
-#' 
+#'
 #' Dubois D., Prade H., Semantics of quotient operators in fuzzy
 #'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
-#' 
+#'
 #' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
 #'    PhD thesis, Tokyo Institute of Technology, 1974.
 owmax <- function(x, w=rep(Inf, length(x))) {
@@ -216,10 +217,10 @@ wmin <- function(x, w=rep(-Inf, length(x))) {
 # 		if (any(x < 0)) return(NA);
 # 		x <- x[!is.na(x)];
 # 	}
-# 
+#
 # 	if (!sorted.dec)
 # 		x <- sort(x, decreasing=TRUE);
-# 
+#
 # 	# internal method needs O(log n) time, however kappaInv(x) is O(n)
 # 	.C("Sstat2", as.double(kappaInv(x)), as.integer(length(x)), out=double(1), DUP=FALSE, PACKAGE="agop")$out;
 # }
@@ -263,13 +264,11 @@ wmin <- function(x, w=rep(-Inf, length(x))) {
 # 		if (any(x < 0)) return(NA);
 # 		x <- x[!is.na(x)];
 # 	}
-# 
+#
 # 	n <- length(x);
-# 
+#
 # 	if (!sorted.dec)
 # 		x <- sort(x, decreasing=TRUE);
-# 
+#
 # 	return (max(pmin(x,kappa((1:n)/n))));
 # }
-
-

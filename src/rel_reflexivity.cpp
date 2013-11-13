@@ -23,10 +23,10 @@
 
 
 /** Check if a binary relation is reflexive
- * 
+ *
  * @param x square logical matrix
  * @return logical scalar
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_reflexive(SEXP x)
@@ -47,10 +47,10 @@ SEXP rel_is_reflexive(SEXP x)
 
 
 /** Get the reflexive closure of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_reflexive(SEXP x)
@@ -68,19 +68,19 @@ SEXP rel_closure_reflexive(SEXP x)
    for (R_len_t i=0; i<n*n; ++i) {
       yp[i] = xp[i];
    }
-   
-   for (R_len_t i=0; i<n; ++i) 
+
+   for (R_len_t i=0; i<n; ++i)
       yp[i+n*i] = TRUE;
-   
+
    return y;
 }
 
 
 /** Get the reflexive reduction of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_reduction_reflexive(SEXP x)
@@ -98,10 +98,9 @@ SEXP rel_reduction_reflexive(SEXP x)
    for (R_len_t i=0; i<n*n; ++i) {
       yp[i] = xp[i];
    }
-   
-   for (R_len_t i=0; i<n; ++i) 
+
+   for (R_len_t i=0; i<n; ++i)
       yp[i+n*i] = FALSE;
-   
+
    return y;
 }
-

@@ -18,29 +18,29 @@
 
 #' @title
 #' Assymetric Binary Relations
-#' 
+#'
 #' @description
 #' A binary relation \eqn{R} is \emph{antisymmetric}, iff
 #' for all \eqn{x, y} we have
 #' \eqn{xRy} and \eqn{yRx} \eqn{\Rightarrow}{=>} \eqn{x=y}.
-#' 
+#'
 #' @details
 #' \code{rel_is_antisymmetric} finds out if a given binary relation
 #' is antisymmetric. Missing values in \code{R} may result in \code{NA}.
-#' 
+#'
 #' Also, check out \code{\link{rel_closure_symmetric}}
 #' for the symmetric closure of \code{R}.
-#' 
+#'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
-#' 
+#'
 #' @return \code{rel_is_antisymmetric} returns
 #' a single logical value.
-#' 
+#'
 #' @export
 #' @family binary_relations
 #' @rdname rel_antisymmetric
 rel_is_antisymmetric <- function(R)
 {
-   .Call("rel_is_antisymmetric", as.matrix(R), PACKAGE="agop") # args checked internally 
+   .Call("rel_is_antisymmetric", as.matrix(R), PACKAGE="agop") # args checked internally
 }

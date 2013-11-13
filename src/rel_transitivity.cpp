@@ -23,10 +23,10 @@
 
 
 /** Check if a binary relation is transitive
- * 
+ *
  * @param x square logical matrix
  * @return logical scalar
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_transitive(SEXP x)
@@ -54,10 +54,10 @@ SEXP rel_is_transitive(SEXP x)
 
 
 /** Get the transitive closure of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_transitive(SEXP x)
@@ -77,7 +77,7 @@ SEXP rel_closure_transitive(SEXP x)
          Rf_error(MSG__ARG_EXPECTED_NOT_NA, "R"); // missing values are not allowed
       yp[i] = xp[i];
    }
-   
+
    for (R_len_t k=0; k<n; ++k) { // Warshall's algorithm
       for (R_len_t i=0; i<n; ++i) {
          for (R_len_t j=0; j<n; ++j) {
@@ -85,7 +85,7 @@ SEXP rel_closure_transitive(SEXP x)
          }
       }
    }
-   
+
    return y;
 }
 
@@ -94,18 +94,18 @@ SEXP rel_closure_transitive(SEXP x)
 
 
 /** Get the transitive reduction of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_reduction_transitive(SEXP x)
 {
    SEXP y = rel_closure_transitive(x);
    // is logical matrix, dimnames are preserved, we may overwrite its elements
-   
+
    Rf_error("TO DO");
-   
+
    return y;
 }

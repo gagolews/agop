@@ -23,10 +23,10 @@
 
 
 /** Check if a binary relation is asymmetric
- * 
+ *
  * @param x square logical matrix
  * @return logical scalar
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_asymmetric(SEXP x)

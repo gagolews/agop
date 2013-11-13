@@ -2,7 +2,7 @@ require('testthat')
 
 
 test_that("index_w", {
-   
+
    expect_error(index_w(c(-1, 4, 3)))
    expect_error(index_w(c(4, 4, -1)))
    expect_error(index_w(numeric(0)))
@@ -20,5 +20,5 @@ test_that("index_w", {
    expect_equivalent(index_w(10:1-0.5), 9)
    expect_equivalent(index_w(c(5,4,1,0)), 3)
    expect_equivalent(index_w(rep(10,10)), 10)
-   
+
 })

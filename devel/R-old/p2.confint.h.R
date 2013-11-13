@@ -44,27 +44,27 @@ invisible(NULL)
 # pareto2.confint.h.upper <- function(h, s, n, conf.level=0.95, tol=1e-12)
 # {
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (length(h) != 1 || h < 0 || h > n)
 # 		stop("Incorrect h value!");
 # 	h <- round(h);
-# 
+#
 # 	if (h > n-1e-9) return(n);
 # 	if (gamma < 1e-9) return(n);
-# 
-# 
+#
+#
 # 	xsol <- uniroot(function(x,h,s,n,gamma) {
 # 		pareto2.phirsch(h+1e-9,n,x,s)-gamma;
 # 	}, c(0,1e25),h,s,n,gamma, tol=tol, maxiter=1000)$root;
-# 
+#
 # 	n*rho.get(ppareto2, function(x) { pmin(1,pmax(0,x))*n }, xsol, s); # return value
 # }
-# 
-# 
-# 
-# 
+#
+#
+#
+#
 # #' Computes the exact left-sided confidence interval for the theoretical \eqn{h}-index
 # #' of a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.
@@ -89,26 +89,26 @@ invisible(NULL)
 # pareto2.confint.h.lower <- function(h, s, n, conf.level=0.95, tol=1e-12)
 # {
 # 	gamma <- 1-conf.level;
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (length(h) != 1 || h < 0 || h > n)
 # 		stop("Incorrect h value!");
 # 	h <- round(h);
-# 
+#
 # 	if (h < 1e-9) return(0);
 # 	if (gamma < 1e-9) return(0);
-# 
-# 
+#
+#
 # 	xsol <- uniroot(function(x,h,s,n,gamma) {
 # 		pareto2.phirsch(h-1+1e-9,n,x,s)-1+gamma;
 # 	}, c(0,1e25),h,s,n,gamma, tol=tol, maxiter=1000)$root;
-# 
+#
 # 	n*rho.get(ppareto2, function(x) { pmin(1,pmax(0,x))*n }, xsol, s); # return value
 # }
-# 
-# 
-# 
+#
+#
+#
 # #' Computes the exact two-sided confidence interval for the theoretical \eqn{h}-index
 # #' of a probability distribution in an \eqn{(X_1,\dots,X_n)} i.i.d. Pareto-type II
 # #' model with known scale parameter \eqn{s>0}.

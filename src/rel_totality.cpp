@@ -23,10 +23,10 @@
 
 
 /** Check if a binary relation is total
- * 
+ *
  * @param x square logical matrix
  * @return logical scalar
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_total(SEXP x)
@@ -53,10 +53,10 @@ SEXP rel_is_total(SEXP x)
 
 
 /** Get the fair totalization of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_total_fair(SEXP x)
@@ -76,7 +76,7 @@ SEXP rel_closure_total_fair(SEXP x)
          Rf_error(MSG__ARG_EXPECTED_NOT_NA, "R"); // missing values are not allowed
       yp[i] = xp[i];
    }
-   
+
    for (R_len_t i=0; i<n; ++i) {
       for (R_len_t j=i; j<n; ++j) {
          if (!yp[i+n*j] && !yp[j+n*i]) {
@@ -85,6 +85,6 @@ SEXP rel_closure_total_fair(SEXP x)
          }
       }
    }
-   
+
    return y;
 }

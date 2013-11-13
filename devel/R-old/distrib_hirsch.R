@@ -19,12 +19,12 @@
 
 
 #' The probability mass function of Hirsch's \eqn{h}-index
-#' for sample of size \code{n} in an i.i.d. model with common increasing 
+#' for sample of size \code{n} in an i.i.d. model with common increasing
 #' and continuous c.d.f. \eqn{F} defined on \eqn{[0,\infty)}.
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, 
-#' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical 
+#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties,
+#' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical
 #' Methods in Data Analysis, Springer-Verlag, 2010, 281-288.\cr
 #'
 #' @title Distribution of the h-index - p.m.f.
@@ -34,20 +34,20 @@
 #' @param ... optional arguments to \code{cdf}.
 #' @return The value of the p.m.f. at \code{x}.
 #' @export
-#' @seealso \code{\link{index.h}}, \code{\link{rho.get}}, 
+#' @seealso \code{\link{index.h}}, \code{\link{rho.get}},
 #' \code{\link{phirsch}}, \code{\link{pareto2.dhirsch}}
 dhirsch <- function(x, n, cdf, ...)
 {
-	phirsch(x+1e-9, n, cdf, ...)-phirsch(x-1e-9, n, cdf, ...)
+   phirsch(x+1e-9, n, cdf, ...)-phirsch(x-1e-9, n, cdf, ...)
 }
 
 
 #' The cumulative distribution function of Hirsch's \eqn{h}-index
-#' for sample of size \code{n} in an i.i.d. model with common increasing 
+#' for sample of size \code{n} in an i.i.d. model with common increasing
 #' and continuous c.d.f. \eqn{F} defined on \eqn{[0,\infty)}.
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, 
+#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties,
 #' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical
 #'  Methods in Data Analysis, Springer-Verlag, 2010, 281-288.\cr
 #'
@@ -58,15 +58,15 @@ dhirsch <- function(x, n, cdf, ...)
 #' @param ... optional arguments to \code{cdf}.
 #' @return The value of the c.d.f. at \code{x}.
 #' @export
-#' @seealso \code{\link{index.h}}, \code{\link{rho.get}}, 
+#' @seealso \code{\link{index.h}}, \code{\link{rho.get}},
 #' \code{\link{dhirsch}}, \code{\link{pareto2.phirsch}}
 phirsch <- function(x, n, cdf, ...)
 {
-	suppressWarnings(
+   suppressWarnings(
       ifelse(x>n-1e-9, 1.0,
-	     ifelse(x<0, 0.0,
-	     pbeta(cdf(floor(x+1), ...), n-floor(x),floor(x)+1)))
-	)
+        ifelse(x<0, 0.0,
+        pbeta(cdf(floor(x+1), ...), n-floor(x),floor(x)+1)))
+   )
 }
 
 
@@ -91,8 +91,8 @@ phirsch <- function(x, n, cdf, ...)
 #' @seealso \code{\link{index.h}}, \code{\link{rho.get}}, \code{\link{phirsch}}, \code{\link{dhirsch}}, \code{\link{pareto2.dhirsch}}
 pareto2.phirsch <- function(x, n, k, s)
 {
-	m <- as.integer(length(x))
-	.C("pareto2_phirsch", out=as.double(x), m, as.double(n), 
+   m <- as.integer(length(x))
+   .C("pareto2_phirsch", out=as.double(x), m, as.double(n),
       as.double(k), as.double(s), DUP=FALSE, PACKAGE="agop")$out
 }
 
@@ -101,11 +101,11 @@ pareto2.phirsch <- function(x, n, k, s)
 #' The probability mass function of Hirsch's \eqn{h}-index
 #' for sample of size \code{n} in an i.i.d. Pareto-Type II model.
 #'
-#' This is a significantly faster (written in C) version of the more 
+#' This is a significantly faster (written in C) version of the more
 #' general function \code{\link{dhirsch}}.
 #'
 #' @references
-#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties, 
+#' Gagolewski M., Grzegorzewski P., S-Statistics and Their Basic Properties,
 #' In: Borgelt C. et al (Eds.), Combining Soft Computing and Statistical Methods in Data Analysis, Springer-Verlag, 2010, 281-288.\cr
 #'
 #' @title Distribution of the h-index - p.m.f.
@@ -115,11 +115,11 @@ pareto2.phirsch <- function(x, n, k, s)
 #' @param s scale parameter, \eqn{s>0}.
 #' @return The value of the p.m.f. at \code{x}.
 #' @export
-#' @seealso \code{\link{index.h}}, \code{\link{rho.get}}, 
+#' @seealso \code{\link{index.h}}, \code{\link{rho.get}},
 #' \code{\link{dhirsch}}, \code{\link{phirsch}}, \code{\link{pareto2.phirsch}}
 pareto2.dhirsch <- function(x, n, k, s)
 {
-	m <- as.integer(length(x));
-	.C("pareto2_dhirsch", out=as.double(x), m, as.double(n),
+   m <- as.integer(length(x));
+   .C("pareto2_dhirsch", out=as.double(x), m, as.double(n),
       as.double(k), as.double(s), DUP=FALSE, PACKAGE="agop")$out
 }

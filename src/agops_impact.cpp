@@ -25,33 +25,33 @@
 
 
 /** Compute the h-index, O(n) time for sorted data
- * 
+ *
  * A simple binsearch-based algorithm could be implemented here,
  * but after some testing it turned to be slower for vectors of length < 1000
  * (a typical case in bibliometrics)
- * 
+ *
  * @param x numeric vector
  * @return real scalar (vector of length == 1)
  */
 SEXP index_h(SEXP x)
 {
    x = prepare_arg_numeric_sorted_dec(x, "x");
-   
+
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-   
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-   
+
    R_len_t i = 0;
-	while (i < n)	{
-		if (xd[i] < (double)i+1) break;
-		++i;
-	}
-	
+   while (i < n)	{
+   	if (xd[i] < (double)i+1) break;
+   	++i;
+   }
+
    return Rf_ScalarReal((double) i);
 }
 
@@ -61,31 +61,31 @@ SEXP index_h(SEXP x)
 
 
 /** Function to compute the g-index
- * 
+ *
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @return scalar real
  */
 SEXP index_g(SEXP x)
 {
    x = prepare_arg_numeric_sorted_dec(x, "x");
-   
+
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-      
+
    double sum = 0.0;
    R_len_t i = 0;
    while (i < n)	{
    	sum += xd[i];
-		if (sum < (double)(i+1)*(double)(i+1)) break;
-		++i;
-	}
-	
+   	if (sum < (double)(i+1)*(double)(i+1)) break;
+   	++i;
+   }
+
    return Rf_ScalarReal((double) i);
 }
 
@@ -93,31 +93,31 @@ SEXP index_g(SEXP x)
 
 
 /** Function to compute the ZERO-INSENSITIVE g-index
- * 
+ *
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @return scalar real
  */
 SEXP index_g_zi(SEXP x)
 {
    x = prepare_arg_numeric_sorted_dec(x, "x");
-   
+
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-      
+
    double sum = 0.0;
    R_len_t i = 0;
    while (TRUE)   {
    	if (i < n) sum += xd[i];
       if (sum < (double)(i+1)*(double)(i+1)) break;
-		++i;
-	}
-	
+   	++i;
+   }
+
    return Rf_ScalarReal((double) i);
 }
 
@@ -126,23 +126,23 @@ SEXP index_g_zi(SEXP x)
 
 
 /** Function to compute the w-index
- * 
+ *
  *  @param x vector of non-negative reals, sorted non-increasingly
  *  @return scalar real
  */
 SEXP index_w(SEXP x)
 {
    x = prepare_arg_numeric_sorted_dec(x, "x");
-   
+
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-      
+
    R_len_t w = min(xd[0],(double)n);
    for (R_len_t i=1; i < n; ++i) {
       if (xd[i] < w-i) {
@@ -152,8 +152,8 @@ SEXP index_w(SEXP x)
          w = min(w,i+1);
          break;
       }
-	}
-	
+   }
+
    return Rf_ScalarReal((double) w);
 }
 
@@ -161,29 +161,29 @@ SEXP index_w(SEXP x)
 
 
 /** Compute the MAXPROD-index (Kosmulski)
- * 
- * 
+ *
+ *
  * @param x numeric vector
  * @return real scalar
  */
 SEXP index_maxprod(SEXP x)
 {
    x = prepare_arg_numeric_sorted_dec(x, "x");
-   
+
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-   
+
    double out = 0.0;
    for (R_len_t i = 0; i < n && xd[i] > 0; ++i)
       if (out < xd[i]*(double)(i+1))
          out = xd[i]*(double)(i+1);
-	
+
    return Rf_ScalarReal(out);
 }
 
@@ -218,7 +218,7 @@ SEXP index_maxprod(SEXP x)
 
 
 /** Function to compute the r_p-index
- * 
+ *
  *  @param x numeric
  *  @param p numeric, >=1, length 1
  *  @param single numeric
@@ -235,11 +235,11 @@ SEXP index_rp(SEXP x, SEXP p)
    x = prepare_arg_numeric_sorted_dec(x, "x");
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return Rf_ScalarReal(NA_REAL);
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
    if (!R_FINITE(p_val))
@@ -255,9 +255,9 @@ SEXP index_rp(SEXP x, SEXP p)
    else {
       if (p_val > 50)
          Rf_warning("p is large but finite. possible accuracy problems.");
-         
-	   double r2p = pow((double)n, p_val);
-	   R_len_t i;
+
+      double r2p = pow((double)n, p_val);
+      R_len_t i;
 
    	for (i=0; i<n; ++i)
    	{
@@ -280,10 +280,10 @@ double2 __index_lp_finite_getAB(double p, double ui, double vi, double uj, doubl
 {
    double uip = pow(ui,p);
    double ujp = pow(uj,p);
-	double vip = pow(vi,p);
-	double vjp = pow(vj,p);
-	double c = uip*vjp-ujp*vip;
-	return double2(c/(vjp-vip), -c/(ujp-uip));
+   double vip = pow(vi,p);
+   double vjp = pow(vj,p);
+   double c = uip*vjp-ujp*vip;
+   return double2(c/(vjp-vip), -c/(ujp-uip));
 }
 
 
@@ -291,13 +291,13 @@ double2 __index_lp_finite_getAB(double p, double ui, double vi, double uj, doubl
 bool __index_lp_finite_testContains(double uk, double vk, double p, double ui, double vi, double uj, double vj)
 {
    // check if L^p ellipse interpolating (ui,vi) and (uj,vj) contains (uk,vk)
-	double2 ab = __index_lp_finite_getAB(p,ui,vi,uj,vj);
-	return (ab.v2*(1.0 - pow(uk,p)/ab.v1) >= pow(vk,p));
+   double2 ab = __index_lp_finite_getAB(p,ui,vi,uj,vj);
+   return (ab.v2*(1.0 - pow(uk,p)/ab.v1) >= pow(vk,p));
 }
 
 
 /** Function to compute the l_p-index
- * 
+ *
  *  @param x numeric
  *  @param p numeric, >=1, length 1
  *  @param  numeric vector of length 2
@@ -310,21 +310,21 @@ SEXP index_lp(SEXP x, SEXP p)
    double p_val = REAL(p)[0];
    if (ISNA(p_val) || p_val < 1)
       Rf_error("`p` should be >= 1");
-      
+
    x = prepare_arg_numeric_sorted_dec(x, "x");
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
-   
+
    double* xd = REAL(x);
    if (ISNA(xd[0]))
       return (double2(NA_REAL, NA_REAL).toR());
-      
+
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-   
+
    if (xd[1] <= 0.0)
       return (double2(0.0, 0.0).toR());
-   
+
    if (!R_FINITE(p_val))
    {
       // this is OWMax for w=1,2,3,....
@@ -333,7 +333,7 @@ SEXP index_lp(SEXP x, SEXP p)
       for (R_len_t i=0; i<n; ++i) {
          if (max_prod < (double)(i+1)*xd[i]) {
             max_prod = (double)(i+1)*xd[i];
-            ab.v1 = (double)(i+1);  
+            ab.v1 = (double)(i+1);
             ab.v2 = xd[i];
          }
       }
@@ -342,8 +342,8 @@ SEXP index_lp(SEXP x, SEXP p)
    else {
       if (p_val > 50)
          Rf_warning("p is large but finite. possible accuracy problems.");
-      
-      
+
+
 // * Function to compute the l_p-index, O(n) time, p<Inf
 // *  The procedure bases on Graham's scan for determining the convex hull
 // *  of a planar set, see (Gagolewski,Debski,Nowakiewicz,2009b).
@@ -353,15 +353,15 @@ SEXP index_lp(SEXP x, SEXP p)
       R_len_t i = 0;
       while (i<n && xd[i] >= xd[0]) ++i;
       stack.push_back(double2((double)i, xd[i]));
-      
+
       for (++i; i<=n; ++i)
       {
    		double vi = (i<n)?xd[i]:0.0;
    		if (vi >= stack.back().v2) continue;
-   
+
    		while (stack.size()>=2 && __index_lp_finite_testContains(
                stack.at(stack.size()-2).v1, stack.at(stack.size()-2).v2,
-               p_val, 
+               p_val,
                stack.back().v1, stack.back().v2,
                (double)i, vi))
          {
@@ -369,22 +369,21 @@ SEXP index_lp(SEXP x, SEXP p)
          }
          stack.push_back(double2((double)i, vi));
    	}
-      
+
       /*  now, selectMaxPair()  */
    	double2 ab = __index_lp_finite_getAB(p_val,
          stack.at(0).v1, stack.at(0).v2,
          stack.at(1).v1, stack.at(1).v2);
    	for (i=1; i<(R_len_t)stack.size()-1; ++i)
    	{
-   		double2 ab2 = __index_lp_finite_getAB(p_val, 
+   		double2 ab2 = __index_lp_finite_getAB(p_val,
             stack.at(i).v1, stack.at(i).v2,
             stack.at(i+1).v1, stack.at(i+1).v2);
-   
+
    		if (ab.v1*ab.v2 < ab2.v1*ab2.v2)
             ab = ab2;
    	}
-   
+
       return double2(pow(ab.v1, 1.0/p_val), pow(ab.v2, 1.0/p_val)).toR();
    }
 }
-

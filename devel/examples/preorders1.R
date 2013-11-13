@@ -21,7 +21,7 @@ is_total(ord)      # not a total preorder...
 
 hasse <- graph.adjacency(de_transitive(ord))
 set.seed(1234567) # igraph's draving facilities are far from perfect
-plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2)) 
+plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 
 
 ord_total <- closure_transitive(closure_total_fair(ord)) # a total preorder

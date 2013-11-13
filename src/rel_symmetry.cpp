@@ -25,10 +25,10 @@
 
 
 /** Check if a binary relation is symmetric
- * 
+ *
  * @param x square logical matrix
  * @return logical scalar
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_is_symmetric(SEXP x)
@@ -37,7 +37,7 @@ SEXP rel_is_symmetric(SEXP x)
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
-   
+
    // no need to check the diagonal
    for (R_len_t i=0; i<n-1; ++i) {
       for (R_len_t j=i+1; j<n; ++j) {
@@ -53,10 +53,10 @@ SEXP rel_is_symmetric(SEXP x)
 
 
 /** Get the symmetric closure of a binary relation
- * 
+ *
  * @param x square logical matrix
  * @return square logical matrix
- * 
+ *
  * @version 0.2 (Marek Gagolewski)
  */
 SEXP rel_closure_symmetric(SEXP x)
@@ -76,7 +76,7 @@ SEXP rel_closure_symmetric(SEXP x)
          Rf_error(MSG__ARG_EXPECTED_NOT_NA, "R"); // missing values are not allowed
       yp[i] = xp[i];
    }
-   
+
    for (R_len_t i=0; i<n-1; ++i) {
       for (R_len_t j=i+1; j<n; ++j) {
          if (yp[i+n*j] && !yp[j+n*i])
@@ -85,7 +85,6 @@ SEXP rel_closure_symmetric(SEXP x)
             yp[i+n*j] = TRUE;
       }
    }
-   
+
    return y;
 }
-

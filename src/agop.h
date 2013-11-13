@@ -102,10 +102,10 @@ using namespace std;
 
 #define MSG__DIM_LENGTH \
    "incorent number of dimensions in %s"
-   
+
 #define MSG__DIM_NOTEQUAL \
    "dimensions in %s should be equal"
-   
+
 
 struct double2 {
    double v1;

@@ -70,36 +70,36 @@ invisible(NULL)
 # 	alternative <- match.arg(alternative);
 # 	DNAME <- deparse(substitute(x));
 # 	DNAME <- paste(DNAME, "and", deparse(substitute(y)));
-# 
+#
 # 	if (mode(s) != "numeric" || length(s) != 1 || s <= 0) stop("'s' should be > 0");
-# 
+#
 # 	if (mode(x) != "numeric" || mode(y) != "numeric") stop("non-numeric data given");
-# 
+#
 # 	x <- x[!is.na(x)];
 # 	n <- length(x);
 # 	if (n < 1L || any(x<0)) stop("incorrect 'x' data");
-# 
+#
 # 	y <- y[!is.na(y)];
 # 	if (length(y) < 1L || any(y<0)) stop("incorrect 'y' data");
-# 
+#
 # 	if (length(y) != n) stop("non-equal-sized vectors given on input");
-# 
-# 
-# 
+#
+#
+#
 # 	METHOD <- "Two-sample asymptotic h-test for equality of shape parameters for Type II-Pareto distributions with known common scale parameter";
-# 
+#
 # 	nm_alternative <- switch(alternative, two.sided = "two-sided",
 # 			less = "kx < ky",
 # 			greater = "kx > ky");
-# 
-# 
+#
+#
 # 	# -----------------------------------------------------------------------
-# 
+#
 # 	HYn <- index.h(y,disable.check=TRUE)/n;
 # 	HXn <- index.h(x,disable.check=TRUE)/n;
-# 
+#
 # 	kappa    <- function(x) { pmax(0,pmin(1,x))*n; }
-# 
+#
 # # 	if (HXn < 1e-9)
 # # 	{
 # # 		gprimex <- 0.0;
@@ -110,7 +110,7 @@ invisible(NULL)
 # 				}, c(1e-15,1e15), s, HXn, kappa, tol=1e-20)$root;
 # 		gprimex <- dpareto2(HXn*n,kx,s)*n;
 # # 	}
-# 
+#
 # # 	if (HYn < 1e-9)
 # # 	{
 # # 		gprimey <- 0.0;
@@ -121,39 +121,39 @@ invisible(NULL)
 # 				}, c(1e-15,1e15), s, HYn, kappa, tol=1e-20)$root;
 # 		gprimey <- dpareto2(HYn*n,ky,s)*n;
 # # 	}
-# 
+#
 # 	sigmax2 <- HXn*(1-HXn)/n/(1+gprimex)^2;
 # 	sigmay2 <- HYn*(1-HYn)/n/(1+gprimey)^2;
-# 
-# 
+#
+#
 # 	STATISTIC <- (HYn-HXn)/sqrt(sigmax2+sigmay2);
-# 
+#
 # 	names(STATISTIC) <- "T";
-# 
+#
 # 	# -----------------------------------------------------------------------
-# 
+#
 # 	if (!is.null(significance))
 # 	{
 # 		if (length(significance) != 1 || significance <= 0 || significance >=1)
 # 			stop("incorrect 'significance'");
-# 
+#
 # 		if (significance > 0.2) warning("'significance' is possibly incorrect");
-# 
+#
 # 		RESULT <- ifelse(alternative == "two.sided", (STATISTIC<qnorm(significance*0.5) || STATISTIC>qnorm(1-significance*0.5)),
 # 		          ifelse(alternative == "greater",    STATISTIC>qnorm(1-significance),
 # 		                                              STATISTIC<qnorm(significance)));
-# 
+#
 # 		RVAL <- list(statistic = STATISTIC, result = RESULT, alternative = nm_alternative,
 # 			method = METHOD, data.name = DNAME);
 # 		class(RVAL) <- "power.htest";
 # 		return(RVAL);
 # 	} else {
-# 
+#
 # 		PVAL <- ifelse(alternative == "two.sided", (0.5-abs(pnorm(STATISTIC)-0.5))*2,
 # 		        ifelse(alternative == "greater",   1-pnorm(STATISTIC),
 # 		                                             pnorm(STATISTIC)));
-# 
-# 
+#
+#
 # 		RVAL <- list(statistic = STATISTIC, p.value = PVAL, alternative = nm_alternative,
 # 			method = METHOD, data.name = DNAME);
 # 		class(RVAL) <- "htest";
