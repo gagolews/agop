@@ -61,6 +61,9 @@ using namespace std;
 #define MSG__ARG_NOT_GE_A \
    "all elements in `%s` should be not less than %g"
 
+#define MSG__ARG_NOT_GT_A \
+   "all elements in `%s` should be greater than %g"
+
 #define MSG__ARG_NOT_LE_B \
    "all elements in `%s` should be not greater than %g"
 

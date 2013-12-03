@@ -47,9 +47,9 @@
  */
 SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
 {
-   q = prepare_arg_numeric(q, "q");
-   k = prepare_arg_numeric(k, "k");
-   s = prepare_arg_numeric(s, "s");
+   q = prepare_arg_double(q, "q");
+   k = prepare_arg_double(k, "k");
+   s = prepare_arg_double(s, "s");
    lower_tail = prepare_arg_logical_1(lower_tail, "lower.tail");
    
    R_len_t nq = LENGTH(q);
@@ -69,37 +69,73 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
    if (n%nk != 0) Rf_warning(MSG__WARN_RECYCLE);
    if (n%ns != 0) Rf_warning(MSG__WARN_RECYCLE);
    
-   SEXP ret;
-   PROTECT(ret = Rf_allocVector(REALSXP, n));
-   double* pret = REAL(ret);
+
 
    if (nk == 1 && ns == 1) { // the most typical case
-      bool vs = ps[0];
-      bool vk = pk[0];
+      double vs = ps[0];
+      double vk = pk[0];
+      if (ISNA(vs) || ISNA(vk))
+         return vector_NA_double(n);
+         
+      if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+      if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+      
+      SEXP ret;
+      PROTECT(ret = Rf_allocVector(REALSXP, n));
+      double* pret = REAL(ret);
       if ((bool)ptail[0]) {
          for (R_len_t i=0; i<n; i++) {
-            pret[i] = (pq[i]>0)?(1.0-pow(vs/(vs+pq[i]), vk)):(0.0);
+            pret[i] = (ISNA(pq[i]))?NA_REAL:
+               ((pq[i]>0)
+               ?(1.0-pow(vs/(vs+pq[i]), vk))
+               :(0.0));
          }
       }
       else {
          for (R_len_t i=0; i<n; i++) {
-            pret[i] = (pq[i])?(pow(vs/(vs+pq[i]), vk)):(1.0);
+            pret[i] = (ISNA(pq[i]))?NA_REAL:
+               ((pq[i])
+               ?(pow(vs/(vs+pq[i]), vk))
+               :(1.0));
          }
       }
+      
+      UNPROTECT(1);
+      return ret;
    }
    else {
+      SEXP ret;
+      PROTECT(ret = Rf_allocVector(REALSXP, n));
+      double* pret = REAL(ret);
+   
       if ((bool)ptail[0]) {
          for (R_len_t i=0; i<n; i++) {
-            pret[i] = (pq[i%nq]>0)?(1.0-pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk])):(0.0);
+            if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+            if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               
+            pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
+               ((pq[i%nq]>0)
+               ?(1.0-pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk]))
+               :(0.0));
          }
       }
       else {
          for (R_len_t i=0; i<n; i++) {
-            pret[i] = (pq[i%nq])?(pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk])):(1.0);
+            if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+            if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               
+            pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
+               ((pq[i%nq])
+               ?(pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk]))
+               :(1.0));
          }
       }
+      
+      UNPROTECT(1);
+      return ret;
    }
-
-   UNPROTECT(1);
-   return ret;
 }

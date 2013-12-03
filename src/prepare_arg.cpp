@@ -76,7 +76,6 @@ SEXP prepare_arg_numeric(SEXP x, const char* argname)
 }
 
 
-
 /** internal comparer */
 bool __comparer_greater(double i, double j) { return (i>j); }
 
