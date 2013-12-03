@@ -77,6 +77,7 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(rel_closure_symmetric,      1),
 
    MAKE_CALL_METHOD(exp_test_statistic,         1),
+   MAKE_CALL_METHOD(ppareto2,                   4),
 
    // the list must be NULL-terminated:
    {NULL,                           NULL,                  0}

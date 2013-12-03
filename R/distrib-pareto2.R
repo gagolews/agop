@@ -62,23 +62,12 @@ rpareto2 <- function(n, k=1, s=1)
    s*((runif(n)^(-1.0/k)) - 1.0)
 }
 
-
-
 #' @export
 #' @rdname Pareto2
 ppareto2 <- function(q, k=1, s=1, lower.tail=TRUE)
 {
-   stopifnot(is.numeric(k), k > 0)
-   stopifnot(is.numeric(s), s > 0)
-   stopifnot(is.numeric(q))
-   ret <- ifelse(q<0, 0, (1-(s/(s+q))^k))
-   if (identical(lower.tail[1], FALSE))
-      ret <- 1-ret
-   else
-      ret
+   .Call("ppareto2", q, k, s, lower.tail, PACKAGE="agop") # args checked internally
 }
-
-
 
 #' @export
 #' @rdname Pareto2

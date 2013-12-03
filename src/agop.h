@@ -49,6 +49,9 @@ using namespace std;
 
 #define EPS sqrt(DBL_EPSILON)
 
+#define MSG__WARN_RECYCLE \
+   "longer object length is not a multiple of shorter object length"
+
 #define MSG__ARGS_EXPECTED_EQUAL_SIZE \
    "`%s` and `%s` should be of equal lengths"
 
@@ -181,7 +184,7 @@ SEXP rel_reduction_transitive(SEXP x);
 
 
 SEXP exp_test_statistic(SEXP x);
-
+SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
 
 
 #endif
