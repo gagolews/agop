@@ -49,6 +49,8 @@
 
 * all built-in agops now throw an error on empty vectors.
 
+* moved testthat tests to tests/ and vignettes to vignettes/ directory.
+
 * ...TO DO...
 
 ***************************************************************************
