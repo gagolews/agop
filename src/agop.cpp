@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013 Marek Gagolewski, Anna Cena                              *                                                                   *
+ *   Copyright 2013-2014 Marek Gagolewski, Anna Cena                         *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *

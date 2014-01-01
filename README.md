@@ -2,7 +2,6 @@
 
 ### Aggregation Operators Package for *R*
 
-
 > "The process of combining several numerical values into a single 
 representative one is called aggregation, and the numerical function 
  performing this process is called aggregation function. 
@@ -18,11 +17,33 @@ has reminded underground till only recent (...).
 **agop** is an open source (LGPL 3) package for R, to which anyone can contribute.
 It started as a fork of the **[CITAN](http://gagolewski.rexamine.com/resources/)** package.
 
-**Authors**: [Marek Gagolewski](http://gagolewski.rexamine.com/),
-with contributions from [Anna Cena](http://cena.rexamine.com/)
+* * *
 
 **Homepage**: http://agop.rexamine.com/
 
-**CRAN Record**: http://cran.r-project.org/web/packages/agop/
+Package record on **CRAN**: http://cran.r-project.org/web/packages/agop/
 
-**System requirements**: *R >= 2.12.0*
+**Tutorial**: https://github.com/Rexamine/agop/raw/master/devel/tutorial/agop-Tutorial_current.pdf
+
+**On-line manual**: http://docs.rexamine.com/R-man/agop/agop-package.html
+
+* * *
+
+**Authors**: [Marek Gagolewski](http://gagolewski.rexamine.com/),
+with contributions from [Anna Cena](http://cena.rexamine.com/)
+
+To **cite** package **agop** in publications please use:
+
+> "Gagolewski M., Cena A. (2014). *agop: Aggregation Operators and Preordered Sets in R*.  
+http://agop.rexamine.com/."
+
+A BibTeX entry for LaTeX users is:
+
+```
+@Manual{agopPkgR,
+   title = {agop: Aggregation Operators and Preordered Sets in R},
+   author = {Marek Gagolewski and Anna Cena},
+   year = {2014},
+   url = {http://agop.rexamine.com/}
+}
+```

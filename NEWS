@@ -50,7 +50,7 @@
 * all built-in agops now throw an error on empty vectors.
 
 * moved testthat tests and vignettes to the agop github repository
-      devel/ dir.
+      devel/ dir; `testthat` Suggest-type dependency removed.
 
 * ...TO DO...
 

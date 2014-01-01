@@ -1,9 +1,9 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013 Marek Gagolewski, Anna Cena                              *
+ *   Copyright 2013-2014 Marek Gagolewski, Anna Cena                         *
  *                                                                           *
- *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *                                                                       *
+ *   Parts of the code are taken from the 'CITAN' R package by M. Gagolewski *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *
@@ -51,7 +51,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
    k = prepare_arg_double(k, "k");
    s = prepare_arg_double(s, "s");
    lower_tail = prepare_arg_logical_1(lower_tail, "lower.tail");
-   
+
    R_len_t nq = LENGTH(q);
    R_len_t nk = LENGTH(k);
    R_len_t ns = LENGTH(s);
@@ -60,7 +60,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
    int*    ptail = INTEGER(lower_tail);
    if (ptail[0] == NA_LOGICAL)
       Rf_error(MSG__ARG_EXPECTED_NOT_NA, "lower.tail");
-   
+
    double* pq = REAL(q);
    double* pk = REAL(k);
    double* ps = REAL(s);
@@ -68,7 +68,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
    if (n%nq != 0) Rf_warning(MSG__WARN_RECYCLE);
    if (n%nk != 0) Rf_warning(MSG__WARN_RECYCLE);
    if (n%ns != 0) Rf_warning(MSG__WARN_RECYCLE);
-   
+
 
 
    if (nk == 1 && ns == 1) { // the most typical case
@@ -76,10 +76,10 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       double vk = pk[0];
       if (ISNA(vs) || ISNA(vk))
          return vector_NA_double(n);
-         
+
       if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
       if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
-      
+
       SEXP ret;
       PROTECT(ret = Rf_allocVector(REALSXP, n));
       double* pret = REAL(ret);
@@ -99,7 +99,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
                :(1.0));
          }
       }
-      
+
       UNPROTECT(1);
       return ret;
    }
@@ -107,14 +107,14 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       SEXP ret;
       PROTECT(ret = Rf_allocVector(REALSXP, n));
       double* pret = REAL(ret);
-   
+
       if ((bool)ptail[0]) {
          for (R_len_t i=0; i<n; i++) {
             if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
                Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
                Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
-               
+
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq]>0)
                ?(1.0-pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk]))
@@ -127,14 +127,14 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
                Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
                Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
-               
+
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq])
                ?(pow(ps[i%ns]/(ps[i%ns]+pq[i%nq]), pk[i%nk]))
                :(1.0));
          }
       }
-      
+
       UNPROTECT(1);
       return ret;
    }

@@ -12,15 +12,12 @@ ByteCompile: TRUE
 Type: Package
 Depends:
     R (>= 2.12.0),
-    base,
     stats,
     grDevices,
     graphics,
     Matrix,
     igraph
 License: LGPL (>= 3)
-Suggests:
-    testthat
 Authors@R: c(
     person("Marek", "Gagolewski", role = c("aut", "cre"),
     email = "gagolews@rexamine.com"),
