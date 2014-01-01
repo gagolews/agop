@@ -3,10 +3,10 @@ citHeader("To cite package 'agop' in publications use:")
 citEntry(entry = "Manual",
   title = "agop: Aggregation Operators and Preordered Sets in R",
   author = personList(as.person("Marek Gagolewski"), as.person("Anna Cena")),
-  year = "2013",
+  year = "2014",
   url = "http://agop.rexamine.com/",
   textVersion =
-  paste("Gagolewski M., Cena A. (2013).",
+  paste("Gagolewski M., Cena A. (2014).",
         "agop: Aggregation Operators and Preordered Sets in R.",
         "http://agop.rexamine.com/.")
 )

@@ -30,7 +30,7 @@ agop.Rproj
 *.idx
 *.ilg
 *.ind
-devel/vignette-Tutorial/agop-Tutorial.tex
-devel/vignette-Tutorial/agop-Tutorial.pdf
+devel/tutorial/src/agop-Tutorial.tex
+devel/tutorial/src/agop-Tutorial.pdf
 cache-knitr
 figures-knitr
