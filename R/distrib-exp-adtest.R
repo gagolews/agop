@@ -21,7 +21,7 @@
 #' @description
 #' Performs an approximate Anderson-Darling goodness-of-fit
 #' test, which verifies the null hypothesis:
-#' Data follows an exponential distribution.
+#' Data follow an exponential distribution.
 #'
 #' @details
 #' Sample size should not be smaller than 3. Missing values
