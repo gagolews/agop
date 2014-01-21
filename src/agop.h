@@ -165,6 +165,8 @@ SEXP pord_weakdom(SEXP x, SEXP y);
 SEXP pord_spread(SEXP x, SEXP y);
 SEXP pord_spreadsym(SEXP x, SEXP y);
 
+SEXP rel_is_cyclic(SEXP x);
+
 SEXP rel_is_irreflexive(SEXP x);
 
 SEXP rel_is_asymmetric(SEXP x);

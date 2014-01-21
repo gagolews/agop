@@ -56,6 +56,8 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(pord_spread,                2),
    MAKE_CALL_METHOD(pord_spreadsym,             2),
 
+   MAKE_CALL_METHOD(rel_is_cyclic,              1),
+
    MAKE_CALL_METHOD(rel_is_irreflexive,         1),
 
    MAKE_CALL_METHOD(rel_is_asymmetric,          1),

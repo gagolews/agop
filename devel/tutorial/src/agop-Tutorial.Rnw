@@ -1018,6 +1018,7 @@ Antisymmetry & $(\forall i,j)$ $v_i R v_j$ and $v_j R v_i$ $\Rightarrow$ $i=j$ &
 Asymmetry    & $(\forall i,j)$ $v_i R v_j \Rightarrow \neg v_j R v_i$ & \index{\Rfunc{rel\_is\_asymmetric()}}\Rfunc{rel\_is\_asymmetric()} \\
 Totality     & $(\forall i,j)$ $v_i R v_j\text{ or }v_j R v_i$ & \index{\Rfunc{rel\_is\_total()}}\Rfunc{rel\_is\_total()} \\
 Transitivity & $(\forall i,j,k)$ $v_i R v_i\text{ and }v_j R v_k \Rightarrow v_i R v_k$ & \index{\Rfunc{rel\_is\_transitive()}}\Rfunc{rel\_is\_transitive()} \\
+Cyclicity    & transitive closure of $R$ is not antisymmetric & \index{\Rfunc{rel\_is\_cyclic()}}\Rfunc{rel\_is\_cyclic()} \\
 \hline
 \end{tabular}
 \end{table}
