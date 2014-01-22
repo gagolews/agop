@@ -102,10 +102,36 @@ SEXP rel_closure_transitive(SEXP x)
  */
 SEXP rel_reduction_transitive(SEXP x)
 {
-   SEXP y = rel_closure_transitive(x);
-   // is logical matrix, dimnames are preserved, we may overwrite its elements
+   SEXP cyc = rel_is_cyclic(x);
+   if (LOGICAL(cyc)[0] != false)
+      Rf_error(MSG__EXPECTED_ACYCLIC, "R");
+      
+   x = rel_closure_transitive(x);
+   // is logical matrix, dimnames are preserved, no NAs, we may overwrite its elements
 
-   Rf_error("TO DO");
+   SEXP dim = Rf_getAttrib(x, R_DimSymbol);
+   R_len_t n = INTEGER(dim)[0];
+   int* xp = INTEGER(x);
+   
+   SEXP y = Rf_allocVector(LGLSXP, n*n);
+   int* yp = INTEGER(y);
+   Rf_setAttrib(y, R_DimSymbol, dim);
+   Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
+   
+   for (R_len_t i=0; i<n; ++i) {
+      for (R_len_t j=0; j<n; ++j) {
+         yp[i+n*j] = xp[i+n*j];
+         if (xp[i+n*j] && i != j) {
+            // determine whether i -> j may be removed
+            for (R_len_t k=0; k<n; ++k) {
+               if (i != k && k != j && xp[i+n*k] && xp[k+n*j]) {
+                  yp[i+n*j] = 0;
+                  break;
+               }
+            }
+         }
+      }
+   }
 
    return y;
 }

@@ -1050,12 +1050,13 @@ $R$, i.e.~the minimal transitive $R'\supseteq R$,
 we call \package{agop}'s
 \index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
 function.
-
-......................
-\emph{transitive reduction}, see \cite{AhoGareyUllman1972:transitivereduction},
-TO DO: \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
--- it is particularly useful when drawing Hasse diagrams of preoredered sets.
-......................
+On the other hand,
+the \emph{transitive reduction} of $R$, see \cite{AhoGareyUllman1972:transitivereduction}
+and the \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
+function, is the minimal $R'\subseteq R$ such that the transitive closures
+of $R$ and $R'$ are equal.
+A transitive reduction is particularly useful when drawing Hasse
+diagrams of preoredered sets.
 
 To determine the \emph{reflexive closure},
 i.e.~the minimal reflexive $R'\supseteq R$
@@ -1084,8 +1085,8 @@ is available via a call to
 \index{\Rfunc{rel\_closure\_symmetric()}}\Rfunc{rel\_closure\_symmetric()}.
 %%% TO DO: rel_reduction_symmetric -- ?
 
-\paragraph{Operations on relations}
-TO DO (union, intersect, diff, composition)
+% \paragraph{Operations on relations}
+% TO DO (union, intersect, diff, composition)
 
 \subsection{Weak Dominance Relation (for PAP)}
 
@@ -1240,19 +1241,20 @@ print(incomp) # all incomparable pairs
 lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
-To draw the Hasse diagram, it will be good to base on transitive reduction of
-the graph (for \ae{}sthetic reasons).
+To draw the Hasse diagram, we base on transitive and
+reflexive reduction of the graph.
 \index{\Rfunc{rel\_reduction\_transitive()}}
+\index{\Rfunc{rel\_reduction\_reflexive()}}
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
-hasse <- graph.adjacency(rel_reduction_transitive(ord))
-set.seed(1234567) # igraph's draving facilities are far from perfect
+hasse <- graph.adjacency(rel_reduction_reflexive(rel_reduction_transitive(ord)))
+set.seed(1234567) # igraph's drawing facilities are far from perfect
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 $(\{A, B, C, L, U\}, \trianglelefteq)$ is not totally ordered,
-let's determine the \emph{fair total closure} of $\trianglelefteq$
+let us determine the \emph{fair total closure} of $\trianglelefteq$
 (set $x\trianglelefteq'' y$
 and $y\trianglelefteq'' x$ whenever $\neg (x\trianglelefteq y\text{ or }
 y\trianglelefteq x)$, see \cite{Gagolewski2013:fair}
@@ -1265,23 +1267,23 @@ as the resulting matrix may not necessarily be transitive.%
 <<ex1D,dependson='ex1C'>>=
 ord_total <- rel_closure_transitive(rel_closure_total_fair(ord)) # a total preorder
 print(ord_total)
-hasse <- graph.adjacency(rel_reduction_transitive(ord_total))
-set.seed(1234)
-plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
+# hasse <- graph.adjacency(rel_reduction_transitive(ord_total))
+# set.seed(1234)
+# plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 Note that each total preorder $\trianglelefteq''$ induces an
 equivalence relation ($x\simeq y$ iff $x\trianglelefteq''y$ and $y\trianglelefteq''x$;
 the equivalence classes may be ordered with $\trianglelefteq''$).
-These may be explored with the
-\index{\Rfunc{get\_equivalence\_classes()}}\Rfunc{get\_equivalence\_classes()}
-function.
-
-<<ex1E,dependson='ex1D'>>=
-sapply(get_equivalence_classes(ord_total), function(set) rownames(ord)[set])
-@
-
-Thus, we've obtained $L \prec (A \simeq B \simeq C) \prec U$.
+% These may be explored with the
+% \index{\Rfunc{get\_equivalence\_classes()}}\Rfunc{get\_equivalence\_classes()}
+% function.
+%
+% <<ex1E,dependson='ex1D'>>=
+% sapply(get_equivalence_classes(ord_total), function(set) rownames(ord)[set])
+% @
+%
+% Thus, we have obtained $L \prec (A \simeq B \simeq C) \prec U$.
 
 
 

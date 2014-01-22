@@ -112,6 +112,8 @@ using namespace std;
 #define MSG__DIM_NOTEQUAL \
    "dimensions in %s should be equal"
 
+#define MSG__EXPECTED_ACYCLIC \
+   "%s should be acyclic"
 
 struct double2 {
    double v1;

@@ -40,13 +40,16 @@
 #' which runs in \eqn{O(n^3)} time.
 #'
 #' The \emph{transitive reduction},
-#' see (Aho et al. 1972), of a binary relation \eqn{R},
+#' see (Aho et al. 1972), of an acyclic binary relation \eqn{R},
 #' determined by \code{rel_reduction_transitive},
 #' is a minimal unique subset \eqn{R'} of \eqn{R},
 #' such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
-#' ** TO DO **
 #' This function is particularly useful for draving Hasse diagrams
-#' of a (pre)ordered set, see Examples.
+#' of (pre)ordered sets, see Examples.
+#' The algorithm implemented runs in \eqn{O(n^3)} time.
+#' Note that a transitive reduction of a reflexive relation
+#' is also reflexive.
+#' 
 #'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.
@@ -98,20 +101,4 @@ rel_closure_transitive <- function(R)
 rel_reduction_transitive <- function(R)
 {
    .Call("rel_reduction_transitive", as.matrix(R), PACKAGE="agop") # args checked internally
-#    if (is(B, 'igraph')) B <- get.adjacency(B)
-#    stopifnot(is.matrix(B) || is(B, 'Matrix'), nrow(B) == ncol(B), nrow(B) > 0)
-#
-#    # slow as hell!
-#    n <- nrow(B)
-#    Matrix::diag(B) <- 0
-#    for (i in 1:n) {
-#       for (j in 1:n) {
-#          for (k in 1:n) {
-#             if (as.logical(B[i,j]) &&  as.logical(B[j,k]) && as.logical(B[i,k])
-#                && !as.logical(B[k,i]) && !as.logical(B[k,j]) && !as.logical(B[j,i]))
-#                B[i,k] <- 0
-#          }
-#       }
-#    }
-#    B
 }
