@@ -189,6 +189,7 @@ SEXP rel_is_transitive(SEXP x);
 SEXP rel_closure_transitive(SEXP x);
 SEXP rel_reduction_transitive(SEXP x);
 
+SEXP rel_reduction_hasse(SEXP x);
 
 SEXP exp_test_statistic(SEXP x);
 SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);

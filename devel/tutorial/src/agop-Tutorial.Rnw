@@ -1043,21 +1043,6 @@ equivalence relation & symmetric, reflexive, transitive \\%($\Rightarrow$ preord
 \end{table}
 
 \paragraph{Reductions and closures}
-To find the \emph{transitive closure},
-cf.~\cite{Warshall1962:transitiveclosure},
-of a given binary relation
-$R$, i.e.~the minimal transitive $R'\supseteq R$,
-we call \package{agop}'s
-\index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
-function.
-On the other hand,
-the \emph{transitive reduction} of $R$, see \cite{AhoGareyUllman1972:transitivereduction}
-and the \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
-function, is the minimal $R'\subseteq R$ such that the transitive closures
-of $R$ and $R'$ are equal.
-A transitive reduction is particularly useful when drawing Hasse
-diagrams of preoredered sets.
-
 To determine the \emph{reflexive closure},
 i.e.~the minimal reflexive $R'\supseteq R$
 call \index{\Rfunc{rel\_closure\_reflexive()}}\Rfunc{rel\_closure\_ref\-lexive()}.
@@ -1069,7 +1054,26 @@ the reflexive closures of $R'$  and $R$ are equal.
 In other words, $R'$ is the largest irreflexive relation
 contained in $R$.
 
-In general, a total closure and total reduction is not well-defined.
+To find the \emph{transitive closure},
+cf.~\cite{Warshall1962:transitiveclosure},
+of a given binary relation
+$R$, i.e.~the minimal transitive $R'\supseteq R$,
+we call \package{agop}'s
+\index{\Rfunc{rel\_closure\_transitive()}}\Rfunc{rel\_closure\_transitive()}
+function.
+On the other hand,
+the \emph{transitive reduction} of acyclic $R$, see \cite{AhoGareyUllman1972:transitivereduction}
+and the \index{\Rfunc{rel\_reduction\_transitive()}}\Rfunc{rel\_reduction\_transitive()}
+function, is the minimal $R'\subseteq R$ such that the transitive closures
+of $R$ and $R'$ are equal.
+
+A mixture of the reflexive reduction and some kind of transitive reduction,
+particularly useful when drawing Hasse diagrams of preoredered sets
+(which may not necessarily be represented by an acyclic relation $R$)
+may be determined with
+\index{\Rfunc{rel\_reduction\_hasse()}}\Rfunc{rel\_reduction\_hasse()}.
+
+In general, a total closure and a total reduction are not well-defined.
 However, when dealing with preorders, the following notion
 may be useful, see \cite{Gagolewski2013:fair}.
 To determine the so-called
@@ -1241,14 +1245,14 @@ print(incomp) # all incomparable pairs
 lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
-To draw the Hasse diagram, we base on transitive and
-reflexive reduction of the graph.
-\index{\Rfunc{rel\_reduction\_transitive()}}
-\index{\Rfunc{rel\_reduction\_reflexive()}}
+To draw the Hasse diagram, we base on the reflexive and
+a kind of transitive reduction of the graph,
+which is determined with
+\index{\Rfunc{rel\_reduction\_hasse()}}\Rfunc{rel\_reduction\_hasse()}.
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
-hasse <- graph.adjacency(rel_reduction_reflexive(rel_reduction_transitive(ord)))
+hasse <- graph.adjacency(rel_reduction_hasse(ord))
 set.seed(1234567) # igraph's drawing facilities are far from perfect
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
@@ -1267,9 +1271,9 @@ as the resulting matrix may not necessarily be transitive.%
 <<ex1D,dependson='ex1C'>>=
 ord_total <- rel_closure_transitive(rel_closure_total_fair(ord)) # a total preorder
 print(ord_total)
-# hasse <- graph.adjacency(rel_reduction_transitive(ord_total))
-# set.seed(1234)
-# plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
+hasse <- graph.adjacency(rel_reduction_hasse(ord_total))
+set.seed(123)
+plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
 Note that each total preorder $\trianglelefteq''$ induces an

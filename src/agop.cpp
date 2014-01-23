@@ -67,6 +67,8 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(rel_is_transitive,          1),
    MAKE_CALL_METHOD(rel_closure_transitive,     1),
    MAKE_CALL_METHOD(rel_reduction_transitive,   1),
+   
+   MAKE_CALL_METHOD(rel_reduction_hasse,        1),
 
    MAKE_CALL_METHOD(rel_is_reflexive,           1),
    MAKE_CALL_METHOD(rel_closure_reflexive,      1),

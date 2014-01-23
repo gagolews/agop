@@ -44,11 +44,12 @@
 #' determined by \code{rel_reduction_transitive},
 #' is a minimal unique subset \eqn{R'} of \eqn{R},
 #' such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
-#' This function is particularly useful for draving Hasse diagrams
-#' of (pre)ordered sets, see Examples.
 #' The algorithm implemented runs in \eqn{O(n^3)} time.
 #' Note that a transitive reduction of a reflexive relation
-#' is also reflexive.
+#' is also reflexive. Moreover, some kind of transitive reduction
+#' (not necessarily minimal) is also determined in 
+#' \code{\link{rel_reduction_hasse}} -- it is useful for
+#' drawing Hasse diagrams.
 #' 
 #'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
@@ -69,15 +70,6 @@
 #'
 #' Warshall S., A theorem on Boolean matrices,
 #' \emph{Journal of the ACM} 9(1), 1962, pp. 11-12.
-#'
-#' @examples
-#' \dontrun{
-#' # Let ord be a total preorder (a total and transitive binary relation)
-#' # === Plot the Hasse diagram of ord ===
-#' # ===  requires the igraph package  ===
-#' hasse <- graph.adjacency(rel_reduction_transitive(ord))
-#' plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
-#' }
 #'
 #' @family binary_relations
 #' @rdname rel_transitive
