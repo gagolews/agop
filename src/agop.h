@@ -23,8 +23,9 @@
 #ifndef __agop_h
 #define __agop_h
 
-// #define NDEBUG
-
+#ifndef NDEBUG
+#define NDEBUG
+#endif
 
 #include <iostream>
 #include <algorithm>

@@ -1631,7 +1631,8 @@ $n$ most cited papers have at least $H$ citations each, and the other $n-H$
 papers are cited no more that $H$ times each''.
 The $h$-index may also be expressed as a Sugeno
 integral \cite{Sugeno1974:PhD}
-w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}.
+w.r.t.~to a counting measure, cf.~\cite{TorraNarukawa2008:h2fuzzyintegrals}
+and \cite{GagolewskiMesiar2014:integrals}.
 
 \smallskip
 \noindent
@@ -1683,7 +1684,7 @@ it may be calculated on the nondecreasing vector of cumulative sums,
 however, it cannot directly
 be expressed as a symmetric maxitive aggregation operator.
 
-However, it might be shown (see \cite{GagolewskiMesiarXXXX:integrals}
+However, it might be shown (see \cite{GagolewskiMesiar2014:integrals}
 for the proof) that  if $\vect{x}$ is sorted
 nondecreasingly, then:
 \[
@@ -1700,7 +1701,7 @@ is  defined as
 and is available in \package{agop} by calling
 \index{\Rfunc{index\_w()}}\Rfunc{index\_w()}.
 
-Interestingly, we have shown in \cite{GagolewskiMesiarXXXX:integrals}
+Interestingly, we have shown in \cite{GagolewskiMesiar2014:integrals}
 that if $\vect{x}$ is sorted nondecreasingly, then:
 \[
 \func{W}(\vect{x}) = \func{H}(\vect{x})(\mathtt{cummin}(\vect{x}+(1:n)-1)).
@@ -1747,7 +1748,7 @@ is another example of zero-insensitive impact function.
 Interestingly, this index is a particular case of a projected $l_\infty$-index,
 see~\cite{GagolewskiGrzegorzewski2009:geometricapproach}, and can be also expressed
 in terms of Shilkret integral \cite{Shilkret1971:maxitivemeasure},
-see \cite{GagolewskiMesiarXXXX:integrals} for discussion.
+see \cite{GagolewskiMesiar2014:integrals} for discussion.
 
 In \package{agop} the MAXPROD-index is implemented
 in the \index{\Rfunc{index\_maxprod()}}\Rfunc{index\_maxprod()} function.
@@ -2354,7 +2355,7 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 \section{NEWS/CHANGELOG}
 
 <<NEWSread,comment="",echo=FALSE,cache=FALSE>>=
-cat(readLines("../../NEWS"), sep="\n")
+cat(readLines("../../../NEWS"), sep="\n")
 @
 
 
@@ -2368,7 +2369,7 @@ The contribution of Marek Gagolewski was partially supported
 by the European Union from resources of the European Social Fund, Project PO KL
 ``Information technologies: Research and their interdisciplinary
 applications'', agreement UDA-POKL.04.01.01-00-051/10-00 (March-June 2013),
-and by FNP START Scholarship from the Foundation for Polish Science (2013).
+and by the FNP START Scholarship from the Foundation for Polish Science (2013).
 
 
 
@@ -2377,7 +2378,7 @@ and by FNP START Scholarship from the Foundation for Polish Science (2013).
 % add 'export BIBINPUTS="/home/gagolews/Publikacje/bibliography"'
 %     to .bashrc
 \bibliography{gagolewski,gagolewski_temp,aggregation,probstat,%
-r,bibliometrics,unsorted}
+r,bibliometrics,unsorted,fuzzymeasures}
 
 \printindex
 
