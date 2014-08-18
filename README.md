@@ -2,6 +2,8 @@
 
 ### Aggregation Operators Package for *R*
 
+[![Build Status](https://travis-ci.org/Rexamine/agop.svg?branch=master)](https://travis-ci.org/Rexamine/agop)
+
 > "The process of combining several numerical values into a single 
 representative one is called aggregation, and the numerical function 
  performing this process is called aggregation function. 
