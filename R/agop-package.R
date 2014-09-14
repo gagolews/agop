@@ -43,8 +43,6 @@
 #'
 #'
 #' For more infrmation refer to the Package Vignette.
-#' Its most recent version is available at
-#' \url{http://github.com/Rexamine/agop/raw/master/inst/doc/agop-Tutorial.pdf}.
 #'
 #' @section Package Facilities:
 #'
@@ -124,6 +122,11 @@
 #' Beliakov G., Pradera A., Calvo T., \emph{Aggregation Functions:
 #'    A Guide for Practitioners}, Springer-Verlag, 2007.
 #'
+#' Cena A., Gagolewski M.,
+#' OM3: Ordered maxitive, minitive, and modular aggregation operators --
+#'  axiomatic and probabilistic properties in an arity-monotonic setting, 
+#'  \emph{Fuzzy Sets and Systems}, 2014, doi:10.1016/j.fss.2014.04.001.
+#'
 #' Cena A., Gagolewski M., \emph{OM3: ordered maxitive, minitive, and modular aggregation operators
 #'    - Part I: Axiomatic analysis under arity-dependence}, In: Bustince H. et al (Eds.),
 #'    \emph{Aggregation Functions in Theory and in Practise} (AISC 228),
@@ -143,11 +146,9 @@
 #' Dubois D., Prade H., Semantics of quotient operators in fuzzy
 #'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
 #'
-#' Gagolewski M., \emph{Dispersion Functions: Aggregation Operators that
-#'    Measure Variability, Spread, or Scatter of Numeric Sequences},
-#'    submitted paper, 2013.
-#'
-#' Gagolewski M., \emph{Symmetric Dispersion Functions}, in preparation, 2013.
+#' Gagolewski M., Spread measures and their relation to aggregation functions,
+#' \emph{European Journal of Operational Research}, 2014, accepted
+#' for publication.
 #'
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
 #'    \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
@@ -165,6 +166,10 @@
 #'    with a Generalized h-index,
 #'    \emph{Journal of Informetrics} 6(4), 2012, pp. 566-579.
 #'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals in 
+#' a uniform framework for the scientific impact assessment problem,
+#'    \emph{Information Sciences} 263, 2014, pp. 166-174.
+#'    
 #' Gagolewski M., Bibliometric Impact Assessment with R and the CITAN Package,
 #'    \emph{Journal of Informetrics} 5(4), 2011, pp. 678-692.
 #'

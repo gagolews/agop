@@ -4,3 +4,4 @@
 ^src/.*\.o$
 ^README.md$
 ^\.gitignore$
+^vignettes/.*[^R][^n][^w]$

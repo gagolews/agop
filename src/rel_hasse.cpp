@@ -22,7 +22,7 @@
 #include "agop.h"
 
 
-/** Get the reflexive and a transitive reduction of a binary relation
+/** Get the reflexive and transitive reduction of a binary relation;
  *  useful for drawing Hasse diagrams
  *
  * @param x square logical matrix

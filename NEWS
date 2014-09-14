@@ -50,10 +50,17 @@
 
 * all built-in agops now throw an error on empty vectors.
 
-* moved testthat tests and vignettes to the agop github repository
+* moved testthat tests to the agop github repository
       devel/ dir; `testthat` Suggest-type dependency removed.
 
+* vingette now in vignettes/ dir
+
 * ...TO DO...
+
+***************************************************************************
+0.1-4 /2014-09-14/
+
+* Fixed NOTES on pkg check in R >= 3.1
 
 ***************************************************************************
 

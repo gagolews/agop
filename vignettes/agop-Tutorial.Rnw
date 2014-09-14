@@ -1,7 +1,7 @@
-\documentclass[11pt]{article}
 %\VignetteIndexEntry{A Guide to the agop Package}
 %\VignetteKeyword{agop, aggregation, preorder, mcdm}
 %\VignetteEngine{knitr::knitr}
+\documentclass[11pt]{article}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -185,38 +185,38 @@ days -- any suggestions are welcome!}
 options(digits=7)
 options(width=73)
 require("knitr")
-require("tikzDevice")
+#require("tikzDevice")
 
-options(tikzDefaultEngine = "pdftex")
+#options(tikzDefaultEngine = "pdftex")
 
-options(tikzLatexPackages = c( # dolaczanie uzywanych pakietow TeX-a
-   "\\usepackage{amsmath,amssymb,amsfonts}", # pakiety AMS
-   "\\usepackage{tikz}",
-#   "\\usepackage[MeX,T1,plmath]{polski}", # obsluga m.in. polskich ogonkow
-   "\\usepackage[utf8]{inputenc}",
-   "\\usepackage[T1]{fontenc}",
-   "\\usetikzlibrary{calc}",
-   "\\usepackage[english]{babel}",
-   "\\selectlanguage{english}",
-   "\\usepackage{standalone}"
-))
+# options(tikzLatexPackages = c( # dolaczanie uzywanych pakietow TeX-a
+#    "\\usepackage{amsmath,amssymb,amsfonts}", # pakiety AMS
+#    "\\usepackage{tikz}",
+# #   "\\usepackage[MeX,T1,plmath]{polski}", # obsluga m.in. polskich ogonkow
+#    "\\usepackage[utf8]{inputenc}",
+#    "\\usepackage[T1]{fontenc}",
+#    "\\usetikzlibrary{calc}",
+#    "\\usepackage[english]{babel}",
+#    "\\selectlanguage{english}",
+#    "\\usepackage{standalone}"
+# ))
 
-options(tikzMetricsDictionary="~/R/tikzMetrics")
+# options(tikzMetricsDictionary="~/R/tikzMetrics")
 
-options(tikzDocumentDeclaration = "\\documentclass[11pt]{standalone}\n")
+# options(tikzDocumentDeclaration = "\\documentclass[11pt]{standalone}\n")
 
-options(tikzMetricPackages = c(
-   "\\usepackage[utf8]{inputenc}",
-   "\\usepackage[T1]{fontenc}",
-   "\\usepackage{amsmath,amssymb,amsfonts}",
-   "\\usetikzlibrary{calc}",
-   "\\usepackage[english]{babel}",
-   "\\selectlanguage{english}"
-))
+# options(tikzMetricPackages = c(
+#    "\\usepackage[utf8]{inputenc}",
+#    "\\usepackage[T1]{fontenc}",
+#    "\\usepackage{amsmath,amssymb,amsfonts}",
+#    "\\usetikzlibrary{calc}",
+#    "\\usepackage[english]{babel}",
+#    "\\selectlanguage{english}"
+# ))
 
 
 
-opts_knit$set(progress = TRUE, verbose = TRUE)
+# opts_knit$set(progress = TRUE, verbose = TRUE)
 
 opts_chunk$set(
    keep.source=TRUE,
@@ -227,10 +227,10 @@ opts_chunk$set(
    cache.path='cache-knitr/',
    cache=TRUE,
    tidy=FALSE,
-#    dev='cairo_pdf',
-#    dev.args=list(pointsize=11),
-   dev='tikz',
-   external=TRUE,
+   dev='cairo_pdf',
+   dev.args=list(pointsize=11),
+#    dev='tikz',
+#    external=TRUE,
    fig.align='center',
    size='small'
 )
@@ -498,7 +498,6 @@ class(authors)
 str(authors)   # or print(authors)
 index_h(authors[[1]]) # the h-index /see below/ for 1st author
 sapply(authors, index_h) # calculate the h-index for all vectors in a list
-index_h(authors) # index_h() expects an numeric vector on input
 @
 
 
@@ -1236,13 +1235,15 @@ w.r.t.~$\trianglelefteq$):%
 \index{\Rfunc{get\_incomparable\_pairs()}}%
 \index{\Rfunc{get\_independent\_sets()}}
 
+..TO DO..
+
 <<ex1B2,dependson='ex1B'>>=
-incomp <- get_incomparable_pairs(ord)
-incomp <- incomp[incomp[,1]<incomp[,2],] # remove permutations: ((1,2), (2,1))->(1,2)
-incomp[,] <- rownames(ord)[incomp]
-print(incomp) # all incomparable pairs
-# the other way: generate maximal independent sets
-lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
+#incomp <- get_incomparable_pairs(ord)
+#incomp <- incomp[incomp[,1]<incomp[,2],] # remove permutations: ((1,2), (2,1))->(1,2)
+#incomp[,] <- rownames(ord)[incomp]
+#print(incomp) # all incomparable pairs
+## the other way: generate maximal independent sets
+#lapply(get_independent_sets(ord), function(set) rownames(ord)[set])
 @
 
 To draw the Hasse diagram, we base on the reflexive and
@@ -1382,7 +1383,6 @@ $\func{OWMax}_\vect{w}: \IvalPow{n}\to\Ival$, is defined as
 and \index{\Rfunc{owmax()}}\Rfunc{owmax()}.
 
 <<owmax>>=
-wmax(c(1,3,5,2), Inf) # no vectorization here!
 wmax(c(1,3,5,2), rep(Inf, 4)) # greatest value /default behavior/
 owmax(1:10, 1:10)
 @
@@ -1640,7 +1640,6 @@ and \cite{GagolewskiMesiar2014:integrals}.
 
 <<index_h>>=
 index_h(c(6,5,4,2,1,0,0,0,0,0,0))
-index_h(c(-1,3,4,2)) # only for x>=0
 @
 
 Moreover, we have $\func{H}(\vect{x})\le \min\{n, x_{1}\}$.
@@ -1960,9 +1959,9 @@ In \package{agop} it is available as:
 \index{\Rfunc{pareto2\_estimate\_mmse()}}\Rfunc{pareto2\_estimate\_mmse}.
 
 <<pareto2mmse>>=
-rowMeans(replicate(1000, {
+suppressWarnings(rowMeans(replicate(1000, {
    pareto2_estimate_mmse(rpareto2(50, 2, 1.5))
-}))
+})))
 @
 
 % W~przypadku niemo¿liwo¶ci obliczenia warto¶ci estymatorów metod± najwiêkszej
@@ -2355,7 +2354,7 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 \section{NEWS/CHANGELOG}
 
 <<NEWSread,comment="",echo=FALSE,cache=FALSE>>=
-cat(readLines("../../../NEWS"), sep="\n")
+cat(readLines("../NEWS"), sep="\n")
 @
 
 
