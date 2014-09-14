@@ -2350,12 +2350,12 @@ the parameters $a,b$ of $\mathcal{I}$ are functions of $x$ here.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-\section{NEWS/CHANGELOG}
-
-<<NEWSread,comment="",echo=FALSE,cache=FALSE>>=
-cat(readLines("../NEWS"), sep="\n")
-@
+%% This fails on R CMD check --as-cran
+%\section{NEWS/CHANGELOG}
+%
+%<<NEWSread,comment="",echo=FALSE,cache=FALSE>>=
+%cat(readLines("../NEWS"), sep="\n")
+%@
 
 
 \paragraph{Acknowledgments.}
