@@ -42,7 +42,7 @@
 #' package (Gagolewski, 2011).
 #'
 #'
-#' For more infrmation refer to the Package Vignette.
+#' For more information refer to the Package Vignette.
 #'
 #' @section Package Facilities:
 #'
@@ -59,9 +59,11 @@
 #'       \code{\link{index_lp}}, \code{\link{index_rp}}
 #'         -- impact functions
 #'       useful in the Producers Assessment Problem;
-#'       \item \code{\link{d2owa}} -- dispersion functions;
+#'       \item \code{\link{d2owa}} -- spread measures;
 #'       for other see also \code{\link{var}},
 #'       \code{\link{sd}}, and \code{\link{range}};
+#'       \item \code{\link{tnorm_minimum}}, \code{\link{tnorm_lukasiewicz}},
+#'       etc. -- fuzzy logic connectives
 #'    }
 #'    \item Functions dealing with preorders and other binary relations
 #'    on finite sets:
@@ -107,7 +109,7 @@
 #'
 #' \bold{Keywords}: aggregation, bibliometrics, scientometrics, scientific impact,
 #' webometrics, preorders, binary relations, means, OWA, OWMax, OWMin, Hirsch's h-index,
-#' Egghe's g-index.
+#' Egghe's g-index, variance, spread, decision making, fuzzy logic.
 #'
 #' \bold{Acknowledgments}:
 #' The development of the package in March-June 2013 was partially supported
@@ -117,6 +119,9 @@
 #'
 #' @useDynLib agop
 #' @name agop-package
+#' @import stats
+#' @import grDevices
+#' @import graphics
 #' @docType package
 #' @references
 #' Beliakov G., Pradera A., Calvo T., \emph{Aggregation Functions:
@@ -124,10 +129,11 @@
 #'
 #' Cena A., Gagolewski M.,
 #' OM3: Ordered maxitive, minitive, and modular aggregation operators --
-#'  axiomatic and probabilistic properties in an arity-monotonic setting, 
+#'  axiomatic and probabilistic properties in an arity-monotonic setting,
 #'  \emph{Fuzzy Sets and Systems}, 2014, doi:10.1016/j.fss.2014.04.001.
 #'
-#' Cena A., Gagolewski M., \emph{OM3: ordered maxitive, minitive, and modular aggregation operators
+#' Cena A., Gagolewski M., \emph{OM3: ordered maxitive, minitive,
+#'    and modular aggregation operators
 #'    - Part I: Axiomatic analysis under arity-dependence}, In: Bustince H. et al (Eds.),
 #'    \emph{Aggregation Functions in Theory and in Practise} (AISC 228),
 #'    Springer-Verlag, Heidelberg, 2013, pp. 93-103.
@@ -147,8 +153,7 @@
 #'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
 #'
 #' Gagolewski M., Spread measures and their relation to aggregation functions,
-#' \emph{European Journal of Operational Research}, 2014, accepted
-#' for publication.
+#' \emph{European Journal of Operational Research}, 2014, doi:10.1016/j.ejor.2014.08.034.
 #'
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
 #'    \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
@@ -166,10 +171,10 @@
 #'    with a Generalized h-index,
 #'    \emph{Journal of Informetrics} 6(4), 2012, pp. 566-579.
 #'
-#' Gagolewski M., Mesiar R., Monotone measures and universal integrals in 
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals in
 #' a uniform framework for the scientific impact assessment problem,
 #'    \emph{Information Sciences} 263, 2014, pp. 166-174.
-#'    
+#'
 #' Gagolewski M., Bibliometric Impact Assessment with R and the CITAN Package,
 #'    \emph{Journal of Informetrics} 5(4), 2011, pp. 678-692.
 #'
@@ -214,6 +219,9 @@
 #'
 #' Hirsch J.E., An index to quantify individual's scientific research output,
 #'    \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
+#'
+#' Klir G.J, Yuan B., \emph{Fuzzy sets and fuzzy logic. Theory and applications},
+#' Prentice Hall PTR, New Jersey, 1995.
 #'
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
 #'    of an individual, and a comparison with the h-index,

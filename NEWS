@@ -11,6 +11,10 @@
    Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
    parameter) and exponential distribution, respectively.
 
+* NEW: agop not is shipped with some predefined fuzzy logic connectives,
+   e.g. tnorm_minimum(), tnorm_drastic(), tnorm_product(), tnorm_lukasiewicz(),
+   tnorm_forod().
+
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):
    useful for modeling some phenomena in social sciences;
@@ -34,8 +38,8 @@
 * All functions dealing with binary relations now have "rel_" prefix.
   Moreover, de_transitive() has been renamed to rel_reduction_hasse().
 
-* Rewritten in C++: ppareto2(), 
-   rel_is_reflexive(), rel_is_total(), rel_is_transitive(), 
+* Rewritten in C++: ppareto2(),
+   rel_is_reflexive(), rel_is_total(), rel_is_transitive(),
    rel_closure_total_fair(), rel_closure_transitive(),
    rel_reduction_transitive(), rel_reduction_hasse().
 

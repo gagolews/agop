@@ -196,4 +196,37 @@ SEXP exp_test_statistic(SEXP x);
 SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
 
 
+#define macro_apply_binaryop_x_y(op) \
+   x = prepare_arg_double(x, "x"); \
+   y = prepare_arg_double(y, "y"); \
+   R_len_t x_length = LENGTH(x);   \
+   R_len_t y_length = LENGTH(y);   \
+   double* x_tab = REAL(x);        \
+   double* y_tab = REAL(y);        \
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");  \
+   if (y_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");  \
+   if (x_length != y_length)                             \
+      Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "y"); \
+   SEXP res;                                             \
+   PROTECT(res = Rf_allocVector(REALSXP, x_length));     \
+   double* res_tab = REAL(res);                          \
+   for (R_len_t i=0; i<x_length; ++i) {                  \
+      if (ISNA(x_tab[i]) || ISNA(y_tab[i]))              \
+         res_tab[i] = NA_REAL;                           \
+      else if (x_tab[i] < 0.0 || x_tab[i] > 1.0)         \
+         Rf_error(MSG__ARG_NOT_IN_AB, "x", 0.0, 1.0);    \
+      else if (y_tab[i] < 0.0 || y_tab[i] > 1.0)         \
+         Rf_error(MSG__ARG_NOT_IN_AB, "y", 0.0, 1.0);    \
+      else                                               \
+         res_tab[i] = (op);                              \
+   }                                                     \
+   UNPROTECT(1);                                         \
+   return res;
+
+SEXP tnorm_minimum(SEXP x, SEXP y);
+SEXP tnorm_lukasiewicz(SEXP x, SEXP y);
+SEXP tnorm_fodor(SEXP x, SEXP y);
+SEXP tnorm_product(SEXP x, SEXP y);
+SEXP tnorm_drastic(SEXP x, SEXP y);
+
 #endif
