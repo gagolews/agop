@@ -1922,7 +1922,7 @@ see e.g.~\cite{BaczynskiJayaram2008:fuzzyimplications} for more details.
 
 
 
-\subsubsection{t-norms}
+\paragraph{t-norms}
 
 Table \ref{Tab:tnorms} lists all the t-norms predefined by the \package{agop} package.
 For any t-norm $T$ and all $x,y$ it holds $T_\mathrm{D}(x,y)\le T(x,y)\le T_\mathrm{M}(x, y)$.
@@ -1956,7 +1956,7 @@ x\wedge y & \text{if }x+y>1\\
 \end{table}
 
 
-\subsubsection{t-conorms}
+\paragraph{t-conorms}
 
 Table \ref{Tab:tconorms} lists all the t-conorms in the \package{agop} package.
 For any t-conorm $S$ and all $x,y$ it holds $S_\mathrm{M}(x,y)\le T(x,y)\le S_\mathrm{D}(x, y)$.
@@ -1978,8 +1978,8 @@ Product & \index{tconorm\_product()}\Rfunc{tconorm\_product()} & $S_\mathrm{P}(x
 Łukasiewicz & \index{tconorm\_lukasiewicz()}\Rfunc{tconorm\_lukasiewicz()} & $S_\mathrm{Ł}(x, y)=(x+y)\wedge 1$ \\
 Drastic & \index{tconorm\_drastic()}\Rfunc{tconorm\_drastic()} & $$S_\mathrm{D}(x, y)=\left\{
 \begin{array}{ll}
-1 & \text{if }x, y\in[0,1)\\
-x\vee y & \text{if }x=1\text{ or }y=1\\
+1 & \text{if }x, y\in(0,1]\\
+x\vee y & \text{if }x=0\text{ or }y=0\\
 \end{array}
 \right.$$ \\
 Fodor & \index{tconorm\_fodor()}\Rfunc{tconorm\_fodor()} & $$S_\mathrm{F}(x, y)=\left\{
@@ -1996,12 +1996,12 @@ x\vee y & \text{if }x+y<1\\
 
 
 
-\subsubsection{Fuzzy negations}
+\paragraph{Fuzzy negations}
 
 
 TO BE DONE
 
-\subsubsection{Fuzzy implications}
+\paragraph{Fuzzy implications}
 
 
 TO BE DONE

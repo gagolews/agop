@@ -17,25 +17,25 @@
 
 
 #' @title
-#' t-norms
+#' t-conorms
 #'
 #' @description
-#' Various t-norms.
+#' Various t-conorms.
 #' Each of these is a fuzzy logic generalization
-#' of the classical conjuntion operation.
+#' of the classical alternative operation.
 #'
 #' @details
-#' The minimum t-norm is given by \eqn{T_M(x,y)=min(x, y)}.
+#' The minimum t-conorm is given by \eqn{S_M(x,y)=max(x, y)}.
 #'
-#' The product t-norm is given by \eqn{T_P(x,y)=xy}.
+#' The product t-conorm is given by \eqn{S_P(x,y)=x+y-xy}.
 #'
-#' The Lukasiewicz t-norm is given by \eqn{T_L(x,y)=max(x+y-1,0)}.
+#' The Lukasiewicz t-conorm is given by \eqn{S_L(x,y)=min(x+y,1)}.
 #'
-#' The drastic t-norm is given by \eqn{T_D(x,y)=0} iff
-#' \eqn{x,y\in [0,1)} and \eqn{min(x, y)} otherwise.
+#' The drastic t-conorm is given by \eqn{S_D(x,y)=1} iff
+#' \eqn{x,y\in (0,1]} and \eqn{max(x, y)} otherwise.
 #'
-#' The Fodor t-norm is given by \eqn{T_F(x,y)=0}
-#' iff \eqn{x+y \le 1} and \eqn{min(x, y)} otherwise.
+#' The Fodor t-conorm is given by \eqn{S_F(x,y)=1}
+#' iff \eqn{x+y \ge 1} and \eqn{max(x, y)} otherwise.
 #'
 #'
 #' @param x numeric vector with elements in \eqn{[0,1]}
@@ -43,39 +43,39 @@
 #' @return
 #' Numeric vector of the same length as \code{x} and \code{y}.
 #' The \code{i}th element of the resulting vector gives the result
-#' of calculating \code{T(x[i], y[i])}.
+#' of calculating \code{S(x[i], y[i])}.
 #'
-#' @rdname fuzzylogic_tnorm
+#' @rdname fuzzylogic_tconorm
 #' @export
 #' @family fuzzy_logic
 #' @references
 #' Klir G.J, Yuan B., \emph{Fuzzy sets and fuzzy logic. Theory and applications},
 #' Prentice Hall PTR, New Jersey, 1995.
-tnorm_minimum <- function(x, y) {
-   .Call("tnorm_minimum", x, y, PACKAGE="agop")
+tconorm_minimum <- function(x, y) {
+   .Call("tconorm_minimum", x, y, PACKAGE="agop")
 }
 
 
-#' @rdname fuzzylogic_tnorm
+#' @rdname fuzzylogic_tconorm
 #' @export
-tnorm_product <- function(x, y) {
-   .Call("tnorm_product", x, y, PACKAGE="agop")
+tconorm_product <- function(x, y) {
+   .Call("tconorm_product", x, y, PACKAGE="agop")
 }
 
-#' @rdname fuzzylogic_tnorm
+#' @rdname fuzzylogic_tconorm
 #' @export
-tnorm_lukasiewicz <- function(x, y) {
-   .Call("tnorm_lukasiewicz", x, y, PACKAGE="agop")
+tconorm_lukasiewicz <- function(x, y) {
+   .Call("tconorm_lukasiewicz", x, y, PACKAGE="agop")
 }
 
-#' @rdname fuzzylogic_tnorm
+#' @rdname fuzzylogic_tconorm
 #' @export
-tnorm_drastic <- function(x, y) {
-   .Call("tnorm_drastic", x, y, PACKAGE="agop")
+tconorm_drastic <- function(x, y) {
+   .Call("tconorm_drastic", x, y, PACKAGE="agop")
 }
 
-#' @rdname fuzzylogic_tnorm
+#' @rdname fuzzylogic_tconorm
 #' @export
-tnorm_fodor <- function(x, y) {
-   .Call("tnorm_fodor", x, y, PACKAGE="agop")
+tconorm_fodor <- function(x, y) {
+   .Call("tconorm_fodor", x, y, PACKAGE="agop")
 }

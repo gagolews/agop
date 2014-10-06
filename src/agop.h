@@ -229,4 +229,10 @@ SEXP tnorm_fodor(SEXP x, SEXP y);
 SEXP tnorm_product(SEXP x, SEXP y);
 SEXP tnorm_drastic(SEXP x, SEXP y);
 
+SEXP tconorm_minimum(SEXP x, SEXP y);
+SEXP tconorm_lukasiewicz(SEXP x, SEXP y);
+SEXP tconorm_fodor(SEXP x, SEXP y);
+SEXP tconorm_product(SEXP x, SEXP y);
+SEXP tconorm_drastic(SEXP x, SEXP y);
+
 #endif

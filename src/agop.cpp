@@ -89,8 +89,14 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(tnorm_drastic,              2),
    MAKE_CALL_METHOD(tnorm_fodor,                2),
 
+   MAKE_CALL_METHOD(tconorm_minimum,            2),
+   MAKE_CALL_METHOD(tconorm_product,            2),
+   MAKE_CALL_METHOD(tconorm_lukasiewicz,        2),
+   MAKE_CALL_METHOD(tconorm_drastic,            2),
+   MAKE_CALL_METHOD(tconorm_fodor,              2),
+
    // the list must be NULL-terminated:
-   {NULL,                           NULL,                  0}
+   {NULL,                           NULL,       0}
 };
 
 
