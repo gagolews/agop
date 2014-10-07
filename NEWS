@@ -14,7 +14,8 @@
 * NEW: agop not is shipped with some predefined fuzzy logic connectives,
    e.g. tnorm_minimum(), tnorm_drastic(), tnorm_product(), tnorm_lukasiewicz(),
    tnorm_fodor(), tconorm_minimum(), tconorm_drastic(), tconorm_product(),
-   tconorm_lukasiewicz(), tconorm_fodor().
+   tconorm_lukasiewicz(), tconorm_fodor(), fnegation_classic(),
+   fnegation_minimal(), fnegation_maximal(), fnegation_yager().
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):

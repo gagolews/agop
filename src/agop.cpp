@@ -95,6 +95,11 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(tconorm_drastic,            2),
    MAKE_CALL_METHOD(tconorm_fodor,              2),
 
+   MAKE_CALL_METHOD(fnegation_classic,          1),
+   MAKE_CALL_METHOD(fnegation_yager,            1),
+   MAKE_CALL_METHOD(fnegation_minimal,          1),
+   MAKE_CALL_METHOD(fnegation_maximal,          1),
+
    // the list must be NULL-terminated:
    {NULL,                           NULL,       0}
 };

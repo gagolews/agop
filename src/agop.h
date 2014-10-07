@@ -223,6 +223,25 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
    UNPROTECT(1);                                         \
    return res;
 
+#define macro_apply_unaryop_x(op)  \
+   x = prepare_arg_double(x, "x"); \
+   R_len_t x_length = LENGTH(x);   \
+   double* x_tab = REAL(x);        \
+   if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");  \
+   SEXP res;                                             \
+   PROTECT(res = Rf_allocVector(REALSXP, x_length));     \
+   double* res_tab = REAL(res);                          \
+   for (R_len_t i=0; i<x_length; ++i) {                  \
+      if (ISNA(x_tab[i]))                                \
+         res_tab[i] = NA_REAL;                           \
+      else if (x_tab[i] < 0.0 || x_tab[i] > 1.0)         \
+         Rf_error(MSG__ARG_NOT_IN_AB, "x", 0.0, 1.0);    \
+      else                                               \
+         res_tab[i] = (op);                              \
+   }                                                     \
+   UNPROTECT(1);                                         \
+   return res;
+
 SEXP tnorm_minimum(SEXP x, SEXP y);
 SEXP tnorm_lukasiewicz(SEXP x, SEXP y);
 SEXP tnorm_fodor(SEXP x, SEXP y);
@@ -234,5 +253,10 @@ SEXP tconorm_lukasiewicz(SEXP x, SEXP y);
 SEXP tconorm_fodor(SEXP x, SEXP y);
 SEXP tconorm_product(SEXP x, SEXP y);
 SEXP tconorm_drastic(SEXP x, SEXP y);
+
+SEXP fnegation_classic(SEXP x);
+SEXP fnegation_yager(SEXP x);
+SEXP fnegation_minimal(SEXP x);
+SEXP fnegation_maximal(SEXP x);
 
 #endif

@@ -1936,16 +1936,16 @@ Moreover, we have $T_\mathrm{Ł}(x,y)\le T_\mathrm{P}(x,y)$.
 \bf Name & \bf Function & \bf Definition \\
 \hline
 \hline
-Minimum & \index{tnorm\_minimum()}\Rfunc{tnorm\_minimum()} & $T_\mathrm{M}(x, y)=x\wedge y$ \\
-Product & \index{tnorm\_product()}\Rfunc{tnorm\_product()} & $T_\mathrm{P}(x, y)=xy$ \\
-Łukasiewicz & \index{tnorm\_lukasiewicz()}\Rfunc{tnorm\_lukasiewicz()} & $T_\mathrm{Ł}(x, y)=(x+y-1)\vee 0$ \\
-Drastic & \index{tnorm\_drastic()}\Rfunc{tnorm\_drastic()} & $$T_\mathrm{D}(x, y)=\left\{
+Minimum & \index{\Rfunc{tnorm\_minimum()}}\Rfunc{tnorm\_minimum()} & $T_\mathrm{M}(x, y)=x\wedge y$ \\
+Product & \index{\Rfunc{tnorm\_product()}}\Rfunc{tnorm\_product()} & $T_\mathrm{P}(x, y)=xy$ \\
+Łukasiewicz & \index{\Rfunc{tnorm\_lukasiewicz()}}\Rfunc{tnorm\_lukasiewicz()} & $T_\mathrm{Ł}(x, y)=(x+y-1)\vee 0$ \\
+Drastic & \index{\Rfunc{tnorm\_drastic()}}\Rfunc{tnorm\_drastic()} & $$T_\mathrm{D}(x, y)=\left\{
 \begin{array}{ll}
 0 & \text{if }x, y\in[0,1)\\
 x\wedge y & \text{if }x=1\text{ or }y=1\\
 \end{array}
 \right.$$ \\
-Fodor & \index{tnorm\_fodor()}\Rfunc{tnorm\_fodor()} & $$T_\mathrm{F}(x, y)=\left\{
+Fodor & \index{\Rfunc{tnorm\_fodor()}}\Rfunc{tnorm\_fodor()} & $$T_\mathrm{F}(x, y)=\left\{
 \begin{array}{ll}
 0 & \text{if }x+y\le 1\\
 x\wedge y & \text{if }x+y>1\\
@@ -1973,16 +1973,16 @@ $S(x,y)=1-T(1-x, 1-y)$, see \cite{KlementMesiarPap2000:trinorm}.
 \bf Name & \bf Function & \bf Definition \\
 \hline
 \hline
-Maximum & \index{tconorm\_minimum()}\Rfunc{tconorm\_minimum()} & $S_\mathrm{M}(x, y)=x\vee y$ \\
-Product & \index{tconorm\_product()}\Rfunc{tconorm\_product()} & $S_\mathrm{P}(x, y)=x+y-xy$ \\
-Łukasiewicz & \index{tconorm\_lukasiewicz()}\Rfunc{tconorm\_lukasiewicz()} & $S_\mathrm{Ł}(x, y)=(x+y)\wedge 1$ \\
-Drastic & \index{tconorm\_drastic()}\Rfunc{tconorm\_drastic()} & $$S_\mathrm{D}(x, y)=\left\{
+Maximum & \index{\Rfunc{tconorm\_minimum()}}\Rfunc{tconorm\_minimum()} & $S_\mathrm{M}(x, y)=x\vee y$ \\
+Product & \index{\Rfunc{tconorm\_product()}}\Rfunc{tconorm\_product()} & $S_\mathrm{P}(x, y)=x+y-xy$ \\
+Łukasiewicz & \index{\Rfunc{tconorm\_lukasiewicz()}}\Rfunc{tconorm\_lukasiewicz()} & $S_\mathrm{Ł}(x, y)=(x+y)\wedge 1$ \\
+Drastic & \index{\Rfunc{tconorm\_drastic()}}\Rfunc{tconorm\_drastic()} & $$S_\mathrm{D}(x, y)=\left\{
 \begin{array}{ll}
 1 & \text{if }x, y\in(0,1]\\
 x\vee y & \text{if }x=0\text{ or }y=0\\
 \end{array}
 \right.$$ \\
-Fodor & \index{tconorm\_fodor()}\Rfunc{tconorm\_fodor()} & $$S_\mathrm{F}(x, y)=\left\{
+Fodor & \index{\Rfunc{tconorm\_fodor()}}\Rfunc{tconorm\_fodor()} & $$S_\mathrm{F}(x, y)=\left\{
 \begin{array}{ll}
 1 & \text{if }x+y\ge 1\\
 x\vee y & \text{if }x+y<1\\
@@ -1998,8 +1998,38 @@ x\vee y & \text{if }x+y<1\\
 
 \paragraph{Fuzzy negations}
 
+Table~\ref{Tab:fnegations} lists available fuzzy negations.
+For any $N$ and $x$ it holds $N_0(x)\le N(x)\le N_1(x)$.
 
-TO BE DONE
+
+\begin{table}[htb!]
+\caption{\label{Tab:fnegations} Exemplary fuzzy negations}
+\centering
+\begin{tabular}{llp{7cm}}
+\hline
+\bf Name & \bf Function & \bf Definition \\
+\hline
+\hline
+Classic & \index{\Rfunc{fnegation\_classic()}}\Rfunc{fnegation\_classic()} & $N_\mathrm{C}(x)=1-x$ \\
+minimal & \index{\Rfunc{fnegation\_minimal()}}\Rfunc{fnegation\_minimal()} & $$N_0(x)=\left\{
+\begin{array}{ll}
+1 & \text{if }x=0\\
+0 & \text{if }x>0\\
+\end{array}
+\right.$$ \\
+maximal & \index{\Rfunc{fnegation\_maximal()}}\Rfunc{fnegation\_maximal()} & $$N_0(x)=\left\{
+\begin{array}{ll}
+1 & \text{if }x<1\\
+0 & \text{if }x=1\\
+\end{array}
+\right.$$ \\
+Yager & \index{\Rfunc{fnegation\_yager()}}\Rfunc{fnegation\_yager()} & $N_\mathrm{Y}(x)=\sqrt{1-x^2}$ \\
+\end{tabular}
+\end{table}
+
+
+
+
 
 \paragraph{Fuzzy implications}
 

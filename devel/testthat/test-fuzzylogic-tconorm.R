@@ -7,6 +7,7 @@ test_that("tconorms", {
    expect_error(tconorm_minimum(c(), c()))
    expect_error(tconorm_minimum(c(1), c(0,1)))
    expect_error(tconorm_minimum(c(0,1), c(0,1.1)))
+   expect_error(tconorm_minimum(-1, 1))
 
    # testing well-known facts (on random data)
    x <- runif(1000)
