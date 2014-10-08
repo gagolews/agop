@@ -29,7 +29,6 @@
 \usepackage{amsmath,amssymb,amsfonts,amsthm}
 \RequirePackage{graphicx,verbatim,longtable}
 \usepackage{mdwlist}
-\usepackage{multirow,multicol}
 \usepackage[nottoc]{tocbibind}
 \usepackage{rotating}
 
@@ -1918,8 +1917,32 @@ Moreover, given any t-conorm $S$ and any negation $N$, $I(x, y)=S(N(x), y)$
 is a fuzzy implication (a so-called (S-N)-implication),
 see e.g.~\cite{BaczynskiJayaram2008:fuzzyimplications} for more details.
 
+And here is how we may create exemplary contour plots of various t-norms:
 
+<<tnorms_plot1,fig.keep='none'>>=
+x <- seq(0, 1, length.out=100)
+y <- seq(0, 1, length.out=100)
+par(mfrow=c(2,2))
+funs <- list("Minimum t-norm"=tnorm_minimum, "Product t-norm"=tnorm_product,
+             "Lukasiewicz t-norm"=tnorm_lukasiewicz, "Drastic t-norm"=tnorm_drastic)
+for (i in seq_along(funs)) {
+   z <- outer(x, y, funs[[i]])
+   image(x, y, z, col=heat.colors(20))
+   title(main=names(funs)[i])
+   contour(x, y, z, nlevels=25, add=TRUE)
+}
+@
 
+\begin{center}
+% \scalebox{0.83}{
+<<echo=FALSE,tnorms_plot2,fig.width=8,fig.height=8,dependson='tnorms_plot1'>>=
+<<tnorms_plot1>>
+@
+% }
+\end{center}
+
+\noindent
+For 3D plots, check out e.g.~the \package{plot3D} package.
 
 
 \paragraph{t-norms}
@@ -2017,13 +2040,14 @@ minimal & \index{\Rfunc{fnegation\_minimal()}}\Rfunc{fnegation\_minimal()} & $$N
 0 & \text{if }x>0\\
 \end{array}
 \right.$$ \\
-maximal & \index{\Rfunc{fnegation\_maximal()}}\Rfunc{fnegation\_maximal()} & $$N_0(x)=\left\{
+maximal & \index{\Rfunc{fnegation\_maximal()}}\Rfunc{fnegation\_maximal()} & $$N_1(x)=\left\{
 \begin{array}{ll}
 1 & \text{if }x<1\\
 0 & \text{if }x=1\\
 \end{array}
 \right.$$ \\
 Yager & \index{\Rfunc{fnegation\_yager()}}\Rfunc{fnegation\_yager()} & $N_\mathrm{Y}(x)=\sqrt{1-x^2}$ \\
+\hline
 \end{tabular}
 \end{table}
 
@@ -2034,7 +2058,71 @@ Yager & \index{\Rfunc{fnegation\_yager()}}\Rfunc{fnegation\_yager()} & $N_\mathr
 \paragraph{Fuzzy implications}
 
 
-TO BE DONE
+Table~\ref{Tab:fimplications} lists fuzzy implications predefined in \package{agop}.
+For any $I$ and $x,y$ it holds $I_0(x,y)\le I(x,y)\le I_1(x,y)$.
+
+\begin{table}[htb!]
+\caption{\label{Tab:fimplications} Exemplary fuzzy implications}
+\centering
+\begin{tabular}{llp{7cm}}
+\hline
+\bf Name & \bf Function & \bf Definition \\
+\hline
+\hline
+minimal & \index{\Rfunc{fimplication\_minimal()}}\Rfunc{fimplication\_minimal()} & $$I_0(x,y)=\left\{
+\begin{array}{ll}
+1 & \text{if }x=0\text{ or }y=1\\
+0 & \text{otherwise}\\
+\end{array}
+\right.$$ \\
+maximal & \index{\Rfunc{fimplication\_maximal()}}\Rfunc{fimplication\_maximal()} & $$I_1(x,y)=\left\{
+\begin{array}{ll}
+0 & \text{if }x=1\text{ and }y=0\\
+1 & \text{otherwise}\\
+\end{array}
+\right.$$ \\
+Kleene-Dienes & \index{\Rfunc{fimplication\_kleene()}}\Rfunc{fimplication\_kleene()} & $I_\mathrm{KD}(x,y)=(1-x)\vee y$ \\
+Łukasiewicz & \index{\Rfunc{fimplication\_lukasiewicz()}}\Rfunc{fimplication\_lukasiewicz()} & $I_\mathrm{Ł}(x,y)=(1-x+y)\wedge 1$ \\
+Reichenbach & \index{\Rfunc{fimplication\_reichenbach()}}\Rfunc{fimplication\_reichenbach()} & $I_\mathrm{RB}(x,y)=1-x+xy$ \\
+Fodor & \index{\Rfunc{fimplication\_fodor()}}\Rfunc{fimplication\_fodor()} & $$I_\mathrm{F}(x,y)=\left\{
+\begin{array}{ll}
+1 & \text{if }x\le y\\
+(1-x)\vee y & \text{if }x> y\\
+\end{array}
+\right.$$ \\
+Goguen & \index{\Rfunc{fimplication\_goguen()}}\Rfunc{fimplication\_goguen()} & $$I_\mathrm{GG}(x,y)=\left\{
+\begin{array}{ll}
+1  & \text{if }x\le y\\
+y/x  & \text{if }x> y\\
+\end{array}
+\right.$$ \\
+G\"{o}del & \index{\Rfunc{fimplication\_goedel()}}\Rfunc{fimplication\_goedel()} & $$I_\mathrm{GD}(x,y)=\left\{
+\begin{array}{ll}
+1  & \text{if }x\le y\\
+y  & \text{if }x> y\\
+\end{array}
+\right.$$ \\
+Rescher & \index{\Rfunc{fimplication\_rescher()}}\Rfunc{fimplication\_rescher()} & $$I_\mathrm{RS}(x,y)=\left\{
+\begin{array}{ll}
+1  & \text{if }x\le y\\
+0  & \text{if }x> y\\
+\end{array}
+\right.$$ \\
+Weber & \index{\Rfunc{fimplication\_weber()}}\Rfunc{fimplication\_weber()} & $$I_\mathrm{W}(x,y)=\left\{
+\begin{array}{ll}
+1 & \text{if }x<1\\
+y & \text{if }x=1\\
+\end{array}
+\right.$$ \\
+Yager & \index{\Rfunc{fimplication\_yager()}}\Rfunc{fimplication\_yager()} & $$I_\mathrm{Y}(x,y)=\left\{
+\begin{array}{ll}
+1 & \text{if }x=0\text{ and }y=0\\
+y^x & \text{otherwise}\\
+\end{array}
+\right.$$ \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{A Note on Copulas}
 
