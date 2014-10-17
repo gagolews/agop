@@ -259,4 +259,10 @@ SEXP fnegation_yager(SEXP x);
 SEXP fnegation_minimal(SEXP x);
 SEXP fnegation_maximal(SEXP x);
 
+SEXP fimplication_minimal(SEXP x, SEXP y);
+SEXP fimplication_maximal(SEXP x, SEXP y);
+SEXP fimplication_kleene(SEXP x, SEXP y);
+SEXP fimplication_lukasiewicz(SEXP x, SEXP y);
+SEXP fimplication_reichenbach(SEXP x, SEXP y);
+
 #endif

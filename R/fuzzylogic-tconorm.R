@@ -25,6 +25,13 @@
 #' of the classical alternative operation.
 #'
 #' @details
+#' A function \eqn{S: [0,1]\times [0,1]\to [0,1]}
+#' is a \emph{t-conorm} if for all \eqn{x,y,z\in [0,1]} it holds:
+#' (a) \eqn{S(x,y)=S(y,x)};
+#' (b) if \eqn{y\le z}, then \eqn{S(x,y)\le S(x,z)};
+#' (c) \eqn{S(x,S(y,z))=S(S(x,y),z)};
+#' (d) \eqn{S(x, 0)=x}.
+#'
 #' The minimum t-conorm is given by \eqn{S_M(x,y)=max(x, y)}.
 #'
 #' The product t-conorm is given by \eqn{S_P(x,y)=x+y-xy}.
@@ -32,14 +39,15 @@
 #' The Lukasiewicz t-conorm is given by \eqn{S_L(x,y)=min(x+y,1)}.
 #'
 #' The drastic t-conorm is given by \eqn{S_D(x,y)=1} iff
-#' \eqn{x,y\in (0,1]} and \eqn{max(x, y)} otherwise.
+#' \eqn{x,y\in (0,1]}, and \eqn{max(x, y)} otherwise.
 #'
 #' The Fodor t-conorm is given by \eqn{S_F(x,y)=1}
-#' iff \eqn{x+y \ge 1} and \eqn{max(x, y)} otherwise.
+#' iff \eqn{x+y \ge 1}, and \eqn{max(x, y)} otherwise.
 #'
 #'
 #' @param x numeric vector with elements in \eqn{[0,1]}
-#' @param y numeric vector of the same length as \code{y}, with elements in \eqn{[0,1]}
+#' @param y numeric vector of the same length as \code{x},
+#'  with elements in \eqn{[0,1]}
 #' @return
 #' Numeric vector of the same length as \code{x} and \code{y}.
 #' The \code{i}th element of the resulting vector gives the result

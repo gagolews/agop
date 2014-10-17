@@ -17,8 +17,6 @@
  *   License along with 'agop'. If not, see <http://www.gnu.org/licenses/>.  *
  * ************************************************************************* */
 
-
-
 #include "agop.h"
 
 

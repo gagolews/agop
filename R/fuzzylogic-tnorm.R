@@ -25,6 +25,13 @@
 #' of the classical conjuntion operation.
 #'
 #' @details
+#' A function \eqn{T: [0,1]\times [0,1]\to [0,1]}
+#' is a \emph{t-norm} if for all \eqn{x,y,z\in [0,1]} it holds:
+#' (a) \eqn{T(x,y)=T(y,x)};
+#' (b) if \eqn{y\le z}, then \eqn{T(x,y)\le T(x,z)};
+#' (c) \eqn{T(x,T(y,z))=T(T(x,y),z)};
+#' (d) \eqn{T(x, 1)=x}.
+#'
 #' The minimum t-norm is given by \eqn{T_M(x,y)=min(x, y)}.
 #'
 #' The product t-norm is given by \eqn{T_P(x,y)=xy}.
@@ -32,14 +39,15 @@
 #' The Lukasiewicz t-norm is given by \eqn{T_L(x,y)=max(x+y-1,0)}.
 #'
 #' The drastic t-norm is given by \eqn{T_D(x,y)=0} iff
-#' \eqn{x,y\in [0,1)} and \eqn{min(x, y)} otherwise.
+#' \eqn{x,y\in [0,1)}, and \eqn{min(x, y)} otherwise.
 #'
 #' The Fodor t-norm is given by \eqn{T_F(x,y)=0}
-#' iff \eqn{x+y \le 1} and \eqn{min(x, y)} otherwise.
+#' iff \eqn{x+y \le 1}, and \eqn{min(x, y)} otherwise.
 #'
 #'
 #' @param x numeric vector with elements in \eqn{[0,1]}
-#' @param y numeric vector of the same length as \code{y}, with elements in \eqn{[0,1]}
+#' @param y numeric vector of the same length as \code{x},
+#' with elements in \eqn{[0,1]}
 #' @return
 #' Numeric vector of the same length as \code{x} and \code{y}.
 #' The \code{i}th element of the resulting vector gives the result

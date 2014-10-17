@@ -25,15 +25,21 @@
 #' of the classical negation operation.
 #'
 #' @details
+#' A function \eqn{N: [0,1]\to [0,1]}
+#' is a \emph{fuzzy implication} if for all \eqn{x,y\in [0,1]} it holds:
+#' (a) if \eqn{x\le y}, then \eqn{N(x)\ge N(y)};
+#' (b) \eqn{N(1)=0};
+#' (c) \eqn{N(0)=1}.
+#'
 #' The classic fuzzy negation is given by \eqn{N_C(x)=1-x}.
 #'
 #' The Yager fuzzy negation is given by \eqn{N_Y(x)=sqrt(1-x^2)}.
 #'
 #' The minimal fuzzy negation is given by \eqn{N_0(x,y)=1} iff
-#' \eqn{x=0} and \eqn{0} otherwise.
+#' \eqn{x=0}, and \eqn{0} otherwise.
 #'
 #' The maximal fuzzy negation is given by \eqn{N_1(x,y)=1}
-#' iff \eqn{x<1} and \eqn{0} otherwise.
+#' iff \eqn{x<1}, and \eqn{0} otherwise.
 #'
 #'
 #' @param x numeric vector with elements in \eqn{[0,1]}

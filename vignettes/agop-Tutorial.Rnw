@@ -1070,7 +1070,7 @@ $\vect{x}^{(1)}$ and $\vect{x}^{(2)}$.
 <<vis1a,fig.keep='none'>>=
 x1 <- c(5, 4, 2, 2, 1)
 x2 <- c(3, 3, 1, 0, 0, 0, 0)
-plot_producer(x1, extend=TRUE)
+plot_producer(x1, extend=TRUE, las=1)
 plot_producer(x2, add=TRUE, col=2, pch=2, extend=TRUE)
 legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 @
@@ -1333,7 +1333,7 @@ Plot of ``citation'' curves:
 
 <<ex1A,dependson='ex1'>>=
 for (i in seq_along(ex1))
-plot_producer(ex1[[i]], add=(i>1), col=i)
+   plot_producer(ex1[[i]], add=(i>1), col=i, las=1)
 legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 

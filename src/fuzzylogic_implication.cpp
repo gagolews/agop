@@ -20,65 +20,61 @@
 #include "agop.h"
 
 
-/** The minimum t-conorm
+/** The minimal fuzzy implication
  *
  * @param x numeric
  * @param y numeric
  * @return numeric
  */
-SEXP tconorm_minimum(SEXP x, SEXP y)
+SEXP fimplication_minimal(SEXP x, SEXP y)
 {
-   macro_apply_binaryop_x_y(std::max(x_tab[i], y_tab[i]))
+   macro_apply_binaryop_x_y((double)(x_tab[i] == 0.0 || y_tab[i] == 1.0))
 }
 
 
-/** The product t-conorm
+/** The maximal fuzzy implication
  *
  * @param x numeric
  * @param y numeric
  * @return numeric
  */
-SEXP tconorm_product(SEXP x, SEXP y)
+SEXP fimplication_maximal(SEXP x, SEXP y)
 {
-   macro_apply_binaryop_x_y(x_tab[i] + y_tab[i] - x_tab[i] * y_tab[i])
+   macro_apply_binaryop_x_y((double)(x_tab[i] < 1.0 || y_tab[i] > 0.0))
 }
 
 
-/** The Lukasiewicz t-conorm
+/** The Kleene-Dienes fuzzy implication
  *
  * @param x numeric
  * @param y numeric
  * @return numeric
  */
-SEXP tconorm_lukasiewicz(SEXP x, SEXP y)
+SEXP fimplication_kleene(SEXP x, SEXP y)
 {
-   macro_apply_binaryop_x_y(std::min(x_tab[i]+y_tab[i], 1.0))
+   macro_apply_binaryop_x_y(std::max(1.0-x_tab[i], y_tab[i]))
 }
 
 
-/** The drastic t-conorm
+/** The Lukasiewicz fuzzy implication
  *
  * @param x numeric
  * @param y numeric
  * @return numeric
  */
-SEXP tconorm_drastic(SEXP x, SEXP y)
+SEXP fimplication_lukasiewicz(SEXP x, SEXP y)
 {
-   macro_apply_binaryop_x_y(
-      (x_tab[i] > 0.0 && y_tab[i] > 0.0) ? 1.0 : std::max(x_tab[i], y_tab[i])
-   )
+   macro_apply_binaryop_x_y(std::min(1.0-x_tab[i]+y_tab[i], 1.0))
 }
 
 
-/** The Fodor t-conorm
+/** The Reichenbach fuzzy implication
  *
  * @param x numeric
  * @param y numeric
  * @return numeric
  */
-SEXP tconorm_fodor(SEXP x, SEXP y)
+SEXP fimplication_reichenbach(SEXP x, SEXP y)
 {
-   macro_apply_binaryop_x_y(
-      (x_tab[i] + y_tab[i] >= 1.0) ? 1.0 : std::max(x_tab[i], y_tab[i])
-   )
+   macro_apply_binaryop_x_y(1.0-x_tab[i]+x_tab[i]*y_tab[i])
 }
