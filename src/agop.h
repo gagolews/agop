@@ -264,5 +264,8 @@ SEXP fimplication_maximal(SEXP x, SEXP y);
 SEXP fimplication_kleene(SEXP x, SEXP y);
 SEXP fimplication_lukasiewicz(SEXP x, SEXP y);
 SEXP fimplication_reichenbach(SEXP x, SEXP y);
+SEXP fimplication_fodor(SEXP x, SEXP y);
+SEXP fimplication_goguen(SEXP x, SEXP y);
+SEXP fimplication_goedel(SEXP x, SEXP y);
 
 #endif

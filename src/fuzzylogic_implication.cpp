@@ -78,3 +78,40 @@ SEXP fimplication_reichenbach(SEXP x, SEXP y)
 {
    macro_apply_binaryop_x_y(1.0-x_tab[i]+x_tab[i]*y_tab[i])
 }
+
+
+/** The Fodor fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_fodor(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((x_tab[i] <= y_tab[i])?1.0:std::max(1.0-x_tab[i], y_tab[i]))
+}
+
+
+/** The Goguen fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_goguen(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((x_tab[i] <= y_tab[i])?1.0:(y_tab[i]/x_tab[i]))
+}
+
+
+/** The Goedel fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_goedel(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((x_tab[i] <= y_tab[i])?1.0:y_tab[i])
+}
+

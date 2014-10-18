@@ -45,6 +45,14 @@
 #'
 #' The Reichenbach fuzzy implication is given by \eqn{I_{RB}(x, y)=1-x+xy}.
 #'
+#' The Fodor fuzzy implication is given by \eqn{I_F(x, y)=1}
+#' iff \eqn{x\le y}, and \eqn{max(1-x, y)} otherwise.
+#'
+#' The Goguen fuzzy implication is given by \eqn{I_{GG}(x, y)=1}
+#' iff \eqn{x\le y}, and \eqn{y/x} otherwise.
+#'
+#' The Goedel fuzzy implication is given by \eqn{I_{GD}(x, y)=1}
+#' iff \eqn{x\le y}, and \eqn{y} otherwise.
 #'
 #' @param x numeric vector with elements in \eqn{[0,1]}
 #' @param y numeric vector of the same length as \code{x},
@@ -90,4 +98,25 @@ fimplication_lukasiewicz <- function(x, y) {
 #' @export
 fimplication_reichenbach <- function(x, y) {
    .Call("fimplication_reichenbach", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_fodor <- function(x, y) {
+   .Call("fimplication_fodor", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_goguen <- function(x, y) {
+   .Call("fimplication_goguen", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_goedel <- function(x, y) {
+   .Call("fimplication_goedel", x, y, PACKAGE="agop")
 }

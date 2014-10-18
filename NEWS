@@ -15,7 +15,10 @@
    e.g. tnorm_minimum(), tnorm_drastic(), tnorm_product(), tnorm_lukasiewicz(),
    tnorm_fodor(), tconorm_minimum(), tconorm_drastic(), tconorm_product(),
    tconorm_lukasiewicz(), tconorm_fodor(), fnegation_classic(),
-   fnegation_minimal(), fnegation_maximal(), fnegation_yager().
+   fnegation_minimal(), fnegation_maximal(), fnegation_yager(),
+   fimplication_minimal(), fimplication_maximal(), fimplication_kleene(),
+   fimplication_lukasiewicz(), fimplication_reichenbach(),
+   fimplication_fodor(), fimplication_goguen(), fimplication_goedel().
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):
