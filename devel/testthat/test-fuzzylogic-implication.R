@@ -21,13 +21,19 @@ test_that("fuzzy implicaations", {
    ifd <- fimplication_fodor(x, y)
    igg <- fimplication_goguen(x, y)
    igd <- fimplication_goedel(x, y)
+   irs <- fimplication_rescher(x, y)
+   iwb <- fimplication_weber(x, y)
+   iyg <- fimplication_yager(x, y)
 
    expect_true(all(i0 <= ikd & ikd <= i1))
    expect_true(all(i0 <= il  & il  <= i1))
    expect_true(all(i0 <= irb & irb <= i1))
    expect_true(all(i0 <= ifd & ifd <= i1))
-   expect_true(all(i0 <= igg & igg  <= i1))
+   expect_true(all(i0 <= igg & igg <= i1))
    expect_true(all(i0 <= igd & igd <= i1))
+   expect_true(all(i0 <= irs & irs <= i1))
+   expect_true(all(i0 <= iwb & iwb <= i1))
+   expect_true(all(i0 <= iyg & iyg <= i1))
 
    # boundary conditions
    expect_equivalent(fimplication_minimal(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
@@ -38,6 +44,9 @@ test_that("fuzzy implicaations", {
    expect_equivalent(fimplication_fodor(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
    expect_equivalent(fimplication_goguen(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
    expect_equivalent(fimplication_goedel(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
+   expect_equivalent(fimplication_rescher(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
+   expect_equivalent(fimplication_weber(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
+   expect_equivalent(fimplication_yager(c(1, 0, 1, 0), c(1, 0, 0, 1)), c(1, 1, 0, 1))
 
    # nondecreasing w.r.t. y
    z <- pmin(1, y+runif(length(y)))
@@ -49,6 +58,9 @@ test_that("fuzzy implicaations", {
    expect_true(all(fimplication_fodor(x, y) <= fimplication_fodor(x, z)))
    expect_true(all(fimplication_goguen(x, y) <= fimplication_goguen(x, z)))
    expect_true(all(fimplication_goedel(x, y) <= fimplication_goedel(x, z)))
+   expect_true(all(fimplication_rescher(x, y) <= fimplication_rescher(x, z)))
+   expect_true(all(fimplication_weber(x, y) <= fimplication_weber(x, z)))
+   expect_true(all(fimplication_yager(x, y) <= fimplication_yager(x, z)))
 
    # nonincreasing w.r.t. x
    z <- pmax(0, x-runif(length(y)))
@@ -60,4 +72,7 @@ test_that("fuzzy implicaations", {
    expect_true(all(fimplication_fodor(x, y) <= fimplication_fodor(z, y)))
    expect_true(all(fimplication_goguen(x, y) <= fimplication_goguen(z, y)))
    expect_true(all(fimplication_goedel(x, y) <= fimplication_goedel(z, y)))
+   expect_true(all(fimplication_rescher(x, y) <= fimplication_rescher(z, y)))
+   expect_true(all(fimplication_weber(x, y) <= fimplication_weber(z, y)))
+   expect_true(all(fimplication_yager(x, y) <= fimplication_yager(z, y)))
 })

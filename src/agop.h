@@ -267,5 +267,8 @@ SEXP fimplication_reichenbach(SEXP x, SEXP y);
 SEXP fimplication_fodor(SEXP x, SEXP y);
 SEXP fimplication_goguen(SEXP x, SEXP y);
 SEXP fimplication_goedel(SEXP x, SEXP y);
+SEXP fimplication_rescher(SEXP x, SEXP y);
+SEXP fimplication_weber(SEXP x, SEXP y);
+SEXP fimplication_yager(SEXP x, SEXP y);
 
 #endif

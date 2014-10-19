@@ -6,6 +6,10 @@ test_that("fuzzy_negation", {
    expect_error(fnegation_classic(c()))
    expect_error(fnegation_classic(-1.0))
    expect_error(fnegation_classic(2.0))
+   expect_error(fnegation_classic(Inf))
+   expect_error(fnegation_classic(-Inf))
+   expect_identical(fnegation_classic(NaN), NaN)
+   expect_identical(fnegation_classic(NA_real_), NA_real_)
 
    expect_equivalent(fnegation_classic(c(0.0, 1.0)), c(1.0, 0.0))
    expect_equivalent(fnegation_minimal(c(0.0, 1.0)), c(1.0, 0.0))

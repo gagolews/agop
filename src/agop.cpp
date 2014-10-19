@@ -108,6 +108,9 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(fimplication_fodor,         2),
    MAKE_CALL_METHOD(fimplication_goguen,        2),
    MAKE_CALL_METHOD(fimplication_goedel,        2),
+   MAKE_CALL_METHOD(fimplication_rescher,       2),
+   MAKE_CALL_METHOD(fimplication_weber,         2),
+   MAKE_CALL_METHOD(fimplication_yager,         2),
 
    // the list must be NULL-terminated:
    {NULL,                           NULL,       0}

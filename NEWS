@@ -18,7 +18,8 @@
    fnegation_minimal(), fnegation_maximal(), fnegation_yager(),
    fimplication_minimal(), fimplication_maximal(), fimplication_kleene(),
    fimplication_lukasiewicz(), fimplication_reichenbach(),
-   fimplication_fodor(), fimplication_goguen(), fimplication_goedel().
+   fimplication_fodor(), fimplication_goguen(), fimplication_goedel(),
+   fimplication_rescher(), fimplication_weber(), fimplication_yager().
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):

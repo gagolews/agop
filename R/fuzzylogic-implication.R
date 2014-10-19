@@ -54,6 +54,15 @@
 #' The Goedel fuzzy implication is given by \eqn{I_{GD}(x, y)=1}
 #' iff \eqn{x\le y}, and \eqn{y} otherwise.
 #'
+#' The Rescher fuzzy implication is given by \eqn{I_{RS}(x, y)=1}
+#' iff \eqn{x\le y}, and \eqn{0} otherwise.
+#'
+#' The Weber fuzzy implication is given by \eqn{I_{W}(x, y)=1}
+#' iff \eqn{x<1}, and \eqn{y} otherwise.
+#'
+#' The Yager fuzzy implication is given by \eqn{I_{Y}(x, y)=1}
+#' iff \eqn{x=0} and \eqn{y=0}, and \eqn{y^x} otherwise.
+#'
 #' @param x numeric vector with elements in \eqn{[0,1]}
 #' @param y numeric vector of the same length as \code{x},
 #'  with elements in \eqn{[0,1]}
@@ -119,4 +128,25 @@ fimplication_goguen <- function(x, y) {
 #' @export
 fimplication_goedel <- function(x, y) {
    .Call("fimplication_goedel", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_rescher <- function(x, y) {
+   .Call("fimplication_rescher", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_weber <- function(x, y) {
+   .Call("fimplication_weber", x, y, PACKAGE="agop")
+}
+
+
+#' @rdname fuzzylogic_implication
+#' @export
+fimplication_yager <- function(x, y) {
+   .Call("fimplication_yager", x, y, PACKAGE="agop")
 }

@@ -115,3 +115,38 @@ SEXP fimplication_goedel(SEXP x, SEXP y)
    macro_apply_binaryop_x_y((x_tab[i] <= y_tab[i])?1.0:y_tab[i])
 }
 
+
+/** The Rescher fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_rescher(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((double)(x_tab[i] <= y_tab[i]))
+}
+
+
+/** The Weber fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_weber(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((x_tab[i] < 1.0)?1.0:y_tab[i])
+}
+
+
+/** The Yager fuzzy implication
+ *
+ * @param x numeric
+ * @param y numeric
+ * @return numeric
+ */
+SEXP fimplication_yager(SEXP x, SEXP y)
+{
+   macro_apply_binaryop_x_y((x_tab[i] == 0.0 && y_tab[i] == 0.0)?1.0:pow(y_tab[i], x_tab[i]))
+}
