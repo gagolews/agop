@@ -395,6 +395,14 @@ For any $n\in\mathbb{N}$ and $c\in\Ival$,
 we set $(n\ast c) = (c,\dots,c)\in\IvalPow{n}$.
 Also, $[n]:=\{1,2,\dots,n\}$ with $[0]=\emptyset$.
 
+Let $\mathfrak{S}_{[n]}$ denote the set of all permutations of $[n]$,
+and for any $\sigma\in\mathfrak{S}_{[n]}$, $\IvalPow{n}_\sigma=\{(x_1,\dots,x_n)\in\IvalPow{n}:
+x_{\sigma(1)}\le\dots\le x_{\sigma(n)}\}$.
+Furthermore, if $\func{F}:\IvalPow{n}\to\Ival$,
+then let $\func{F}|_\sigma$ denote the restriction
+of $\func{F}$ to $\IvalPow{n}_\sigma$, i.e.~$\func{F}|_\sigma:\IvalPow{n}_\sigma\to\Ival$,
+$\func{F}|_\sigma(\vect{x})=\func{F}(\vect{x})$ for any $\vect{x}\in\IvalPow{n}_\sigma$.
+
 
 \subsection{A Note on Representing Numeric Data and Applying Operations in \R}
 
@@ -981,44 +989,59 @@ that are not t-norms and conversely, see e.g.~\cite{KlementMesiarPap2000:trinorm
 
 
 Classically, in the theory of aggregation we consider
-the broadly-conceived averaging functions and logical connectives.
+the broadly-conceived averaging functions and fuzzy logic connectives.
 However, one often needs a very different kind of a proper
 synthesis of multidimensional numeric data into a single number.
 In \cite{Gagolewski2014:spread} an axiomatization of
-\emph{spread measures}, which may be used to measure data
+\emph{spread measures}, which may be used to measure (absolute) data
 variability, spread, or scatter, was proposed.
 
 
-.......TO BE DONE..............
-
-Given $\vect{x},\vect{x}'\in\Reals^n$,
-we write $\vect{x}\preccurlyeq\vect{x}'$
-and say that $\vect{x}$ \emph{has not greater spread than} $\vect{x}'$,
-if and only if for all $i,j=1,\dots,n$ it holds
-\begin{equation}
-x_i\ge x_j \Longrightarrow x_i-x_j\le x_i'-x_j'.
+Given $\vect{x},\vect{x}'\in\IvalPow{n}$,
+we write $\vect{x}\preccurlyeq_n\vect{x}'$
+and say that $\vect{x}$ \emph{has not greater absolute spread than} $\vect{x}'$,
+if and only if for all $i,j\in[n]$ it holds:
+\begin{equation}\label{Eq:spreaddef_orig}
+(x_i-x_j)(x_i'-x_j')\ge 0 \text{ and } |x_i-x_j|\le |x_i'-x_j'|.
 \end{equation}
-It is easily seen that $\preccurlyeq$ is a preorder on $\Reals^n$,
-i.e.~a relation that is reflexive and transitive,
-and that it is not necessarily total, i.e.~not all vectors
+Please note that $\preccurlyeq_n$ is a preorder on $\IvalPow{n}$,
+i.e.~a relation that is reflexive and transitive.
+What is more, it is not necessarily total, i.e.~not all vectors
 are comparable with each other, see also Sec.~\ref{Sec:VectorSpread}.
 
+Additionally, whether $\preccurlyeq_n$ holds for given $\vect{x},\vect{x}'$
+depends on how the elements in both vectors are jointly ordered.
+The left side of \eqref{Eq:spreaddef_orig} implies that
+if $\vect{x}\preccurlyeq_n\vect{x}'$, then $\vect{x},\vect{x}'$ are \emph{comonotonic}
+(cf.~\cite[Def.~2.123]{GrabischETAL2009:aggregationfunctions}
+and Sec.~\ref{Sec:Comonotonicity}).
+Thus, trivially, if $\vect{x}\preccurlyeq_n\vect{x}'$,
+then there exists $\sigma\in\mathfrak{S}_{[n]}$ such that
+$\vect{x},\vect{x}'\in\IvalPow{n}_\sigma$.
+In fact, in this setting it might be shown that $\sigma$ is an ordering
+permutation of $\vect{x}'$.
+
+
+\bigskip
+
 \begin{definition}\label{Def:SpreadMeasure}
-A \emph{spread measure} is an aggregation operator
-$\func{V}:\Reals^n\to[0,\infty]$ such that:
+A \emph{spread measure} is a mapping
+$\func{V}:\IvalPow{n}\to[0,\infty]$ such that:
 \begin{enumerate}
- \item[(d1)] For any $c\in\Reals$
- it holds $\func{V}(n\ast c)=\func{V}(c,c,\dots,c)=0$,
- \item[(d2)] for each $\vect{x}\preccurlyeq\vect{x}'$
- it holds $\func{V}(\vect{x})\le\func{V}(\vect{x}')$.
+ \item[(v1)] for each $\vect{x}\preccurlyeq_n\vect{x}'$
+ it holds $\func{V}(\vect{x})\le\func{V}(\vect{x}')$,
+ \item[(v2)] for any $c\in\Ival$
+ it holds $\func{V}(n\ast c)=0$.
 \end{enumerate}
 \end{definition}
 
 This class includes
 e.g.~the sample variance, standard deviation, range, interquartile range,
 median absolute deviation etc., that is
-functions widely used in exploratory data analysis.
-
+functions widely used in exploratory data analysis (all of them
+are symmetric).
+Additionally, measures of experts' opinions diversity or consensus
+in group decision making problems may be obtained.
 
 
 
@@ -1286,18 +1309,51 @@ $n = m\text{ and }x_{i}\le y_{i}$ for all $i=1,\dots,n$.
 The \texttt{\Rfunc{all}(x <= y)} expression may not work well
 for vectors of unequal lengths.
 
-...TO DO...
+
+TO DO: \index{\Rfunc{rel\_nd()}}\Rfunc{rel\_nd()}
 
 Moreover, a version that is independent of
 the vectors' elements ordering (i.e.~defined using $x_{(i)}\le y_{(i)}$)
 is available:
 
-...TO DO...
+TO DO: \index{\Rfunc{rel\_ndsym()}}\Rfunc{rel\_ndsym()}
+
+
+\subsection{Comonotonicity}\label{Sec:Comonotonicity}
+
+According to \cite[Def.~2.123]{GrabischETAL2009:aggregationfunctions},
+$\vect{x}, \vect{y}\in\IvalPow{n}$ are \emph{comonotonic},
+denoted by $\vect{x} \pitchfork \vect{y}$,
+if and only if there exists a permutation $\sigma\in\mathfrak{S}_{[n]}$
+such that
+\[
+x_{\sigma(1)}\le \dots \le x_{\sigma(n)}
+\quad\text{and}\quad
+y_{\sigma(1)}\le \dots \le y_{\sigma(n)}.
+\]
+Thus, $\sigma$ orders $\vect{x}$ and $\vect{y}$ simultaneously.
+Equivalently, $\vect{x}$ and $\vect{y}$ are comonotonic,
+iff $(x_i-x_j)(y_i-y_j)\ge 0$ for every $i,j\in[n]$.
+
+It is easily seen that the $\pitchfork$ binary relation
+is reflexive, symmetric, transitive. Thus, it is an equivalence relation.
+
+\bigskip
+TODO: \index{\Rfunc{rel\_comonotonicity()}}\Rfunc{rel\_comonotonicity()}
+
 
 \subsection{Vector Spread}\label{Sec:VectorSpread}
 
+
+It may be shown, see \cite{Gagolewski2014:spread},
+that for any $\vect{x},\vect{x}'\in\IvalPow{n}$
+it holds $\vect{x}\preccurlyeq_n\vect{x}'$
+if and only if $\vect{x},\vect{x}'$ are comonotonic
+and $\Rfunc{diff}(\Rfunc{sort}(\vect{x}))\le_{n-1}\Rfunc{diff}(\Rfunc{sort}(\vect{x}'))$.
+
+
 The function \index{\Rfunc{pord\_spread()}}\Rfunc{pord\_spread()}
-can be used to compare spread, scater, or variability of two numeric vectors,
+can be used to compare spread, scatter, or variability of two numeric vectors,
 see \cite{Gagolewski2014:spread}
 with the $\preccurlyeq$ relation introduced
 in Sec.~\ref{Sec:SpreadMeasures}
