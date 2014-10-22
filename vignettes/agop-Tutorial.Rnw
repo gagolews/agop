@@ -1310,13 +1310,13 @@ The \texttt{\Rfunc{all}(x <= y)} expression may not work well
 for vectors of unequal lengths.
 
 
-TO DO: \index{\Rfunc{rel\_nd()}}\Rfunc{rel\_nd()}
+TO DO: \index{\Rfunc{pord\_nd()}}\Rfunc{pord\_nd()}
 
 Moreover, a version that is independent of
 the vectors' elements ordering (i.e.~defined using $x_{(i)}\le y_{(i)}$)
 is available:
 
-TO DO: \index{\Rfunc{rel\_ndsym()}}\Rfunc{rel\_ndsym()}
+TO DO: \index{\Rfunc{pord\_ndsym()}}\Rfunc{pord\_ndsym()}
 
 
 \subsection{Comonotonicity}\label{Sec:Comonotonicity}
@@ -1338,8 +1338,14 @@ iff $(x_i-x_j)(y_i-y_j)\ge 0$ for every $i,j\in[n]$.
 It is easily seen that the $\pitchfork$ binary relation
 is reflexive, symmetric, transitive. Thus, it is an equivalence relation.
 
-\bigskip
-TODO: \index{\Rfunc{rel\_comonotonicity()}}\Rfunc{rel\_comonotonicity()}
+To check if two vectors are comonotonic, we can use the
+\index{\Rfunc{check\_comonotonicity()}}\Rfunc{check\_comonotonicity()} function.
+
+<<>>=
+check_comonotonicity(c(1, 5, 3, 2, 4), c(10, 100, 10, 10, 50))
+check_comonotonicity(1:10, 10:1)
+check_comonotonicity(1:3, 1:2) # different lengths
+@
 
 
 \subsection{Vector Spread}\label{Sec:VectorSpread}

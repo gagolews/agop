@@ -7,9 +7,33 @@
    that of (Grabisch et al., 2009), i.e. uses nondecreasing
    vectors, and not nonincreasing ones.
 
-* NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
-   Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
-   parameter) and exponential distribution, respectively.
+* Rewritten in C++: ppareto2(),
+   rel_is_reflexive(), rel_is_total(), rel_is_transitive(),
+   rel_closure_total_fair(), rel_closure_transitive(),
+   rel_reduction_transitive(), rel_reduction_hasse().
+
+* New functions dealing with binary relations:
+   rel_closure_reflexive(), rel_reduction_reflexive(), rel_is_symmetric(),
+   rel_closure_symmetric(), rel_is_irreflexive(), rel_is_asymmetric(),
+   rel_is_antisymmetric(), rel_is_cyclic(), ....
+   Note that in future releases of agop we plan to add
+   procedures that deal with fuzzy relations.
+
+* BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
+
+* All built-in agops now throw an error on empty vectors.
+
+* Moved testthat tests to the agop github repository
+      devel/ dir; `testthat` Suggest-type dependency removed.
+
+* Package vingette now in vignettes/ dir
+
+* BUGFIX: rel_closure_transitive() - resulting matrix
+   was not necessarily transitive; the function has been rewritten in C++
+   and now uses the Warshall algorithm (1962).
+
+* All functions dealing with binary relations now have "rel_" prefix.
+  Moreover, de_transitive() has been renamed to rel_reduction_hasse().
 
 * NEW: agop not is shipped with some predefined fuzzy logic connectives,
    e.g. tnorm_minimum(), tnorm_drastic(), tnorm_product(), tnorm_lukasiewicz(),
@@ -20,6 +44,15 @@
    fimplication_lukasiewicz(), fimplication_reichenbach(),
    fimplication_fodor(), fimplication_goguen(), fimplication_goedel(),
    fimplication_rescher(), fimplication_weber(), fimplication_yager().
+
+* NEW function: check_comonotonicity() determines if two vectors are
+   comonotonic.
+
+* ....
+
+* NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
+   Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
+   parameter) and exponential distribution, respectively.
 
 * *PENDING* NEW disribution implemented: discretized Pareto-Type II
    (floor of Pareto Type-II):
@@ -35,37 +68,7 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
-* BUGFIX: rel_closure_transitive() - resulting matrix
-   was not necessarily transitive; the function has been rewritten in C++
-   and now uses the Warshall algorithm (1962).
-
 * *** Possibly TO DO: remove dependency Matrix and igraph ***
-
-* All functions dealing with binary relations now have "rel_" prefix.
-  Moreover, de_transitive() has been renamed to rel_reduction_hasse().
-
-* Rewritten in C++: ppareto2(),
-   rel_is_reflexive(), rel_is_total(), rel_is_transitive(),
-   rel_closure_total_fair(), rel_closure_transitive(),
-   rel_reduction_transitive(), rel_reduction_hasse().
-
-* New functions dealing with binary relations:
-   rel_closure_reflexive(), rel_reduction_reflexive(), rel_is_symmetric(),
-   rel_closure_symmetric(), rel_is_irreflexive(), rel_is_asymmetric(),
-   rel_is_antisymmetric(), rel_is_cyclic(), ....
-   Note that in future releases of agop we plan to add
-   procedures that deal with fuzzy relations.
-
-* BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
-
-* all built-in agops now throw an error on empty vectors.
-
-* moved testthat tests to the agop github repository
-      devel/ dir; `testthat` Suggest-type dependency removed.
-
-* vingette now in vignettes/ dir
-
-* ...TO DO...
 
 ***************************************************************************
 0.1-4 /2014-09-14/
