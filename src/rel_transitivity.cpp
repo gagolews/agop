@@ -105,19 +105,21 @@ SEXP rel_reduction_transitive(SEXP x)
    SEXP cyc = rel_is_cyclic(x);
    if (LOGICAL(cyc)[0] != false)
       Rf_error(MSG__EXPECTED_ACYCLIC, "R");
-      
+
    x = rel_closure_transitive(x);
    // is logical matrix, dimnames are preserved, no NAs, we may overwrite its elements
 
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
-   
+
    SEXP y = Rf_allocVector(LGLSXP, n*n);
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
    Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
-   
+
+   // (Aho et al. 1972)
+
    for (R_len_t i=0; i<n; ++i) {
       for (R_len_t j=0; j<n; ++j) {
          yp[i+n*j] = xp[i+n*j];

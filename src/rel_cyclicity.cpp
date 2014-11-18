@@ -22,17 +22,17 @@
 #include "agop.h"
 
 
-/** Internal function 
- * 
+/** Internal function
+ *
  * Check cyclicity; based on depth-first search & topological sorting
  */
 bool rel_is_cyclic(int i, int* xp, int n, int* helper) {
    if (helper[i] == 1)
       return true;
-      
+
    if (helper[i] == 2)
       return false;
-      
+
    helper[i] = 1;
    for (int j=0; j<n; ++j) {
       if (xp[i+j*n]) {
@@ -58,14 +58,15 @@ SEXP rel_is_cyclic(SEXP x)
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
-   int* helper = new int[n];
-   for (int i=0; i<n; ++i)
-      helper[i] = 0;
-      
+
    for (int i=0; i<n*n; ++i)
       if (xp[i] == NA_LOGICAL)
          return Rf_ScalarLogical(NA_LOGICAL);
-   
+
+   int* helper = new int[n];
+   for (int i=0; i<n; ++i)
+      helper[i] = 0;
+
    bool ret = false;
    int i=0;
    do {
@@ -73,7 +74,7 @@ SEXP rel_is_cyclic(SEXP x)
       if (i == n) break;
       ret = rel_is_cyclic(i, xp, n, helper);
    } while(!ret);
-   
+
    delete[] helper;
    return Rf_ScalarLogical(ret);
 }

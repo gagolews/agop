@@ -153,13 +153,13 @@ If you use the ``official'' CRAN release, some of the features may be unavailabl
 {\large\sf\textit{Aggregation Operators and Preordered Sets in \R}}
 
 \bigskip
-{\large Marek Gagolewski${}^{1,2}$, Anna Cena${}^{1,2}$}
+{\large Marek Gagolewski${}^{1,2}$}
 
 ${}^{1}$ Systems Research Institute, Polish Academy of Sciences
 
 ul. Newelska 6, 01-447 Warsaw, Poland
 
-${}^{2}$ Rexamine, Email: \texttt{\{gagolews,cena\}@rexamine.com}
+${}^{2}$ Rexamine, Email: \texttt{gagolews@rexamine.com}
 
 \href{http://agop.rexamine.com/}%
 {http://agop.rexamine.com}
@@ -988,7 +988,7 @@ that are not t-norms and conversely, see e.g.~\cite{KlementMesiarPap2000:trinorm
 \subsection{Spread Measures}\label{Sec:SpreadMeasures}
 
 
-Classically, in the theory of aggregation we consider
+Classically, aggregation theory focuses on
 the broadly-conceived averaging functions and fuzzy logic connectives.
 However, one often needs a very different kind of a proper
 synthesis of multidimensional numeric data into a single number.
@@ -1116,12 +1116,9 @@ legend('topright', c('x1', 'x2'), col=c(1, 2), lty=1, pch=c(1, 2))
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 \section{Binary Relations}
+
+% @TODO: describe how we deal with missing values?
 
 The \package{agop} package includes a few functions
 aiming to deal with binary relations%
@@ -1147,7 +1144,7 @@ such that $a_{i,j} = 1$ if and only if $v_i R v_j$.
 Note that we write $R\subseteq R'$ if $v_i R v_j \Longrightarrow v_i R' v_j$,
 and that if $R = V\times V$ then for all $i,j$ it holds $v_i R v_j$.
 
-Table \ref{Tab:binrelprops} contains an overview of the most often
+Table \ref{Tab:binrelprops} gives an overview of the most often
 considered properties of binary relations.
 Moreover, Table \ref{Tab:reltypes} lists popular classes of relations.
 
@@ -1196,12 +1193,12 @@ To determine the \emph{reflexive closure},
 i.e.~the minimal reflexive $R'\supseteq R$
 call \index{\Rfunc{rel\_closure\_reflexive()}}\Rfunc{rel\_closure\_ref\-lexive()}.
 On the other hand, with a call to
-\index{\Rfunc{rel\_reduction\_reflexive()}}\Rfunc{rel\_reduction\_reflexive()}
+\index{\Rfunc{rel\_reduction\_reflexive()}}\Rfunc{rel\_reduction\_re\-flexive()}
 we get the \emph{reflexive reduction} of $R$,
 i.e.~the minimal $R'\subseteq R$ such that
 the reflexive closures of $R'$  and $R$ are equal.
 In other words, $R'$ is the largest irreflexive relation
-contained in $R$.
+contained in~$R$.
 
 To find the \emph{transitive closure},
 cf.~\cite{Warshall1962:transitiveclosure},
@@ -1251,7 +1248,7 @@ $n\le m\text{ and }x_{\{i\}}\le y_{\{i\}}$ for all $i=1,\dots,n\wedge m$.
 
 Of course, $\trianglelefteq$ is symmetric
 and transitive, i.e.~it is a preorder.
-Moreover, it would have been a partial order (in general it's not),
+Moreover, it would have been a partial order (in general it is not),
 if we had defined it on the set
 of \textit{sorted} vectors.
 
@@ -1262,7 +1259,7 @@ context again) $X$
  is (weakly) dominated %(in sense of $\trianglelefteq$)
 by an author $Y,$ if $X$ has no more papers than $Y$ and each
 the $i$th most cited paper of $X$ has no more citations than
-the $i$th most cited paper of $Y$. Not that the $(m-n)$ least cited
+the $i$th most cited paper of $Y$. Note that the $(m-n)$ least cited
 $Y$'s papers are not taken into account here.
 
 Most importantly, however,

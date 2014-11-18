@@ -68,6 +68,8 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
+* [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
+
 * *** Possibly TO DO: remove dependency Matrix and igraph ***
 
 ***************************************************************************

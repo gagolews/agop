@@ -18,7 +18,7 @@
 
 
 #' @title
-#' Hasse diagrams
+#' Hasse Diagrams
 #'
 #' @description
 #' This function calculates the reflexive reduction

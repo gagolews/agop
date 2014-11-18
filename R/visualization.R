@@ -23,7 +23,7 @@
 #'
 #' @description
 #' Draws a step function that represents given numeric vector
-#' with elements in \eqn{[0,\infty]}.
+#' with elements in \eqn{[a,\infty]}.
 #'
 #' @details
 #' In \pkg{agop}, a given vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
@@ -56,6 +56,7 @@
 #' for \code{type} of \code{'left.continuous'} and \code{'right.continuous'} only
 #' @param ylim,xlim,xlab,ylab,main,... additional graphical parameters,
 #' see \code{\link{plot.default}}
+#' @param a single numeric value
 #' @return
 #' nothing interesting
 #'
@@ -73,12 +74,13 @@ plot_producer <- function(x,
    pch=1, col=1, lty=1, lwd=1, cex=1,
    col.steps=col, lty.steps=2, lwd.steps=1,
    xlab="", ylab="", main="",
-   xmarg=10, xlim=c(0,length(x)*1.2), ylim=c(0, max(x)),
+   xmarg=10, xlim=c(0,length(x)*1.2), ylim=c(a, max(x)), a=0.0,
    ...)
 {
-   stopifnot(length(x) > 0, is.numeric(x), all(x >= 0))
+   stopifnot(is.numeric(a), length(a) == 1, is.finite(a))
+   stopifnot(length(x) > 0, is.numeric(x), all(x >= a))
    n <- length(x)
-   x <- sort(x, decreasing=T)
+   x <- sort(x, decreasing=TRUE)
 
    type <- match.arg(type)
    extend <- identical(extend, TRUE)
@@ -102,7 +104,7 @@ plot_producer <- function(x,
       }
       else {
          px <- c(px, par("usr")[2]+1)
-         py <- c(py, 0)
+         py <- c(py, a)
       }
    }
 

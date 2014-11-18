@@ -28,7 +28,7 @@
 #' @details
 #' \code{rel_is_cyclic} has \eqn{O(n^3)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}
-#' (the algorithm currently verifies whether a depth-first search-based
+#' (the implemented algorithm currently verifies whether a depth-first search-based
 #' topological sorting is possible).
 #' Missing values in \code{R} always result in \code{NA}.
 #'

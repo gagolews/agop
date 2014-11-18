@@ -49,9 +49,6 @@ SEXP rel_is_total(SEXP x)
 }
 
 
-
-
-
 /** Get the fair totalization of a binary relation
  *
  * @param x square logical matrix

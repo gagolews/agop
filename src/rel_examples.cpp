@@ -47,8 +47,8 @@ SEXP pord_weakdom(SEXP x, SEXP y)
    if (ISNA(xd[0])) return Rf_ScalarLogical(NA_LOGICAL);
    if (ISNA(yd[0])) return Rf_ScalarLogical(NA_LOGICAL);
 
-   if (xd[nx-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
-   if (yd[ny-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "y", 0.0);
+//   if (xd[nx-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
+//   if (yd[ny-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "y", 0.0);
 
    if (ny < nx)
       Rf_ScalarLogical(FALSE); // x is definitely not dominated by y

@@ -51,6 +51,7 @@ rel_is_symmetric <- function(R)
    .Call("rel_is_symmetric", as.matrix(R), PACKAGE="agop") # args checked internally
 }
 
+
 #' @export
 #' @rdname rel_symmetric
 rel_closure_symmetric <- function(R)
