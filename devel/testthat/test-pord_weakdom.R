@@ -19,7 +19,8 @@ test_that("pord_nd", {
    expect_equivalent(pord_nd(c(10:1), c(10:1)-1), FALSE)
    expect_equivalent(pord_nd(c(10:1), c(10:1)), TRUE)
 
-   expect_equivalent(pord_nd(c(10:1), c(10:3)), FALSE)
+   expect_equivalent(pord_nd(c(10:1), c(10:3)), NA)
+   expect_equivalent(pord_nd(c(10:1), c(10:3), incompatible_lengths = FALSE), FALSE)
    expect_equivalent(pord_nd(c(10:1), c(10:2, 2)), TRUE)
    expect_equivalent(pord_nd(c(10:1), c(1:10)), FALSE)
 })

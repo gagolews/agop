@@ -26,20 +26,25 @@
  *
  * @param x numeric vector
  * @param y numeric vector
+ * @param incompatible_lengths single logical value
  * @return logical scalar
  *
- * @version 0.2 (Marek Gagolewski)
+ * @version 0.2-1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    incompatible_lenghts arg added
  */
-SEXP check_comonotonicity(SEXP x, SEXP y)
+SEXP check_comonotonicity(SEXP x, SEXP y, SEXP incompatible_lengths)
 {
    x = prepare_arg_numeric(x, "x");
    y = prepare_arg_numeric(y, "y");
+   incompatible_lengths = prepare_arg_logical_1(incompatible_lengths, "incompatible_lengths");
 
    R_len_t x_length = LENGTH(x);
    R_len_t y_length = LENGTH(y);
 
    if (x_length != y_length)
-      return Rf_ScalarLogical(NA_LOGICAL);
+      return incompatible_lengths;
 
    double* x_tab = REAL(x);
    double* y_tab = REAL(y);

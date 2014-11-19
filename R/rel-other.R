@@ -29,7 +29,7 @@
 #'
 #' @param x list with elements to compare, preferrably named
 #' @param pord a function with two arguments, returning a single boolean value,
-#' e.g. \code{\link{pord_spread}}, \code{\link{pord_spreadsym}},
+#' e.g. \code{\link{pord_spread}},
 #' \code{\link{pord_nd}}, or \code{\link{pord_weakdom}}
 #' @param ... additional arguments passed to \code{pord}
 #'

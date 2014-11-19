@@ -6,6 +6,7 @@ test_that("check_comonotonicity", {
 
    expect_identical(check_comonotonicity(1, NA), NA)
    expect_identical(check_comonotonicity(1:2, 1), NA)
+   expect_identical(check_comonotonicity(1:2, 1, incompatible_lengths = FALSE), FALSE)
 
    expect_identical(check_comonotonicity(c(1:100, NA), 1:101), NA)
 

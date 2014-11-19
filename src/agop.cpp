@@ -52,11 +52,10 @@ static const R_CallMethodDef cCallMethods[] = {
    MAKE_CALL_METHOD(index_lp,                   2),
    MAKE_CALL_METHOD(d2owa_checkwts,             1),
 
-   MAKE_CALL_METHOD(check_comonotonicity,       2),
+   MAKE_CALL_METHOD(check_comonotonicity,       3),
    MAKE_CALL_METHOD(pord_weakdom,               2),
-   MAKE_CALL_METHOD(pord_nd,                    2),
-   MAKE_CALL_METHOD(pord_spread,                2),
-   MAKE_CALL_METHOD(pord_spreadsym,             2),
+   MAKE_CALL_METHOD(pord_nd,                    3),
+   MAKE_CALL_METHOD(pord_spread,                3),
 
    MAKE_CALL_METHOD(rel_is_cyclic,              1),
 

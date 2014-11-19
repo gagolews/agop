@@ -164,11 +164,10 @@ SEXP wmin(SEXP x, SEXP w);
 
 SEXP d2owa_checkwts(SEXP w);
 
-SEXP check_comonotonicity(SEXP x, SEXP y);
+SEXP check_comonotonicity(SEXP x, SEXP y, SEXP incompatible_lengths);
 SEXP pord_weakdom(SEXP x, SEXP y);
-SEXP pord_nd(SEXP x, SEXP y);
-SEXP pord_spread(SEXP x, SEXP y);
-SEXP pord_spreadsym(SEXP x, SEXP y);
+SEXP pord_nd(SEXP x, SEXP y, SEXP incompatible_lengths);
+SEXP pord_spread(SEXP x, SEXP y, SEXP incompatible_lengths);
 
 SEXP rel_is_cyclic(SEXP x);
 

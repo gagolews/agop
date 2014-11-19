@@ -33,14 +33,15 @@
 #' Equivalently, \code{x} and \code{y} are comonotonic,
 #' iff \eqn{(x_i-x_j)(y_i-y_j)\ge 0} for every \code{i,j}.
 #'
-#' If vectors of different lengths are provided, or
-#' there are missing values in \code{x} or \code{y}, the function
+#' If there are missing values in \code{x} or \code{y}, the function
 #' returns \code{NA}.
 #'
 #' Currently, the algorithm implemented has \eqn{O(n^2)} time complexity.
 #'
 #' @param x numeric vector
 #' @param y numeric vector
+#' @param incompatible_lengths single logical value,
+#' value to return iff lengths of \code{x} and \code{y} differ
 #'
 #' @return
 #' Returns a single logical value.
@@ -50,6 +51,6 @@
 #' @references
 #' Grabisch M., Marichal J.-L., Mesiar R., Pap E., \emph{Aggregation functions},
 #'    Cambridge University Press, 2009.
-check_comonotonicity <- function(x, y) {
-   .Call("check_comonotonicity", x, y, PACKAGE="agop")
+check_comonotonicity <- function(x, y, incompatible_lengths=NA) {
+   .Call("check_comonotonicity", x, y, incompatible_lengths, PACKAGE="agop")
 }

@@ -51,16 +51,22 @@
 #'
 #' @param x numeric vector with nonnegative elements
 #' @param y numeric vector with nonnegative elements
+#' @param incompatible_lengths single logical value,
+#' value to return iff lengths of \code{x} and \code{y} differ
 #'
 #' @return Returns a single logical value
 #' indicating whether \code{x} is weakly
 #' dominated by \code{y}.
 #'
+#' @references
+#' Grabisch M., Marichal J.-L., Mesiar R., Pap E., \emph{Aggregation functions},
+#'    Cambridge University Press, 2009.
+#'
 #' @family binary_relations
 #' @export
-pord_nd <- function(x, y)
+pord_nd <- function(x, y, incompatible_lengths=NA)
 {
-   .Call("pord_nd", x, y, PACKAGE="agop")
+   .Call("pord_nd", x, y, incompatible_lengths, PACKAGE="agop")
 }
 
 
@@ -128,31 +134,22 @@ pord_weakdom <- function(x, y)
 
 
 #' @title
-#' Compare Spreads of Vectors (Preorder)
+#' Compare Spread of Vectors (Preorder)
 #'
 #' @description
-#' These functions determine whether
+#' This function determines whether
 #' one numeric vector has not greater spread than the
 #' other
 #'
 #'
 #' @details
-#' These functions accept only vectors of the same size.
-#' [TO DO: should not it return \code{FALSE} or \code{NA} in this case?]
-#'
 #' We say that \bold{x} of size \eqn{n}
 #' is of \emph{no greater spread} than \bold{y}
 #' iff for all \eqn{i,j=1,\dots,n} such
 #' that \eqn{x_i>x_j} it holds \eqn{x_i-x_j\le y_i-y_jll
 #' }.
 #' Such a preorder is used in the definition of
-#' dispersion functions (see Gagolewski, 2013)
-#' and is implemented in \code{pord_spread},
-#'
-#'
-#' Moreover, \code{pord_spreadsym} implements
-#' the relation corresponding to symmetrized dispersion
-#' functions, i.e. which acts on sorted vectors.
+#' a spread measure (see Gagolewski, 2015).
 #'
 #' Note that the class of dispersion functions includes
 #' e.g. the sample variance (see \code{\link{var}}),
@@ -164,31 +161,21 @@ pord_weakdom <- function(x, y)
 #'
 #' @param x numeric vector
 #' @param y numeric vector of the same length as \code{x}
+#' @param incompatible_lengths single logical value,
+#' value to return iff lengths of \code{x} and \code{y} differ
 #'
-#' @return Both functions return a single logical value,
+#' @return The function returns a single logical value,
 #' which states whether \code{x} has no greater
 #' spread than \code{y}
 #'
 #' @references
-#' Gagolewski M., \emph{Dispersion Functions: Aggregation Operators that
-#'    Measure Variability, Spread, or Scatter of Numeric Sequences},
-#'    submitted paper, 2013.
-#'
-#' Gagolewski M., \emph{Symmetric Dispersion Functions}, in preparation, 2013.
+#' Gagolewski M., Spread measures and their relation to aggregation functions,
+#' \emph{European Journal of Operational Research} 241(2), 2015, pp. 469--477.
 #'
 #' @family binary_relations
-#' @family dispersion_functions
-#' @rdname pord_spread
+#' @family spread_measures
 #' @export
-pord_spread <- function(x, y)
+pord_spread <- function(x, y, incompatible_lengths=NA)
 {
-   .Call("pord_spread", x, y, PACKAGE="agop")
-}
-
-
-#' @rdname pord_spread
-#' @export
-pord_spreadsym <- function(x, y)
-{
-   .Call("pord_spreadsym", x, y, PACKAGE="agop")
+   .Call("pord_spread", x, y, incompatible_lengths, PACKAGE="agop")
 }

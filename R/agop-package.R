@@ -69,11 +69,11 @@
 #'    on finite sets:
 #'    \itemize{
 #'       \item \code{\link{pord_weakdom}},
-#'       \code{\link{pord_spread}}, \code{\link{pord_spreadsym}} --
+#'       \code{\link{pord_spread}}, \code{\link{pord_nd}} --
 #'       particular preorders in the space of numeric vectors;
 #'       see also \code{\link{rel_graph}} for computing a binary
 #'       relation for a given set of vectors;
-#'       \item TO DO.....
+#'       \item check_comonotonicity TO DO.....
 #'       \item TO DO.....
 #'    }
 #'    \item Statistical distributions:
@@ -153,7 +153,7 @@
 #'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
 #'
 #' Gagolewski M., Spread measures and their relation to aggregation functions,
-#' \emph{European Journal of Operational Research}, 2014, doi:10.1016/j.ejor.2014.08.034.
+#' \emph{European Journal of Operational Research} 241(2), 2015, pp. 469--477.
 #'
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
 #'    \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
