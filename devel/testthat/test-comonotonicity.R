@@ -15,13 +15,16 @@ test_that("check_comonotonicity", {
    expect_identical(check_comonotonicity(1:100, 101:200), TRUE)
    expect_identical(check_comonotonicity(1:100, 100:1), FALSE)
 
-   x <- sort(runif(1000))
-   y <- sort(runif(1000))
-   o <- sample(1:length(x))
-   expect_identical(check_comonotonicity(x[o], y[o]), TRUE)
+   set.seed(123)
+   for (i in 1:100) {
+      x <- sort(sample(runif(1000), replace=TRUE, 1000))
+      y <- sort(sample(runif(1000), replace=TRUE, 1000))
+      o <- sample(1:length(x))
+      expect_identical(check_comonotonicity(x[o], y[o]), TRUE)
 
-   expect_identical(check_comonotonicity(x[o], rep(0, length(x))), TRUE)
+      expect_identical(check_comonotonicity(x[o], rep(0, length(x))), TRUE)
 
-   expect_identical(check_comonotonicity(x[o], y[rev(o)]), FALSE)
+      expect_identical(check_comonotonicity(x[o], y[rev(o)]), FALSE)
+   }
 })
 

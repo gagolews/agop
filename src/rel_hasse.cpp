@@ -28,7 +28,7 @@
  * @param x square logical matrix
  * @return square logical matrix
  *
- * @version 0.2 (Marek Gagolewski)
+ * @version 0.2-1 (Marek Gagolewski)
  */
 SEXP rel_reduction_hasse(SEXP x)
 {
@@ -38,12 +38,12 @@ SEXP rel_reduction_hasse(SEXP x)
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
-   
+
    SEXP y = Rf_allocVector(LGLSXP, n*n);
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
    Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
-   
+
    for (R_len_t i=0; i<n; ++i) {
       for (R_len_t j=0; j<n; ++j) {
          if (i == j)

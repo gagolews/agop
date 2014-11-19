@@ -14,15 +14,14 @@ BugReports: http://github.com/Rexamine/agop/issues
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Suggests:
-    knitr
+    knitr,
+    igraph
 Type: Package
 Depends:
     R (>= 3.0),
     stats,
     grDevices,
-    graphics,
-    Matrix,
-    igraph
+    graphics
 License: LGPL (>= 3)
 Authors@R: c(
     person("Marek", "Gagolewski", role = c("aut", "cre"),

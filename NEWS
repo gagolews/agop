@@ -1,54 +1,67 @@
                           ** agop package NEWS **
 ***************************************************************************
 
-0.2-0 /under development/
+0.2-1 /under development/
 
-* The definition of owa(), owmax(), and owmin() is now consistent with
-   that of (Grabisch et al., 2009), i.e. uses nondecreasing
-   vectors, and not nonincreasing ones.
+* [IMPORTANT CHANGE] All functions dealing with binary relations now are
+   named like `rel_*`. Moreover, `de_transitive()` has been renamed
+   `rel_reduction_hasse()`.
 
-* Rewritten in C++: ppareto2(),
-   rel_is_reflexive(), rel_is_total(), rel_is_transitive(),
-   rel_closure_total_fair(), rel_closure_transitive(),
-   rel_reduction_transitive(), rel_reduction_hasse().
+* [IMPORTANT CHANGE] The definition of `owa()`, `owmax()`, and `owmin()`
+   is now consistent with that of (Grabisch et al., 2009), i.e. uses
+   nondecreasing vectors, and not nonincreasing ones.
 
-* New functions dealing with binary relations:
-   rel_closure_reflexive(), rel_reduction_reflexive(), rel_is_symmetric(),
-   rel_closure_symmetric(), rel_is_irreflexive(), rel_is_asymmetric(),
-   rel_is_antisymmetric(), rel_is_cyclic(), ....
-   Note that in future releases of agop we plan to add
-   procedures that deal with fuzzy relations.
+* [NEW FUNCTIONS] `rel_closure_reflexive()`, `rel_reduction_reflexive()`,
+   `rel_is_symmetric()`, `rel_closure_symmetric()`, `rel_is_irreflexive()`,
+   `rel_is_asymmetric()`, `rel_is_antisymmetric()`, `rel_is_cyclic()`, etc.
+   modify given adjacency matrices representing binary relations over
+   finite sets.
 
-* BUGFIX: prepare_arg_numeric_sorted (internal, C++) did not sort some vectors.
+* [NEW FUNCTIONS] some predefined fuzzy logic connectives have been added,
+   e.g. `tnorm_minimum()`, `tnorm_drastic()`, `tnorm_product()`,
+   `tnorm_lukasiewicz()`,  `tnorm_fodor()`, `tconorm_minimum()`,
+   `tconorm_drastic()`, `tconorm_product()`, `tconorm_lukasiewicz()`,
+   `tconorm_fodor()`, `fnegation_classic()`, `fnegation_minimal()`,
+   `fnegation_maximal()`, `fnegation_yager()`, `fimplication_minimal()`,
+   `fimplication_maximal()`, `fimplication_kleene()`,
+   `fimplication_lukasiewicz()`, `fimplication_reichenbach()`,
+   `fimplication_fodor()`, `fimplication_goguen()`, `fimplication_goedel()`,
+   `fimplication_rescher()`, `fimplication_weber()`, `fimplication_yager()`.
 
-* All built-in agops now throw an error on empty vectors.
-
-* Moved testthat tests to the agop github repository
-      devel/ dir; `testthat` Suggest-type dependency removed.
-
-* Package vingette now in vignettes/ dir
-
-* BUGFIX: rel_closure_transitive() - resulting matrix
-   was not necessarily transitive; the function has been rewritten in C++
-   and now uses the Warshall algorithm (1962).
-
-* All functions dealing with binary relations now have "rel_" prefix.
-  Moreover, de_transitive() has been renamed to rel_reduction_hasse().
-
-* NEW: agop not is shipped with some predefined fuzzy logic connectives,
-   e.g. tnorm_minimum(), tnorm_drastic(), tnorm_product(), tnorm_lukasiewicz(),
-   tnorm_fodor(), tconorm_minimum(), tconorm_drastic(), tconorm_product(),
-   tconorm_lukasiewicz(), tconorm_fodor(), fnegation_classic(),
-   fnegation_minimal(), fnegation_maximal(), fnegation_yager(),
-   fimplication_minimal(), fimplication_maximal(), fimplication_kleene(),
-   fimplication_lukasiewicz(), fimplication_reichenbach(),
-   fimplication_fodor(), fimplication_goguen(), fimplication_goedel(),
-   fimplication_rescher(), fimplication_weber(), fimplication_yager().
-
-* NEW function: check_comonotonicity() determines if two vectors are
+* [NEW FUNCTION] `check_comonotonicity()` determines if two vectors are
    comonotonic.
 
-* ....
+* [NEW FUNCTIONS] `pord_spread()`, `pord_spreadsym()`, `pord_nd()` --
+   exemplary preorders on sets of vectors.
+
+* [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
+
+* [BUGFIX] `rel_closure_transitive()` -- a resulting matrix
+   was not necessarily transitive.
+
+* [BUGFIX] `prepare_arg_numeric_sorted` (internal, C++) did not sort
+   some vectors.
+
+* [BUGFIX] All built-in agops now throw an error on empty vectors.
+
+* [INFO] The package no longer depends on the `Matrix` package.
+    The `igraph` package is only suggested.
+
+* [INFO] Most of the functions are now implemented in C++.
+
+* [INFO] Moved testthat tests to the agop github repository
+      devel/ dir; `testthat` Suggest-type dependency removed.
+
+* [INFO] Package vingette now in vignettes/ dir
+
+
+
+
+
+* .... BTW: TODO: update agop-package.R .....
+
+* TODO: [BUGFIX] Some of the objects were not PROTECTed from
+   being garbage collected, which might have caused spontaneous SEGFAULTS.
 
 * NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
    Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
@@ -64,12 +77,7 @@
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
-* [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
 
-* [NEW FUNCTIONS] pord_spread(), pord_spreadsym(), pord_nd() --
-   exemplary preorders on sets of vectors.
-
-* *** Possibly TO DO: remove dependency Matrix and igraph ***
 
 ***************************************************************************
 0.1-4 /2014-09-14/

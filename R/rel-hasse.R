@@ -48,6 +48,7 @@
 #' # Let ord be a total preorder (a total and transitive binary relation)
 #' # === Plot the Hasse diagram of ord ===
 #' # ===  requires the igraph package  ===
+#' library("igraph")
 #' hasse <- graph.adjacency(rel_reduction_transitive(ord))
 #' plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 #' }

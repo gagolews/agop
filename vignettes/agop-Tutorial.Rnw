@@ -992,7 +992,7 @@ Classically, aggregation theory focuses on
 the broadly-conceived averaging functions and fuzzy logic connectives.
 However, one often needs a very different kind of a proper
 synthesis of multidimensional numeric data into a single number.
-In \cite{Gagolewski2014:spread} an axiomatization of
+In \cite{Gagolewski2015:spread} an axiomatization of
 \emph{spread measures}, which may be used to measure (absolute) data
 variability, spread, or scatter, was proposed.
 
@@ -1347,7 +1347,7 @@ Thus, $\sigma$ orders $\vect{x}$ and $\vect{y}$ simultaneously.
 Equivalently, $\vect{x}$ and $\vect{y}$ are comonotonic,
 iff $(x_i-x_j)(y_i-y_j)\ge 0$ for every $i,j\in[n]$.
 It is easily seen that the $\pitchfork$ binary relation
-is reflexive, symmetric, transitive. Thus, it is an equivalence relation.
+is reflexive, symmetric, and transitive. Thus, it is an equivalence relation.
 
 To check if two given vectors are comonotonic, we can use the
 \index{\Rfunc{check\_comonotonicity()}}\Rfunc{check\_comonotonicity()} function.
@@ -1360,30 +1360,25 @@ check_comonotonicity(1:3, 1:2, incompatible_lengths=FALSE)
 @
 
 
+% @TODO: O(nlogn) algorithm???
+
 \subsection{Vector Spread}\label{Sec:VectorSpread}
 
 
-It may be shown, see \cite{Gagolewski2014:spread},
+The \index{\Rfunc{pord\_spread()}}\Rfunc{pord\_spread()} function
+may be used to compare spread, scatter, or variability of two numeric vectors.
+It may be shown, see \cite{Gagolewski2015:spread},
 that for any $\vect{x},\vect{x}'\in\IvalPow{n}$
 it holds $\vect{x}\preccurlyeq_n\vect{x}'$
 if and only if $\vect{x},\vect{x}'$ are comonotonic
-and $\Rfunc{diff}(\Rfunc{sort}(\vect{x}))\le_{n-1}\Rfunc{diff}(\Rfunc{sort}(\vect{x}'))$.
+and $\Rfunc{diff}(\Rfunc{sort}(\vect{x}))\le_{n-1}\Rfunc{diff}(\Rfunc{sort}(\vect{x}'))$,
+where $\text{\Rfunc{diff}}(x_1,x_2,\dots,x_n)=(x_2-x_1,x_3-x_2,\dots,x_n-x_{n-1})$.
 
-
-The function \index{\Rfunc{pord\_spread()}}\Rfunc{pord\_spread()}
-can be used to compare spread, scatter, or variability of two numeric vectors,
-see \cite{Gagolewski2014:spread}
-with the $\preccurlyeq$ relation introduced
-in Sec.~\ref{Sec:SpreadMeasures}
-and \cite{Gagolewski2014:spread}.
-
-Moreover,
-for \index{\Rfunc{pord\_spreadsym()}}\Rfunc{pord\_spreadsym()}
-we get the relation which acts on sorted input vectors
-(which leads to symmetric dispersion functions).
 
 <<spread_ex>>=
-pord_spreadsym(c(1,5,2), c(1,7,3))
+pord_spread(c(1, 5, 2), c(1, 7, 3))
+x <- rnorm(10)
+pord_spread(x, 2*x)
 @
 
 
@@ -1403,7 +1398,7 @@ ex1 <- list(
 )
 @
 
-Plot of ``citation'' curves:
+Here is a plot of the corresponding ``citation'' curves:
 
 <<ex1A,dependson='ex1'>>=
 for (i in seq_along(ex1))
@@ -1411,11 +1406,11 @@ for (i in seq_along(ex1))
 legend("topright", legend=names(ex1), col=1:length(ex1), lty=1)
 @
 
-Here is the adjacency matrix for
+The adjacency matrix for
 the preordered set $(\{A, B, C, L, U\}, \trianglelefteq)$
-created with the \index{\Rfunc{rel\_graph()}}\Rfunc{rel\_graph()} function,
-that takes each pair of elements from the list passed as its first argument
-and compares them with a given function passed as its second argument.
+may be created with the \index{\Rfunc{rel\_graph()}}\Rfunc{rel\_graph()} function.
+This routine takes each pair of elements from the list passed as its first argument
+and compares them using a function passed as its second argument.
 
 \index{\Rfunc{rel\_is\_reflexive()}}%
 \index{\Rfunc{rel\_is\_transitive()}}%
@@ -1430,9 +1425,9 @@ rel_is_total(ord)      # not a total preorder...
 @
 
 \noindent
-We see that we have $A \text{??} B$, $A \text{??} C$,
-$B \text{??} C$ (no pair from $\{A,B,C\}$ is comparable
-w.r.t.~$\trianglelefteq$):%
+We see that we have $A \not\trianglelefteq\not\trianglerighteq B$, $A \not\trianglelefteq\not\trianglerighteq C$,
+$B \not\trianglelefteq\not\trianglerighteq C$. In other words, no pair of elements in $\{A,B,C\}$ is comparable
+w.r.t.~$\trianglelefteq$:%
 \index{\Rfunc{get\_incomparable\_pairs()}}%
 \index{\Rfunc{get\_independent\_sets()}}
 
@@ -1449,13 +1444,13 @@ w.r.t.~$\trianglelefteq$):%
 
 To draw the Hasse diagram, we base on the reflexive and
 a kind of transitive reduction of the graph,
-which is determined with
+which is determined by calling
 \index{\Rfunc{rel\_reduction\_hasse()}}\Rfunc{rel\_reduction\_hasse()}.
 
 <<ex1C,dependson='ex1B'>>=
 require(igraph)
 hasse <- graph.adjacency(rel_reduction_hasse(ord))
-set.seed(1234567) # igraph's drawing facilities are far from perfect
+set.seed(1234567)
 plot(hasse, layout=layout.fruchterman.reingold(hasse, dim=2))
 @
 
@@ -1610,7 +1605,7 @@ It is clear to see that OWMax operators fulfill the maxitivity property and
 OWMin operators fulfill the minitivity property. Interestingly,
 it may be shown, cf.~\cite{GrabischETAL2009:aggregationfunctions},
 that for each OWMax operator there exist an equivalent OWMin
-operator and inveresly.
+operator and inversely.
 
 
 \bigskip
@@ -2226,7 +2221,7 @@ any $x,y$ and 2-copula $C$, see e.g.~\cite{KlementMesiarPap2000:trinorm}.
 (see \Rfunc{var()}), standard deviation
 (see \Rfunc{sd()}), range, interquartile range
 (IQR, see \Rfunc{IQR()}),
-median absolute deviation (MAD) etc., that is
+median absolute deviation (MAD, see \Rfunc{mad()}) etc., that is
 functions widely used in exploratory data analysis
 as descriptive statistics.
 

@@ -58,20 +58,28 @@ void check_range(double* xd, double n, double xmin, double xmax, const char* arg
  * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_numeric(SEXP x, const char* argname)
 {
-   x = prepare_arg_double(x, argname);
+   PROTECT(x = prepare_arg_double(x, argname));
    R_len_t n = LENGTH(x);
-   if (n <= 0)
+   if (n <= 0) {
+      UNPROTECT(1);
       return x; // empty vector => return an empty vector
+   }
 
    double* xd = REAL(x);
    for (R_len_t i=0; i<n; ++i) {
       if (ISNA(xd[i])) {
+         UNPROTECT(1);
          return Rf_ScalarReal(NA_REAL);
       }
    }
+
+   UNPROTECT(1);
    return x;
 }
 
@@ -92,6 +100,7 @@ bool __comparer_less(double i, double j)    { return (i<j); }
  */
 SEXP __prepare_arg_sort(SEXP x, bool decreasing)
 {
+   // x is already a numeric vector, PROTECTed
    R_len_t n = LENGTH(x);
    if (n <= 1) return x; // empty, NA, or 1 element only
    double* xd = REAL(x);
@@ -128,11 +137,16 @@ SEXP __prepare_arg_sort(SEXP x, bool decreasing)
  * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector, sorted non-increasingly
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_numeric_sorted_dec(SEXP x, const char* argname)
 {
-   x = prepare_arg_numeric(x, argname);
-   return __prepare_arg_sort(x, true);
+   PROTECT(x = prepare_arg_numeric(x, argname));
+   PROTECT(x = __prepare_arg_sort(x, true));
+   UNPROTECT(2);
+   return x;
 }
 
 
@@ -142,11 +156,16 @@ SEXP prepare_arg_numeric_sorted_dec(SEXP x, const char* argname)
  * @param x numeric vector
  * @param argname argument name (message formatting)
  * @return numeric vector, sorted non-decreasingly
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_numeric_sorted_inc(SEXP x, const char* argname)
 {
-   x = prepare_arg_double(x, argname);
-   return __prepare_arg_sort(x, false);
+   PROTECT(x = prepare_arg_double(x, argname));
+   PROTECT(x = __prepare_arg_sort(x, false));
+   UNPROTECT(2);
+   return x;
 }
 
 
@@ -167,7 +186,11 @@ SEXP prepare_arg_numeric_sorted_inc(SEXP x, const char* argname)
  * @return character vector
  *
  * @version 0.1 (Marek Gagolewski)
+ *
  * @version 0.2 (Marek Gagolewski) - argname added
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_string(SEXP x, const char* argname)
 {
@@ -177,8 +200,8 @@ SEXP prepare_arg_string(SEXP x, const char* argname)
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
-   	x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-   	UNPROTECT(1);
+   	PROTECT(x = Rf_eval(call, R_GlobalEnv)); // this will mark it's encoding manually
+   	UNPROTECT(2);
       return x;
    }
    else if (Rf_isVectorAtomic(x))
@@ -202,7 +225,11 @@ SEXP prepare_arg_string(SEXP x, const char* argname)
  * @return numeric vector
  *
  * @version 0.1 (Bartek Tartanus)
+ *
  * @version 0.2 (Marek Gagolewski) - argname added
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_double(SEXP x, const char* argname)
 {
@@ -210,9 +237,10 @@ SEXP prepare_arg_double(SEXP x, const char* argname)
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
-      x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-   	UNPROTECT(1);
-      return Rf_coerceVector(x, REALSXP);
+      PROTECT(x = Rf_eval(call, R_GlobalEnv)); // this will mark it's encoding manually
+      PROTECT(x = Rf_coerceVector(x, REALSXP));
+   	UNPROTECT(3);
+      return x;
    }
    else if(Rf_isReal(x))
       return x; //return as-is
@@ -234,7 +262,11 @@ SEXP prepare_arg_double(SEXP x, const char* argname)
  * @return integer vector
  *
  * @version 0.1 (Bartek Tartanus)
+ *
  * @version 0.2 (Marek Gagolewski) - argname added
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_integer(SEXP x, const char* argname)
 {
@@ -242,9 +274,10 @@ SEXP prepare_arg_integer(SEXP x, const char* argname)
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
-   	x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-   	UNPROTECT(1);
-      return Rf_coerceVector(x, INTSXP);
+      PROTECT(x = Rf_eval(call, R_GlobalEnv)); // this will mark it's encoding manually
+      PROTECT(x = Rf_coerceVector(x, INTSXP));
+      UNPROTECT(3);
+      return x;
    }
    else if (Rf_isInteger(x))
       return x; // return as-is
@@ -266,7 +299,11 @@ SEXP prepare_arg_integer(SEXP x, const char* argname)
  * @return logical vector
  *
  * @version 0.1 (Bartek Tartanus)
+ *
  * @version 0.2 (Marek Gagolewski) - argname added
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_logical(SEXP x, const char* argname)
 {
@@ -274,9 +311,9 @@ SEXP prepare_arg_logical(SEXP x, const char* argname)
    {
       SEXP call;
       PROTECT(call = Rf_lang2(Rf_install("as.character"), x));
-      x = Rf_eval(call, R_GlobalEnv); // this will mark it's encoding manually
-   	UNPROTECT(1);
-      return Rf_coerceVector(x, LGLSXP);
+      PROTECT(x = Rf_eval(call, R_GlobalEnv)); // this will mark it's encoding manually
+      PROTECT(x = Rf_coerceVector(x, LGLSXP));
+      UNPROTECT(3);
    }
    else if (Rf_isLogical(x))
       return x; // return as-is
@@ -301,14 +338,19 @@ SEXP prepare_arg_logical(SEXP x, const char* argname)
  * @return always an R character vector with >=1 element
  *
  * @version 0.1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_string_1(SEXP x, const char* argname)
 {
-   x = prepare_arg_string(x, argname);
+   PROTECT(x = prepare_arg_string(x, argname));
    R_len_t nx = LENGTH(x);
 
-   if (nx <= 0)
+   if (nx <= 0) {
+      UNPROTECT(1);
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+   }
 
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_STRING, argname);
@@ -318,6 +360,7 @@ SEXP prepare_arg_string_1(SEXP x, const char* argname)
 //      UNPROTECT(1);
    }
 
+   UNPROTECT(1);
    return x;
 }
 
@@ -332,14 +375,19 @@ SEXP prepare_arg_string_1(SEXP x, const char* argname)
  * @return always an R double vector with >=1 element
  *
  * @version 0.1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_double_1(SEXP x, const char* argname)
 {
-   x = prepare_arg_double(x, argname);
+   PROTECT(x = prepare_arg_double(x, argname));
    R_len_t nx = LENGTH(x);
 
-   if (nx <= 0)
+   if (nx <= 0) {
+      UNPROTECT(1);
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+   }
 
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_NUMERIC, argname);
@@ -349,6 +397,7 @@ SEXP prepare_arg_double_1(SEXP x, const char* argname)
 //      UNPROTECT(1);
    }
 
+   UNPROTECT(1);
    return x;
 }
 
@@ -363,14 +412,19 @@ SEXP prepare_arg_double_1(SEXP x, const char* argname)
  * @return always an R integer vector with >=1 element
  *
  * @version 0.1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_integer_1(SEXP x, const char* argname)
 {
-   x = prepare_arg_integer(x, argname);
+   PROTECT(x = prepare_arg_integer(x, argname));
    R_len_t nx = LENGTH(x);
 
-   if (nx <= 0)
+   if (nx <= 0) {
+      UNPROTECT(1);
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+   }
 
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_INTEGER, argname);
@@ -380,6 +434,7 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname)
 //      UNPROTECT(1);
    }
 
+   UNPROTECT(1);
    return x;
 }
 
@@ -394,14 +449,19 @@ SEXP prepare_arg_integer_1(SEXP x, const char* argname)
  * @return always an R logical vector with >=1 element
  *
  * @version 0.1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 {
-   x = prepare_arg_logical(x, argname);
+   PROTECT(x = prepare_arg_logical(x, argname));
    R_len_t nx = LENGTH(x);
 
-   if (nx <= 0)
+   if (nx <= 0) {
+      UNPROTECT(1);
       Rf_error(MSG__ARG_EXPECTED_NOT_EMPTY, argname);
+   }
 
    if (nx > 1) {
       Rf_warning(MSG__ARG_EXPECTED_1_LOGICAL, argname);
@@ -411,6 +471,7 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
 //      UNPROTECT(1);
    }
 
+   UNPROTECT(1);
    return x;
 }
 
@@ -425,18 +486,29 @@ SEXP prepare_arg_logical_1(SEXP x, const char* argname)
  * @return always an R logical vector with >=1 element
  *
  * @version 0.1 (Marek Gagolewski)
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ *    PROTECT mem from GC
  */
 SEXP prepare_arg_logical_square_matrix(SEXP x, const char* argname)
 {
+   PROTECT(x = prepare_arg_logical(x, argname));
+
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
-   SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
-   if (LENGTH(dim) != 2)
+//   SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
+
+   if (Rf_isNull(dim) || LENGTH(dim) != 2) {
+      UNPROTECT(1);
       Rf_error(MSG__DIM_LENGTH, argname);
-   if (INTEGER(dim)[0] != INTEGER(dim)[1])
+   }
+   if (INTEGER(dim)[0] != INTEGER(dim)[1]) {
+      UNPROTECT(1);
       Rf_error(MSG__DIM_NOTEQUAL, argname);
-   x = prepare_arg_logical(x, argname);
+   }
+
    Rf_setAttrib(x, R_DimSymbol, dim);
-   Rf_setAttrib(x, R_DimNamesSymbol, dimNames);
+//   Rf_setAttrib(x, R_DimNamesSymbol, dimNames);
+   UNPROTECT(1);
    return x;
 }
 

@@ -131,6 +131,10 @@ SEXP pord_spread(SEXP x, SEXP y, SEXP incompatible_lengths)
    if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
    if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
 
+   // TO DO: implement a nlogn algorithm
+   // find an ordering permutation o of y
+   // do check if diff(x[o]) <= diff(y[o])
+
    for (R_len_t j=0; j<nx; ++j) {
       for (R_len_t i=0; i<nx; ++i) {
          if (ISNA(xd[i]) || ISNA(yd[i]))

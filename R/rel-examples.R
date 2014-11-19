@@ -156,7 +156,7 @@ pord_weakdom <- function(x, y)
 #' standard veriation (see  \code{\link{sd}}),
 #' range (see  \code{\link{range}} and then  \code{\link{diff}}),
 #' interquartile range (see  \code{\link{IQR}}),
-#' median absolute deviation (MAD).
+#' median absolute deviation (see \code{\link{mad}}).
 #'
 #'
 #' @param x numeric vector
