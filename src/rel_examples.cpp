@@ -61,6 +61,46 @@ SEXP pord_weakdom(SEXP x, SEXP y)
 }
 
 
+
+/** Weak Dominance relation
+ *
+ *
+ * @param x numeric vector
+ * @param y numeric vector
+ * @return logical scalar, whether x <= y
+ *
+ * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
+ */
+SEXP pord_nd(SEXP x, SEXP y)
+{
+   x = prepare_arg_numeric(x, "x");
+   y = prepare_arg_numeric(y, "y");
+
+   R_len_t nx = LENGTH(x);
+   R_len_t ny = LENGTH(y);
+
+   double* xd = REAL(x);
+   double* yd = REAL(y);
+
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
+   if (ny <= 0) Rf_error(MSG_ARG_TOO_SHORT, "y");
+
+//   if (xd[nx-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
+//   if (yd[ny-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "y", 0.0);
+
+   if (ny != nx)
+      Rf_ScalarLogical(FALSE);
+
+   for (R_len_t i=0; i<nx; ++i) // nx <= ny
+      if (ISNA(xd[i]) || ISNA(yd[i]))
+         return Rf_ScalarLogical(NA_LOGICAL);
+      else if (xd[i] > yd[i])
+         return Rf_ScalarLogical(FALSE);
+
+   return Rf_ScalarLogical(TRUE);
+}
+
+
 /** Compare vectors' spread (dispersion operators)
  *
  * @param x numeric vector

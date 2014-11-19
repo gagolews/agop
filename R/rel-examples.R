@@ -17,6 +17,55 @@
 
 
 #' @title
+#' Weak Dominance Relation (Preorder)
+#'
+#' @description
+#' Checks whether a given numeric vector
+#' of arbitrary length is (weakly) dominated (elementwise)
+#' by another vector of the same length.
+#'
+#' @details
+#' We say that a numeric vector \bold{x}
+#' of length \eqn{n_x}
+#' is \emph{weakly dominated} by \bold{y}
+#' of length \eqn{n_y}
+#' iff
+#' \enumerate{
+#' \item \eqn{n_x=n_y} and
+#' \item for all \eqn{i=1,\dots,n_x} it holds
+#'    \eqn{x_i\le y_i}.
+#' }
+#'
+#' This relation is a preorder: it is reflexive (see \code{\link{rel_is_reflexive}})
+#' and transitive (see \code{\link{rel_is_transitive}}),
+#' but not necessarily total  (see \code{\link{rel_is_total}}).
+#' See \code{\link{rel_graph}} for a convenient function
+#' to calculate the relationship between all pairs of elements
+#' of a given set.
+#'
+#' Such a preorder is tightly related to classical aggregation functions:
+#' each aggregation function is a morphism between
+#' weak-dominance-preordered set of vectors
+#' and the set of reals equipped with standard linear ordering.
+#'
+#'
+#' @param x numeric vector with nonnegative elements
+#' @param y numeric vector with nonnegative elements
+#'
+#' @return Returns a single logical value
+#' indicating whether \code{x} is weakly
+#' dominated by \code{y}.
+#'
+#' @family binary_relations
+#' @export
+pord_nd <- function(x, y)
+{
+   .Call("pord_nd", x, y, PACKAGE="agop")
+}
+
+
+
+#' @title
 #' Weak Dominance Relation (Preorder) in the Producer Assessment Problem
 #'
 #' @description
@@ -26,8 +75,6 @@
 #' in terms of (sorted) elements' values and their number.
 #'
 #' @details
-#' This function only accepts vectors with nonnegative elements.
-#'
 #' We say that a numeric vector \bold{x}
 #' of length \eqn{n_x}
 #' is \emph{weakly dominated} by \bold{y}
@@ -61,7 +108,7 @@
 #'
 #' @return Returns a single logical value
 #' indicating whether \code{x} is weakly
-#' dominated by \code{y}
+#' dominated by \code{y}.
 #'
 #' @references
 #' Gagolewski M., Grzegorzewski P., Possibilistic Analysis of Arity-Monotonic

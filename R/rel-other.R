@@ -30,7 +30,7 @@
 #' @param x list with elements to compare, preferrably named
 #' @param pord a function with two arguments, returning a single boolean value,
 #' e.g. \code{\link{pord_spread}}, \code{\link{pord_spreadsym}},
-#' or \code{\link{pord_weakdom}}
+#' \code{\link{pord_nd}}, or \code{\link{pord_weakdom}}
 #' @param ... additional arguments passed to \code{pord}
 #'
 #' @return Returns a square logical matrix.
@@ -44,14 +44,13 @@ rel_graph <- function(x, pord, ...)
    stopifnot(is.list(x))
    stopifnot(is.function(pord))
    n <- length(x)
-   ord <- matrix(FALSE, nrow=n, ncol=n)
+   ord <- matrix(NA, nrow=n, ncol=n)
    colnames(ord) <- names(x)
    rownames(ord) <- names(x)
 
    for (i in seq_along(x))
       for (j in seq_along(x))
-         if (pord(x[[i]], x[[j]], ...))
-            ord[i,j] <- TRUE
+         ord[i,j] <- pord(x[[i]], x[[j]], ...)
 
    ord
 }

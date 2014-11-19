@@ -1294,26 +1294,39 @@ $\vect{x}\trianglelefteq\vect{y}$ and $\vect{x}\neq\vect{y}$
 (strict dominance).
 
 
-\subsection{Weak Dominance Relation (for fixed arity)}
+\subsection{Weak Dominance Relation (for vectors of fixed arity)}
+
+Recall that for fixed $n$ and any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{n}$
+we write
+$\vect{x}\le_n\vect{y}$ if and only if
+$x_{i}\le y_{i}$ for all $i=1,\dots,n$.
+It is easily seen that $\le_n$ is a preorder
+and that each classical aggregation function on $\IvalPow{n}$
+is a morphism between $(\IvalPow{n}, \le_n)$ and $(\Ival, \le)$.
+
+This relation can of course be extended to $\IvalAnyPow$:
+for $\vect{x},\vect{y}\in\IvalAnyPow$ it holds
+$\vect{x}\le_{\AnyPow}\vect{y}$ whenever $|\vect{x}|=|\vect{y}|=:n$
+and $\vect{x}\le_n\vect{y}$, see the \index{\Rfunc{pord\_nd()}}\Rfunc{pord\_nd()}
+function.
+
+<<pord_nd>>=
+pord_nd(c(1,2,3,4), c(1,2,3,5))
+pord_nd(c(1,2,3,4), c(5,3,1,2)) # elements' ordering matters
+pord_nd(sort(c(1,2,3,4)), sort(c(5,3,1,2))) # symmetrized version
+@
 
 
-Consider the following relation on $\IvalAnyPow$.
-For any $\vect{x}\in\IvalPow{n}$ and $\vect{y}\in\IvalPow{m}$ we write
-% \begin{equation}\label{Eq:partialorderingtrianglelefteq}
-$\vect{x}\le\vect{y}$ if and only if
-$n = m\text{ and }x_{i}\le y_{i}$ for all $i=1,\dots,n$.
 
-The \texttt{\Rfunc{all}(x <= y)} expression may not work well
-for vectors of unequal lengths.
+% The \texttt{\Rfunc{all}(x <= y)} expression may not work well
+% for vectors of unequal lengths.
 
 
-TO DO: \index{\Rfunc{pord\_nd()}}\Rfunc{pord\_nd()}
+% Moreover, a version that is independent of
+% the vectors' elements ordering (i.e.~defined using $x_{(i)}\le y_{(i)}$)
+% is available:
 
-Moreover, a version that is independent of
-the vectors' elements ordering (i.e.~defined using $x_{(i)}\le y_{(i)}$)
-is available:
-
-TO DO: \index{\Rfunc{pord\_ndsym()}}\Rfunc{pord\_ndsym()}
+% TO DO: \index{\Rfunc{pord\_ndsym()}}\Rfunc{pord\_ndsym()}
 
 
 \subsection{Comonotonicity}\label{Sec:Comonotonicity}

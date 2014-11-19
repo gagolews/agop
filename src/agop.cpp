@@ -54,6 +54,7 @@ static const R_CallMethodDef cCallMethods[] = {
 
    MAKE_CALL_METHOD(check_comonotonicity,       2),
    MAKE_CALL_METHOD(pord_weakdom,               2),
+   MAKE_CALL_METHOD(pord_nd,                    2),
    MAKE_CALL_METHOD(pord_spread,                2),
    MAKE_CALL_METHOD(pord_spreadsym,             2),
 

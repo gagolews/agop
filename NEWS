@@ -61,14 +61,13 @@
    and ddpareto2(), pdpareto2(), rdpareto2(), qdpareto2()
    for standard d.f. implementations.
 
-* NEW functions: pord_spread() and pord_spreadsym() --
-   to compare spread of two equal-length numeric vectors
-   (see Gagolewski M., Dispersion Operators, submitted, 2013).
-
 * NEW function: d2owa(): a symmetric dispersion operator defined as
    the L2 distance between a numeric vector and an OWA operator.
 
 * [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
+
+* [NEW FUNCTIONS] pord_spread(), pord_spreadsym(), pord_nd() --
+   exemplary preorders on sets of vectors.
 
 * *** Possibly TO DO: remove dependency Matrix and igraph ***
 
