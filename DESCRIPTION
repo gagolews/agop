@@ -1,5 +1,5 @@
 Package: agop
-Version: 0.2-1
+Version: 0.2-2
 Date: 2019-03-05
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria and group decision making,
@@ -12,9 +12,7 @@ Description: Tools supporting multi-criteria and group decision making,
 URL: http://www.gagolewski.com/software/
 BugReports: http://github.com/gagolews/agop/issues
 ByteCompile: TRUE
-VignetteBuilder: knitr
 Suggests:
-    knitr,
     igraph
 Type: Package
 Depends:

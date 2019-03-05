@@ -1,7 +1,7 @@
                           ** agop package NEWS **
 ***************************************************************************
 
-0.2-1 /2019-03-05/
+0.2-2 /2019-03-05/
 
 * [IMPORTANT CHANGE] All functions dealing with binary relations now are
    named like `rel_*`. Moreover, `de_transitive()` has been renamed
