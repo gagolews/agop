@@ -901,7 +901,7 @@ operation known from the classical logic.
 
 
 \bigskip
-\begin{definition}\label{Def:tnorm}
+\begin{definition}\label{Def:cotnorm}
 A function $S: [0,1]\times[0,1]\to[0,1]$ is a \emph{t-conorm}
 if for all $x,y,z\in[0,1]$ it holds:
 \begin{enumerate}
@@ -918,7 +918,7 @@ classical logical alternative.
 
 
 \bigskip
-\begin{definition}\label{Def:tnorm}
+\begin{definition}\label{Def:fneg}
 A function $N: [0,1]\to[0,1]$ is a \emph{fuzzy negation}
 if for all $x,y\in[0,1]$ it holds:
 \begin{enumerate}
@@ -932,7 +932,7 @@ if for all $x,y\in[0,1]$ it holds:
 
 
 \bigskip
-\begin{definition}\label{Def:tnorm}
+\begin{definition}\label{Def:fimpl}
 A function $I: [0,1]\times[0,1]\to[0,1]$ is a \emph{fuzzy implication}
 if for all $x,y,x',y'\in[0,1]$ it holds:
 \begin{enumerate}
@@ -966,7 +966,7 @@ function  of a $n$-dimensional random variable
 having uniform margins.
 In particular, for $n=2$ we have what follows.
 
-\begin{definition}\label{Def:tnorm}
+\begin{definition}\label{Def:copula}
 A function $C: [0,1]\times[0,1]\to[0,1]$ is a \emph{2-copula}
 if for all $x,y,x',y'\in[0,1]$ it holds:
 \begin{enumerate}
@@ -2051,7 +2051,7 @@ x\wedge y & \text{if }x+y>1\\
 \paragraph{t-conorms}
 
 Table \ref{Tab:tconorms} lists all the t-conorms in the \package{agop} package.
-For any t-conorm $S$ and all $x,y$ it holds $S_\mathrm{M}(x,y)\le T(x,y)\le S_\mathrm{D}(x, y)$.
+For any t-conorm $S$ and all $x,y$ it holds $S_\mathrm{M}(x,y)\le S(x,y)\le S_\mathrm{D}(x, y)$.
 Moreover, we have $S_\mathrm{P}(x,y)\le S_\mathrm{Ł}(x,y)$.
 Also note that $S$ is a t-conorm if and only if there exists a t-norm $t$
 such that for all $x,y$ it holds

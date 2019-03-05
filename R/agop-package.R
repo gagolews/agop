@@ -202,7 +202,7 @@
 #'    of (quasi-) L-statistics and S-statistics and the Producer Assessment
 #'    Problem}, In: Galichet S., Montero J., Mauris G. (Eds.),
 #'    \emph{Proc. EUSFLAT/LFA 2011},
-#'    Atlantic Press, 2011, pp. 53-58.
+#'    Atlantis Press, 2011, pp. 53-58.
 #'
 #' Gagolewski M., Grzegorzewski P., \emph{S-Statistics and Their Basic Properties},
 #'    In: Borgelt C. et al (Eds.), \emph{Combining Soft Computing and Statistical
