@@ -1,6 +1,3 @@
-# Roxygen-generated man pages
-man/*.Rd
-
 # R/RStudio files:
 agop.Rproj
 .Rproj.user
