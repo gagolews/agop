@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  *   This file is part of the `agop` library.                                *
  *                                                                           *
- *   Copyright 2013-2014 Marek Gagolewski, Anna Cena                         *
+ *   Copyright 2013-2019 Marek Gagolewski, Anna Cena                         *
  *                                                                           *
  *   'agop' is free software: you can redistribute it and/or modify          *
  *   it under the terms of the GNU Lesser General Public License             *
@@ -108,7 +108,7 @@ using namespace std;
    "internal error"
 
 #define MSG__DIM_LENGTH \
-   "incorent number of dimensions in %s"
+   "incorrect number of dimensions in %s"
 
 #define MSG__DIM_NOTEQUAL \
    "dimensions in %s should be equal"

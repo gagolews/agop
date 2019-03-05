@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -21,12 +21,12 @@
 #' Hasse Diagrams
 #'
 #' @description
-#' This function calculates the reflexive reduction
+#' This function computes the reflexive reduction
 #' and a kind of transitive reduction which is useful for drawing Hasse
 #' diagrams.
 #'
 #' @details
-#' The input matrix \eqn{R} may not necessarily be acyclic/assymetric, i.e.
+#' The input matrix \eqn{R} might not necessarily be acyclic/assymetric, i.e.,
 #' it can represent any totally preordered set (which induces an equivalence
 #' relation on the underlying preordered set).
 #' The algorithm implemented runs in \eqn{O(n^3)} time
@@ -54,7 +54,7 @@
 #' }
 #'
 #' @family binary_relations
-#' @rdname rel_transitive
+#' @rdname rel_hasse
 #' @export
 rel_reduction_hasse <- function(R)
 {

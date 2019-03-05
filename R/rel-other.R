@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -27,7 +27,7 @@
 #' of all pairs of elements in \code{x}.
 #' We have \code{ret[i,j] == pord(x[[i]], x[[j]], ...)}.
 #'
-#' @param x list with elements to compare, preferrably named
+#' @param x list with elements to compare, preferably named
 #' @param pord a function with two arguments, returning a single boolean value,
 #' e.g. \code{\link{pord_spread}},
 #' \code{\link{pord_nd}}, or \code{\link{pord_weakdom}}

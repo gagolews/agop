@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## Parts of the code are taken from the 'CITAN' R package by Marek Gagolewski
 ##
@@ -36,7 +36,7 @@
 #' See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.
 #'
 #' The h-index is the same as the discrete Sugeno integral of \code{x}
-#' w.r.t. the counting measure (cf. Torra, Narukawa, 2008).
+#' w.r.t. the counting measure (see Torra, Narukawa, 2008).
 #'
 #' @param x a non-negative numeric vector
 #' @return a single numeric value
@@ -44,6 +44,19 @@
 #' @references
 #' Hirsch J.E., An index to quantify individual's scientific research output,
 #' \emph{Proceedings of the National Academy of Sciences} 102(46), 2005, pp. 16569-16572.
+#'
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
 #'    PhD thesis, Tokyo Institute of Technology, 1974.
@@ -110,6 +123,19 @@ index.h <- index_h # deprecated
 #' Egghe L., Theory and practise of the g-index,
 #' \emph{Scientometrics} 69(1), 2006, pp. 131-152.
 #'
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
+#'
 #'
 #' @examples
 #' sapply(list(c(9), c(9,0), c(9,0,0), c(9,0,0,0)), index_g) # not a zero-sensitive agop
@@ -161,6 +187,19 @@ index_g_zi <- function(x)
 #' Kosmulski M., MAXPROD - A new index for assessment of the scientific output
 #' of an individual, and a comparison with the h-index,
 #' \emph{Cybermetrics} 11(1), 2007.
+#'
+#' Mesiar R., Gagolewski M., H-index and other Sugeno integrals:
+#'    Some defects and their compensation,
+#'  IEEE Transactions on Fuzzy Systems 24(6), 2016, pp. 1668-1672.
+#' doi:10.1109/TFUZZ.2016.2516579
+#'
+#' Gagolewski M., Mesiar R., Monotone measures and universal integrals
+#'   in a uniform framework for the scientific impact assessment problem,
+#'   Information Sciences 263, 2014, pp. 166-174. doi:10.1016/j.ins.2013.12.004
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #'
 #' @family impact_functions

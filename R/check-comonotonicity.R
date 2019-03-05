@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -51,6 +51,10 @@
 #' @references
 #' Grabisch M., Marichal J.-L., Mesiar R., Pap E., \emph{Aggregation functions},
 #'    Cambridge University Press, 2009.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 check_comonotonicity <- function(x, y, incompatible_lengths=NA) {
    .Call("check_comonotonicity", x, y, incompatible_lengths, PACKAGE="agop")
 }

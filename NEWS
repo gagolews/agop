@@ -1,24 +1,24 @@
                           ** agop package NEWS **
 ***************************************************************************
 
-0.2-1 /under development/
+0.2-1 /2019-03-05/
 
 * [IMPORTANT CHANGE] All functions dealing with binary relations now are
    named like `rel_*`. Moreover, `de_transitive()` has been renamed
    `rel_reduction_hasse()`.
 
 * [IMPORTANT CHANGE] The definition of `owa()`, `owmax()`, and `owmin()`
-   is now consistent with that of (Grabisch et al., 2009), i.e. uses
+   is now consistent with that of (Grabisch et al., 2009), i.e., uses
    nondecreasing vectors, and not nonincreasing ones.
 
 * [NEW FUNCTIONS] `rel_closure_reflexive()`, `rel_reduction_reflexive()`,
    `rel_is_symmetric()`, `rel_closure_symmetric()`, `rel_is_irreflexive()`,
-   `rel_is_asymmetric()`, `rel_is_antisymmetric()`, `rel_is_cyclic()`, etc.
+   `rel_is_asymmetric()`, `rel_is_antisymmetric()`, `rel_is_cyclic()`, etc.,
    modify given adjacency matrices representing binary relations over
    finite sets.
 
 * [NEW FUNCTIONS] some predefined fuzzy logic connectives have been added,
-   e.g. `tnorm_minimum()`, `tnorm_drastic()`, `tnorm_product()`,
+   e.g. ,`tnorm_minimum()`, `tnorm_drastic()`, `tnorm_product()`,
    `tnorm_lukasiewicz()`,  `tnorm_fodor()`, `tconorm_minimum()`,
    `tconorm_drastic()`, `tconorm_product()`, `tconorm_lukasiewicz()`,
    `tconorm_fodor()`, `fnegation_classic()`, `fnegation_minimal()`,
@@ -49,37 +49,8 @@
 
 * [INFO] Most of the functions are now implemented in C++.
 
-* [INFO] Moved testthat tests to the agop github repository
-      devel/ dir; `testthat` Suggest-type dependency removed.
-
-* [INFO] Package vingette now in vignettes/ dir
-
-
-
-
-
-* .... BTW: TODO: update agop-package.R .....
-
-* TODO: [BUGFIX] Some of the objects were not PROTECTed from
-   being garbage collected, which might have caused spontaneous SEGFAULTS.
-
-* NEW functions: pareto2_test_ad() and exp_test_ad(): (approximate)
-   Anderson-Darling goodness-of-fit test for the Pareto-II (with known scale
-   parameter) and exponential distribution, respectively.
-
-* *PENDING* NEW disribution implemented: discretized Pareto-Type II
-   (floor of Pareto Type-II):
-   useful for modeling some phenomena in social sciences;
-   see dpareto2_estimate_mle() for MLE estimators;
-   and ddpareto2(), pdpareto2(), rdpareto2(), qdpareto2()
-   for standard d.f. implementations.
-
-* NEW function: d2owa(): a symmetric dispersion operator defined as
-   the L2 distance between a numeric vector and an OWA operator.
-
-
-
 ***************************************************************************
+
 0.1-4 /2014-09-14/
 
 * Fixed NOTES on pkg check in R >= 3.1

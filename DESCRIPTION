@@ -1,6 +1,6 @@
 Package: agop
-Version: 0.2-0
-Date: 2014-11-19
+Version: 0.2-1
+Date: 2019-03-05
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria and group decision making,
     including variable number of criteria, by means of
@@ -8,9 +8,9 @@ Description: Tools supporting multi-criteria and group decision making,
     fuzzy logic connectives, fusion functions,
     and preordered sets. Possible applications include,
     but are not limited to, quality management, scientometrics,
-    software engineering etc.
-URL: http://agop.rexamine.com
-BugReports: http://github.com/Rexamine/agop/issues
+    software engineering, etc.
+URL: http://www.gagolewski.com/software/
+BugReports: http://github.com/gagolews/agop/issues
 ByteCompile: TRUE
 VignetteBuilder: knitr
 Suggests:
@@ -25,7 +25,8 @@ Depends:
 License: LGPL (>= 3)
 Authors@R: c(
     person("Marek", "Gagolewski", role = c("aut", "cre"),
-    email = "gagolews@rexamine.com"),
+    email = "marek@gagolewski.com"),
     person("Anna", "Cena", role = "ctb",
     email = "cena@rexamine.com")
     )
+RoxygenNote: 6.1.1

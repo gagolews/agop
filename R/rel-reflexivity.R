@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -39,7 +39,7 @@
 #' determined by \code{rel_reduction_reflexive},
 #' is the minimal subset \eqn{R'} of \eqn{R},
 #' such that the reflexive closures of \eqn{R} and \eqn{R'} are equal
-#' i.e. the largest irreflexive relation contained in \eqn{R}.
+#' i.e., the largest irreflexive relation contained in \eqn{R}.
 #'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.

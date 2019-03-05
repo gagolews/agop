@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -47,10 +47,10 @@
 #' The algorithm implemented runs in \eqn{O(n^3)} time.
 #' Note that a transitive reduction of a reflexive relation
 #' is also reflexive. Moreover, some kind of transitive reduction
-#' (not necessarily minimal) is also determined in 
+#' (not necessarily minimal) is also determined in
 #' \code{\link{rel_reduction_hasse}} -- it is useful for
 #' drawing Hasse diagrams.
-#' 
+#'
 #'
 #' @param R an object coercible to a 0-1 (logical) square matrix,
 #' representing a binary relation on a finite set.

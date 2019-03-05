@@ -1,4 +1,6 @@
 require('testthat')
+require('Matrix')
+
 
 test_that("rel_is_reflexive", {
 

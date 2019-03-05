@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -21,7 +21,7 @@
 #' WAM and OWA Operators
 #'
 #' @description
-#' Computes the Weghted Arithmetic Mean or the
+#' Computes the Weighted Arithmetic Mean or the
 #' Ordered Weighted Averaging aggregation operator.
 #'
 #' @details
@@ -44,9 +44,9 @@
 #' If the elements of \code{w} does not sum up to \eqn{1}, then
 #' they are normalized and a warning is generated.
 #'
-#' Both functions return the ordinary arithmetic mean by default.
-#' Special cases of OWA include the trimmed mean (cf. \code{\link{mean}})
-#' and winsorized mean.
+#' Both functions by default return the ordinary arithmetic mean.
+#' Special cases of OWA include the trimmed mean (see \code{\link{mean}})
+#' and Winsorized mean.
 #'
 #' There is a strong, well-known connection between the OWA operators
 #' and the Choquet integrals.
@@ -64,6 +64,10 @@
 #' @references
 #' Choquet G., Theory of capacities, \emph{Annales de l'institut Fourier} 5,
 #'    1954, pp. 131-295.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' Yager R.R., On ordered weighted averaging aggregation operators
 #' in multicriteria decision making,
@@ -117,11 +121,11 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #' WMin_w(x) = min_i{ max{w_i, x_i} }
 #' }
 #'
-#' \code{OWMax} and \code{WMax} return the greatest value in \code{x}
-#' by default, and \code{OWMin} and \code{WMin} - the smallest value in \code{x}.
+#' \code{OWMax} and \code{WMax} by default return the greatest value in \code{x}
+#' and \code{OWMin} and \code{WMin} - the smallest value in \code{x}.
 #'
 #'
-#' Classically, it is assumed that if we agregate
+#' Classically, it is assumed that if we aggregate
 #' vectors with elements in \eqn{[a,b]}, then
 #' the largest weight for OWMax should be equal to \eqn{b}
 #' and the smallest for OWMin should be equal to \eqn{a}.
@@ -149,6 +153,10 @@ wam <- function(x, w=rep(1/length(x), length(x))) {
 #'
 #' Dubois D., Prade H., Semantics of quotient operators in fuzzy
 #'    relational databases, \emph{Fuzzy Sets and Systems} 78(1), 1996, pp. 89-93.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' Sugeno M., \emph{Theory of fuzzy integrals and its applications},
 #'    PhD thesis, Tokyo Institute of Technology, 1974.

@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -21,7 +21,7 @@
 #' D2OWA Operators
 #'
 #' @description
-#' Calculates the D2OWA operator, i.e.
+#' Computes the D2OWA operator, i.e.,
 #' the normalized L2 distance between a numeric vector and an OWA operator.
 #'
 #' @details
@@ -44,7 +44,13 @@
 #' @export
 #' @family dispersion_functions
 #' @references
-#' Gagolewski M., \emph{Symmetric dispersion operators}, in preparation, 2013.
+#' Gagolewski M., Spread measures and their relation to aggregation functions,
+#'     European Journal of Operational Research 241(2), 2015, pp. 469-477.
+#'     doi:10.1016/j.ejor.2014.08.034
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' Yager R.R., On ordered weighted averaging aggregation operators
 #' in multicriteria decision making, \emph{IEEE Transactions on Systems,

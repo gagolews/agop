@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -28,12 +28,12 @@
 #' \code{rel_is_irreflexive} finds out if a given binary relation
 #' is irreflexive. The function just checks whether all elements
 #' on the diagonal of \code{R} are zeros,
-#' i.e. it has \eqn{O(n)} time complexity,
+#' i.e., it has \eqn{O(n)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
 #' Missing values on the diagonal may result in \code{NA}.
 #'
 #' When dealing with a graph's loops,
-#' i.e. elements related with themselves, you may be interested
+#' i.e., elements related with themselves, you may be interested
 #' in finding a reflexive closure,
 #' see \code{\link{rel_closure_reflexive}},
 #' or a reflexive reduction,

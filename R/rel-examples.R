@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -61,6 +61,10 @@
 #' @references
 #' Grabisch M., Marichal J.-L., Mesiar R., Pap E., \emph{Aggregation functions},
 #'    Cambridge University Press, 2009.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' @family binary_relations
 #' @export
@@ -124,6 +128,10 @@ pord_nd <- function(x, y, incompatible_lengths=NA)
 #' Gagolewski M., Scientific Impact Assessment Cannot be Fair,
 #' \emph{Journal of Informetrics} 7(4), 2013, pp. 792-802.
 #'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
+#'
 #' @family binary_relations
 #' @family impact_functions
 #' @export
@@ -171,6 +179,10 @@ pord_weakdom <- function(x, y)
 #' @references
 #' Gagolewski M., Spread measures and their relation to aggregation functions,
 #' \emph{European Journal of Operational Research} 241(2), 2015, pp. 469--477.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 #'
 #' @family binary_relations
 #' @family spread_measures

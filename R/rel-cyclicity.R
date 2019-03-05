@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -23,7 +23,7 @@
 #' A binary relation \eqn{R} is \emph{cyclic}, iff
 #' its transitive closure is not antisymmetric.
 #' Note that \eqn{R} may be reflexive and still acyclic,
-#' i.e. loops in \eqn{R} are not taken into account.
+#' i.e., loops in \eqn{R} are not taken into account.
 #'
 #' @details
 #' \code{rel_is_cyclic} has \eqn{O(n^3)} time complexity,

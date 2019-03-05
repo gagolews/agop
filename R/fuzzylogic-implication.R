@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyright 2013-2014 Marek Gagolewski, Anna Cena
+## Copyright 2013-2019 Marek Gagolewski, Anna Cena
 ##
 ## 'agop' is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -77,6 +77,10 @@
 #' @references
 #' Klir G.J, Yuan B., \emph{Fuzzy sets and fuzzy logic. Theory and applications},
 #' Prentice Hall PTR, New Jersey, 1995.
+#'
+#' Gagolewski M., Data Fusion: Theory, Methods, and Applications,
+#'    Institute of Computer Science, Polish Academy of Sciences, 2015, 290 pp.
+#'    isbn:978-83-63159-20-7
 fimplication_minimal <- function(x, y) {
    .Call("fimplication_minimal", x, y, PACKAGE="agop")
 }
