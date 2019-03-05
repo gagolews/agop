@@ -1,5 +1,7 @@
 %\VignetteIndexEntry{A Guide to the agop Package}
-%\VignetteKeyword{agop, aggregation, preorder, mcdm}
+%\VignetteKeyword{aggregation}
+%\VignetteKeyword{preorder}
+%\VignetteKeyword{mcdm}
 %\VignetteEngine{knitr::knitr}
 \documentclass[11pt]{article}
 
