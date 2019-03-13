@@ -31,18 +31,19 @@
 * [NEW FUNCTION] `check_comonotonicity()` determines if two vectors are
    comonotonic.
 
-* [NEW FUNCTIONS] `pord_spread()`, `pord_spreadsym()`, `pord_nd()` --
-   exemplary preorders on sets of vectors.
+* [NEW FUNCTIONS] `pord_spread()`, `pord_spreadsym()`, `pord_nd()` -
+   example preorders on sets of vectors.
 
 * [NEW FEATURE] `plot_producer()` gained a new argument: `a`.
 
-* [BUGFIX] `rel_closure_transitive()` -- a resulting matrix
+* [BUGFIX] `rel_closure_transitive()` - a resulting matrix
    was not necessarily transitive.
 
 * [BUGFIX] `prepare_arg_numeric_sorted` (internal, C++) did not sort
    some vectors.
 
-* [BUGFIX] All built-in agops now throw an error on empty vectors.
+* [BUGFIX] All built-in aggregation functions now throw an error
+   on empty vectors.
 
 * [INFO] The package no longer depends on the `Matrix` package.
     The `igraph` package is only suggested.
