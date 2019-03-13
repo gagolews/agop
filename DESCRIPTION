@@ -26,6 +26,7 @@ Authors@R: c(
     email = "marek@gagolewski.com",
     comment = c(ORCID = "0000-0003-0637-6028")),
     person("Anna", "Cena", role = "ctb",
-    email = "cena@rexamine.com")
+    email = "cena@rexamine.com",
+    comment = c(ORCID = "0000-0001-8697-5383"))
     )
 RoxygenNote: 6.1.1
