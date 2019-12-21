@@ -27,15 +27,15 @@
 #' \code{rel_is_reflexive} finds out if a given binary relation
 #' is reflexive. The function just checks whether all elements
 #' on the diagonal of \code{R} are non-zeros,
-#' i.e. it has \eqn{O(n)} time complexity,
+#' i.e., it has \eqn{O(n)} time complexity,
 #' where \eqn{n} is the number of rows in \code{R}.
 #' Missing values on the diagonal may result in \code{NA}.
 #'
-#' Reflexive closure of a binary relation \eqn{R},
+#' A reflexive closure of a binary relation \eqn{R},
 #' determined by \code{rel_closure_reflexive},
 #' is the minimal reflexive superset \eqn{R'} of \eqn{R}.
 #'
-#' Reflexive reduction of a binary relation \eqn{R},
+#' A reflexive reduction of a binary relation \eqn{R},
 #' determined by \code{rel_reduction_reflexive},
 #' is the minimal subset \eqn{R'} of \eqn{R},
 #' such that the reflexive closures of \eqn{R} and \eqn{R'} are equal

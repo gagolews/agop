@@ -26,10 +26,10 @@
 #' diagrams.
 #'
 #' @details
-#' The input matrix \eqn{R} might not necessarily be acyclic/assymetric, i.e.,
-#' it can represent any totally preordered set (which induces an equivalence
+#' The input matrix \eqn{R} might not necessarily be acyclic/asymmetric, i.e.,
+#' it may represent any totally preordered set (which induces an equivalence
 #' relation on the underlying preordered set).
-#' The algorithm implemented runs in \eqn{O(n^3)} time
+#' The implemented algorithm  runs in \eqn{O(n^3)} time
 #' and first determines the transitive closure of \eqn{R}.
 #' If an irreflexive \eqn{R} is given, then the transitive closures
 #' of \eqn{R} and of the resulting matrix are identical.

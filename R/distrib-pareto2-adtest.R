@@ -21,7 +21,7 @@
 #' @description
 #' Performs an approximate Anderson-Darling goodness-of-fit
 #' test, which verifies the null hypothesis:
-#' Data follows a Pareto-Type II distribution.
+#' Data follow a Pareto-Type II distribution.
 #'
 #' @details
 #' We know that if \eqn{X} follows a Pareto-Type II distribution

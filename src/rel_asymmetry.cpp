@@ -31,17 +31,22 @@
  */
 SEXP rel_is_asymmetric(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "R");
+   x = PROTECT(prepare_arg_logical_square_matrix(x, "R"));
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
    for (R_len_t i=0; i<n; ++i) {
       for (R_len_t j=i; j<n; ++j) {
-         if (xp[j+i*n] == NA_LOGICAL || xp[i+j*n] == NA_LOGICAL)
+         if (xp[j+i*n] == NA_LOGICAL || xp[i+j*n] == NA_LOGICAL) {
+            UNPROTECT(1);
             return Rf_ScalarLogical(NA_LOGICAL);
-         else if (xp[i+j*n] && xp[j+i*n])
+         }
+         else if (xp[i+j*n] && xp[j+i*n]) {
+            UNPROTECT(1);
             return Rf_ScalarLogical(FALSE);
+         }
       }
    }
+   UNPROTECT(1);
    return Rf_ScalarLogical(TRUE);
 }

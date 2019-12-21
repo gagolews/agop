@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.2-3
-Date: 2019-03-13
+Date: 2019-12-21
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria and group decision making,
     including variable number of criteria, by means of
@@ -30,3 +30,4 @@ Authors@R: c(
     comment = c(ORCID = "0000-0001-8697-5383"))
     )
 RoxygenNote: 6.1.1
+Encoding: UTF-8

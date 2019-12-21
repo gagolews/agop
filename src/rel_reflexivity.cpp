@@ -31,16 +31,21 @@
  */
 SEXP rel_is_reflexive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "R");
+   x = PROTECT(prepare_arg_logical_square_matrix(x, "R"));
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
    for (R_len_t i=0; i<n; ++i) {
-      if (xp[i+i*n] == NA_LOGICAL)
+      if (xp[i+i*n] == NA_LOGICAL) {
+         UNPROTECT(1);
          return Rf_ScalarLogical(NA_LOGICAL);
-      else if (!xp[i+i*n])
+      }
+      else if (!xp[i+i*n]) {
+         UNPROTECT(1);
          return Rf_ScalarLogical(FALSE);
+      }
    }
+   UNPROTECT(1);
    return Rf_ScalarLogical(TRUE);
 }
 
@@ -55,12 +60,12 @@ SEXP rel_is_reflexive(SEXP x)
  */
 SEXP rel_closure_reflexive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "R");
+   x = PROTECT(prepare_arg_logical_square_matrix(x, "R"));
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
 
-   SEXP y = Rf_allocVector(LGLSXP, n*n);
+   SEXP y = PROTECT(Rf_allocVector(LGLSXP, n*n));
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
    Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
@@ -72,6 +77,7 @@ SEXP rel_closure_reflexive(SEXP x)
    for (R_len_t i=0; i<n; ++i)
       yp[i+n*i] = TRUE;
 
+   UNPROTECT(2);
    return y;
 }
 
@@ -85,12 +91,12 @@ SEXP rel_closure_reflexive(SEXP x)
  */
 SEXP rel_reduction_reflexive(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "R");
+   x = PROTECT(prepare_arg_logical_square_matrix(x, "R"));
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
 
-   SEXP y = Rf_allocVector(LGLSXP, n*n);
+   SEXP y = PROTECT(Rf_allocVector(LGLSXP, n*n));
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
    Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
@@ -102,5 +108,6 @@ SEXP rel_reduction_reflexive(SEXP x)
    for (R_len_t i=0; i<n; ++i)
       yp[i+n*i] = FALSE;
 
+   UNPROTECT(2);
    return y;
 }

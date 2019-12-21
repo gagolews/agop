@@ -31,7 +31,7 @@ Note that if \eqn{(i,x_i)=l_\infty(x)}, then
 MAXPROD(x) = prod(l_\infty(x)) = i*x_i,}
 where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007),
 see \code{\link{index_maxprod}}.
-Moreover, such index corresponds to the Shilkret integral
+Moreover, this index corresponds to the Shilkret integral
 of \eqn{x} w.r.t. some monotone measure,
 cf. (Gagolewski, Debski, Nowakiewicz, 2013).
 
@@ -41,13 +41,13 @@ to (Gagolewski, Grzegorzewski, 2009a).
 \details{
 The \eqn{l_p}-index, by definition, is not an impact function, as
 it produces 2 numeric values. Thus, it should be projected to one dimension.
-However, you may set  \code{projection}
-to \code{\link{identity}} to obtain the 2-dimensional index
+However, you may set the \code{projection} argument
+to \code{\link{identity}} so as to obtain the 2-dimensional index
 
-If non-increasingly sorted vector is given, the function is O(n)
+If a non-increasingly sorted vector is given, the function has  O(n) run-time
 for any \eqn{p}, see (Gagolewski, Debski, Nowakiewicz, 2013).
 
-For historical reasons, this function is also available via its alias,
+For historical reasons, this function is also available via an alias,
 \code{index.lp} [but its usage is deprecated].
 }
 \examples{

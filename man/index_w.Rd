@@ -20,7 +20,7 @@ the \dfn{\eqn{w}-index} (Woeginger, 2008) for \eqn{x} is defined as
 W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}
 }
 \details{
-If non-increasingly sorted vector is given, the function is O(n).
+If a non-increasingly sorted vector is given, the function has O(n) run-time.
 
 See \code{\link{index_rp}} for a natural generalization.
 }

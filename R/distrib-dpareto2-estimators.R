@@ -26,15 +26,15 @@
 #' shape parameter \eqn{k} and scale parameter \eqn{s}.
 #'
 #' @details
-#' Note that the maximum of the likelihood function may not exist
-#' for some input vectors. This estimator may have large mean squared error.
+#' Note that the maximum of the likelihood function might not exist
+#' for some input vectors. This estimator may have a large mean squared error.
 #'
 #' @param x a non-negative numeric vector
-#' @param kmin,kmax lower and upper bound for the shape parameter to look for
-#' @param smin,smax lower and upper bound for the scale parameter to look for
+#' @param kmin,kmax lower and upper bound for the shape parameter
+#' @param smin,smax lower and upper bound for the scale parameter
 #' @param k0,s0 initial points for the L-BFGS-B method
 #' @return
-#' a numeric vector  with the following named components:
+#' Returns a numeric vector  with the following named components:
 #' \itemize{
 #' \item \code{k} - estimated parameter of shape
 #' \item \code{s} - estimated parameter of scale

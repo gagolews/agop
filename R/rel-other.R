@@ -28,8 +28,8 @@
 #' We have \code{ret[i,j] == pord(x[[i]], x[[j]], ...)}.
 #'
 #' @param x list with elements to compare, preferably named
-#' @param pord a function with two arguments, returning a single boolean value,
-#' e.g. \code{\link{pord_spread}},
+#' @param pord a function with two arguments, returning a single Boolean value,
+#' e.g., \code{\link{pord_spread}},
 #' \code{\link{pord_nd}}, or \code{\link{pord_weakdom}}
 #' @param ... additional arguments passed to \code{pord}
 #'

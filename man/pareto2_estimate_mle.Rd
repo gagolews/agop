@@ -13,9 +13,9 @@ pareto2_estimate_mle(x, s = NA_real_, smin = 1e-04, smax = 20,
 \item{s}{a-priori known scale parameter, \eqn{s>0} or
 \code{NA} if unknown (default)}
 
-\item{smin}{lower bound for the scale parameter to look for}
+\item{smin}{lower bound for the scale parameter}
 
-\item{smax}{upper bound for the scale parameter to look for}
+\item{smax}{upper bound for the scale parameter}
 
 \item{tol}{the desired accuracy (convergence tolerance)}
 }
@@ -35,8 +35,8 @@ shape parameter \eqn{k} and, if not given explicitly,
 }
 \details{
 Note that if \eqn{s} is not given, then
-the maximum of the likelihood function may not exist
-for some input vectors. This estimator may have large mean squared error.
+the maximum of the likelihood function might not exist
+for some input vectors. This estimator may have a large mean squared error.
 Consider using \code{\link{pareto2_estimate_mmse}}.
 
 For known \eqn{s}, the estimator is unbiased.

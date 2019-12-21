@@ -21,7 +21,7 @@ for all \eqn{x, y} we have \eqn{xRy} \eqn{\Rightarrow}{=>}
 }
 \details{
 Note that an asymmetric relation is necessarily irreflexive,
-cf. \code{\link{rel_is_irreflexive}}.
+compare \code{\link{rel_is_irreflexive}}.
 
 \code{rel_is_asymmetric} finds out if a given binary relation
 is asymmetric. Missing values in \code{R} may result in \code{NA}.

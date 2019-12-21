@@ -198,8 +198,8 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
 
 
 #define macro_apply_binaryop_x_y(op) \
-   x = prepare_arg_double(x, "x"); \
-   y = prepare_arg_double(y, "y"); \
+   x = PROTECT(prepare_arg_double(x, "x")); \
+   y = PROTECT(prepare_arg_double(y, "y")); \
    R_len_t x_length = LENGTH(x);   \
    R_len_t y_length = LENGTH(y);   \
    double* x_tab = REAL(x);        \
@@ -221,11 +221,11 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
       else                                               \
          res_tab[i] = (op);                              \
    }                                                     \
-   UNPROTECT(1);                                         \
+   UNPROTECT(3);                                         \
    return res;
 
 #define macro_apply_unaryop_x(op)  \
-   x = prepare_arg_double(x, "x"); \
+   x = PROTECT(prepare_arg_double(x, "x")); \
    R_len_t x_length = LENGTH(x);   \
    double* x_tab = REAL(x);        \
    if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");  \
@@ -240,7 +240,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail);
       else                                               \
          res_tab[i] = (op);                              \
    }                                                     \
-   UNPROTECT(1);                                         \
+   UNPROTECT(2);                                         \
    return res;
 
 SEXP tnorm_minimum(SEXP x, SEXP y);

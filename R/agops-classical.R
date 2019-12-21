@@ -41,7 +41,7 @@
 #' WAM_w(x) = sum_i(w_i * x_i)
 #' }
 #'
-#' If the elements of \code{w} does not sum up to \eqn{1}, then
+#' If the elements in \code{w} do not sum up to \eqn{1}, then
 #' they are normalized and a warning is generated.
 #'
 #' Both functions by default return the ordinary arithmetic mean.

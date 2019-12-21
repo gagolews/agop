@@ -12,7 +12,7 @@ exp_test_ad(x)
 \value{
 A list of the class \code{htest} is returned,
 just like in many other testing methods,
-see e.g. \code{\link{ks.test}}.
+see, e.g., \code{\link{ks.test}}.
 }
 \description{
 Performs an approximate Anderson-Darling goodness-of-fit
@@ -20,7 +20,7 @@ test, which verifies the null hypothesis:
 Data follow an exponential distribution.
 }
 \details{
-Sample size should not be smaller than 3. Missing values
+Sample size should be not less than 3. Missing values
 are removed from \code{x} before applying the procedure.
 
 The p-value is approximate: its distribution
@@ -28,7 +28,7 @@ has been estimated by taking 2500000 MC samples.
 For performance and space reasons,
 the estimated distribution is recreated by a spline interpolation
 on a fixed number of points.
-In result, the resulting p-value distribution may not necessarily
+As a result, the resulting p-value distribution might not necessarily
 be uniform for p>>0.5.
 }
 \references{

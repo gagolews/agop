@@ -54,15 +54,17 @@ bool rel_is_cyclic(int i, int* xp, int n, int* helper) {
  */
 SEXP rel_is_cyclic(SEXP x)
 {
-   x = prepare_arg_logical_square_matrix(x, "R");
+   x = PROTECT(prepare_arg_logical_square_matrix(x, "R"));
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
 
-   for (int i=0; i<n*n; ++i)
-      if (xp[i] == NA_LOGICAL)
+   for (int i=0; i<n*n; ++i) {
+      if (xp[i] == NA_LOGICAL) {
+         UNPROTECT(1);
          return Rf_ScalarLogical(NA_LOGICAL);
-
+      }
+   }
    int* helper = new int[n];
    for (int i=0; i<n; ++i)
       helper[i] = 0;
@@ -76,5 +78,6 @@ SEXP rel_is_cyclic(SEXP x)
    } while(!ret);
 
    delete[] helper;
+   UNPROTECT(1);
    return Rf_ScalarLogical(ret);
 }

@@ -20,7 +20,7 @@ indicating whether \code{x} is weakly
 dominated by \code{y}.
 }
 \description{
-Checks whether a given numeric vector
+Checks whether a numeric vector
 of arbitrary length is (weakly) dominated (elementwise)
 by another vector of the same length.
 }

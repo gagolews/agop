@@ -19,9 +19,9 @@ the \dfn{MAXPROD-index} (Kosmulski, 2007) for \eqn{x} is defined as
 \deqn{MAXPROD(x)=\max\{i x_i: i=1,\dots,n\}}{MAXPROD(x)=max{i x_i: i=1,\dots,n}}
 }
 \details{
-If non-increasingly sorted vector is given, the function is O(n).
+If a non-increasingly sorted vector is given, the function has O(n) run-time.
 
-MAXPROD index is the same as the discrete Shilkret integral of \code{x}
+The MAXPROD index is the same as the discrete Shilkret integral of \code{x}
 w.r.t. the counting measure.
 
 See \code{\link{index_lp}} for a natural generalization.

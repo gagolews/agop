@@ -28,9 +28,9 @@
 #' if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{H(x)=0} otherwise.
 #'
 #' @details
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If a non-increasingly sorted vector is given, the function has O(n) run-time.
 #'
-#' For historical reasons, this function is also available via its alias,
+#' For historical reasons, this function is also available via an alias,
 #' \code{index.h} [but its usage is deprecated].
 #'
 #' See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.
@@ -110,9 +110,9 @@ index.h <- index_h # deprecated
 #' see Examples section. \code{index_g_zi} is its zero-sensitive variant:
 #' it assumes that the aggregated vector is padded with zeros.
 #'
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If a non-increasingly sorted vector is given, the function has O(n) run-time.
 #'
-#' For historical reasons, this function is also available via its alias,
+#' For historical reasons, this function is also available via an alias,
 #' \code{index.g} [but its usage is deprecated].
 #'
 #'
@@ -173,9 +173,9 @@ index_g_zi <- function(x)
 #' \deqn{MAXPROD(x)=\max\{i x_i: i=1,\dots,n\}}{MAXPROD(x)=max{i x_i: i=1,\dots,n}}
 #'
 #' @details
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If a non-increasingly sorted vector is given, the function has O(n) run-time.
 #'
-#' MAXPROD index is the same as the discrete Shilkret integral of \code{x}
+#' The MAXPROD index is the same as the discrete Shilkret integral of \code{x}
 #' w.r.t. the counting measure.
 #'
 #' See \code{\link{index_lp}} for a natural generalization.
@@ -222,7 +222,7 @@ index_maxprod <- function(x)
 #' W(x)=max{i=1,\dots,n: x_j >= i-j+1 for all j=1,\dots,i}}
 #'
 #' @details
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If a non-increasingly sorted vector is given, the function has O(n) run-time.
 #'
 #' See \code{\link{index_rp}} for a natural generalization.
 #'
@@ -265,9 +265,9 @@ index_w <- function(x)
 #' \deqn{r_1(x)=W(x),} where \eqn{W} is the \eqn{w}-index (Woeginger, 2008),
 #' see \code{\link{index_h}} and \code{\link{index_w}}.
 #'
-#' If non-increasingly sorted vector is given, the function is O(n).
+#' If a non-increasingly sorted vector is given, the function has O(n) run-time.
 #'
-#' For historical reasons, this function is also available via its alias, \code{index.rp}
+#' For historical reasons, this function is also available via an alias, \code{index.rp}
 #'  [but its usage is deprecated].
 #'
 #' @references
@@ -321,7 +321,7 @@ index.rp <- index_rp # deprecated
 #' MAXPROD(x) = prod(l_\infty(x)) = i*x_i,}
 #' where \eqn{MAXPROD} is the index proposed in (Kosmulski, 2007),
 #' see \code{\link{index_maxprod}}.
-#' Moreover, such index corresponds to the Shilkret integral
+#' Moreover, this index corresponds to the Shilkret integral
 #' of \eqn{x} w.r.t. some monotone measure,
 #' cf. (Gagolewski, Debski, Nowakiewicz, 2013).
 #'
@@ -331,13 +331,13 @@ index.rp <- index_rp # deprecated
 #' @details
 #' The \eqn{l_p}-index, by definition, is not an impact function, as
 #' it produces 2 numeric values. Thus, it should be projected to one dimension.
-#' However, you may set  \code{projection}
-#' to \code{\link{identity}} to obtain the 2-dimensional index
+#' However, you may set the \code{projection} argument
+#' to \code{\link{identity}} so as to obtain the 2-dimensional index
 #'
-#' If non-increasingly sorted vector is given, the function is O(n)
+#' If a non-increasingly sorted vector is given, the function has  O(n) run-time
 #' for any \eqn{p}, see (Gagolewski, Debski, Nowakiewicz, 2013).
 #'
-#' For historical reasons, this function is also available via its alias,
+#' For historical reasons, this function is also available via an alias,
 #' \code{index.lp} [but its usage is deprecated].
 #'
 #' @references

@@ -33,9 +33,9 @@ Note that \code{index_g} is not a zero-insensitive impact function,
 see Examples section. \code{index_g_zi} is its zero-sensitive variant:
 it assumes that the aggregated vector is padded with zeros.
 
-If non-increasingly sorted vector is given, the function is O(n).
+If a non-increasingly sorted vector is given, the function has O(n) run-time.
 
-For historical reasons, this function is also available via its alias,
+For historical reasons, this function is also available via an alias,
 \code{index.g} [but its usage is deprecated].
 }
 \examples{

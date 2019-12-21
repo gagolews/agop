@@ -33,7 +33,7 @@
 #' Missing values on the diagonal may result in \code{NA}.
 #'
 #' When dealing with a graph's loops,
-#' i.e., elements related with themselves, you may be interested
+#' i.e., elements related to themselves, you may be interested
 #' in finding a reflexive closure,
 #' see \code{\link{rel_closure_reflexive}},
 #' or a reflexive reduction,

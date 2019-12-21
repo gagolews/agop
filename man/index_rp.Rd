@@ -36,9 +36,9 @@ Note that if \eqn{x_1,\dots,x_n} are integers, then
 \deqn{r_1(x)=W(x),} where \eqn{W} is the \eqn{w}-index (Woeginger, 2008),
 see \code{\link{index_h}} and \code{\link{index_w}}.
 
-If non-increasingly sorted vector is given, the function is O(n).
+If a non-increasingly sorted vector is given, the function has O(n) run-time.
 
-For historical reasons, this function is also available via its alias, \code{index.rp}
+For historical reasons, this function is also available via an alias, \code{index.rp}
  [but its usage is deprecated].
 }
 \examples{

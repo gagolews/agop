@@ -24,14 +24,14 @@ Computes the D2OWA operator, i.e.,
 the normalized L2 distance between a numeric vector and an OWA operator.
 }
 \details{
-D2OWA is a symmetric dispersion function
+D2OWA is a symmetric spread measure.
 It is defined as
 \code{d2owa(x) == sqrt(mean((x-owa(x,w))^2))}.
 Not all weights, however, generate a proper function of this kind;
 \code{d2owa_checkwts} may be used to check that.
-For \code{d2owa}, if \code{w} is not proper, an error is thrown.
+For \code{d2owa}, if \code{w} is not appropriate, an error is thrown.
 
-\code{w} is automatically normalized so that its elements sums up to 1.
+\code{w} is automatically normalized so that its elements sum up to 1.
 }
 \references{
 Gagolewski M., Spread measures and their relation to aggregation functions,

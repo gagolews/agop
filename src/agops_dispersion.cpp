@@ -31,13 +31,15 @@
  * @return scalar logical
  */
 SEXP d2owa_checkwts(SEXP w) {
-   w = prepare_arg_numeric(w, "w");
+   w = PROTECT(prepare_arg_numeric(w, "w"));
    R_len_t wn = LENGTH(w);
    double* wd = REAL(w);
 
    if (wn <= 1) Rf_error(MSG_ARG_TOO_SHORT, "w");
-   if (ISNA(wd[0]))
+   if (ISNA(wd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarLogical(NA_LOGICAL);
+   }
 
    double ws = 0.0;
    for (R_len_t i=0; i<wn; ++i) {
@@ -55,10 +57,13 @@ SEXP d2owa_checkwts(SEXP w) {
       for (int i=wn-1; i>p; --i) {
          if ((i-p)*(i-p) < 4*p*(wn-i))
             break;
-         if ((wn-i)*(1.0-zeta[p-1]) + (wn*zeta[p-1]-wn+p)*zeta[i-1] < 0.0)
+         if ((wn-i)*(1.0-zeta[p-1]) + (wn*zeta[p-1]-wn+p)*zeta[i-1] < 0.0) {
+            UNPROTECT(1);
             return Rf_ScalarLogical(FALSE);
+         }
       }
    }
 
+   UNPROTECT(1);
    return Rf_ScalarLogical(TRUE);
 }

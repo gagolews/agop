@@ -22,7 +22,7 @@ or \code{NULL}. See the Value section for details}
 }
 \value{
 If \code{significance} is not \code{NULL}, then
-the list of class \code{power.htest} with the following components is passed as a result:
+the list of class \code{power.htest} with the following components is yield in result:
 \itemize{
 \item \code{statistic} -	the value of the test statistic.
 \item \code{result} -	either FALSE (accept null hypothesis) or TRUE (reject).
@@ -32,7 +32,7 @@ the list of class \code{power.htest} with the following components is passed as 
 }
 
 
-Otherwise, the list of class \code{htest} with the following components is passed as a result:
+Otherwise, the list of class \code{htest} with the following components is yield in result:
 \itemize{
 \item \code{statistic} 	the value of the test statistic.
 \item \code{p.value} 	the p-value of the test.
@@ -42,8 +42,8 @@ Otherwise, the list of class \code{htest} with the following components is passe
 }
 }
 \description{
-Performs F-test for equality of shape parameters
-of two samples from the Pareto type-II distributions with known
+Performs the F-test for the equality of shape parameters
+of two samples from Pareto type-II distributions with known
 and equal scale parameters, \eqn{s>0}.
 }
 \details{
@@ -53,9 +53,9 @@ this test verifies the null hypothesis
 \eqn{H_0: k_x=k_y}
 against two-sided or one-sided alternatives, depending
 on the value of \code{alternative}.
-It bases on test statistic
+It is based on the test statistic
 \eqn{T(X,Y)=\frac{n\sum_{i=1}^m\log(1+Y_i/m)}{m\sum_{i=1}^n\log(1+X_i/n)}}{T=n/m*sum(log(1+Y/m))/sum(log(1+X/n))}
-which, under \eqn{H_0}, has the Snedecor's F distribution with \eqn{(2m, 2n)}
+which, under \eqn{H_0}, follows the Snedecor's F distribution with \eqn{(2m, 2n)}
 degrees of freedom.
 
 Note that for \eqn{k_x < k_y}, then \eqn{X} dominates \eqn{Y} stochastically.

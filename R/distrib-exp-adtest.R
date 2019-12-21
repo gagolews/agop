@@ -24,7 +24,7 @@
 #' Data follow an exponential distribution.
 #'
 #' @details
-#' Sample size should not be smaller than 3. Missing values
+#' Sample size should be not less than 3. Missing values
 #' are removed from \code{x} before applying the procedure.
 #'
 #' The p-value is approximate: its distribution
@@ -32,7 +32,7 @@
 #' For performance and space reasons,
 #' the estimated distribution is recreated by a spline interpolation
 #' on a fixed number of points.
-#' In result, the resulting p-value distribution may not necessarily
+#' As a result, the resulting p-value distribution might not necessarily
 #' be uniform for p>>0.5.
 #'
 #' @param x a non-negative numeric vector of data values
@@ -40,7 +40,7 @@
 #' @return
 #' A list of the class \code{htest} is returned,
 #' just like in many other testing methods,
-#' see e.g. \code{\link{ks.test}}.
+#' see, e.g., \code{\link{ks.test}}.
 #'
 #' @export
 #' @seealso \code{\link{pexp}}

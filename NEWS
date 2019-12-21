@@ -1,6 +1,13 @@
                           ** agop package NEWS **
 ***************************************************************************
 
+0.2-3 /2019-12-21/
+
+* [BUGFIX, #8] PROTECTing unprotected variables are reported by rchk.
+
+
+***************************************************************************
+
 0.2-2 /2019-03-05/
 
 * [IMPORTANT CHANGE] All functions dealing with binary relations now are

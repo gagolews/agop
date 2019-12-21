@@ -24,9 +24,9 @@
 #include "agop.h"
 
 
-/** Compute the c.d.f. of Pareto2 distribution
+/** Compute the c.d.f. of a Pareto2 distribution
  *
- * 10x+ fast as the original version:
+ * 10x+ faster than the original version:
  * ppareto2_old <- function(q, k=1, s=1, lower.tail=TRUE)
  * {
  *    stopifnot(is.numeric(k), k > 0)
@@ -47,16 +47,18 @@
  */
 SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
 {
-   q = prepare_arg_double(q, "q");
-   k = prepare_arg_double(k, "k");
-   s = prepare_arg_double(s, "s");
-   lower_tail = prepare_arg_logical_1(lower_tail, "lower.tail");
+   q = PROTECT(prepare_arg_double(q, "q"));
+   k = PROTECT(prepare_arg_double(k, "k"));
+   s = PROTECT(prepare_arg_double(s, "s"));
+   lower_tail = PROTECT(prepare_arg_logical_1(lower_tail, "lower.tail"));
 
    R_len_t nq = LENGTH(q);
    R_len_t nk = LENGTH(k);
    R_len_t ns = LENGTH(s);
-   if (min(min(nq, nk), ns) <= 0)
+   if (min(min(nq, nk), ns) <= 0) {
+      UNPROTECT(4);
       return Rf_allocVector(REALSXP, 0);
+   }
    int*    ptail = INTEGER(lower_tail);
    if (ptail[0] == NA_LOGICAL)
       Rf_error(MSG__ARG_EXPECTED_NOT_NA, "lower.tail");
@@ -74,8 +76,10 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
    if (nk == 1 && ns == 1) { // the most typical case
       double vs = ps[0];
       double vk = pk[0];
-      if (ISNA(vs) || ISNA(vk))
+      if (ISNA(vs) || ISNA(vk)) {
+         UNPROTECT(4);
          return vector_NA_double(n);
+      }
 
       if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
       if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
@@ -100,7 +104,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
          }
       }
 
-      UNPROTECT(1);
+      UNPROTECT(5);
       return ret;
    }
    else {
@@ -135,7 +139,7 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
          }
       }
 
-      UNPROTECT(1);
+      UNPROTECT(5);
       return ret;
    }
 }

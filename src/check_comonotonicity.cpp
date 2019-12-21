@@ -33,31 +33,41 @@
  *
  * @version 0.2-1 (Marek Gagolewski, 2014-11-19)
  *    incompatible_lenghts arg added
+ *
+ * @version 0.2-3 (Marek Gagolewski, 2019-12-21)
+ *    #8: PROTECT from gc
  */
 SEXP check_comonotonicity(SEXP x, SEXP y, SEXP incompatible_lengths)
 {
-   x = prepare_arg_numeric(x, "x");
-   y = prepare_arg_numeric(y, "y");
-   incompatible_lengths = prepare_arg_logical_1(incompatible_lengths, "incompatible_lengths");
+   x = PROTECT(prepare_arg_numeric(x, "x"));
+   y = PROTECT(prepare_arg_numeric(y, "y"));
+   incompatible_lengths = PROTECT(prepare_arg_logical_1(incompatible_lengths, "incompatible_lengths"));
 
    R_len_t x_length = LENGTH(x);
    R_len_t y_length = LENGTH(y);
 
-   if (x_length != y_length)
+   if (x_length != y_length) {
+      UNPROTECT(3);
       return incompatible_lengths;
+   }
 
    double* x_tab = REAL(x);
    double* y_tab = REAL(y);
 
    for (R_len_t i=0; i<x_length; ++i) {
-      if (ISNA(x_tab[i]) || ISNA(y_tab[i]))
+      if (ISNA(x_tab[i]) || ISNA(y_tab[i])) {
+         UNPROTECT(3);
          return Rf_ScalarLogical(NA_LOGICAL);
+      }
 
       for (R_len_t j=i; j<x_length; ++j) {
-         if ((x_tab[i]-x_tab[j])*(y_tab[i]-y_tab[j]) < 0.0)
+         if ((x_tab[i]-x_tab[j])*(y_tab[i]-y_tab[j]) < 0.0) {
+            UNPROTECT(3);
             return Rf_ScalarLogical(FALSE);
+         }
       }
    }
 
+   UNPROTECT(3);
    return Rf_ScalarLogical(TRUE);
 }

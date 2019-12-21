@@ -81,8 +81,8 @@ pareto2_estimate_mmse <- function(x)
 #'
 #' @details
 #' Note that if \eqn{s} is not given, then
-#' the maximum of the likelihood function may not exist
-#' for some input vectors. This estimator may have large mean squared error.
+#' the maximum of the likelihood function might not exist
+#' for some input vectors. This estimator may have a large mean squared error.
 #' Consider using \code{\link{pareto2_estimate_mmse}}.
 #'
 #' For known \eqn{s}, the estimator is unbiased.
@@ -90,8 +90,8 @@ pareto2_estimate_mmse <- function(x)
 #' @param x a non-negative numeric vector
 #' @param s a-priori known scale parameter, \eqn{s>0} or
 #' \code{NA} if unknown (default)
-#' @param smin lower bound for the scale parameter to look for
-#' @param smax upper bound for the scale parameter to look for
+#' @param smin lower bound for the scale parameter
+#' @param smax upper bound for the scale parameter
 #' @param tol the desired accuracy (convergence tolerance)
 #' @return
 #' Returns a numeric vector  with the following named components:

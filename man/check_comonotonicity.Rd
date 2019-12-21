@@ -33,7 +33,7 @@ iff \eqn{(x_i-x_j)(y_i-y_j)\ge 0} for every \code{i,j}.
 If there are missing values in \code{x} or \code{y}, the function
 returns \code{NA}.
 
-Currently, the algorithm implemented has \eqn{O(n^2)} time complexity.
+Currently, the implemented algorithm  has \eqn{O(n^2)} time complexity.
 }
 \references{
 Grabisch M., Marichal J.-L., Mesiar R., Pap E., \emph{Aggregation functions},

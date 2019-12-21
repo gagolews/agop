@@ -19,20 +19,20 @@
 
 
 #' @title
-#' Draws a Graphical Representation of a Given Vector
+#' Draws a Graphical Representation of a Numeric Vector
 #'
 #' @description
-#' Draws a step function that represents given numeric vector
+#' Draws a step function that represents a numeric vector
 #' with elements in \eqn{[a,\infty]}.
 #'
 #' @details
-#' In \pkg{agop}, a given vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
+#' In \pkg{agop}, a vector \eqn{x=(x_1,\dots,x_n)} can be represented by a
 #' step function defined for \eqn{0\le y<n} and given by:
 #' \deqn{\pi(y)=x_{(n-\lfloor y+1\rfloor+1)}}{\pi(y)=x_{(n-floor(y+1)+1)}}
 #' (for \code{type == 'right.continuous'})
 #' or for \eqn{0< y\le n} \deqn{\pi(y)=x_{(n-\lfloor y\rfloor+1)}}{\pi(y)=x_{(n-floor(y)+1)}}
 #' (for \code{type == 'left.continuous'}, the default)
-#' or by a curve joining the points \eqn{(0, x_{(n)})},
+#' or by a curve interpolating the points \eqn{(0, x_{(n)})},
 #' \eqn{(1, x_{(n)})}, \eqn{(1, x_{(n-1)})}, \eqn{(2, x_{(n-1)})},
 #' ..., \eqn{(n, x_{(1)})}.
 #' Here, \eqn{x_{(i)}} denotes the
@@ -45,7 +45,7 @@
 #' \code{plot.citfun} [but its usage is deprecated].
 #'
 #' @param x non-negative numeric vector
-#' @param type character; type of the graphical \code{'left.continuous'} (the default)
+#' @param type character; \code{'left.continuous'} (the default)
 #' or \code{'right.continuous'} for step functions and \code{'curve'} for
 #' a continuous step curve
 #' @param extend logical; should the plot be extended infinitely to the right?

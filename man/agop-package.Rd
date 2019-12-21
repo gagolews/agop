@@ -17,7 +17,7 @@ Egghe's g-index, variance, spread, decision making, fuzzy logic.
 
 \bold{Acknowledgments}:
 The development of the package in March-June 2013 was partially supported
-by the European Union from resources of the European Social Fund, Project PO KL
+by the European Union from the resources of the European Social Fund, Project PO KL
 ``Information technologies: Research and their interdisciplinary
 applications'', agreement UDA-POKL.04.01.01-00-051/10-00.
 }

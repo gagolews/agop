@@ -35,14 +35,16 @@
  */
 SEXP index_h(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
 
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -52,6 +54,7 @@ SEXP index_h(SEXP x)
    	++i;
    }
 
+   UNPROTECT(1);
    return Rf_ScalarReal((double) i);
 }
 
@@ -67,14 +70,16 @@ SEXP index_h(SEXP x)
  */
 SEXP index_g(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
 
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -86,6 +91,7 @@ SEXP index_g(SEXP x)
    	++i;
    }
 
+   UNPROTECT(1);
    return Rf_ScalarReal((double) i);
 }
 
@@ -99,14 +105,16 @@ SEXP index_g(SEXP x)
  */
 SEXP index_g_zi(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
 
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -118,6 +126,7 @@ SEXP index_g_zi(SEXP x)
    	++i;
    }
 
+   UNPROTECT(1);
    return Rf_ScalarReal((double) i);
 }
 
@@ -132,14 +141,16 @@ SEXP index_g_zi(SEXP x)
  */
 SEXP index_w(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
 
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -154,6 +165,7 @@ SEXP index_w(SEXP x)
       }
    }
 
+   UNPROTECT(1);
    return Rf_ScalarReal((double) w);
 }
 
@@ -168,14 +180,16 @@ SEXP index_w(SEXP x)
  */
 SEXP index_maxprod(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
 
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(1);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -184,6 +198,7 @@ SEXP index_maxprod(SEXP x)
       if (out < xd[i]*(double)(i+1))
          out = xd[i]*(double)(i+1);
 
+   UNPROTECT(1);
    return Rf_ScalarReal(out);
 }
 
@@ -225,20 +240,22 @@ SEXP index_maxprod(SEXP x)
  */
 SEXP index_rp(SEXP x, SEXP p)
 {
-   p = prepare_arg_numeric(p, "p");
+   p = PROTECT(prepare_arg_numeric(p, "p"));
    if (LENGTH(p) != 1)
       Rf_error("`p` should be a single numeric value");
    double p_val = REAL(p)[0];
    if (ISNA(p_val) || p_val < 1)
       Rf_error("`p` should be >= 1");
 
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(2);
       return Rf_ScalarReal(NA_REAL);
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
@@ -250,6 +267,7 @@ SEXP index_rp(SEXP x, SEXP p)
          double tmp = min((double)(i+1), xd[i]);
          if (ret_val < tmp) ret_val = tmp;
       }
+      UNPROTECT(2);
       return Rf_ScalarReal(ret_val);
    }
    else {
@@ -267,6 +285,7 @@ SEXP index_rp(SEXP x, SEXP p)
    			r2p = ip + xip;
    	}
 
+   	UNPROTECT(2);
    	return Rf_ScalarReal(pow(r2p, 1.0/p_val));
    }
 }
@@ -304,26 +323,30 @@ bool __index_lp_finite_testContains(double uk, double vk, double p, double ui, d
  */
 SEXP index_lp(SEXP x, SEXP p)
 {
-   p = prepare_arg_numeric(p, "p");
+   p = PROTECT(prepare_arg_numeric(p, "p"));
    if (LENGTH(p) != 1)
       Rf_error("`p` should be a single numeric value");
    double p_val = REAL(p)[0];
    if (ISNA(p_val) || p_val < 1)
       Rf_error("`p` should be >= 1");
 
-   x = prepare_arg_numeric_sorted_dec(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_dec(x, "x"));
    R_len_t n = LENGTH(x);
    if (n <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
 
    double* xd = REAL(x);
-   if (ISNA(xd[0]))
+   if (ISNA(xd[0])) {
+      UNPROTECT(2);
       return (double2(NA_REAL, NA_REAL).toR());
+   }
 
    if (xd[n-1] < 0) Rf_error(MSG__ARG_NOT_GE_A, "x", 0.0);
 
-   if (xd[1] <= 0.0)
+   if (xd[1] <= 0.0) {
+      UNPROTECT(2);
       return (double2(0.0, 0.0).toR());
+   }
 
    if (!R_FINITE(p_val))
    {
@@ -337,6 +360,7 @@ SEXP index_lp(SEXP x, SEXP p)
             ab.v2 = xd[i];
          }
       }
+      UNPROTECT(2);
       return ab.toR();
    }
    else {
@@ -384,6 +408,7 @@ SEXP index_lp(SEXP x, SEXP p)
             ab = ab2;
    	}
 
+      UNPROTECT(2);
       return double2(pow(ab.v1, 1.0/p_val), pow(ab.v2, 1.0/p_val)).toR();
    }
 }

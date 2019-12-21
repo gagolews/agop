@@ -48,7 +48,7 @@
 #' then \eqn{xR'y} and \eqn{yR'x}.
 #'
 #' Even if \code{R} is transitive, the resulting relation
-#' may not necessarily fulfill this property.
+#' might not necessarily fulfil this property.
 #' If you want a total preorder,
 #' call \code{\link{rel_closure_transitive}} afterwards.
 #' Missing values in \code{R} are not allowed and result in an error.

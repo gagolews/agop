@@ -9,8 +9,8 @@ rel_graph(x, pord, ...)
 \arguments{
 \item{x}{list with elements to compare, preferably named}
 
-\item{pord}{a function with two arguments, returning a single boolean value,
-e.g. \code{\link{pord_spread}},
+\item{pord}{a function with two arguments, returning a single Boolean value,
+e.g., \code{\link{pord_spread}},
 \code{\link{pord_nd}}, or \code{\link{pord_weakdom}}}
 
 \item{...}{additional arguments passed to \code{pord}}

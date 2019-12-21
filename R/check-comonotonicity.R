@@ -36,7 +36,7 @@
 #' If there are missing values in \code{x} or \code{y}, the function
 #' returns \code{NA}.
 #'
-#' Currently, the algorithm implemented has \eqn{O(n^2)} time complexity.
+#' Currently, the implemented algorithm  has \eqn{O(n^2)} time complexity.
 #'
 #' @param x numeric vector
 #' @param y numeric vector

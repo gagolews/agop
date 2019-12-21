@@ -32,17 +32,22 @@
  */
 SEXP exp_test_statistic(SEXP x)
 {
-   x = prepare_arg_numeric_sorted_inc(x, "x");
+   x = PROTECT(prepare_arg_numeric_sorted_inc(x, "x"));
 
    R_len_t n = LENGTH(x);
-   if (n < 3) return Rf_ScalarReal(NA_REAL);
+   if (n < 3) {
+      UNPROTECT(1);
+      return Rf_ScalarReal(NA_REAL);
+   }
 
    double* xd = REAL(x);
 
    double mean = 0.0;
    for (int i=0; i<n; i++) {
-      if (xd[i] <= 0.0)
+      if (xd[i] <= 0.0) {
+         UNPROTECT(1);
          return Rf_ScalarReal(1.0/0.0);
+      }
       mean += xd[i];
    }
    mean /= (double)n;
@@ -51,5 +56,6 @@ SEXP exp_test_statistic(SEXP x)
    for (int i=0; i<n; i++)
       w_pom += (2.0*i+1.0)*(log(1.0-exp(-xd[i]/mean))-xd[n-i-1]/mean);
 
+   UNPROTECT(1);
    return Rf_ScalarReal(-(double)n-w_pom/(double)n);
 }

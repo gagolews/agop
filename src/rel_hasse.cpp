@@ -32,14 +32,14 @@
  */
 SEXP rel_reduction_hasse(SEXP x)
 {
-   x = rel_closure_transitive(x);
+   x = PROTECT(rel_closure_transitive(x));
    // is logical matrix, dimnames are preserved, no NAs, we may overwrite its elements
 
    SEXP dim = Rf_getAttrib(x, R_DimSymbol);
    R_len_t n = INTEGER(dim)[0];
    int* xp = INTEGER(x);
 
-   SEXP y = Rf_allocVector(LGLSXP, n*n);
+   SEXP y = PROTECT(Rf_allocVector(LGLSXP, n*n));
    int* yp = INTEGER(y);
    Rf_setAttrib(y, R_DimSymbol, dim);
    Rf_setAttrib(y, R_DimNamesSymbol, Rf_getAttrib(x, R_DimNamesSymbol)); // preserve dimnames
@@ -63,5 +63,6 @@ SEXP rel_reduction_hasse(SEXP x)
       }
    }
 
+   UNPROTECT(2);
    return y;
 }

@@ -33,8 +33,11 @@
  */
 SEXP owa(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted_inc(x, "x");
-   return wam(x, w);
+   SEXP res;
+   x   = PROTECT(prepare_arg_numeric_sorted_inc(x, "x"));
+   res = PROTECT(wam(x, w));
+   UNPROTECT(2);
+   return res;
 }
 
 
@@ -47,8 +50,11 @@ SEXP owa(SEXP x, SEXP w)
  */
 SEXP owmax(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted_inc(x, "x");
-   return wmax(x, w);
+   SEXP res;
+   x   = PROTECT(prepare_arg_numeric_sorted_inc(x, "x"));
+   res = PROTECT(wmax(x, w));
+   UNPROTECT(2);
+   return res;
 }
 
 
@@ -62,8 +68,11 @@ SEXP owmax(SEXP x, SEXP w)
  */
 SEXP owmin(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric_sorted_inc(x, "x");
-   return wmin(x, w);
+   SEXP res;
+   x   = PROTECT(prepare_arg_numeric_sorted_inc(x, "x"));
+   res = PROTECT(wmin(x, w));
+   UNPROTECT(2);
+   return res;
 }
 
 
@@ -77,8 +86,8 @@ SEXP owmin(SEXP x, SEXP w)
  */
 SEXP wam(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric(x, "x");
-   w = prepare_arg_numeric(w, "w");
+   x = PROTECT(prepare_arg_numeric(x, "x"));
+   w = PROTECT(prepare_arg_numeric(w, "w"));
 
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
@@ -88,8 +97,10 @@ SEXP wam(SEXP x, SEXP w)
    if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
    if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
-   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0])) {
+      UNPROTECT(2);
       return Rf_ScalarReal(NA_REAL);
+   }
    if (x_length != w_length)
       Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
 
@@ -104,9 +115,10 @@ SEXP wam(SEXP x, SEXP w)
    }
 
    if (w_sum > 1.0+EPS || w_sum < 1.0-EPS)
-      Rf_warning("elements of `w` does not sum up to 1. correcting.");
+      Rf_warning("elements in `w` does not sum up to 1; correcting.");
 
    ret_val /= w_sum;
+   UNPROTECT(2);
    return Rf_ScalarReal(ret_val);
 }
 
@@ -120,8 +132,8 @@ SEXP wam(SEXP x, SEXP w)
  */
 SEXP wmax(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric(x, "x");
-   w = prepare_arg_numeric(w, "w");
+   x = PROTECT(prepare_arg_numeric(x, "x"));
+   w = PROTECT(prepare_arg_numeric(w, "w"));
 
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
@@ -131,8 +143,10 @@ SEXP wmax(SEXP x, SEXP w)
    if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
    if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
-   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0])) {
+      UNPROTECT(2);
       return Rf_ScalarReal(NA_REAL);
+   }
    if (x_length != w_length)
       Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
 
@@ -142,6 +156,7 @@ SEXP wmax(SEXP x, SEXP w)
       if (ret_val < tmp) ret_val = tmp;
    }
 
+   UNPROTECT(2);
    return Rf_ScalarReal(ret_val);
 }
 
@@ -155,8 +170,8 @@ SEXP wmax(SEXP x, SEXP w)
  */
 SEXP wmin(SEXP x, SEXP w)
 {
-   x = prepare_arg_numeric(x, "x");
-   w = prepare_arg_numeric(w, "w");
+   x = PROTECT(prepare_arg_numeric(x, "x"));
+   w = PROTECT(prepare_arg_numeric(w, "w"));
 
    R_len_t x_length = LENGTH(x);
    R_len_t w_length = LENGTH(w);
@@ -166,8 +181,10 @@ SEXP wmin(SEXP x, SEXP w)
    if (w_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "w");
    if (x_length <= 0) Rf_error(MSG_ARG_TOO_SHORT, "x");
 
-   if (ISNA(w_tab[0]) || ISNA(x_tab[0]))
+   if (ISNA(w_tab[0]) || ISNA(x_tab[0])) {
+      UNPROTECT(2);
       return Rf_ScalarReal(NA_REAL);
+   }
    if (x_length != w_length)
       Rf_error(MSG__ARGS_EXPECTED_EQUAL_SIZE, "x", "w");
 
@@ -177,6 +194,7 @@ SEXP wmin(SEXP x, SEXP w)
       if (ret_val > tmp) ret_val = tmp;
    }
 
+   UNPROTECT(2);
    return Rf_ScalarReal(ret_val);
 }
 

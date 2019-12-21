@@ -23,9 +23,9 @@ the \dfn{\eqn{h}-index} (Hirsch, 2005) for \eqn{x} is defined as
 if \eqn{n \ge 1} and \eqn{x_1 \ge 1}, or \eqn{H(x)=0} otherwise.
 }
 \details{
-If non-increasingly sorted vector is given, the function is O(n).
+If a non-increasingly sorted vector is given, the function has O(n) run-time.
 
-For historical reasons, this function is also available via its alias,
+For historical reasons, this function is also available via an alias,
 \code{index.h} [but its usage is deprecated].
 
 See \code{\link{index_rp}} and \code{\link{owmax}} for natural generalizations.

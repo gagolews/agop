@@ -12,12 +12,12 @@ dpareto2_estimate_mle(x, k0 = 1, s0 = 1, kmin = 1e-04,
 
 \item{k0, s0}{initial points for the L-BFGS-B method}
 
-\item{kmin, kmax}{lower and upper bound for the shape parameter to look for}
+\item{kmin, kmax}{lower and upper bound for the shape parameter}
 
-\item{smin, smax}{lower and upper bound for the scale parameter to look for}
+\item{smin, smax}{lower and upper bound for the scale parameter}
 }
 \value{
-a numeric vector  with the following named components:
+Returns a numeric vector  with the following named components:
 \itemize{
 \item \code{k} - estimated parameter of shape
 \item \code{s} - estimated parameter of scale
@@ -30,8 +30,8 @@ Finds the maximum likelihood estimator of the Discretized Pareto Type-II distrib
 shape parameter \eqn{k} and scale parameter \eqn{s}.
 }
 \details{
-Note that the maximum of the likelihood function may not exist
-for some input vectors. This estimator may have large mean squared error.
+Note that the maximum of the likelihood function might not exist
+for some input vectors. This estimator may have a large mean squared error.
 }
 \seealso{
 Other DiscretizedPareto2: \code{\link{rdpareto2}}

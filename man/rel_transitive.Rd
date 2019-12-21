@@ -49,7 +49,7 @@ see (Aho et al. 1972), of an acyclic binary relation \eqn{R},
 determined by \code{rel_reduction_transitive},
 is a minimal unique subset \eqn{R'} of \eqn{R},
 such that the transitive closures of \eqn{R} and \eqn{R'} are equal.
-The algorithm implemented runs in \eqn{O(n^3)} time.
+The implemented algorithm runs in \eqn{O(n^3)} time.
 Note that a transitive reduction of a reflexive relation
 is also reflexive. Moreover, some kind of transitive reduction
 (not necessarily minimal) is also determined in
