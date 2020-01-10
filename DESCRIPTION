@@ -1,6 +1,6 @@
 Package: agop
-Version: 0.2-3
-Date: 2019-12-21
+Version: 0.2-4
+Date: 2020-01-10
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria and group decision making,
     including variable number of criteria, by means of
