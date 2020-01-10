@@ -15,8 +15,6 @@ matrix:
     r: release
   - os: linux
     r: oldrel
-  - os: linux
-    r: devel
 
 warnings_are_errors: true
 r_build_args: "--no-manual"
