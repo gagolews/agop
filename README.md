@@ -21,7 +21,7 @@ It started as a fork of the **[CITAN](http://www.gagolewski.com/software/)** pac
 
 * * *
 
-**Homepage**: http://www.gagolewski.com/software/
+**Homepage**: [http://www.gagolewski.com/software/](http://www.gagolewski.com/software.html)
 
 Package record on **CRAN**: http://cran.r-project.org/web/packages/agop/
 
