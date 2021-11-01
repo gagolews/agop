@@ -4,8 +4,13 @@
 \alias{pareto2_test_f}
 \title{Two-Sample F-test For Equality of Shape Parameters for Type II-Pareto Distributions}
 \usage{
-pareto2_test_f(x, y, s, alternative = c("two.sided", "less", "greater"),
-  significance = NULL)
+pareto2_test_f(
+  x,
+  y,
+  s,
+  alternative = c("two.sided", "less", "greater"),
+  significance = NULL
+)
 }
 \arguments{
 \item{x}{a non-negative numeric vector}
@@ -61,12 +66,15 @@ degrees of freedom.
 Note that for \eqn{k_x < k_y}, then \eqn{X} dominates \eqn{Y} stochastically.
 }
 \seealso{
-Other Pareto2: \code{\link{pareto2_estimate_mle}},
-  \code{\link{pareto2_estimate_mmse}},
-  \code{\link{pareto2_test_ad}}, \code{\link{rpareto2}}
+Other Pareto2: 
+\code{\link{pareto2_estimate_mle}()},
+\code{\link{pareto2_estimate_mmse}()},
+\code{\link{pareto2_test_ad}()},
+\code{\link{rpareto2}()}
 
-Other Tests: \code{\link{exp_test_ad}},
-  \code{\link{pareto2_test_ad}}
+Other Tests: 
+\code{\link{exp_test_ad}()},
+\code{\link{pareto2_test_ad}()}
 }
 \concept{Pareto2}
 \concept{Tests}

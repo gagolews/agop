@@ -69,9 +69,12 @@ Torra V., Narukawa Y., The h-index and the number of citations: Two fuzzy
 integrals, \emph{IEEE Transactions on Fuzzy Systems} 16(3), 2008, pp. 795-797.
 }
 \seealso{
-Other impact_functions: \code{\link{index_g}},
-  \code{\link{index_lp}}, \code{\link{index_maxprod}},
-  \code{\link{index_rp}}, \code{\link{index_w}},
-  \code{\link{pord_weakdom}}
+Other impact_functions: 
+\code{\link{index_g}()},
+\code{\link{index_lp}()},
+\code{\link{index_maxprod}()},
+\code{\link{index_rp}()},
+\code{\link{index_w}()},
+\code{\link{pord_weakdom}()}
 }
 \concept{impact_functions}

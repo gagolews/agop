@@ -28,12 +28,15 @@ Thus, this function transforms the input vector,
 and performs the same steps as \code{\link{exp_test_ad}}.
 }
 \seealso{
-Other Pareto2: \code{\link{pareto2_estimate_mle}},
-  \code{\link{pareto2_estimate_mmse}},
-  \code{\link{pareto2_test_f}}, \code{\link{rpareto2}}
+Other Pareto2: 
+\code{\link{pareto2_estimate_mle}()},
+\code{\link{pareto2_estimate_mmse}()},
+\code{\link{pareto2_test_f}()},
+\code{\link{rpareto2}()}
 
-Other Tests: \code{\link{exp_test_ad}},
-  \code{\link{pareto2_test_f}}
+Other Tests: 
+\code{\link{exp_test_ad}()},
+\code{\link{pareto2_test_f}()}
 }
 \concept{Pareto2}
 \concept{Tests}

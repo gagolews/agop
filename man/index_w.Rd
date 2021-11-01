@@ -29,9 +29,12 @@ Woeginger G. J., An axiomatic characterization of the Hirsch-index.
 \emph{Mathematical Social Sciences} 56(2), 2008, pp. 224-232.
 }
 \seealso{
-Other impact_functions: \code{\link{index_g}},
-  \code{\link{index_h}}, \code{\link{index_lp}},
-  \code{\link{index_maxprod}}, \code{\link{index_rp}},
-  \code{\link{pord_weakdom}}
+Other impact_functions: 
+\code{\link{index_g}()},
+\code{\link{index_h}()},
+\code{\link{index_lp}()},
+\code{\link{index_maxprod}()},
+\code{\link{index_rp}()},
+\code{\link{pord_weakdom}()}
 }
 \concept{impact_functions}

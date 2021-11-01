@@ -4,8 +4,13 @@
 \alias{pareto2_estimate_mle}
 \title{Parameter Estimation in the Pareto Type-II Distribution Family (MLE)}
 \usage{
-pareto2_estimate_mle(x, s = NA_real_, smin = 1e-04, smax = 20,
-  tol = .Machine$double.eps^0.25)
+pareto2_estimate_mle(
+  x,
+  s = NA_real_,
+  smin = 1e-04,
+  smax = 20,
+  tol = .Machine$double.eps^0.25
+)
 }
 \arguments{
 \item{x}{a non-negative numeric vector}
@@ -42,8 +47,10 @@ Consider using \code{\link{pareto2_estimate_mmse}}.
 For known \eqn{s}, the estimator is unbiased.
 }
 \seealso{
-Other Pareto2: \code{\link{pareto2_estimate_mmse}},
-  \code{\link{pareto2_test_ad}},
-  \code{\link{pareto2_test_f}}, \code{\link{rpareto2}}
+Other Pareto2: 
+\code{\link{pareto2_estimate_mmse}()},
+\code{\link{pareto2_test_ad}()},
+\code{\link{pareto2_test_f}()},
+\code{\link{rpareto2}()}
 }
 \concept{Pareto2}

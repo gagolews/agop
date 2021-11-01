@@ -65,16 +65,19 @@ Warshall S., A theorem on Boolean matrices,
 \emph{Journal of the ACM} 9(1), 1962, pp. 11-12.
 }
 \seealso{
-Other binary_relations: \code{\link{check_comonotonicity}},
-  \code{\link{pord_nd}}, \code{\link{pord_spread}},
-  \code{\link{pord_weakdom}}, \code{\link{rel_graph}},
-  \code{\link{rel_is_antisymmetric}},
-  \code{\link{rel_is_asymmetric}},
-  \code{\link{rel_is_cyclic}},
-  \code{\link{rel_is_irreflexive}},
-  \code{\link{rel_is_reflexive}},
-  \code{\link{rel_is_symmetric}},
-  \code{\link{rel_is_total}},
-  \code{\link{rel_reduction_hasse}}
+Other binary_relations: 
+\code{\link{check_comonotonicity}()},
+\code{\link{pord_nd}()},
+\code{\link{pord_spread}()},
+\code{\link{pord_weakdom}()},
+\code{\link{rel_graph}()},
+\code{\link{rel_is_antisymmetric}()},
+\code{\link{rel_is_asymmetric}()},
+\code{\link{rel_is_cyclic}()},
+\code{\link{rel_is_irreflexive}()},
+\code{\link{rel_is_reflexive}()},
+\code{\link{rel_is_symmetric}()},
+\code{\link{rel_is_total}()},
+\code{\link{rel_reduction_hasse}()}
 }
 \concept{binary_relations}

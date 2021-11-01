@@ -73,9 +73,12 @@ Kosmulski M., MAXPROD - A new index for assessment of the scientific output
    \emph{Indag. Math.} 33, 1971, pp. 109-116.
 }
 \seealso{
-Other impact_functions: \code{\link{index_g}},
-  \code{\link{index_h}}, \code{\link{index_maxprod}},
-  \code{\link{index_rp}}, \code{\link{index_w}},
-  \code{\link{pord_weakdom}}
+Other impact_functions: 
+\code{\link{index_g}()},
+\code{\link{index_h}()},
+\code{\link{index_maxprod}()},
+\code{\link{index_rp}()},
+\code{\link{index_w}()},
+\code{\link{pord_weakdom}()}
 }
 \concept{impact_functions}

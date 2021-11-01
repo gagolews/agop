@@ -6,3 +6,5 @@
 ^\.gitignore$
 ^vignettes/.*[^R][^n][^w]$
 ^\.travis\.yml$
+^Makefile
+^src/\.clangd

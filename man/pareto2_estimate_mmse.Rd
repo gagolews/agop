@@ -26,8 +26,10 @@ Zhang J., Stevens M.A., A New and Efficient Estimation Method
 for the Generalized Pareto Distribution, \emph{Technometrics} 51(3), 2009, pp. 316-325.
 }
 \seealso{
-Other Pareto2: \code{\link{pareto2_estimate_mle}},
-  \code{\link{pareto2_test_ad}},
-  \code{\link{pareto2_test_f}}, \code{\link{rpareto2}}
+Other Pareto2: 
+\code{\link{pareto2_estimate_mle}()},
+\code{\link{pareto2_test_ad}()},
+\code{\link{pareto2_test_f}()},
+\code{\link{rpareto2}()}
 }
 \concept{Pareto2}

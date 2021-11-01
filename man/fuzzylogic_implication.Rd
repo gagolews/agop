@@ -100,8 +100,9 @@ Gagolewski M., Data Fusion: Theory, Methods, and Applications,
    isbn:978-83-63159-20-7
 }
 \seealso{
-Other fuzzy_logic: \code{\link{fnegation_yager}},
-  \code{\link{tconorm_minimum}},
-  \code{\link{tnorm_minimum}}
+Other fuzzy_logic: 
+\code{\link{fnegation_yager}()},
+\code{\link{tconorm_minimum}()},
+\code{\link{tnorm_minimum}()}
 }
 \concept{fuzzy_logic}

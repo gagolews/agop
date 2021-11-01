@@ -5,11 +5,28 @@
 \alias{plot.citfun}
 \title{Draws a Graphical Representation of a Numeric Vector}
 \usage{
-plot_producer(x, type = c("left.continuous", "right.continuous",
-  "curve"), extend = FALSE, add = FALSE, pch = 1, col = 1,
-  lty = 1, lwd = 1, cex = 1, col.steps = col, lty.steps = 2,
-  lwd.steps = 1, xlab = "", ylab = "", main = "", xmarg = 10,
-  xlim = c(0, length(x) * 1.2), ylim = c(a, max(x)), a = 0, ...)
+plot_producer(
+  x,
+  type = c("left.continuous", "right.continuous", "curve"),
+  extend = FALSE,
+  add = FALSE,
+  pch = 1,
+  col = 1,
+  lty = 1,
+  lwd = 1,
+  cex = 1,
+  col.steps = col,
+  lty.steps = 2,
+  lwd.steps = 1,
+  xlab = "",
+  ylab = "",
+  main = "",
+  xmarg = 10,
+  xlim = c(0, length(x) * 1.2),
+  ylim = c(a, max(x)),
+  a = 0,
+  ...
+)
 }
 \arguments{
 \item{x}{non-negative numeric vector}

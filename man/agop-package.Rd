@@ -5,12 +5,6 @@
 \alias{agop-package}
 \title{Aggregation Operators and Preordered Sets Package for R}
 \description{
-Aggregation Operators and Preordered Sets Package for R
-}
-\author{
-Marek Gagolewski \email{marek@gagolewski.com} [aut,cre],\cr
-Anna Cena \email{cena@rexamine.com} [ctb]
-
 \bold{Keywords}: aggregation, bibliometrics, scientometrics, scientific impact,
 webometrics, preorders, binary relations, means, OWA, OWMax, OWMin, Hirsch's h-index,
 Egghe's g-index, variance, spread, decision making, fuzzy logic.
@@ -20,4 +14,8 @@ The development of the package in March-June 2013 was partially supported
 by the European Union from the resources of the European Social Fund, Project PO KL
 ``Information technologies: Research and their interdisciplinary
 applications'', agreement UDA-POKL.04.01.01-00-051/10-00.
+}
+\author{
+Marek Gagolewski [aut,cre],\cr
+Anna Cena [ctb]
 }

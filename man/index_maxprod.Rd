@@ -45,9 +45,12 @@ Gagolewski M., Data Fusion: Theory, Methods, and Applications,
    isbn:978-83-63159-20-7
 }
 \seealso{
-Other impact_functions: \code{\link{index_g}},
-  \code{\link{index_h}}, \code{\link{index_lp}},
-  \code{\link{index_rp}}, \code{\link{index_w}},
-  \code{\link{pord_weakdom}}
+Other impact_functions: 
+\code{\link{index_g}()},
+\code{\link{index_h}()},
+\code{\link{index_lp}()},
+\code{\link{index_rp}()},
+\code{\link{index_w}()},
+\code{\link{pord_weakdom}()}
 }
 \concept{impact_functions}

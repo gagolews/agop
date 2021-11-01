@@ -51,9 +51,11 @@ where \eqn{Y} has ordinary Pareto Type-II
 distribution, see \code{\link{ppareto2}}.
 }
 \seealso{
-Other distributions: \code{\link{rpareto2}}
+Other distributions: 
+\code{\link{rpareto2}()}
 
-Other DiscretizedPareto2: \code{\link{dpareto2_estimate_mle}}
+Other DiscretizedPareto2: 
+\code{\link{dpareto2_estimate_mle}()}
 }
 \concept{DiscretizedPareto2}
 \concept{distributions}

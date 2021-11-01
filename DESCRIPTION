@@ -1,6 +1,6 @@
 Package: agop
 Version: 0.2-4
-Date: 2020-01-10
+Date: 2021-11-02
 Title: Aggregation Operators and Preordered Sets
 Description: Tools supporting multi-criteria and group decision making,
     including variable number of criteria, by means of
@@ -9,8 +9,8 @@ Description: Tools supporting multi-criteria and group decision making,
     and preordered sets. Possible applications include,
     but are not limited to, quality management, scientometrics,
     software engineering, etc.
-URL: http://www.gagolewski.com/software/
-BugReports: http://github.com/gagolews/agop/issues
+URL: https://github.com/gagolews/agop/
+BugReports: https://github.com/gagolews/agop/issues
 ByteCompile: TRUE
 Suggests:
     igraph
@@ -29,5 +29,5 @@ Authors@R: c(
     email = "cena@rexamine.com",
     comment = c(ORCID = "0000-0001-8697-5383"))
     )
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.2
 Encoding: UTF-8

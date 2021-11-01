@@ -62,6 +62,7 @@ in multicriteria decision making,
 \emph{IEEE Transactions on Systems, Man, and Cybernetics} 18(1), 1988, pp. 183-190.
 }
 \seealso{
-Other aggregation_operators: \code{\link{owmax}}
+Other aggregation_operators: 
+\code{\link{owmax}()}
 }
 \concept{aggregation_operators}

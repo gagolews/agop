@@ -52,12 +52,14 @@ The c.d.f. for \eqn{x\ge 0} is given by \deqn{F(x)=1-s^k/(s+x)^k}
 and the density by \deqn{f(x)=k s^k/(s+x)^{k+1}.}
 }
 \seealso{
-Other distributions: \code{\link{rdpareto2}}
+Other distributions: 
+\code{\link{rdpareto2}()}
 
-Other Pareto2: \code{\link{pareto2_estimate_mle}},
-  \code{\link{pareto2_estimate_mmse}},
-  \code{\link{pareto2_test_ad}},
-  \code{\link{pareto2_test_f}}
+Other Pareto2: 
+\code{\link{pareto2_estimate_mle}()},
+\code{\link{pareto2_estimate_mmse}()},
+\code{\link{pareto2_test_ad}()},
+\code{\link{pareto2_test_f}()}
 }
 \concept{Pareto2}
 \concept{distributions}

@@ -89,6 +89,7 @@ Sugeno M., \emph{Theory of fuzzy integrals and its applications},
    PhD thesis, Tokyo Institute of Technology, 1974.
 }
 \seealso{
-Other aggregation_operators: \code{\link{owa}}
+Other aggregation_operators: 
+\code{\link{owa}()}
 }
 \concept{aggregation_operators}

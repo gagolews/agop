@@ -40,7 +40,8 @@ A Test of Goodness-of-Fit,
 \seealso{
 \code{\link{pexp}}
 
-Other Tests: \code{\link{pareto2_test_ad}},
-  \code{\link{pareto2_test_f}}
+Other Tests: 
+\code{\link{pareto2_test_ad}()},
+\code{\link{pareto2_test_f}()}
 }
 \concept{Tests}

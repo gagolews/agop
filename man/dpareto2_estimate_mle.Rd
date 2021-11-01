@@ -4,8 +4,15 @@
 \alias{dpareto2_estimate_mle}
 \title{Parameter Estimation in the Discretized Pareto-Type II Distribution Family (MLE)}
 \usage{
-dpareto2_estimate_mle(x, k0 = 1, s0 = 1, kmin = 1e-04,
-  smin = 1e-04, kmax = 100, smax = 100)
+dpareto2_estimate_mle(
+  x,
+  k0 = 1,
+  s0 = 1,
+  kmin = 1e-04,
+  smin = 1e-04,
+  kmax = 100,
+  smax = 100
+)
 }
 \arguments{
 \item{x}{a non-negative numeric vector}
@@ -34,6 +41,7 @@ Note that the maximum of the likelihood function might not exist
 for some input vectors. This estimator may have a large mean squared error.
 }
 \seealso{
-Other DiscretizedPareto2: \code{\link{rdpareto2}}
+Other DiscretizedPareto2: 
+\code{\link{rdpareto2}()}
 }
 \concept{DiscretizedPareto2}
