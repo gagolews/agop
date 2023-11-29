@@ -19,9 +19,9 @@ It started as a fork of the **[CITAN](https://cran.r-project.org/web/packages/CI
 
 * * *
 
-Package record on **CRAN**: https://cran.r-project.org/web/packages/agop/
+Package record on **CRAN**: <https://cran.r-project.org/web/packages/agop/>
 
 * * *
 
 **Authors**: [Marek Gagolewski](https://www.gagolewski.com/),
-with contributions from [Anna Cena](http://cena.rexamine.com/)
+with contributions from [Anna Cena](https://cena.rexamine.com/)

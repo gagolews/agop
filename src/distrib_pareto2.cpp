@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  * This file is part of the 'agop' library.                                  *
  *                                                                           *
- * Copyleft (c) 2013-2021, Marek Gagolewski <https://www.gagolewski.com>     *
+ * Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>    *
  *                                                                           *
  *                                                                           *
  * 'agop' is free software: you can redistribute it and/or modify it under   *
@@ -80,8 +80,8 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
          return vector_NA_double(n);
       }
 
-      if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
-      if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+      if (vs <= 0) Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
+      if (vk <= 0) Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
       SEXP ret;
       PROTECT(ret = Rf_allocVector(REALSXP, n));
@@ -114,9 +114,9 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       if ((bool)ptail[0]) {
          for (R_len_t i=0; i<n; i++) {
             if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq]>0)
@@ -127,9 +127,9 @@ SEXP ppareto2(SEXP q, SEXP k, SEXP s, SEXP lower_tail)
       else {
          for (R_len_t i=0; i<n; i++) {
             if (!ISNA(ps[i%ns]) && ps[i%ns] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "s", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "s", 0.0);
             if (!ISNA(pk[i%nk]) && pk[i%nk] <= 0.0)
-               Rf_error(MSG__ARG_NOT_GT_A, "k", 0);
+               Rf_error(MSG__ARG_NOT_GT_A, "k", 0.0);
 
             pret[i] = (ISNA(pq[i%nq]) || ISNA(ps[i%ns]) || ISNA(pk[i%nk]))?NA_REAL:
                ((pq[i%nq])

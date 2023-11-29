@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^devel
+^\.devel
+^\.github
 ^src/.*\.o$
 ^README.md$
 ^\.gitignore$

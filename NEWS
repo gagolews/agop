@@ -1,22 +1,16 @@
-                          ** agop package NEWS **
-***************************************************************************
+# agop package NEWS
 
-0.2.4 /under development/
+## 0.2.4 (2023-11-30)
 
-* ...
-
-
-***************************************************************************
+* Fixed warnings emitted by R CMD check.
 
 
-0.2-3 /2020-01-06/
+## 0.2-3 (2020-01-06)
 
 * [BUGFIX, #8] PROTECTing unprotected variables are reported by rchk.
 
 
-***************************************************************************
-
-0.2-2 /2019-03-05/
+## 0.2-2 (2019-03-05)
 
 * [IMPORTANT CHANGE] All functions dealing with binary relations now are
    named like `rel_*`. Moreover, `de_transitive()` has been renamed
@@ -65,23 +59,18 @@
 
 * [INFO] Most of the functions are now implemented in C++.
 
-***************************************************************************
 
-0.1-4 /2014-09-14/
+## 0.1-4 (2014-09-14)
 
 * Fixed NOTES on pkg check in R >= 3.1
 
-***************************************************************************
 
-0.1-3 /2013-06-27/
+## 0.1-3 (2013-06-27)
 
-* Compiler errors on Solaris Studio removed.
+* Fix for compiler errors on Solaris Studio.
 
-***************************************************************************
 
-0.1-1 /2013-06-26/
+## 0.1-1 (2013-06-26)
 
-* initial release
+* Initial release
   [the package started as a lightweight fork of the CITAN package].
-
-***************************************************************************

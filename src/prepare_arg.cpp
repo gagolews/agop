@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  * This file is part of the 'agop' library.                                  *
  *                                                                           *
- * Copyleft (c) 2013-2021, Marek Gagolewski <https://www.gagolewski.com>     *
+ * Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>    *
  *                                                                           *
  *                                                                           *
  * 'agop' is free software: you can redistribute it and/or modify it under   *
@@ -243,7 +243,7 @@ SEXP prepare_arg_double(SEXP x, const char* argname)
    	UNPROTECT(3);
       return x;
    }
-   else if(Rf_isReal(x))
+   else if (Rf_isReal(x))
       return x; //return as-is
    else if (Rf_isVectorAtomic(x))
       return Rf_coerceVector(x, REALSXP);

@@ -1,7 +1,7 @@
 /* ************************************************************************* *
  * This file is part of the 'agop' library.                                  *
  *                                                                           *
- * Copyleft (c) 2013-2021, Marek Gagolewski <https://www.gagolewski.com>     *
+ * Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>    *
  *                                                                           *
  *                                                                           *
  * 'agop' is free software: you can redistribute it and/or modify it under   *
@@ -70,7 +70,7 @@ using namespace std;
    "all elements in `%s` should be not greater than %g"
 
 #define MSG__ARG_NOT_IN_AB \
-   "all elements in `%s` should be in [%g,%g]"
+   "all elements in `%s` should be in [%g, %g]"
 
 #define MSG__ARG_EXPECTED_NOT_NA \
    "missing value in argument `%s` is not supported"

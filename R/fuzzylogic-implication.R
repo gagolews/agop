@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyleft (c) 2013-2021, Marek Gagolewski <https://www.gagolewski.com>
+## Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>
 ##
 ##
 ## 'agop' is free software: you can redistribute it and/or modify it under

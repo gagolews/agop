@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022, Marek Gagolewski <https://www.gagolewski.com>
+# Copyright (c) 2021-2023, Marek Gagolewski <https://www.gagolewski.com/>
 
 
 .PHONY:  r check build clean purge test
@@ -37,10 +37,15 @@ check-cran: stop-on-utf8 build
 	    R CMD check `ls -t ${PKGNAME}*.tar.gz | head -1` --as-cran
 
 clean:
-	rm -rf devel/sphinx/_build/
-	rm -rf devel/sphinx/rapi/
+	rm -rf .devel/sphinx/_build/
+	rm -rf .devel/sphinx/rapi/
 	rm -rf revdep/
 	rm -rf src/*.o src/*.so
+
+testthat:
+	Rscript -e 'source(".devel/testthat/run_package_test.R")'
+
+test: r testthat
 
 purge: clean
 # 	rm -f man/*.Rd

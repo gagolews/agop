@@ -1,6 +1,6 @@
 ## This file is part of the 'agop' library.
 ##
-## Copyleft (c) 2013-2021, Marek Gagolewski <https://www.gagolewski.com>
+## Copyleft (c) 2013-2023, Marek Gagolewski <https://www.gagolewski.com/>
 ##
 ##
 ## 'agop' is free software: you can redistribute it and/or modify it under
@@ -20,13 +20,11 @@
 
 #' @title Aggregation Operators and Preordered Sets Package for R
 #'
-#'
 #' @author
 #' Marek Gagolewski [aut,cre],\cr
 #' Anna Cena [ctb]
 #'
 #' @description
-#'
 #' \bold{Keywords}: aggregation, bibliometrics, scientometrics, scientific impact,
 #' webometrics, preorders, binary relations, means, OWA, OWMax, OWMin, Hirsch's h-index,
 #' Egghe's g-index, variance, spread, decision making, fuzzy logic.

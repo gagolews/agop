@@ -2,4 +2,4 @@
 
 library("testthat")
 library("agop")
-test_dir("devel/testthat/")
+test_dir(".devel/testthat/")
